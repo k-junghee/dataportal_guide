@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const sourcemaps = require('gulp-sourcemaps');
-// const eslint = require('gulp-eslint');
+const eslint = require('gulp-eslint');
 const rename = require('gulp-rename');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
@@ -50,9 +50,9 @@ gulp.task('script', () => {
     .pipe(clone())
     // .pipe(sourcemaps.init()
     .pipe(gulpIf(!isProd, sourcemaps.init()))
-    // .pipe(eslint({ fix: true }))
-    // .pipe(eslint.format())
-    // .pipe(eslint.failAfterError())
+    .pipe(eslint({ fix: true }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
     .pipe(concat('theme.js'))
     .pipe(replace(/^(export|import).*/gm, ''))
     .pipe(babel());
@@ -69,9 +69,9 @@ gulp.task('script', () => {
     .pipe(clone())
     // .pipe(sourcemaps.init())
     .pipe(gulpIf(!isProd, sourcemaps.init()))
-    // .pipe(eslint({ fix: true }))
-    // .pipe(eslint.format())
-    // .pipe(eslint.failAfterError())
+    .pipe(eslint({ fix: true }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
     .pipe(concat('config.js'))
     .pipe(replace(/^(export|import).*/gm, ''))
     .pipe(babel());
@@ -88,9 +88,9 @@ gulp.task('script', () => {
     .pipe(clone())
     // .pipe(sourcemaps.init())
     .pipe(gulpIf(!isProd, sourcemaps.init()))
-    // .pipe(eslint({ fix: true }))
-    // .pipe(eslint.format())
-    // .pipe(eslint.failAfterError())
+    .pipe(eslint({ fix: true }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError())
     .pipe(concat('echarts-example.js'))
     .pipe(replace(/^(export|import).*/gm, ''))
     .pipe(babel());

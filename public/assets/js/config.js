@@ -1,7 +1,9 @@
+"use strict";
+
 /* -------------------------------------------------------------------------- */
 /*                              Config                                        */
 /* -------------------------------------------------------------------------- */
-const CONFIG = {
+var CONFIG = {
   isNavbarVerticalCollapsed: false,
   theme: 'light',
   isRTL: false,
@@ -9,12 +11,12 @@ const CONFIG = {
   navbarStyle: 'transparent',
   navbarPosition: 'vertical'
 };
-Object.keys(CONFIG).forEach(key => {
+Object.keys(CONFIG).forEach(function (key) {
   if (localStorage.getItem(key) === null) {
     localStorage.setItem(key, CONFIG[key]);
   }
 });
-if (!!JSON.parse(localStorage.getItem('isNavbarVerticalCollapsed'))) {
+if (JSON.parse(localStorage.getItem('isNavbarVerticalCollapsed'))) {
   document.documentElement.classList.add('navbar-vertical-collapsed');
 }
 if (localStorage.getItem('theme') === 'dark') {
