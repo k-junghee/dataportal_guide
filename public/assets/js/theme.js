@@ -1,28 +1,7 @@
-"use strict";
-
-var _excluded = ["endValue"];
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 /* -------------------------------------------------------------------------- */
 /*                                    Utils                                   */
 /* -------------------------------------------------------------------------- */
-var docReady = function docReady(fn) {
+const docReady = fn => {
   // see if DOM is already available
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn);
@@ -30,19 +9,13 @@ var docReady = function docReady(fn) {
     setTimeout(fn, 1);
   }
 };
-var resize = function resize(fn) {
-  return window.addEventListener('resize', fn);
+const resize = fn => window.addEventListener('resize', fn);
+const isIterableArray = array => Array.isArray(array) && !!array.length;
+const camelize = str => {
+  const text = str.replace(/[-_\s.]+(.)?/g, (_, c) => c ? c.toUpperCase() : '');
+  return `${text.substr(0, 1).toLowerCase()}${text.substr(1)}`;
 };
-var isIterableArray = function isIterableArray(array) {
-  return Array.isArray(array) && !!array.length;
-};
-var camelize = function camelize(str) {
-  var text = str.replace(/[-_\s.]+(.)?/g, function (_, c) {
-    return c ? c.toUpperCase() : '';
-  });
-  return "".concat(text.substr(0, 1).toLowerCase()).concat(text.substr(1));
-};
-var getData = function getData(el, data) {
+const getData = (el, data) => {
   try {
     return JSON.parse(el.dataset[camelize(data)]);
   } catch (e) {
@@ -52,98 +25,83 @@ var getData = function getData(el, data) {
 
 /* ----------------------------- Colors function ---------------------------- */
 
-var hexToRgb = function hexToRgb(hexValue) {
-  var hex;
+const hexToRgb = hexValue => {
+  let hex;
   hexValue.indexOf('#') === 0 ? hex = hexValue.substring(1) : hex = hexValue;
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex.replace(shorthandRegex, function (m, r, g, b) {
-    return r + r + g + g + b + b;
-  }));
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b));
   return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
 };
-var rgbaColor = function rgbaColor() {
-  var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '#fff';
-  var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.5;
-  return "rgba(".concat(hexToRgb(color), ", ").concat(alpha, ")");
-};
+const rgbaColor = (color = '#fff', alpha = 0.5) => `rgba(${hexToRgb(color)}, ${alpha})`;
 
 /* --------------------------------- Colors --------------------------------- */
 
-var getColor = function getColor(name) {
-  var dom = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.documentElement;
-  return getComputedStyle(dom).getPropertyValue("--falcon-".concat(name)).trim();
-};
-var getColors = function getColors(dom) {
-  return {
-    primary: getColor('primary', dom),
-    secondary: getColor('secondary', dom),
-    success: getColor('success', dom),
-    info: getColor('info', dom),
-    warning: getColor('warning', dom),
-    danger: getColor('danger', dom),
-    light: getColor('light', dom),
-    dark: getColor('dark', dom),
-    white: getColor('white', dom),
-    black: getColor('black', dom),
-    emphasis: getColor('emphasis-color', dom)
-  };
-};
-var getSubtleColors = function getSubtleColors(dom) {
-  return {
-    primary: getColor('primary-bg-subtle', dom),
-    secondary: getColor('secondary-bg-subtle', dom),
-    success: getColor('success-bg-subtle', dom),
-    info: getColor('info-bg-subtle', dom),
-    warning: getColor('warning-bg-subtle', dom),
-    danger: getColor('danger-bg-subtle', dom),
-    light: getColor('light-bg-subtle', dom),
-    dark: getColor('dark-bg-subtle', dom)
-  };
-};
-var getGrays = function getGrays(dom) {
-  return {
-    100: getColor('gray-100', dom),
-    200: getColor('gray-200', dom),
-    300: getColor('gray-300', dom),
-    400: getColor('gray-400', dom),
-    500: getColor('gray-500', dom),
-    600: getColor('gray-600', dom),
-    700: getColor('gray-700', dom),
-    800: getColor('gray-800', dom),
-    900: getColor('gray-900', dom),
-    1000: getColor('gray-1000', dom),
-    1100: getColor('gray-1100', dom)
-  };
-};
-var hasClass = function hasClass(el, className) {
+const getColor = (name, dom = document.documentElement) => getComputedStyle(dom).getPropertyValue(`--falcon-${name}`).trim();
+const getColors = dom => ({
+  primary: getColor('primary', dom),
+  secondary: getColor('secondary', dom),
+  success: getColor('success', dom),
+  info: getColor('info', dom),
+  warning: getColor('warning', dom),
+  danger: getColor('danger', dom),
+  light: getColor('light', dom),
+  dark: getColor('dark', dom),
+  white: getColor('white', dom),
+  black: getColor('black', dom),
+  emphasis: getColor('emphasis-color', dom)
+});
+const getSubtleColors = dom => ({
+  primary: getColor('primary-bg-subtle', dom),
+  secondary: getColor('secondary-bg-subtle', dom),
+  success: getColor('success-bg-subtle', dom),
+  info: getColor('info-bg-subtle', dom),
+  warning: getColor('warning-bg-subtle', dom),
+  danger: getColor('danger-bg-subtle', dom),
+  light: getColor('light-bg-subtle', dom),
+  dark: getColor('dark-bg-subtle', dom)
+});
+const getGrays = dom => ({
+  100: getColor('gray-100', dom),
+  200: getColor('gray-200', dom),
+  300: getColor('gray-300', dom),
+  400: getColor('gray-400', dom),
+  500: getColor('gray-500', dom),
+  600: getColor('gray-600', dom),
+  700: getColor('gray-700', dom),
+  800: getColor('gray-800', dom),
+  900: getColor('gray-900', dom),
+  1000: getColor('gray-1000', dom),
+  1100: getColor('gray-1100', dom)
+});
+const hasClass = (el, className) => {
   !el && false;
   return el.classList.value.includes(className);
 };
-var addClass = function addClass(el, className) {
+const addClass = (el, className) => {
   el.classList.add(className);
 };
-var removeClass = function removeClass(el, className) {
+const removeClass = (el, className) => {
   el.classList.remove(className);
 };
-var getOffset = function getOffset(el) {
-  var rect = el.getBoundingClientRect();
-  var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-  var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+const getOffset = el => {
+  const rect = el.getBoundingClientRect();
+  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   return {
     top: rect.top + scrollTop,
     left: rect.left + scrollLeft
   };
 };
 function isScrolledIntoView(el) {
-  var rect = el.getBoundingClientRect();
-  var windowHeight = window.innerHeight || document.documentElement.clientHeight;
-  var windowWidth = window.innerWidth || document.documentElement.clientWidth;
-  var vertInView = rect.top <= windowHeight && rect.top + rect.height >= 0;
-  var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
+  const rect = el.getBoundingClientRect();
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+  const vertInView = rect.top <= windowHeight && rect.top + rect.height >= 0;
+  const horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
   return vertInView && horInView;
 }
-var breakpoints = {
+const breakpoints = {
   xs: 0,
   sm: 576,
   md: 768,
@@ -151,32 +109,28 @@ var breakpoints = {
   xl: 1200,
   xxl: 1540
 };
-var getBreakpoint = function getBreakpoint(el) {
-  var classes = el && el.classList.value;
-  var breakpoint;
+const getBreakpoint = el => {
+  const classes = el && el.classList.value;
+  let breakpoint;
   if (classes) {
-    breakpoint = breakpoints[classes.split(' ').filter(function (cls) {
-      return cls.includes('navbar-expand-');
-    }).pop().split('-').pop()];
+    breakpoint = breakpoints[classes.split(' ').filter(cls => cls.includes('navbar-expand-')).pop().split('-').pop()];
   }
   return breakpoint;
 };
-var getSystemTheme = function getSystemTheme() {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-};
+const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
 /* --------------------------------- Cookie --------------------------------- */
 
-var setCookie = function setCookie(name, value, expire) {
-  var expires = new Date();
+const setCookie = (name, value, expire) => {
+  const expires = new Date();
   expires.setTime(expires.getTime() + expire);
-  document.cookie = "".concat(name, "=").concat(value, ";expires=").concat(expires.toUTCString());
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()}`;
 };
-var getCookie = function getCookie(name) {
-  var keyValue = document.cookie.match("(^|;) ?".concat(name, "=([^;]*)(;|$)"));
+const getCookie = name => {
+  const keyValue = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
   return keyValue ? keyValue[2] : keyValue;
 };
-var settings = {
+const settings = {
   tinymce: {
     theme: 'oxide'
   },
@@ -187,44 +141,34 @@ var settings = {
 
 /* -------------------------- Chart Initialization -------------------------- */
 
-var newChart = function newChart(chart, config) {
-  var ctx = chart.getContext('2d');
+const newChart = (chart, config) => {
+  const ctx = chart.getContext('2d');
   return new window.Chart(ctx, config);
 };
 
 /* ---------------------------------- Store --------------------------------- */
 
-var getItemFromStore = function getItemFromStore(key, defaultValue) {
-  var store = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : localStorage;
+const getItemFromStore = (key, defaultValue, store = localStorage) => {
   try {
     return JSON.parse(store.getItem(key)) || defaultValue;
-  } catch (_unused) {
+  } catch {
     return store.getItem(key) || defaultValue;
   }
 };
-var setItemToStore = function setItemToStore(key, payload) {
-  var store = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : localStorage;
-  return store.setItem(key, payload);
-};
-var getStoreSpace = function getStoreSpace() {
-  var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : localStorage;
-  return parseFloat((escape(encodeURIComponent(JSON.stringify(store))).length / (1024 * 1024)).toFixed(2));
-};
+const setItemToStore = (key, payload, store = localStorage) => store.setItem(key, payload);
+const getStoreSpace = (store = localStorage) => parseFloat((escape(encodeURIComponent(JSON.stringify(store))).length / (1024 * 1024)).toFixed(2));
 
 /* get Dates between */
 
-var getDates = function getDates(startDate, endDate) {
-  var interval = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000 * 60 * 60 * 24;
-  var duration = endDate - startDate;
-  var steps = duration / interval;
+const getDates = (startDate, endDate, interval = 1000 * 60 * 60 * 24) => {
+  const duration = endDate - startDate;
+  const steps = duration / interval;
   return Array.from({
     length: steps + 1
-  }, function (v, i) {
-    return new Date(startDate.valueOf() + interval * i);
-  });
+  }, (v, i) => new Date(startDate.valueOf() + interval * i));
 };
-var getPastDates = function getPastDates(duration) {
-  var days;
+const getPastDates = duration => {
+  let days;
   switch (duration) {
     case 'week':
       days = 7;
@@ -238,56 +182,55 @@ var getPastDates = function getPastDates(duration) {
     default:
       days = duration;
   }
-  var date = new Date();
-  var endDate = date;
-  var startDate = new Date(new Date().setDate(date.getDate() - (days - 1)));
+  const date = new Date();
+  const endDate = date;
+  const startDate = new Date(new Date().setDate(date.getDate() - (days - 1)));
   return getDates(startDate, endDate);
 };
 
 /* Get Random Number */
-var getRandomNumber = function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-var utils = {
-  docReady: docReady,
-  breakpoints: breakpoints,
-  resize: resize,
-  isIterableArray: isIterableArray,
-  camelize: camelize,
-  getData: getData,
-  hasClass: hasClass,
-  addClass: addClass,
-  hexToRgb: hexToRgb,
-  rgbaColor: rgbaColor,
-  getColor: getColor,
-  getColors: getColors,
-  getSubtleColors: getSubtleColors,
-  getGrays: getGrays,
-  getOffset: getOffset,
-  isScrolledIntoView: isScrolledIntoView,
-  getBreakpoint: getBreakpoint,
-  setCookie: setCookie,
-  getCookie: getCookie,
-  newChart: newChart,
-  settings: settings,
-  getItemFromStore: getItemFromStore,
-  setItemToStore: setItemToStore,
-  getStoreSpace: getStoreSpace,
-  getDates: getDates,
-  getPastDates: getPastDates,
-  getRandomNumber: getRandomNumber,
-  removeClass: removeClass,
-  getSystemTheme: getSystemTheme
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
+const utils = {
+  docReady,
+  breakpoints,
+  resize,
+  isIterableArray,
+  camelize,
+  getData,
+  hasClass,
+  addClass,
+  hexToRgb,
+  rgbaColor,
+  getColor,
+  getColors,
+  getSubtleColors,
+  getGrays,
+  getOffset,
+  isScrolledIntoView,
+  getBreakpoint,
+  setCookie,
+  getCookie,
+  newChart,
+  settings,
+  getItemFromStore,
+  setItemToStore,
+  getStoreSpace,
+  getDates,
+  getPastDates,
+  getRandomNumber,
+  removeClass,
+  getSystemTheme
 };
 
 /* -------------------------------------------------------------------------- */
 /*                                  Detector                                  */
 /* -------------------------------------------------------------------------- */
 
-var detectorInit = function detectorInit() {
-  var _window = window,
-    is = _window.is;
-  var html = document.querySelector('html');
+const detectorInit = () => {
+  const {
+    is
+  } = window;
+  const html = document.querySelector('html');
   is.opera() && addClass(html, 'opera');
   is.mobile() && addClass(html, 'mobile');
   is.firefox() && addClass(html, 'firefox');
@@ -306,88 +249,60 @@ var detectorInit = function detectorInit() {
 /*-----------------------------------------------
 |   DomNode
 -----------------------------------------------*/
-var DomNode = /*#__PURE__*/function () {
-  function DomNode(node) {
-    _classCallCheck(this, DomNode);
+class DomNode {
+  constructor(node) {
     this.node = node;
   }
-  _createClass(DomNode, [{
-    key: "addClass",
-    value: function addClass(className) {
-      this.isValidNode() && this.node.classList.add(className);
-    }
-  }, {
-    key: "removeClass",
-    value: function removeClass(className) {
-      this.isValidNode() && this.node.classList.remove(className);
-    }
-  }, {
-    key: "toggleClass",
-    value: function toggleClass(className) {
-      this.isValidNode() && this.node.classList.toggle(className);
-    }
-  }, {
-    key: "hasClass",
-    value: function hasClass(className) {
-      this.isValidNode() && this.node.classList.contains(className);
-    }
-  }, {
-    key: "data",
-    value: function data(key) {
-      if (this.isValidNode()) {
-        try {
-          return JSON.parse(this.node.dataset[this.camelize(key)]);
-        } catch (e) {
-          return this.node.dataset[this.camelize(key)];
-        }
+  addClass(className) {
+    this.isValidNode() && this.node.classList.add(className);
+  }
+  removeClass(className) {
+    this.isValidNode() && this.node.classList.remove(className);
+  }
+  toggleClass(className) {
+    this.isValidNode() && this.node.classList.toggle(className);
+  }
+  hasClass(className) {
+    this.isValidNode() && this.node.classList.contains(className);
+  }
+  data(key) {
+    if (this.isValidNode()) {
+      try {
+        return JSON.parse(this.node.dataset[this.camelize(key)]);
+      } catch (e) {
+        return this.node.dataset[this.camelize(key)];
       }
-      return null;
     }
-  }, {
-    key: "attr",
-    value: function attr(name) {
-      return this.isValidNode() && this.node[name];
-    }
-  }, {
-    key: "setAttribute",
-    value: function setAttribute(name, value) {
-      this.isValidNode() && this.node.setAttribute(name, value);
-    }
-  }, {
-    key: "removeAttribute",
-    value: function removeAttribute(name) {
-      this.isValidNode() && this.node.removeAttribute(name);
-    }
-  }, {
-    key: "setProp",
-    value: function setProp(name, value) {
-      this.isValidNode() && (this.node[name] = value);
-    }
-  }, {
-    key: "on",
-    value: function on(event, cb) {
-      this.isValidNode() && this.node.addEventListener(event, cb);
-    }
-  }, {
-    key: "isValidNode",
-    value: function isValidNode() {
-      return !!this.node;
-    }
+    return null;
+  }
+  attr(name) {
+    return this.isValidNode() && this.node[name];
+  }
+  setAttribute(name, value) {
+    this.isValidNode() && this.node.setAttribute(name, value);
+  }
+  removeAttribute(name) {
+    this.isValidNode() && this.node.removeAttribute(name);
+  }
+  setProp(name, value) {
+    this.isValidNode() && (this.node[name] = value);
+  }
+  on(event, cb) {
+    this.isValidNode() && this.node.addEventListener(event, cb);
+  }
+  isValidNode() {
+    return !!this.node;
+  }
 
-    // eslint-disable-next-line class-methods-use-this
-  }, {
-    key: "camelize",
-    value: function camelize(str) {
-      var text = str.replace(/[-_\s.]+(.)?/g, function (_, c) {
-        return c ? c.toUpperCase() : '';
-      });
-      return "".concat(text.substr(0, 1).toLowerCase()).concat(text.substr(1));
-    }
-  }]);
-  return DomNode;
-}();
+  // eslint-disable-next-line class-methods-use-this
+  camelize(str) {
+    const text = str.replace(/[-_\s.]+(.)?/g, (_, c) => c ? c.toUpperCase() : '');
+    return `${text.substr(0, 1).toLowerCase()}${text.substr(1)}`;
+  }
+}
+
 /* eslint-disable */
-var orders = [{
+const orders = [{
   id: 1,
   dropdownId: 'order-dropdown-1',
   orderId: '#181',
@@ -868,44 +783,89 @@ var orders = [{
   },
   amount: '$111'
 }];
-var advanceAjaxTableInit = function advanceAjaxTableInit() {
-  var togglePaginationButtonDisable = function togglePaginationButtonDisable(button, disabled) {
+const advanceAjaxTableInit = () => {
+  const togglePaginationButtonDisable = (button, disabled) => {
     button.disabled = disabled;
     button.classList[disabled ? 'add' : 'remove']('disabled');
   };
   // Selectors
-  var table = document.getElementById('advanceAjaxTable');
+  const table = document.getElementById('advanceAjaxTable');
   if (table) {
-    var options = {
+    const options = {
       page: 10,
       pagination: {
         item: "<li><button class='page' type='button'></button></li>"
       },
-      item: function item(values) {
-        var orderId = values.orderId,
-          id = values.id,
-          name = values.name,
-          email = values.email,
-          date = values.date,
-          address = values.address,
-          shippingType = values.shippingType,
-          status = values.status,
-          badge = values.badge,
-          amount = values.amount;
-        return "\n          <tr class=\"btn-reveal-trigger\">\n            <td class=\"order py-2 align-middle white-space-nowrap\">\n              <a href=\"https://prium.github.io/falcon/v3.16.0/app/e-commerce/orders/order-details.html\">\n                <strong>".concat(orderId, "</strong>\n              </a>\n              by\n              <strong>").concat(name, "</strong>\n              <br />\n              <a href=\"mailto:").concat(email, "\">").concat(email, "</a>\n            </td>\n            <td class=\"py-2 align-middle\">\n              ").concat(date, "\n            </td>\n            <td class=\"py-2 align-middle white-space-nowrap\">\n              ").concat(address, "\n              <p class=\"mb-0 text-500\">").concat(shippingType, "</p>\n            </td>\n            <td class=\"py-2 align-middle text-center fs-0 white-space-nowrap\">\n              <span class=\"badge rounded-pill d-block badge-subtle-").concat(badge.type, "\">\n                ").concat(status, "\n                <span class=\"ms-1 ").concat(badge.icon, "\" data-fa-transform=\"shrink-2\"></span>\n              </span>\n            </td>\n            <td class=\"py-2 align-middle text-end fs-0 fw-medium\">\n              ").concat(amount, "\n            </td>\n            <td class=\"py-2 align-middle white-space-nowrap text-end\">\n              <div class=\"dropstart font-sans-serif position-static d-inline-block\">\n                <button class=\"btn btn-link text-600 btn-sm dropdown-toggle btn-reveal\" type='button' id=\"order-dropdown-").concat(id, "\" data-bs-toggle=\"dropdown\" data-boundary=\"window\" aria-haspopup=\"true\" aria-expanded=\"false\" data-bs-reference=\"parent\">\n                  <span class=\"fas fa-ellipsis-h fs--1\"></span>\n                </button>\n                <div class=\"dropdown-menu dropdown-menu-end border py-2\" aria-labelledby=\"order-dropdown-").concat(id, "\">\n                  <a href=\"#!\" class=\"dropdown-item\">View</a>\n                  <a href=\"#!\" class=\"dropdown-item\">Edit</a>\n                  <a href=\"#!\" class=\"dropdown-item\">Refund</a>\n                  <div class\"dropdown-divider\"></div>\n                  <a href=\"#!\" class=\"dropdown-item text-warning\">Archive</a>\n                  <a href=\"#!\" class=\"dropdown-item text-warning\">Archive</a>\n                </div>\n              </div>\n            </td>\n          </tr>\n        ");
+      item: values => {
+        const {
+          orderId,
+          id,
+          name,
+          email,
+          date,
+          address,
+          shippingType,
+          status,
+          badge,
+          amount
+        } = values;
+        return `
+          <tr class="btn-reveal-trigger">
+            <td class="order py-2 align-middle white-space-nowrap">
+              <a href="https://prium.github.io/falcon/v3.16.0/app/e-commerce/orders/order-details.html">
+                <strong>${orderId}</strong>
+              </a>
+              by
+              <strong>${name}</strong>
+              <br />
+              <a href="mailto:${email}">${email}</a>
+            </td>
+            <td class="py-2 align-middle">
+              ${date}
+            </td>
+            <td class="py-2 align-middle white-space-nowrap">
+              ${address}
+              <p class="mb-0 text-500">${shippingType}</p>
+            </td>
+            <td class="py-2 align-middle text-center fs-0 white-space-nowrap">
+              <span class="badge rounded-pill d-block badge-subtle-${badge.type}">
+                ${status}
+                <span class="ms-1 ${badge.icon}" data-fa-transform="shrink-2"></span>
+              </span>
+            </td>
+            <td class="py-2 align-middle text-end fs-0 fw-medium">
+              ${amount}
+            </td>
+            <td class="py-2 align-middle white-space-nowrap text-end">
+              <div class="dropstart font-sans-serif position-static d-inline-block">
+                <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type='button' id="order-dropdown-${id}" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+                  <span class="fas fa-ellipsis-h fs--1"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="order-dropdown-${id}">
+                  <a href="#!" class="dropdown-item">View</a>
+                  <a href="#!" class="dropdown-item">Edit</a>
+                  <a href="#!" class="dropdown-item">Refund</a>
+                  <div class"dropdown-divider"></div>
+                  <a href="#!" class="dropdown-item text-warning">Archive</a>
+                  <a href="#!" class="dropdown-item text-warning">Archive</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        `;
       }
     };
-    var paginationButtonNext = table.querySelector('[data-list-pagination="next"]');
-    var paginationButtonPrev = table.querySelector('[data-list-pagination="prev"]');
-    var viewAll = table.querySelector('[data-list-view="*"]');
-    var viewLess = table.querySelector('[data-list-view="less"]');
-    var listInfo = table.querySelector('[data-list-info]');
-    var listFilter = document.querySelector('[data-list-filter]');
-    var orderList = new window.List(table, options, orders);
+    const paginationButtonNext = table.querySelector('[data-list-pagination="next"]');
+    const paginationButtonPrev = table.querySelector('[data-list-pagination="prev"]');
+    const viewAll = table.querySelector('[data-list-view="*"]');
+    const viewLess = table.querySelector('[data-list-view="less"]');
+    const listInfo = table.querySelector('[data-list-info]');
+    const listFilter = document.querySelector('[data-list-filter]');
+    const orderList = new window.List(table, options, orders);
 
     // Fallback
-    orderList.on('updated', function (item) {
-      var fallback = table.querySelector('.fallback') || document.getElementById(options.fallback);
+    orderList.on('updated', item => {
+      const fallback = table.querySelector('.fallback') || document.getElementById(options.fallback);
       if (fallback) {
         if (item.matchingItems.length === 0) {
           fallback.classList.remove('d-none');
@@ -914,17 +874,15 @@ var advanceAjaxTableInit = function advanceAjaxTableInit() {
         }
       }
     });
-    var totalItem = orderList.items.length;
-    var itemsPerPage = orderList.page;
-    var btnDropdownClose = orderList.listContainer.querySelector('.btn-close');
-    var pageQuantity = Math.ceil(totalItem / itemsPerPage);
-    var numberOfcurrentItems = orderList.visibleItems.length;
-    var pageCount = 1;
-    btnDropdownClose && btnDropdownClose.addEventListener('search.close', function () {
-      return orderList.fuzzySearch('');
-    });
-    var updateListControls = function updateListControls() {
-      listInfo && (listInfo.innerHTML = "".concat(orderList.i, " to ").concat(numberOfcurrentItems, " of ").concat(totalItem));
+    const totalItem = orderList.items.length;
+    const itemsPerPage = orderList.page;
+    const btnDropdownClose = orderList.listContainer.querySelector('.btn-close');
+    let pageQuantity = Math.ceil(totalItem / itemsPerPage);
+    let numberOfcurrentItems = orderList.visibleItems.length;
+    let pageCount = 1;
+    btnDropdownClose && btnDropdownClose.addEventListener('search.close', () => orderList.fuzzySearch(''));
+    const updateListControls = () => {
+      listInfo && (listInfo.innerHTML = `${orderList.i} to ${numberOfcurrentItems} of ${totalItem}`);
       paginationButtonPrev && togglePaginationButtonDisable(paginationButtonPrev, pageCount === 1);
       paginationButtonNext && togglePaginationButtonDisable(paginationButtonNext, pageCount === pageQuantity);
       if (pageCount > 1 && pageCount < pageQuantity) {
@@ -934,31 +892,31 @@ var advanceAjaxTableInit = function advanceAjaxTableInit() {
     };
     updateListControls();
     if (paginationButtonNext) {
-      paginationButtonNext.addEventListener('click', function (e) {
+      paginationButtonNext.addEventListener('click', e => {
         e.preventDefault();
         pageCount += 1;
-        var nextInitialIndex = orderList.i + itemsPerPage;
+        const nextInitialIndex = orderList.i + itemsPerPage;
         nextInitialIndex <= orderList.size() && orderList.show(nextInitialIndex, itemsPerPage);
         numberOfcurrentItems += orderList.visibleItems.length;
         updateListControls();
       });
     }
     if (paginationButtonPrev) {
-      paginationButtonPrev.addEventListener('click', function (e) {
+      paginationButtonPrev.addEventListener('click', e => {
         e.preventDefault();
         pageCount -= 1;
         numberOfcurrentItems -= orderList.visibleItems.length;
-        var prevItem = orderList.i - itemsPerPage;
+        const prevItem = orderList.i - itemsPerPage;
         prevItem > 0 && orderList.show(prevItem, itemsPerPage);
         updateListControls();
       });
     }
-    var toggleViewBtn = function toggleViewBtn() {
+    const toggleViewBtn = () => {
       viewLess.classList.toggle('d-none');
       viewAll.classList.toggle('d-none');
     };
     if (viewAll) {
-      viewAll.addEventListener('click', function () {
+      viewAll.addEventListener('click', () => {
         orderList.show(1, totalItem);
         pageQuantity = 1;
         pageCount = 1;
@@ -968,7 +926,7 @@ var advanceAjaxTableInit = function advanceAjaxTableInit() {
       });
     }
     if (viewLess) {
-      viewLess.addEventListener('click', function () {
+      viewLess.addEventListener('click', () => {
         orderList.show(1, itemsPerPage);
         pageQuantity = Math.ceil(totalItem / itemsPerPage);
         pageCount = 1;
@@ -978,7 +936,7 @@ var advanceAjaxTableInit = function advanceAjaxTableInit() {
       });
     }
     if (options.pagination) {
-      table.querySelector('.pagination').addEventListener('click', function (e) {
+      table.querySelector('.pagination').addEventListener('click', e => {
         if (e.target.classList[0] === 'page') {
           pageCount = Number(e.target.innerText);
           updateListControls();
@@ -986,9 +944,11 @@ var advanceAjaxTableInit = function advanceAjaxTableInit() {
       });
     }
     if (options.filter) {
-      var key = options.filter.key;
-      listFilter.addEventListener('change', function (e) {
-        orderList.filter(function (item) {
+      const {
+        key
+      } = options.filter;
+      listFilter.addEventListener('change', e => {
+        orderList.filter(item => {
           if (e.target.value === '') {
             return true;
           }
@@ -1003,7 +963,7 @@ var advanceAjaxTableInit = function advanceAjaxTableInit() {
 /*                                  Anchor JS                                 */
 /* -------------------------------------------------------------------------- */
 
-var anchors = new window.AnchorJS();
+const anchors = new window.AnchorJS();
 anchors.options = {
   icon: '#'
 };
@@ -1013,34 +973,34 @@ anchors.add('[data-anchor]');
 |   Bottom Bar Control
 -----------------------------------------------*/
 
-var bottomBarInit = function bottomBarInit() {
-  var bottomBars = document.querySelectorAll('[data-bottom-bar]');
-  var navbarButtons = [document.querySelector('[data-bs-target="#navbarVerticalCollapse"]'), document.querySelector('[data-bs-target="#navbarStandard"]')];
-  var isElementInViewport = function isElementInViewport(el) {
-    var offsetTop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-    var rect = el.getBoundingClientRect();
+const bottomBarInit = () => {
+  const bottomBars = document.querySelectorAll('[data-bottom-bar]');
+  const navbarButtons = [document.querySelector('[data-bs-target="#navbarVerticalCollapse"]'), document.querySelector('[data-bs-target="#navbarStandard"]')];
+  const isElementInViewport = (el, offsetTop = 0) => {
+    const rect = el.getBoundingClientRect();
     return rect.bottom > 0 && rect.top > offsetTop && rect.right > 0 && rect.left < (window.innerWidth || document.documentElement.clientWidth) && rect.top < (window.innerHeight || document.documentElement.clientHeight);
   };
   if (bottomBars.length) {
-    bottomBars.forEach(function (bar) {
+    bottomBars.forEach(bar => {
       // get options
-      var barOptions = utils.getData(bar, 'bottom-bar');
-      var defaultOptions = {
+      const barOptions = utils.getData(bar, 'bottom-bar');
+      const defaultOptions = {
         target: '#bottom-bar-target',
         offsetTop: 0,
         breakPoint: 'lg'
       };
-      var _window$_$merge = window._.merge(defaultOptions, barOptions),
-        target = _window$_$merge.target,
-        offsetTop = _window$_$merge.offsetTop,
-        breakPoint = _window$_$merge.breakPoint;
+      const {
+        target,
+        offsetTop,
+        breakPoint
+      } = window._.merge(defaultOptions, barOptions);
 
       // select target
-      var targetEl = document.getElementById(target);
+      const targetEl = document.getElementById(target);
 
       // handle Bottombar
-      var toggleBottomBar = function toggleBottomBar() {
-        if (window.matchMedia("(max-width: ".concat(utils.breakpoints[breakPoint], "px)")).matches) {
+      const toggleBottomBar = () => {
+        if (window.matchMedia(`(max-width: ${utils.breakpoints[breakPoint]}px)`).matches) {
           if (!isElementInViewport(targetEl, offsetTop)) {
             utils.removeClass(bar, 'hide');
           } else {
@@ -1049,18 +1009,14 @@ var bottomBarInit = function bottomBarInit() {
         }
       };
       window.addEventListener('scroll', toggleBottomBar);
-      var toggleBottomBarOnNavbarCollapse = function toggleBottomBarOnNavbarCollapse(el) {
+      const toggleBottomBarOnNavbarCollapse = el => {
         if (!utils.hasClass(el, 'collapsed')) {
           utils.addClass(bar, 'hide');
         } else if (!isElementInViewport(targetEl, offsetTop)) {
           utils.removeClass(bar, 'hide');
         }
       };
-      navbarButtons.forEach(function (btn) {
-        return btn && btn.addEventListener('click', function () {
-          return toggleBottomBarOnNavbarCollapse(btn);
-        });
-      });
+      navbarButtons.forEach(btn => btn && btn.addEventListener('click', () => toggleBottomBarOnNavbarCollapse(btn)));
     });
   }
 };
@@ -1069,135 +1025,106 @@ var bottomBarInit = function bottomBarInit() {
 |   Bulk Select
 -----------------------------------------------*/
 
-var elementMap = new Map();
-var BulkSelect = /*#__PURE__*/function () {
-  function BulkSelect(element, option) {
-    _classCallCheck(this, BulkSelect);
+const elementMap = new Map();
+class BulkSelect {
+  constructor(element, option) {
     this.element = element;
-    this.option = _objectSpread({
-      displayNoneClassName: 'd-none'
-    }, option);
+    this.option = {
+      displayNoneClassName: 'd-none',
+      ...option
+    };
     elementMap.set(this.element, this);
   }
 
   // Static
-  _createClass(BulkSelect, [{
-    key: "init",
-    value: function init() {
-      this.attachNodes();
-      this.clickBulkCheckbox();
-      this.clickRowCheckbox();
+  static getInstance(element) {
+    if (elementMap.has(element)) {
+      return elementMap.get(element);
     }
-  }, {
-    key: "getSelectedRows",
-    value: function getSelectedRows() {
-      return Array.from(this.bulkSelectRows).filter(function (row) {
-        return row.checked;
-      }).map(function (row) {
-        return utils.getData(row, 'bulk-select-row');
-      });
-    }
-  }, {
-    key: "attachNodes",
-    value: function attachNodes() {
-      var _utils$getData = utils.getData(this.element, 'bulk-select'),
-        body = _utils$getData.body,
-        actions = _utils$getData.actions,
-        replacedElement = _utils$getData.replacedElement;
-      this.actions = new DomNode(document.getElementById(actions));
-      this.replacedElement = new DomNode(document.getElementById(replacedElement));
-      this.bulkSelectRows = document.getElementById(body).querySelectorAll('[data-bulk-select-row]');
-    }
-  }, {
-    key: "attachRowNodes",
-    value: function attachRowNodes(elms) {
-      this.bulkSelectRows = elms;
-    }
-  }, {
-    key: "clickBulkCheckbox",
-    value: function clickBulkCheckbox() {
-      var _this = this;
-      // Handle click event in bulk checkbox
-      this.element.addEventListener('click', function () {
-        if (_this.element.indeterminate === 'indeterminate') {
-          _this.actions.addClass(_this.option.displayNoneClassName);
-          _this.replacedElement.removeClass(_this.option.displayNoneClassName);
-          _this.removeBulkCheck();
-          _this.bulkSelectRows.forEach(function (el) {
-            var rowCheck = new DomNode(el);
-            rowCheck.setProp('checked', false);
-            rowCheck.setAttribute('checked', false);
-          });
-          return;
-        }
-        _this.toggleDisplay();
-        _this.bulkSelectRows.forEach(function (el) {
-          // eslint-disable-next-line
-          el.checked = _this.element.checked;
+    return null;
+  }
+  init() {
+    this.attachNodes();
+    this.clickBulkCheckbox();
+    this.clickRowCheckbox();
+  }
+  getSelectedRows() {
+    return Array.from(this.bulkSelectRows).filter(row => row.checked).map(row => utils.getData(row, 'bulk-select-row'));
+  }
+  attachNodes() {
+    const {
+      body,
+      actions,
+      replacedElement
+    } = utils.getData(this.element, 'bulk-select');
+    this.actions = new DomNode(document.getElementById(actions));
+    this.replacedElement = new DomNode(document.getElementById(replacedElement));
+    this.bulkSelectRows = document.getElementById(body).querySelectorAll('[data-bulk-select-row]');
+  }
+  attachRowNodes(elms) {
+    this.bulkSelectRows = elms;
+  }
+  clickBulkCheckbox() {
+    // Handle click event in bulk checkbox
+    this.element.addEventListener('click', () => {
+      if (this.element.indeterminate === 'indeterminate') {
+        this.actions.addClass(this.option.displayNoneClassName);
+        this.replacedElement.removeClass(this.option.displayNoneClassName);
+        this.removeBulkCheck();
+        this.bulkSelectRows.forEach(el => {
+          const rowCheck = new DomNode(el);
+          rowCheck.setProp('checked', false);
+          rowCheck.setAttribute('checked', false);
         });
-      });
-    }
-  }, {
-    key: "clickRowCheckbox",
-    value: function clickRowCheckbox() {
-      var _this2 = this;
-      // Handle click event in checkbox of each row
-      this.bulkSelectRows.forEach(function (el) {
-        var rowCheck = new DomNode(el);
-        rowCheck.on('click', function () {
-          if (_this2.element.indeterminate !== 'indeterminate') {
-            _this2.element.indeterminate = true;
-            _this2.element.setAttribute('indeterminate', 'indeterminate');
-            _this2.element.checked = true;
-            _this2.element.setAttribute('checked', true);
-            _this2.actions.removeClass(_this2.option.displayNoneClassName);
-            _this2.replacedElement.addClass(_this2.option.displayNoneClassName);
-          }
-          if (_toConsumableArray(_this2.bulkSelectRows).every(function (element) {
-            return element.checked;
-          })) {
-            _this2.element.indeterminate = false;
-            _this2.element.setAttribute('indeterminate', false);
-          }
-          if (_toConsumableArray(_this2.bulkSelectRows).every(function (element) {
-            return !element.checked;
-          })) {
-            _this2.removeBulkCheck();
-            _this2.toggleDisplay();
-          }
-        });
-      });
-    }
-  }, {
-    key: "removeBulkCheck",
-    value: function removeBulkCheck() {
-      this.element.indeterminate = false;
-      this.element.removeAttribute('indeterminate');
-      this.element.checked = false;
-      this.element.setAttribute('checked', false);
-    }
-  }, {
-    key: "toggleDisplay",
-    value: function toggleDisplay() {
-      this.actions.toggleClass(this.option.displayNoneClassName);
-      this.replacedElement.toggleClass(this.option.displayNoneClassName);
-    }
-  }], [{
-    key: "getInstance",
-    value: function getInstance(element) {
-      if (elementMap.has(element)) {
-        return elementMap.get(element);
+        return;
       }
-      return null;
-    }
-  }]);
-  return BulkSelect;
-}();
+      this.toggleDisplay();
+      this.bulkSelectRows.forEach(el => {
+        // eslint-disable-next-line
+        el.checked = this.element.checked;
+      });
+    });
+  }
+  clickRowCheckbox() {
+    // Handle click event in checkbox of each row
+    this.bulkSelectRows.forEach(el => {
+      const rowCheck = new DomNode(el);
+      rowCheck.on('click', () => {
+        if (this.element.indeterminate !== 'indeterminate') {
+          this.element.indeterminate = true;
+          this.element.setAttribute('indeterminate', 'indeterminate');
+          this.element.checked = true;
+          this.element.setAttribute('checked', true);
+          this.actions.removeClass(this.option.displayNoneClassName);
+          this.replacedElement.addClass(this.option.displayNoneClassName);
+        }
+        if ([...this.bulkSelectRows].every(element => element.checked)) {
+          this.element.indeterminate = false;
+          this.element.setAttribute('indeterminate', false);
+        }
+        if ([...this.bulkSelectRows].every(element => !element.checked)) {
+          this.removeBulkCheck();
+          this.toggleDisplay();
+        }
+      });
+    });
+  }
+  removeBulkCheck() {
+    this.element.indeterminate = false;
+    this.element.removeAttribute('indeterminate');
+    this.element.checked = false;
+    this.element.setAttribute('checked', false);
+  }
+  toggleDisplay() {
+    this.actions.toggleClass(this.option.displayNoneClassName);
+    this.replacedElement.toggleClass(this.option.displayNoneClassName);
+  }
+}
 function bulkSelectInit() {
-  var bulkSelects = document.querySelectorAll('[data-bulk-select');
+  const bulkSelects = document.querySelectorAll('[data-bulk-select');
   if (bulkSelects.length) {
-    bulkSelects.forEach(function (el) {
-      var bulkSelect = new BulkSelect(el);
+    bulkSelects.forEach(el => {
+      const bulkSelect = new BulkSelect(el);
       bulkSelect.init();
     });
   }
@@ -1207,14 +1134,14 @@ window.BulkSelect = BulkSelect;
 /*-----------------------------------------------
 |   Chat
 -----------------------------------------------*/
-var chatInit = function chatInit() {
-  var Events = {
+const chatInit = () => {
+  const Events = {
     CLICK: 'click',
     SHOWN_BS_TAB: 'shown.bs.tab',
     KEYUP: 'keyup',
     EMOJI: 'emoji'
   };
-  var Selector = {
+  const Selector = {
     CHAT_SIDEBAR: '.chat-sidebar',
     CHAT_CONTACT: '.chat-contact',
     CHAT_CONTENT_SCROLL_AREA: '.chat-content-scroll-area',
@@ -1226,33 +1153,33 @@ var chatInit = function chatInit() {
     CONVERSATION_INFO: '.conversation-info',
     CONTACTS_LIST_SHOW: '.contacts-list-show'
   };
-  var ClassName = {
+  const ClassName = {
     UNREAD_MESSAGE: 'unread-message',
     TEXT_PRIMARY: 'text-primary',
     SHOW: 'show'
   };
-  var DATA_KEY = {
+  const DATA_KEY = {
     INDEX: 'index'
   };
-  var $chatSidebar = document.querySelector(Selector.CHAT_SIDEBAR);
-  var $chatContact = document.querySelectorAll(Selector.CHAT_CONTACT);
-  var $chatEmojiarea = document.querySelector(Selector.CHAT_EMOJIAREA);
-  var $btnSend = document.querySelector(Selector.BTN_SEND);
-  var $currentChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA);
+  const $chatSidebar = document.querySelector(Selector.CHAT_SIDEBAR);
+  const $chatContact = document.querySelectorAll(Selector.CHAT_CONTACT);
+  const $chatEmojiarea = document.querySelector(Selector.CHAT_EMOJIAREA);
+  const $btnSend = document.querySelector(Selector.BTN_SEND);
+  const $currentChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA);
 
   // Set scrollbar position
-  var setScrollbarPosition = function setScrollbarPosition($chatArea) {
+  const setScrollbarPosition = $chatArea => {
     if ($chatArea) {
-      var scrollArea = $chatArea;
+      const scrollArea = $chatArea;
       scrollArea.scrollTop = $chatArea.scrollHeight;
     }
   };
-  setTimeout(function () {
+  setTimeout(() => {
     setScrollbarPosition($currentChatArea);
   }, 700);
-  document.querySelectorAll(Selector.CHAT_CONTACT).forEach(function (el) {
-    el.addEventListener(Events.CLICK, function (e) {
-      var $this = e.currentTarget;
+  document.querySelectorAll(Selector.CHAT_CONTACT).forEach(el => {
+    el.addEventListener(Events.CLICK, e => {
+      const $this = e.currentTarget;
       $this.classList.add('active');
       // Hide contact list sidebar on responsive
       window.innerWidth < 768 && !e.target.classList.contains('hover-actions') && ($chatSidebar.style.left = '-100%');
@@ -1261,11 +1188,11 @@ var chatInit = function chatInit() {
       $this.classList.contains(ClassName.UNREAD_MESSAGE) && $this.classList.remove(ClassName.UNREAD_MESSAGE);
     });
   });
-  $chatContact.forEach(function (el) {
-    el.addEventListener(Events.SHOWN_BS_TAB, function () {
+  $chatContact.forEach(el => {
+    el.addEventListener(Events.SHOWN_BS_TAB, () => {
       $chatEmojiarea.innerHTML = '';
       $btnSend.classList.remove(ClassName.TEXT_PRIMARY);
-      var TargetChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA_ACTIVE);
+      const TargetChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA_ACTIVE);
       setScrollbarPosition(TargetChatArea);
     });
   });
@@ -1274,7 +1201,7 @@ var chatInit = function chatInit() {
 
   if ($chatEmojiarea) {
     $chatEmojiarea.setAttribute('placeholder', 'Type your message');
-    $chatEmojiarea.addEventListener(Events.KEYUP, function (e) {
+    $chatEmojiarea.addEventListener(Events.KEYUP, e => {
       if (e.target.textContent.length <= 0) {
         $btnSend.classList.remove(ClassName.TEXT_PRIMARY);
         if (e.target.innerHTML === '<br>') {
@@ -1283,30 +1210,30 @@ var chatInit = function chatInit() {
       } else {
         $btnSend.classList.add(ClassName.TEXT_PRIMARY);
       }
-      var TargetChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA_ACTIVE);
+      const TargetChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA_ACTIVE);
       setScrollbarPosition(TargetChatArea);
     });
   }
   // Open conversation info sidebar
-  $chatEmojiarea && document.querySelectorAll(Selector.BTN_INFO).forEach(function (el) {
-    el.addEventListener(Events.CLICK, function (e) {
-      var $this = e.currentTarget;
-      var dataIndex = utils.getData($this, DATA_KEY.INDEX);
-      var $info = document.querySelector("".concat(Selector.CONVERSATION_INFO, "[data-").concat(DATA_KEY.INDEX, "='").concat(dataIndex, "']"));
+  $chatEmojiarea && document.querySelectorAll(Selector.BTN_INFO).forEach(el => {
+    el.addEventListener(Events.CLICK, e => {
+      const $this = e.currentTarget;
+      const dataIndex = utils.getData($this, DATA_KEY.INDEX);
+      const $info = document.querySelector(`${Selector.CONVERSATION_INFO}[data-${DATA_KEY.INDEX}='${dataIndex}']`);
       $info.classList.toggle(ClassName.SHOW);
     });
   });
 
   // Show contact list sidebar on responsive
-  document.querySelectorAll(Selector.CONTACTS_LIST_SHOW).forEach(function (el) {
+  document.querySelectorAll(Selector.CONTACTS_LIST_SHOW).forEach(el => {
     el.addEventListener(Events.CLICK, function () {
       $chatSidebar.style.left = 0;
     });
   });
 
   // Set scrollbar area height on resize
-  utils.resize(function () {
-    var TargetChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA_ACTIVE);
+  utils.resize(() => {
+    const TargetChatArea = document.querySelector(Selector.CHAT_CONTENT_SCROLL_AREA_ACTIVE);
     setScrollbarPosition(TargetChatArea);
   });
 };
@@ -1314,24 +1241,24 @@ var chatInit = function chatInit() {
 /* -------------------------------------------------------------------------- */
 /*                                   choices                                   */
 /* -------------------------------------------------------------------------- */
-var choicesInit = function choicesInit() {
+const choicesInit = () => {
   if (window.Choices) {
-    var elements = document.querySelectorAll('.js-choice');
-    elements.forEach(function (item) {
-      var userOptions = utils.getData(item, 'options');
-      var choices = new window.Choices(item, _objectSpread({
-        itemSelectText: ''
-      }, userOptions));
-      var needsValidation = document.querySelectorAll('.needs-validation');
-      needsValidation.forEach(function (validationItem) {
-        var selectFormValidation = function selectFormValidation() {
-          validationItem.querySelectorAll('.choices').forEach(function (choicesItem) {
-            var singleSelect = choicesItem.querySelector('.choices__list--single');
-            var multipleSelect = choicesItem.querySelector('.choices__list--multiple');
+    const elements = document.querySelectorAll('.js-choice');
+    elements.forEach(item => {
+      const userOptions = utils.getData(item, 'options');
+      const choices = new window.Choices(item, {
+        itemSelectText: '',
+        ...userOptions
+      });
+      const needsValidation = document.querySelectorAll('.needs-validation');
+      needsValidation.forEach(validationItem => {
+        const selectFormValidation = () => {
+          validationItem.querySelectorAll('.choices').forEach(choicesItem => {
+            const singleSelect = choicesItem.querySelector('.choices__list--single');
+            const multipleSelect = choicesItem.querySelector('.choices__list--multiple');
             if (choicesItem.querySelector('[required]')) {
               if (singleSelect) {
-                var _singleSelect$querySe;
-                if (((_singleSelect$querySe = singleSelect.querySelector('.choices__item--selectable')) === null || _singleSelect$querySe === void 0 ? void 0 : _singleSelect$querySe.getAttribute('data-value')) !== '') {
+                if (singleSelect.querySelector('.choices__item--selectable')?.getAttribute('data-value') !== '') {
                   choicesItem.classList.remove('invalid');
                   choicesItem.classList.add('valid');
                 } else {
@@ -1355,10 +1282,10 @@ var choicesInit = function choicesInit() {
           });
         };
 
-        validationItem.addEventListener('submit', function () {
+        validationItem.addEventListener('submit', () => {
           selectFormValidation();
         });
-        item.addEventListener('change', function () {
+        item.addEventListener('change', () => {
           selectFormValidation();
         });
       });
@@ -1370,60 +1297,65 @@ var choicesInit = function choicesInit() {
 /*-----------------------------------------------
 |   Cookie notice
 -----------------------------------------------*/
-var cookieNoticeInit = function cookieNoticeInit() {
-  var Selector = {
+const cookieNoticeInit = () => {
+  const Selector = {
     NOTICE: '.notice',
     DATA_TOGGLE_Notice: '[data-bs-toggle="notice"]'
   };
-  var Events = {
+  const Events = {
     CLICK: 'click',
     HIDDEN_BS_TOAST: 'hidden.bs.toast'
   };
-  var DataKeys = {
+  const DataKeys = {
     OPTIONS: 'options'
   };
-  var ClassNames = {
+  const ClassNames = {
     HIDE: 'hide'
   };
-  var notices = document.querySelectorAll(Selector.NOTICE);
-  var showNotice = true;
-  notices.forEach(function (item) {
-    var notice = new window.bootstrap.Toast(item);
-    var options = _objectSpread({
+  const notices = document.querySelectorAll(Selector.NOTICE);
+  let showNotice = true;
+  notices.forEach(item => {
+    const notice = new window.bootstrap.Toast(item);
+    const options = {
       autoShow: false,
       autoShowDelay: 0,
       showOnce: false,
-      cookieExpireTime: 3600000
-    }, utils.getData(item, DataKeys.OPTIONS));
-    var showOnce = options.showOnce,
-      autoShow = options.autoShow,
-      autoShowDelay = options.autoShowDelay;
+      cookieExpireTime: 3600000,
+      ...utils.getData(item, DataKeys.OPTIONS)
+    };
+    const {
+      showOnce,
+      autoShow,
+      autoShowDelay
+    } = options;
     if (showOnce) {
-      var hasNotice = utils.getCookie('notice');
+      const hasNotice = utils.getCookie('notice');
       showNotice = hasNotice === null;
     }
     if (autoShow && showNotice) {
-      setTimeout(function () {
+      setTimeout(() => {
         notice.show();
       }, autoShowDelay);
     }
     item.addEventListener(Events.HIDDEN_BS_TOAST, function (e) {
-      var el = e.currentTarget;
-      var toastOptions = _objectSpread({
+      const el = e.currentTarget;
+      const toastOptions = {
         cookieExpireTime: 3600000,
-        showOnce: false
-      }, utils.getData(el, DataKeys.OPTIONS));
+        showOnce: false,
+        ...utils.getData(el, DataKeys.OPTIONS)
+      };
       toastOptions.showOnce && utils.setCookie('notice', false, toastOptions.cookieExpireTime);
     });
   });
-  var btnNoticeToggle = document.querySelector(Selector.DATA_TOGGLE_Notice);
-  btnNoticeToggle && btnNoticeToggle.addEventListener(Events.CLICK, function (_ref) {
-    var currentTarget = _ref.currentTarget;
-    var id = currentTarget.getAttribute('href');
-    var notice = new window.bootstrap.Toast(document.querySelector(id));
+  const btnNoticeToggle = document.querySelector(Selector.DATA_TOGGLE_Notice);
+  btnNoticeToggle && btnNoticeToggle.addEventListener(Events.CLICK, ({
+    currentTarget
+  }) => {
+    const id = currentTarget.getAttribute('href');
+    const notice = new window.bootstrap.Toast(document.querySelector(id));
 
     /*eslint-disable-next-line*/
-    var el = notice._element;
+    const el = notice._element;
     utils.hasClass(el, ClassNames.HIDE) ? notice.show() : notice.hide();
   });
 };
@@ -1432,30 +1364,26 @@ var cookieNoticeInit = function cookieNoticeInit() {
 /*                                  Copy LinK                                 */
 /* -------------------------------------------------------------------------- */
 
-var copyLink = function copyLink() {
-  var copyLinkModal = document.getElementById('copyLinkModal');
-  copyLinkModal && copyLinkModal.addEventListener('shown.bs.modal', function () {
-    var invitationLink = document.querySelector('.invitation-link');
+const copyLink = () => {
+  const copyLinkModal = document.getElementById('copyLinkModal');
+  copyLinkModal && copyLinkModal.addEventListener('shown.bs.modal', () => {
+    const invitationLink = document.querySelector('.invitation-link');
     invitationLink.select();
   });
-  var copyButtons = document.querySelectorAll('[data-copy]');
-  copyButtons && copyButtons.forEach(function (button) {
-    var tooltip = new window.bootstrap.Tooltip(button);
-    button.addEventListener('mouseover', function () {
-      return tooltip.show();
-    });
-    button.addEventListener('mouseleave', function () {
-      return tooltip.hide();
-    });
-    button.addEventListener('click', function (e) {
+  const copyButtons = document.querySelectorAll('[data-copy]');
+  copyButtons && copyButtons.forEach(button => {
+    const tooltip = new window.bootstrap.Tooltip(button);
+    button.addEventListener('mouseover', () => tooltip.show());
+    button.addEventListener('mouseleave', () => tooltip.hide());
+    button.addEventListener('click', e => {
       e.stopPropagation();
-      var el = e.target;
+      const el = e.target;
       el.setAttribute('data-original-title', 'Copied');
       tooltip.show();
       el.setAttribute('data-original-title', 'Copy to clipboard');
       tooltip.update();
-      var inputID = utils.getData(el, 'copy');
-      var input = document.querySelector(inputID);
+      const inputID = utils.getData(el, 'copy');
+      const input = document.querySelector(inputID);
       input.select();
       document.execCommand('copy');
     });
@@ -1466,16 +1394,18 @@ var copyLink = function copyLink() {
 /*                                  Count Up                                  */
 /* -------------------------------------------------------------------------- */
 
-var countupInit = function countupInit() {
+const countupInit = () => {
   if (window.countUp) {
-    var countups = document.querySelectorAll('[data-countup]');
-    countups.forEach(function (node) {
-      var _utils$getData2 = utils.getData(node, 'countup'),
-        endValue = _utils$getData2.endValue,
-        options = _objectWithoutProperties(_utils$getData2, _excluded);
-      var countUp = new window.countUp.CountUp(node, endValue, _objectSpread({
-        duration: 5
-      }, options));
+    const countups = document.querySelectorAll('[data-countup]');
+    countups.forEach(node => {
+      const {
+        endValue,
+        ...options
+      } = utils.getData(node, 'countup');
+      const countUp = new window.countUp.CountUp(node, endValue, {
+        duration: 5,
+        ...options
+      });
       if (!countUp.error) {
         countUp.start();
       } else {
@@ -1488,24 +1418,22 @@ var countupInit = function countupInit() {
 /*-----------------------------------------------
 |   Data table
 -----------------------------------------------*/
-var dataTablesInit = function dataTablesInit() {
+const dataTablesInit = () => {
   if (window.jQuery) {
-    var $ = window.jQuery;
-    var dataTables = $('[data-datatables]');
-    var customDataTable = function customDataTable(elem) {
+    const $ = window.jQuery;
+    const dataTables = $('[data-datatables]');
+    const customDataTable = elem => {
       elem.find('.pagination').addClass('pagination-sm');
     };
-    dataTables.length && dataTables.each(function (index, value) {
-      var $this = $(value);
-      var options = $.extend({
+    dataTables.length && dataTables.each((index, value) => {
+      const $this = $(value);
+      const options = $.extend({
         dom: "<'row mx-0'<'col-md-6'l><'col-md-6'f>>" + "<'table-responsive scrollbar'tr>" + "<'row g-0 align-items-center justify-content-center justify-content-sm-between'<'col-auto mb-2 mb-sm-0 px-3'i><'col-auto px-3'p>>"
       }, $this.data('datatables'));
       $this.DataTable(options);
-      var $wrpper = $this.closest('.dataTables_wrapper');
+      const $wrpper = $this.closest('.dataTables_wrapper');
       customDataTable($wrpper);
-      $this.on('draw.dt', function () {
-        return customDataTable($wrpper);
-      });
+      $this.on('draw.dt', () => customDataTable($wrpper));
     });
   }
 };
@@ -1514,8 +1442,8 @@ var dataTablesInit = function dataTablesInit() {
 /*                                  Draggable                                 */
 /* -------------------------------------------------------------------------- */
 
-var draggableInit = function draggableInit() {
-  var Selectors = {
+const draggableInit = () => {
+  const Selectors = {
     BODY: 'body',
     KANBAN_CONTAINER: '.kanban-container',
     KABNBAN_COLUMN: '.kanban-column',
@@ -1523,19 +1451,19 @@ var draggableInit = function draggableInit() {
     KANBAN_ITEM: '.kanban-item',
     ADD_CARD_FORM: '.add-card-form'
   };
-  var Events = {
+  const Events = {
     DRAG_START: 'drag:start',
     DRAG_STOP: 'drag:stop'
   };
-  var ClassNames = {
+  const ClassNames = {
     FORM_ADDED: 'form-added'
   };
-  var columns = document.querySelectorAll(Selectors.KABNBAN_COLUMN);
-  var columnContainers = document.querySelectorAll(Selectors.KANBAN_ITEMS_CONTAINER);
-  var container = document.querySelector(Selectors.KANBAN_CONTAINER);
-  if (columnContainers.length) {
+  const columns = document.querySelectorAll(Selectors.KABNBAN_COLUMN);
+  const columnContainers = document.querySelectorAll(Selectors.KANBAN_ITEMS_CONTAINER);
+  const container = document.querySelector(Selectors.KANBAN_CONTAINER);
+  if (!!columnContainers.length) {
     // Initialize Sortable
-    var sortable = new window.Draggable.Sortable(columnContainers, {
+    const sortable = new window.Draggable.Sortable(columnContainers, {
       draggable: Selectors.KANBAN_ITEM,
       delay: 200,
       mirror: {
@@ -1544,22 +1472,25 @@ var draggableInit = function draggableInit() {
       },
       scrollable: {
         draggable: Selectors.KANBAN_ITEM,
-        scrollableElements: [].concat(_toConsumableArray(columnContainers), [container])
+        scrollableElements: [...columnContainers, container]
       }
     });
 
     // Hide form when drag start
-    sortable.on(Events.DRAG_START, function () {
-      columns.forEach(function (column) {
+    sortable.on(Events.DRAG_START, () => {
+      columns.forEach(column => {
         utils.hasClass(column, ClassNames.FORM_ADDED) && column.classList.remove(ClassNames.FORM_ADDED);
       });
     });
 
     // Place forms and other contents bottom of the sortable container
-    sortable.on(Events.DRAG_STOP, function (_ref2) {
-      var el = _ref2.data.source;
-      var columnContainer = el.closest(Selectors.KANBAN_ITEMS_CONTAINER);
-      var form = columnContainer.querySelector(Selectors.ADD_CARD_FORM);
+    sortable.on(Events.DRAG_STOP, ({
+      data: {
+        source: el
+      }
+    }) => {
+      const columnContainer = el.closest(Selectors.KANBAN_ITEMS_CONTAINER);
+      const form = columnContainer.querySelector(Selectors.ADD_CARD_FORM);
       !el.nextElementSibling && columnContainer.appendChild(form);
     });
   }
@@ -1568,25 +1499,25 @@ var draggableInit = function draggableInit() {
 /*-----------------------------------------------
 |   Dashboard Table dropdown
 -----------------------------------------------*/
-var dropdownMenuInit = function dropdownMenuInit() {
+const dropdownMenuInit = () => {
   // Only for ios
   if (window.is.ios()) {
-    var _Event = {
+    const Event = {
       SHOWN_BS_DROPDOWN: 'shown.bs.dropdown',
       HIDDEN_BS_DROPDOWN: 'hidden.bs.dropdown'
     };
-    var Selector = {
+    const Selector = {
       TABLE_RESPONSIVE: '.table-responsive',
       DROPDOWN_MENU: '.dropdown-menu'
     };
-    document.querySelectorAll(Selector.TABLE_RESPONSIVE).forEach(function (table) {
-      table.addEventListener(_Event.SHOWN_BS_DROPDOWN, function (e) {
-        var t = e.currentTarget;
+    document.querySelectorAll(Selector.TABLE_RESPONSIVE).forEach(table => {
+      table.addEventListener(Event.SHOWN_BS_DROPDOWN, e => {
+        const t = e.currentTarget;
         if (t.scrollWidth > t.clientWidth) {
-          t.style.paddingBottom = "".concat(e.target.nextElementSibling.clientHeight, "px");
+          t.style.paddingBottom = e.target.nextElementSibling.clientHeight + 'px';
         }
       });
-      table.addEventListener(_Event.HIDDEN_BS_DROPDOWN, function (e) {
+      table.addEventListener(Event.HIDDEN_BS_DROPDOWN, e => {
         e.currentTarget.style.paddingBottom = '';
       });
     });
@@ -1600,18 +1531,18 @@ var dropdownMenuInit = function dropdownMenuInit() {
 /*                           Open dropdown on hover                           */
 /* -------------------------------------------------------------------------- */
 
-var dropdownOnHover = function dropdownOnHover() {
-  var navbarArea = document.querySelector('[data-top-nav-dropdowns]');
+const dropdownOnHover = () => {
+  const navbarArea = document.querySelector("[data-top-nav-dropdowns]");
   if (navbarArea) {
-    navbarArea.addEventListener('mouseover', function (e) {
-      if (e.target.className.includes('dropdown-toggle') && window.innerWidth > 992) {
-        var dropdownInstance = new window.bootstrap.Dropdown(e.target);
+    navbarArea.addEventListener("mouseover", e => {
+      if (e.target.className.includes("dropdown-toggle") && window.innerWidth > 992) {
+        const dropdownInstance = new window.bootstrap.Dropdown(e.target);
 
         /* eslint-disable no-underscore-dangle */
         dropdownInstance._element.classList.add('show');
         dropdownInstance._menu.classList.add('show');
         dropdownInstance._menu.setAttribute('data-bs-popper', 'none');
-        e.target.parentNode.addEventListener('mouseleave', function () {
+        e.target.parentNode.addEventListener("mouseleave", () => {
           dropdownInstance.hide();
         });
       }
@@ -1626,35 +1557,37 @@ var dropdownOnHover = function dropdownOnHover() {
 -----------------------------------------------*/
 
 window.Dropzone ? window.Dropzone.autoDiscover = false : '';
-var dropzoneInit = function dropzoneInit() {
-  var merge = window._.merge;
-  var Selector = {
+const dropzoneInit = () => {
+  const {
+    merge
+  } = window._;
+  const Selector = {
     DROPZONE: '[data-dropzone]',
     DZ_ERROR_MESSAGE: '.dz-error-message',
     DZ_PREVIEW: '.dz-preview',
     DZ_PROGRESS: '.dz-preview .dz-preview-cover .dz-progress',
     DZ_PREVIEW_COVER: '.dz-preview .dz-preview-cover'
   };
-  var ClassName = {
+  const ClassName = {
     DZ_FILE_PROCESSING: 'dz-file-processing',
     DZ_FILE_COMPLETE: 'dz-file-complete',
     DZ_COMPLETE: 'dz-complete',
     DZ_PROCESSING: 'dz-processing'
   };
-  var DATA_KEY = {
+  const DATA_KEY = {
     OPTIONS: 'options'
   };
-  var Events = {
+  const Events = {
     ADDED_FILE: 'addedfile',
     REMOVED_FILE: 'removedfile',
     COMPLETE: 'complete'
   };
-  var dropzones = document.querySelectorAll(Selector.DROPZONE);
-  !!dropzones.length && dropzones.forEach(function (item) {
-    var userOptions = utils.getData(item, DATA_KEY.OPTIONS);
+  const dropzones = document.querySelectorAll(Selector.DROPZONE);
+  !!dropzones.length && dropzones.forEach(item => {
+    let userOptions = utils.getData(item, DATA_KEY.OPTIONS);
     userOptions = userOptions ? userOptions : {};
-    var data = userOptions.data ? userOptions.data : {};
-    var options = merge({
+    const data = userOptions.data ? userOptions.data : {};
+    const options = merge({
       url: '/assets/php/',
       addRemoveLinks: false,
       previewsContainer: item.querySelector(Selector.DZ_PREVIEW),
@@ -1665,15 +1598,15 @@ var dropzoneInit = function dropzoneInit() {
       autoProcessQueue: false,
       filesizeBase: 1000,
       init: function init() {
-        var thisDropzone = this;
+        const thisDropzone = this;
         if (data.length) {
-          data.forEach(function (v) {
-            var mockFile = {
+          data.forEach(v => {
+            const mockFile = {
               name: v.name,
               size: v.size
             };
             thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-            thisDropzone.options.thumbnail.call(thisDropzone, mockFile, "".concat(v.url, "/").concat(v.name));
+            thisDropzone.options.thumbnail.call(thisDropzone, mockFile, `${v.url}/${v.name}`);
           });
         }
         thisDropzone.on(Events.ADDED_FILE, function addedfile() {
@@ -1687,43 +1620,34 @@ var dropzoneInit = function dropzoneInit() {
           }
         });
       },
-      error: function error(file, message) {
+      error(file, message) {
         if (file.previewElement) {
           file.previewElement.classList.add('dz-error');
           if (typeof message !== 'string' && message.error) {
             message = message.error;
           }
-          var _iterator = _createForOfIteratorHelper(file.previewElement.querySelectorAll('[data-dz-errormessage]')),
-            _step;
-          try {
-            for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var node = _step.value;
-              node.textContent = message;
-            }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
+          for (let node of file.previewElement.querySelectorAll('[data-dz-errormessage]')) {
+            node.textContent = message;
           }
         }
       }
     }, userOptions);
     // eslint-disable-next-line
     item.querySelector(Selector.DZ_PREVIEW).innerHTML = '';
-    var dropzone = new window.Dropzone(item, options);
-    dropzone.on(Events.ADDED_FILE, function () {
+    const dropzone = new window.Dropzone(item, options);
+    dropzone.on(Events.ADDED_FILE, () => {
       if (item.querySelector(Selector.DZ_PREVIEW_COVER)) {
         item.querySelector(Selector.DZ_PREVIEW_COVER).classList.remove(ClassName.DZ_FILE_COMPLETE);
       }
       item.classList.add(ClassName.DZ_FILE_PROCESSING);
     });
-    dropzone.on(Events.REMOVED_FILE, function () {
+    dropzone.on(Events.REMOVED_FILE, () => {
       if (item.querySelector(Selector.DZ_PREVIEW_COVER)) {
         item.querySelector(Selector.DZ_PREVIEW_COVER).classList.remove(ClassName.DZ_PROCESSING);
       }
       item.classList.add(ClassName.DZ_FILE_COMPLETE);
     });
-    dropzone.on(Events.COMPLETE, function () {
+    dropzone.on(Events.COMPLETE, () => {
       if (item.querySelector(Selector.DZ_PREVIEW_COVER)) {
         item.querySelector(Selector.DZ_PREVIEW_COVER).classList.remove(ClassName.DZ_PROCESSING);
       }
@@ -1733,23 +1657,45 @@ var dropzoneInit = function dropzoneInit() {
 };
 
 /* -------------------------------------------------------------------------- */
+/*                                Emoji Button                                */
+/* -------------------------------------------------------------------------- */
+
+const picker = new EmojiButton({
+  style: window.is.windows() ? "twemoji" : "native",
+  showPreview: false,
+  zIndex: 1,
+  autoFocusSearch: false
+});
+const emojiButtons = document.querySelectorAll("[data-emoji-button]");
+emojiButtons.forEach(button => {
+  button.addEventListener("click", ({
+    currentTarget
+  }) => {
+    picker.togglePicker(currentTarget);
+    localStorage.getItem("theme") === "dark" ? picker.setTheme("dark") : picker.setTheme("light");
+  });
+});
+window.picker = picker;
+
+/* -------------------------------------------------------------------------- */
 /*                               from-validation                              */
 /* -------------------------------------------------------------------------- */
 
-var formValidationInit = function formValidationInit() {
+const formValidationInit = () => {
   // Example starter JavaScript for disabling form submissions if there are invalid fields
+  "use strict";
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation');
+  var forms = document.querySelectorAll(".needs-validation");
 
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms).forEach(function (form) {
-    form.addEventListener('submit', function (event) {
+    form.addEventListener("submit", function (event) {
       if (!form.checkValidity()) {
         event.preventDefault();
         event.stopPropagation();
       }
-      form.classList.add('was-validated');
+      form.classList.add("was-validated");
     }, false);
   });
 };
@@ -1758,10 +1704,11 @@ var formValidationInit = function formValidationInit() {
 /*                                FullCalendar                                */
 /* -------------------------------------------------------------------------- */
 
-var merge = window._.merge;
-var renderCalendar = function renderCalendar(el, option) {
-  var _document$querySelect;
-  var options = merge({
+const {
+  merge
+} = window._;
+const renderCalendar = (el, option) => {
+  const options = merge({
     initialView: 'dayGridMonth',
     editable: true,
     direction: document.querySelector('html').getAttribute('dir'),
@@ -1776,30 +1723,28 @@ var renderCalendar = function renderCalendar(el, option) {
       day: 'Day'
     }
   }, option);
-  var calendar = new window.FullCalendar.Calendar(el, options);
+  const calendar = new window.FullCalendar.Calendar(el, options);
   calendar.render();
-  (_document$querySelect = document.querySelector('.navbar-vertical-toggle')) === null || _document$querySelect === void 0 ? void 0 : _document$querySelect.addEventListener('navbar.vertical.toggle', function () {
-    return calendar.updateSize();
-  });
+  document.querySelector('.navbar-vertical-toggle')?.addEventListener('navbar.vertical.toggle', () => calendar.updateSize());
   return calendar;
 };
-var fullCalendarInit = function fullCalendarInit() {
-  var calendars = document.querySelectorAll('[data-calendar]');
-  calendars.forEach(function (item) {
-    var options = utils.getData(item, 'calendar');
+const fullCalendarInit = () => {
+  const calendars = document.querySelectorAll('[data-calendar]');
+  calendars.forEach(item => {
+    const options = utils.getData(item, 'calendar');
     renderCalendar(item, options);
   });
 };
-var fullCalendar = {
-  renderCalendar: renderCalendar,
-  fullCalendarInit: fullCalendarInit
+const fullCalendar = {
+  renderCalendar,
+  fullCalendarInit
 };
 
 /* -------------------------------------------------------------------------- */
 /*                                 Glightbox                                */
 /* -------------------------------------------------------------------------- */
 
-var glightboxInit = function glightboxInit() {
+const glightboxInit = () => {
   if (window.GLightbox) {
     window.GLightbox({
       selector: '[data-gallery]'
@@ -1812,11 +1757,11 @@ var glightboxInit = function glightboxInit() {
 -----------------------------------------------*/
 
 function initMap() {
-  var themeController = document.body;
-  var $googlemaps = document.querySelectorAll('.googlemap');
+  const themeController = document.body;
+  const $googlemaps = document.querySelectorAll('.googlemap');
   if ($googlemaps.length && window.google) {
     // Visit https://snazzymaps.com/ for more themes
-    var mapStyles = {
+    const mapStyles = {
       Default: [{
         featureType: 'water',
         elementType: 'geometry',
@@ -2724,49 +2669,51 @@ function initMap() {
         }]
       }]
     };
-    $googlemaps.forEach(function (itm) {
-      var latLng = utils.getData(itm, 'latlng').split(',');
-      var markerPopup = itm.innerHTML;
-      var icon = utils.getData(itm, 'icon') ? utils.getData(itm, 'icon') : 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png';
-      var zoom = utils.getData(itm, 'zoom');
-      var mapElement = itm;
-      var mapStyle = utils.getData(itm, 'theme');
+    $googlemaps.forEach(itm => {
+      const latLng = utils.getData(itm, 'latlng').split(',');
+      const markerPopup = itm.innerHTML;
+      const icon = utils.getData(itm, 'icon') ? utils.getData(itm, 'icon') : 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png';
+      const zoom = utils.getData(itm, 'zoom');
+      const mapElement = itm;
+      const mapStyle = utils.getData(itm, 'theme');
       if (utils.getData(itm, 'theme') === 'streetview') {
-        var pov = utils.getData(itm, 'pov');
-        var _mapOptions = {
+        const pov = utils.getData(itm, 'pov');
+        const mapOptions = {
           position: {
             lat: Number(latLng[0]),
             lng: Number(latLng[1])
           },
-          pov: pov,
-          zoom: zoom,
+          pov,
+          zoom,
           gestureHandling: 'none',
           scrollwheel: false
         };
-        return new window.google.maps.StreetViewPanorama(mapElement, _mapOptions);
+        return new window.google.maps.StreetViewPanorama(mapElement, mapOptions);
       }
-      var mapOptions = {
-        zoom: zoom,
+      const mapOptions = {
+        zoom,
         scrollwheel: utils.getData(itm, 'scrollwheel'),
         center: new window.google.maps.LatLng(latLng[0], latLng[1]),
         styles: localStorage.getItem('theme') === 'dark' ? mapStyles.Cobalt : mapStyles[mapStyle]
       };
-      var map = new window.google.maps.Map(mapElement, mapOptions);
-      var infowindow = new window.google.maps.InfoWindow({
+      const map = new window.google.maps.Map(mapElement, mapOptions);
+      const infowindow = new window.google.maps.InfoWindow({
         content: markerPopup
       });
-      var marker = new window.google.maps.Marker({
+      const marker = new window.google.maps.Marker({
         position: new window.google.maps.LatLng(latLng[0], latLng[1]),
-        icon: icon,
-        map: map
+        icon,
+        map
       });
-      marker.addListener('click', function () {
+      marker.addListener('click', () => {
         infowindow.open(map, marker);
       });
-      themeController && themeController.addEventListener('clickControl', function (_ref3) {
-        var _ref3$detail = _ref3.detail,
-          control = _ref3$detail.control,
-          value = _ref3$detail.value;
+      themeController && themeController.addEventListener('clickControl', ({
+        detail: {
+          control,
+          value
+        }
+      }) => {
         if (control === 'theme') {
           map.set('styles', value === 'dark' ? mapStyles.Cobalt : mapStyles[mapStyle]);
         }
@@ -2775,12 +2722,12 @@ function initMap() {
     });
   }
 }
-var hideOnCollapseInit = function hideOnCollapseInit() {
-  var previewMailForm = document.querySelector('#previewMailForm');
-  var previewFooter = document.querySelector('#preview-footer');
+const hideOnCollapseInit = () => {
+  const previewMailForm = document.querySelector('#previewMailForm');
+  const previewFooter = document.querySelector('#preview-footer');
   if (previewMailForm) {
-    previewMailForm.addEventListener('show.bs.collapse', function () {
-      previewFooter.classList.add('d-none');
+    previewMailForm.addEventListener("show.bs.collapse", () => {
+      previewFooter.classList.add("d-none");
     });
   }
 };
@@ -2789,18 +2736,18 @@ var hideOnCollapseInit = function hideOnCollapseInit() {
 /*                           Icon copy to clipboard                           */
 /* -------------------------------------------------------------------------- */
 
-var iconCopiedInit = function iconCopiedInit() {
-  var iconList = document.getElementById('icon-list');
-  var iconCopiedToast = document.getElementById('icon-copied-toast');
-  var iconCopiedToastInstance = new window.bootstrap.Toast(iconCopiedToast);
+const iconCopiedInit = () => {
+  const iconList = document.getElementById("icon-list");
+  const iconCopiedToast = document.getElementById("icon-copied-toast");
+  const iconCopiedToastInstance = new window.bootstrap.Toast(iconCopiedToast);
   if (iconList) {
-    iconList.addEventListener('click', function (e) {
-      var el = e.target;
-      if (el.tagName === 'INPUT') {
+    iconList.addEventListener("click", e => {
+      const el = e.target;
+      if (el.tagName === "INPUT") {
         el.select();
         el.setSelectionRange(0, 99999);
-        document.execCommand('copy');
-        iconCopiedToast.querySelector('.toast-body').innerHTML = "<span class=\"fw-black\">Copied:</span> <code>".concat(el.value, "</code>");
+        document.execCommand("copy");
+        iconCopiedToast.querySelector(".toast-body").innerHTML = `<span class="fw-black">Copied:</span> <code>${el.value}</code>`;
         iconCopiedToastInstance.show();
       }
     });
@@ -2810,18 +2757,20 @@ var iconCopiedInit = function iconCopiedInit() {
 /* -------------------------------------------------------------------------- */
 /*                                   Inputmask                                */
 /* -------------------------------------------------------------------------- */
-var inputmaskInit = function inputmaskInit() {
+const inputmaskInit = () => {
   if (window.Inputmask) {
-    var elements = document.querySelectorAll('[data-input-mask]');
-    elements.forEach(function (item) {
-      var userOptions = utils.getData(item, 'input-mask');
-      var defaultOptions = {
+    const elements = document.querySelectorAll('[data-input-mask]');
+    elements.forEach(item => {
+      const userOptions = utils.getData(item, 'input-mask');
+      const defaultOptions = {
         showMaskOnFocus: false,
         showMaskOnHover: false,
         jitMasking: true
       };
-      var maskOptions = window._.merge(defaultOptions, userOptions);
-      var inputmask = new window.Inputmask(_objectSpread({}, maskOptions)).mask(item);
+      const maskOptions = window._.merge(defaultOptions, userOptions);
+      const inputmask = new window.Inputmask({
+        ...maskOptions
+      }).mask(item);
       return inputmask;
     });
   }
@@ -2831,8 +2780,8 @@ var inputmaskInit = function inputmaskInit() {
 /*                                   Kanbah                                   */
 /* -------------------------------------------------------------------------- */
 
-var kanbanInit = function kanbanInit() {
-  var Selectors = {
+const kanbanInit = () => {
+  const Selectors = {
     KANBAN_COLUMN: '.kanban-column',
     KANBAN_ITEMS_CONTAINER: '.kanban-items-container',
     BTN_ADD_CARD: '.btn-add-card',
@@ -2843,27 +2792,28 @@ var kanbanInit = function kanbanInit() {
     INPUT_ADD_CARD: '[data-input="add-card"]',
     INPUT_ADD_LIST: '[data-input="add-list"]'
   };
-  var ClassNames = {
+  const ClassNames = {
     FORM_ADDED: 'form-added',
     D_NONE: 'd-none'
   };
-  var Events = {
+  const Events = {
     CLICK: 'click',
     SHOW_BS_COLLAPSE: 'show.bs.collapse',
     SHOWN_BS_COLLAPSE: 'shown.bs.collapse'
   };
-  var addCardButtons = document.querySelectorAll(Selectors.BTN_ADD_CARD);
-  var formHideButtons = document.querySelectorAll(Selectors.BTN_FORM_HIDE);
-  var addListForm = document.querySelector(Selectors.ADD_LIST_FORM);
-  var collapseDismissButtons = document.querySelectorAll(Selectors.BTN_COLLAPSE_DISMISS);
+  const addCardButtons = document.querySelectorAll(Selectors.BTN_ADD_CARD);
+  const formHideButtons = document.querySelectorAll(Selectors.BTN_FORM_HIDE);
+  const addListForm = document.querySelector(Selectors.ADD_LIST_FORM);
+  const collapseDismissButtons = document.querySelectorAll(Selectors.BTN_COLLAPSE_DISMISS);
 
   // Show add card form and place scrollbar bottom of the list
-  addCardButtons && addCardButtons.forEach(function (button) {
-    button.addEventListener(Events.CLICK, function (_ref4) {
-      var el = _ref4.currentTarget;
-      var column = el.closest(Selectors.KANBAN_COLUMN);
-      var container = column.querySelector(Selectors.KANBAN_ITEMS_CONTAINER);
-      var scrollHeight = container.scrollHeight;
+  addCardButtons && addCardButtons.forEach(button => {
+    button.addEventListener(Events.CLICK, ({
+      currentTarget: el
+    }) => {
+      const column = el.closest(Selectors.KANBAN_COLUMN);
+      const container = column.querySelector(Selectors.KANBAN_ITEMS_CONTAINER);
+      const scrollHeight = container.scrollHeight;
       column.classList.add(ClassNames.FORM_ADDED);
       container.querySelector(Selectors.INPUT_ADD_CARD).focus();
       container.scrollTo({
@@ -2873,33 +2823,37 @@ var kanbanInit = function kanbanInit() {
   });
 
   // Remove add card form
-  formHideButtons.forEach(function (button) {
-    button.addEventListener(Events.CLICK, function (_ref5) {
-      var el = _ref5.currentTarget;
+  formHideButtons.forEach(button => {
+    button.addEventListener(Events.CLICK, ({
+      currentTarget: el
+    }) => {
       el.closest(Selectors.KANBAN_COLUMN).classList.remove(ClassNames.FORM_ADDED);
     });
   });
   if (addListForm) {
     // Hide add list button when the form is going to show
-    addListForm.addEventListener(Events.SHOW_BS_COLLAPSE, function (_ref6) {
-      var el = _ref6.currentTarget;
-      var nextElement = el.nextElementSibling;
+    addListForm.addEventListener(Events.SHOW_BS_COLLAPSE, ({
+      currentTarget: el
+    }) => {
+      const nextElement = el.nextElementSibling;
       nextElement && nextElement.classList.add(ClassNames.D_NONE);
     });
 
     // Focus input field when the form is shown
-    addListForm.addEventListener(Events.SHOWN_BS_COLLAPSE, function (_ref7) {
-      var el = _ref7.currentTarget;
+    addListForm.addEventListener(Events.SHOWN_BS_COLLAPSE, ({
+      currentTarget: el
+    }) => {
       el.querySelector(Selectors.INPUT_ADD_LIST).focus();
     });
   }
 
   // Hide add list form when the dismiss button is clicked
-  collapseDismissButtons.forEach(function (button) {
-    button.addEventListener(Events.CLICK, function (_ref8) {
-      var el = _ref8.currentTarget;
-      var collapseElement = el.closest(Selectors.COLLAPSE);
-      var collapse = window.bootstrap.Collapse.getInstance(collapseElement);
+  collapseDismissButtons.forEach(button => {
+    button.addEventListener(Events.CLICK, ({
+      currentTarget: el
+    }) => {
+      const collapseElement = el.closest(Selectors.COLLAPSE);
+      const collapse = window.bootstrap.Collapse.getInstance(collapseElement);
       utils.hasClass(collapseElement.nextElementSibling, ClassNames.D_NONE) && collapseElement.nextElementSibling.classList.remove(ClassNames.D_NONE);
       collapse.hide();
     });
@@ -2910,995 +2864,994 @@ var kanbanInit = function kanbanInit() {
 /*                                   leaflet                                  */
 /* -------------------------------------------------------------------------- */
 
-var leafletActiveUserInit = function leafletActiveUserInit() {
-  var points = [{
+const leafletActiveUserInit = () => {
+  const points = [{
     lat: 53.958332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 52.958332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 51.958332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 53.958332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 54.958332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 55.958332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 53.908332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 53.008332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 53.158332,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 53.000032,
-    "long": -1.080278,
+    long: -1.080278,
     name: 'Diana Meyer',
     street: 'Slude Strand 27',
     location: '1130 Kobenhavn'
   }, {
     lat: 52.292001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 52.392001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 51.492001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 51.192001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 52.292001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 54.392001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 51.292001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 52.102001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 52.202001,
-    "long": -2.22,
+    long: -2.22,
     name: 'Anke Schroder',
     street: 'Industrivej 54',
     location: '4140 Borup'
   }, {
     lat: 51.063202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.363202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.463202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.563202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.763202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.863202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.963202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.000202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.000202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.163202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 52.263202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 53.463202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 55.163202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 56.263202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 56.463202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 56.563202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 56.663202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 56.763202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 56.863202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 56.963202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 57.973202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 57.163202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.163202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.263202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.363202,
-    "long": -1.308,
+    long: -1.308,
     name: 'Tobias Vogel',
     street: 'Mollebakken 33',
     location: '3650 Olstykke'
   }, {
     lat: 51.409,
-    "long": -2.647,
+    long: -2.647,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.68,
-    "long": -1.49,
+    long: -1.49,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 50.259998,
-    "long": -5.051,
+    long: -5.051,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 54.906101,
-    "long": -1.38113,
+    long: -1.38113,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.383331,
-    "long": -1.466667,
+    long: -1.466667,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.483002,
-    "long": -2.2931,
+    long: -2.2931,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.509865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.109865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.209865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.309865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.409865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.609865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.709865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.809865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 51.909865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.109865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.209865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.309865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.409865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.509865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.609865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.709865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.809865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.909865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.519865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.529865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.539865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.549865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 52.549865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.109865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.209865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.319865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.329865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.409865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.559865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.619865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.629865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.639865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.649865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.669865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.669865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.719865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.739865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.749865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.759865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.769865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.769865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.819865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.829865,
-    "long": -0.118092,
+    long: -0.118092,
     name: 'Richard Hendricks',
     street: '37 Seafield Place',
     location: 'London'
   }, {
     lat: 53.483959,
-    "long": -2.244644,
+    long: -2.244644,
     name: 'Ethel B. Brooks',
     street: '2576 Sun Valley Road'
   }, {
     lat: 40.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 39.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 38.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 37.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 40.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 41.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 42.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 43.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 44.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 45.737,
-    "long": -73.923,
+    long: -73.923,
     name: 'Marshall D. Lewis',
     street: '1489 Michigan Avenue',
     location: 'Michigan'
   }, {
     lat: 46.7128,
-    "long": 74.006,
+    long: 74.006,
     name: 'Elizabeth C. Lyons',
     street: '4553 Kenwood Place',
     location: 'Fort Lauderdale'
   }, {
     lat: 40.7128,
-    "long": 74.1181,
+    long: 74.1181,
     name: 'Elizabeth C. Lyons',
     street: '4553 Kenwood Place',
     location: 'Fort Lauderdale'
   }, {
     lat: 14.235,
-    "long": 51.9253,
+    long: 51.9253,
     name: 'Ralph D. Wylie',
     street: '3186 Levy Court',
     location: 'North Reading'
   }, {
     lat: 15.235,
-    "long": 51.9253,
+    long: 51.9253,
     name: 'Ralph D. Wylie',
     street: '3186 Levy Court',
     location: 'North Reading'
   }, {
     lat: 16.235,
-    "long": 51.9253,
+    long: 51.9253,
     name: 'Ralph D. Wylie',
     street: '3186 Levy Court',
     location: 'North Reading'
   }, {
     lat: 14.235,
-    "long": 51.9253,
+    long: 51.9253,
     name: 'Ralph D. Wylie',
     street: '3186 Levy Court',
     location: 'North Reading'
   }, {
     lat: 15.8267,
-    "long": 47.9218,
+    long: 47.9218,
     name: 'Hope A. Atkins',
     street: '3715 Hillcrest Drive',
     location: 'Seattle'
   }, {
     lat: 15.9267,
-    "long": 47.9218,
+    long: 47.9218,
     name: 'Hope A. Atkins',
     street: '3715 Hillcrest Drive',
     location: 'Seattle'
   }, {
     lat: 23.4425,
-    "long": 58.4438,
+    long: 58.4438,
     name: 'Samuel R. Bailey',
     street: '2883 Raoul Wallenberg Place',
     location: 'Cheshire'
   }, {
     lat: 23.5425,
-    "long": 58.3438,
+    long: 58.3438,
     name: 'Samuel R. Bailey',
     street: '2883 Raoul Wallenberg Place',
     location: 'Cheshire'
   }, {
     lat: -37.8927369333,
-    "long": 175.4087452333,
+    long: 175.4087452333,
     name: 'Samuel R. Bailey',
     street: '3228 Glory Road',
     location: 'Nashville'
   }, {
     lat: -38.9064188833,
-    "long": 175.4441556833,
+    long: 175.4441556833,
     name: 'Samuel R. Bailey',
     street: '3228 Glory Road',
     location: 'Nashville'
   }, {
     lat: -12.409874,
-    "long": -65.596832,
+    long: -65.596832,
     name: 'Ann J. Perdue',
     street: '921 Ella Street',
     location: 'Dublin'
   }, {
     lat: -22.090887,
-    "long": -57.411827,
+    long: -57.411827,
     name: 'Jorge C. Woods',
     street: '4800 North Bend River Road',
     location: 'Allen'
   }, {
     lat: -19.019585,
-    "long": -65.261963,
+    long: -65.261963,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: -16.500093,
-    "long": -68.214684,
+    long: -68.214684,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: -17.413977,
-    "long": -66.165321,
+    long: -66.165321,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: -16.489689,
-    "long": -68.119293,
+    long: -68.119293,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: 54.766323,
-    "long": 3.08603729,
+    long: 3.08603729,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: 54.866323,
-    "long": 3.08603729,
+    long: 3.08603729,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: 49.537685,
-    "long": 3.08603729,
+    long: 3.08603729,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: 54.715424,
-    "long": 0.509207,
+    long: 0.509207,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: 44.891666,
-    "long": 10.136665,
+    long: 10.136665,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: 48.078335,
-    "long": 14.535004,
+    long: 14.535004,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: -26.358055,
-    "long": 27.398056,
+    long: 27.398056,
     name: 'Russ E. Panek',
     street: '4068 Hartland Avenue',
     location: 'Appleton'
   }, {
     lat: -29.1,
-    "long": 26.2167,
+    long: 26.2167,
     name: 'Wilbur J. Dry',
     street: '2043 Jadewood Drive',
     location: 'Northbrook'
   }, {
     lat: -29.883333,
-    "long": 31.049999,
+    long: 31.049999,
     name: 'Wilbur J. Dry',
     street: '2043 Jadewood Drive',
     location: 'Northbrook'
   }, {
     lat: -26.266111,
-    "long": 27.865833,
+    long: 27.865833,
     name: 'Wilbur J. Dry',
     street: '2043 Jadewood Drive',
     location: 'Northbrook'
   }, {
     lat: -29.087217,
-    "long": 26.154898,
+    long: 26.154898,
     name: 'Wilbur J. Dry',
     street: '2043 Jadewood Drive',
     location: 'Northbrook'
   }, {
     lat: -33.958252,
-    "long": 25.619022,
+    long: 25.619022,
     name: 'Wilbur J. Dry',
     street: '2043 Jadewood Drive',
     location: 'Northbrook'
   }, {
     lat: -33.977074,
-    "long": 22.457581,
+    long: 22.457581,
     name: 'Wilbur J. Dry',
     street: '2043 Jadewood Drive',
     location: 'Northbrook'
   }, {
     lat: -26.563404,
-    "long": 27.844164,
+    long: 27.844164,
     name: 'Wilbur J. Dry',
     street: '2043 Jadewood Drive',
     location: 'Northbrook'
   }, {
     lat: 51.21389,
-    "long": -102.462776,
+    long: -102.462776,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 52.321945,
-    "long": -106.584167,
+    long: -106.584167,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 50.288055,
-    "long": -107.793892,
+    long: -107.793892,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 52.7575,
-    "long": -108.28611,
+    long: -108.28611,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 50.393333,
-    "long": -105.551941,
+    long: -105.551941,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 50.930557,
-    "long": -102.807777,
+    long: -102.807777,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 52.856388,
-    "long": -104.610001,
+    long: -104.610001,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 52.289722,
-    "long": -106.666664,
+    long: -106.666664,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 52.201942,
-    "long": -105.123055,
+    long: -105.123055,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 53.278046,
-    "long": -110.00547,
+    long: -110.00547,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 49.13673,
-    "long": -102.990959,
+    long: -102.990959,
     name: 'Joseph B. Poole',
     street: '3364 Lunetta Street',
     location: 'Wichita Falls'
   }, {
     lat: 45.484531,
-    "long": -73.597023,
+    long: -73.597023,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 45.266666,
-    "long": -71.900002,
+    long: -71.900002,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 45.349998,
-    "long": -72.51667,
+    long: -72.51667,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 47.333332,
-    "long": -79.433334,
+    long: -79.433334,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 45.400002,
-    "long": -74.033333,
+    long: -74.033333,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 45.683334,
-    "long": -73.433334,
+    long: -73.433334,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 48.099998,
-    "long": -77.783333,
+    long: -77.783333,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 45.5,
-    "long": -72.316666,
+    long: -72.316666,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 46.349998,
-    "long": -72.550003,
+    long: -72.550003,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 48.119999,
-    "long": -69.18,
+    long: -69.18,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 45.599998,
-    "long": -75.25,
+    long: -75.25,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 46.099998,
-    "long": -71.300003,
+    long: -71.300003,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 45.700001,
-    "long": -73.633331,
+    long: -73.633331,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 47.68,
-    "long": -68.879997,
+    long: -68.879997,
     name: 'Claudette D. Nowakowski',
     street: '3742 Farland Avenue',
     location: 'San Antonio'
   }, {
     lat: 46.716667,
-    "long": -79.099998,
+    long: -79.099998,
     name: '299'
   }, {
     lat: 45.016666,
-    "long": -72.099998,
+    long: -72.099998,
     name: '299'
   }];
-  var _window2 = window,
-    L = _window2.L;
-  var mapContainer = document.getElementById('map');
+  const {
+    L
+  } = window;
+  const mapContainer = document.getElementById('map');
   if (L && mapContainer) {
-    var getFilterColor = function getFilterColor() {
-      return localStorage.getItem('theme') === 'dark' ? ['invert:98%', 'grayscale:69%', 'bright:89%', 'contrast:111%', 'hue:205deg', 'saturate:1000%'] : ['bright:101%', 'contrast:101%', 'hue:23deg', 'saturate:225%'];
-    };
-    var tileLayerTheme = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    var tiles = L.tileLayer.colorFilter(tileLayerTheme, {
+    const getFilterColor = () => localStorage.getItem('theme') === 'dark' ? ['invert:98%', 'grayscale:69%', 'bright:89%', 'contrast:111%', 'hue:205deg', 'saturate:1000%'] : ['bright:101%', 'contrast:101%', 'hue:23deg', 'saturate:225%'];
+    const tileLayerTheme = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    const tiles = L.tileLayer.colorFilter(tileLayerTheme, {
       attribution: null,
       transparent: true,
       filter: getFilterColor()
     });
-    var map = L.map('map', {
+    const map = L.map('map', {
       center: L.latLng(10.737, 0),
       zoom: 0,
       layers: [tiles],
@@ -3907,25 +3860,31 @@ var leafletActiveUserInit = function leafletActiveUserInit() {
       dragging: !L.Browser.mobile,
       tap: !L.Browser.mobile
     });
-    var mcg = L.markerClusterGroup({
+    const mcg = L.markerClusterGroup({
       chunkedLoading: false,
       spiderfyOnMaxZoom: false
     });
-    points.map(function (point) {
-      var name = point.name,
-        location = point.location,
-        street = point.street;
-      var icon = L.icon({
-        iconUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAApCAYAAADAk4LOAAAACXBIWXMAAAFgAAABYAEg2RPaAAADpElEQVRYCZ1XS1LbQBBtybIdiMEJKSpUqihgEW/xDdARyAnirOIl3MBH8NK7mBvkBpFv4Gy9IRSpFIQiRPyNfqkeZkY9HwmFt7Lm06+7p/vN2MmyDIrQ6QebALAHAD4AbFuWfQeAAACGs5H/w5jlsJJw4wMA+GhMFuMA99jIDJJOP+ihZwDQFmNuowWO1wS3viDXpdEdZPEc0odruj0EgN5s5H8tJOEEX8R3rbkMtcU34NTqhe5nSQTJ7Tkk80s6/Gk28scGiULguFBffgdufdEwWoQ0uoXo8hdAlooVH0REjISfwZSlyHGh0V5n6aHAtKTxXI5g6nQnMH0P4bEgwtR18Yw8Pj8QZ4ARUAI0Hl+fQZZGisGEBVwHr7XKzox57DXZ/ij8Cdwe2u057z9/wygOxRl4S2vSUHx1oucaMQGAHTrgtdag9mK5aN+Wx/uAAQ9Zenp/SRce4TpaNbQK4+sTcGqeTB/aIXv3XN5oj2VKqii++U0JunpZ8urxee4hvjqVc2hHpBDXuKKT9XMgVYJ1/1fPGSeaikzgmWWkMIi9bVf8UhotXxzORn5gWFchI8QyttlzjS0qpsaIGY2MMsujV/AUSdcY0dDpB6/EiOPYzclR1CI5mOez3ekHvrFLxa7cR5pTscfrXjk0Vhm5V2PqLUWnH3R5GbPGpMVD7E1ckXesKBQ7AS/vmQ1c0+kHuxpBj98lTCm8pbc5QRJRdZ6qHb/wGryXq3Lxszv+5gySuwvxueXySwYvHEjuQ9ofTGKYlrmK1EsCHMd5SoD7mZ1HHFCBHLNbMEshvrugqWLn01hpVVJhFgVGkDvK7hR6n2B+d9C7xsqWsbkqHv4cCsWezEb+o2SR+SFweUBxfA5wH7kShjKt2vWL57Px3GhIFEezkb8pxvUWHYhotAfCk2AtkEcxoOttrxUWDR5svb1emSQKj0WXK1HYIgFREbiBqmoZcB2RkbE+byMZiosorVgAZF1ID7yQhEs38wa7nUqNDezdlavC2HbBGSQkGgZ8uJVBmzeiKCRRpEa9ilWghORVeGB7BxeSKF5xqbFBkxBrFKUk/JHA7ppENQaCnCjthK+3opCEYyANztXmZN858cDYWSUSHk3A311GAZDvo6deNKUk1EsqnJoQlkYBNlmxQZeaMgmxoUokICoHDce351RCCiuKoirJWEgNOYvQplM2VCLhUqF7jf94rW9kHVUjQeheV4riv0i4ZOzzz/2y/+0KAOAfr4EE4HpCFhwAAAAASUVORK5CYII=\n        "
+    points.map(point => {
+      const {
+        name,
+        location,
+        street
+      } = point;
+      const icon = L.icon({
+        iconUrl: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAApCAYAAADAk4LOAAAACXBIWXMAAAFgAAABYAEg2RPaAAADpElEQVRYCZ1XS1LbQBBtybIdiMEJKSpUqihgEW/xDdARyAnirOIl3MBH8NK7mBvkBpFv4Gy9IRSpFIQiRPyNfqkeZkY9HwmFt7Lm06+7p/vN2MmyDIrQ6QebALAHAD4AbFuWfQeAAACGs5H/w5jlsJJw4wMA+GhMFuMA99jIDJJOP+ihZwDQFmNuowWO1wS3viDXpdEdZPEc0odruj0EgN5s5H8tJOEEX8R3rbkMtcU34NTqhe5nSQTJ7Tkk80s6/Gk28scGiULguFBffgdufdEwWoQ0uoXo8hdAlooVH0REjISfwZSlyHGh0V5n6aHAtKTxXI5g6nQnMH0P4bEgwtR18Yw8Pj8QZ4ARUAI0Hl+fQZZGisGEBVwHr7XKzox57DXZ/ij8Cdwe2u057z9/wygOxRl4S2vSUHx1oucaMQGAHTrgtdag9mK5aN+Wx/uAAQ9Zenp/SRce4TpaNbQK4+sTcGqeTB/aIXv3XN5oj2VKqii++U0JunpZ8urxee4hvjqVc2hHpBDXuKKT9XMgVYJ1/1fPGSeaikzgmWWkMIi9bVf8UhotXxzORn5gWFchI8QyttlzjS0qpsaIGY2MMsujV/AUSdcY0dDpB6/EiOPYzclR1CI5mOez3ekHvrFLxa7cR5pTscfrXjk0Vhm5V2PqLUWnH3R5GbPGpMVD7E1ckXesKBQ7AS/vmQ1c0+kHuxpBj98lTCm8pbc5QRJRdZ6qHb/wGryXq3Lxszv+5gySuwvxueXySwYvHEjuQ9ofTGKYlrmK1EsCHMd5SoD7mZ1HHFCBHLNbMEshvrugqWLn01hpVVJhFgVGkDvK7hR6n2B+d9C7xsqWsbkqHv4cCsWezEb+o2SR+SFweUBxfA5wH7kShjKt2vWL57Px3GhIFEezkb8pxvUWHYhotAfCk2AtkEcxoOttrxUWDR5svb1emSQKj0WXK1HYIgFREbiBqmoZcB2RkbE+byMZiosorVgAZF1ID7yQhEs38wa7nUqNDezdlavC2HbBGSQkGgZ8uJVBmzeiKCRRpEa9ilWghORVeGB7BxeSKF5xqbFBkxBrFKUk/JHA7ppENQaCnCjthK+3opCEYyANztXmZN858cDYWSUSHk3A311GAZDvo6deNKUk1EsqnJoQlkYBNlmxQZeaMgmxoUokICoHDce351RCCiuKoirJWEgNOYvQplM2VCLhUqF7jf94rW9kHVUjQeheV4riv0i4ZOzzz/2y/+0KAOAfr4EE4HpCFhwAAAAASUVORK5CYII=
+        `
       });
-      var marker = L.marker(new L.LatLng(point.lat, point["long"]), {
-        icon: icon
+      const marker = L.marker(new L.LatLng(point.lat, point.long), {
+        icon
       }, {
-        name: name,
-        location: location
+        name,
+        location
       });
-      var popupContent = "\n        <h6 class=\"mb-1\">".concat(name, "</h6>\n        <p class=\"m-0 text-500\">").concat(street, ", ").concat(location, "</p>\n      ");
-      var popup = L.popup({
+      const popupContent = `
+        <h6 class="mb-1">${name}</h6>
+        <p class="m-0 text-500">${street}, ${location}</p>
+      `;
+      const popup = L.popup({
         minWidth: 180
       }).setContent(popupContent);
       marker.bindPopup(popup);
@@ -3933,11 +3892,13 @@ var leafletActiveUserInit = function leafletActiveUserInit() {
       return true;
     });
     map.addLayer(mcg);
-    var themeController = document.body;
-    themeController.addEventListener('clickControl', function (_ref9) {
-      var _ref9$detail = _ref9.detail,
-        control = _ref9$detail.control,
-        value = _ref9$detail.value;
+    const themeController = document.body;
+    themeController.addEventListener('clickControl', ({
+      detail: {
+        control,
+        value
+      }
+    }) => {
       if (control === 'theme') {
         tiles.updateFilter(value === 'dark' ? ['invert:98%', 'grayscale:69%', 'bright:89%', 'contrast:111%', 'hue:205deg', 'saturate:1000%'] : ['bright:101%', 'contrast:101%', 'hue:23deg', 'saturate:225%']);
       }
@@ -3950,36 +3911,38 @@ var leafletActiveUserInit = function leafletActiveUserInit() {
 /* -------------------------------------------------------------------------- */
 /* eslint-disable */
 
-var togglePaginationButtonDisable = function togglePaginationButtonDisable(button, disabled) {
+const togglePaginationButtonDisable = (button, disabled) => {
   button.disabled = disabled;
   button.classList[disabled ? 'add' : 'remove']('disabled');
 };
-var listInit = function listInit() {
+const listInit = () => {
   if (window.List) {
-    var lists = document.querySelectorAll('[data-list]');
+    const lists = document.querySelectorAll('[data-list]');
     if (lists.length) {
-      lists.forEach(function (el) {
-        var bulkSelect = el.querySelector('[data-bulk-select]');
-        var options = utils.getData(el, 'list');
+      lists.forEach(el => {
+        const bulkSelect = el.querySelector('[data-bulk-select]');
+        let options = utils.getData(el, 'list');
         if (options.pagination) {
-          options = _objectSpread(_objectSpread({}, options), {}, {
-            pagination: _objectSpread({
-              item: "<li><button class='page' type='button'></button></li>"
-            }, options.pagination)
-          });
+          options = {
+            ...options,
+            pagination: {
+              item: "<li><button class='page' type='button'></button></li>",
+              ...options.pagination
+            }
+          };
         }
-        var paginationButtonNext = el.querySelector('[data-list-pagination="next"]');
-        var paginationButtonPrev = el.querySelector('[data-list-pagination="prev"]');
-        var viewAll = el.querySelector('[data-list-view="*"]');
-        var viewLess = el.querySelector('[data-list-view="less"]');
-        var listInfo = el.querySelector('[data-list-info]');
-        var listFilter = document.querySelector('[data-list-filter]');
-        var list = new window.List(el, options);
+        const paginationButtonNext = el.querySelector('[data-list-pagination="next"]');
+        const paginationButtonPrev = el.querySelector('[data-list-pagination="prev"]');
+        const viewAll = el.querySelector('[data-list-view="*"]');
+        const viewLess = el.querySelector('[data-list-view="less"]');
+        const listInfo = el.querySelector('[data-list-info]');
+        const listFilter = document.querySelector('[data-list-filter]');
+        const list = new window.List(el, options);
 
         //-------fallback-----------
 
-        list.on('updated', function (item) {
-          var fallback = el.querySelector('.fallback') || document.getElementById(options.fallback);
+        list.on('updated', item => {
+          const fallback = el.querySelector('.fallback') || document.getElementById(options.fallback);
           if (fallback) {
             if (item.matchingItems.length === 0) {
               fallback.classList.remove('d-none');
@@ -3991,17 +3954,17 @@ var listInit = function listInit() {
 
         // ---------------------------------------
 
-        var totalItem = list.items.length;
-        var itemsPerPage = list.page;
-        var btnDropdownClose = list.listContainer.querySelector('.btn-close');
-        var pageQuantity = Math.ceil(totalItem / itemsPerPage);
-        var numberOfcurrentItems = list.visibleItems.length;
-        var pageCount = 1;
-        btnDropdownClose && btnDropdownClose.addEventListener('search.close', function () {
+        const totalItem = list.items.length;
+        const itemsPerPage = list.page;
+        const btnDropdownClose = list.listContainer.querySelector('.btn-close');
+        let pageQuantity = Math.ceil(totalItem / itemsPerPage);
+        let numberOfcurrentItems = list.visibleItems.length;
+        let pageCount = 1;
+        btnDropdownClose && btnDropdownClose.addEventListener('search.close', () => {
           list.fuzzySearch('');
         });
-        var updateListControls = function updateListControls() {
-          listInfo && (listInfo.innerHTML = "".concat(list.i, " to ").concat(numberOfcurrentItems, " of ").concat(totalItem));
+        const updateListControls = () => {
+          listInfo && (listInfo.innerHTML = `${list.i} to ${numberOfcurrentItems} of ${totalItem}`);
           paginationButtonPrev && togglePaginationButtonDisable(paginationButtonPrev, pageCount === 1);
           paginationButtonNext && togglePaginationButtonDisable(paginationButtonNext, pageCount === pageQuantity);
           if (pageCount > 1 && pageCount < pageQuantity) {
@@ -4013,31 +3976,31 @@ var listInit = function listInit() {
         // List info
         updateListControls();
         if (paginationButtonNext) {
-          paginationButtonNext.addEventListener('click', function (e) {
+          paginationButtonNext.addEventListener('click', e => {
             e.preventDefault();
             pageCount += 1;
-            var nextInitialIndex = list.i + itemsPerPage;
+            const nextInitialIndex = list.i + itemsPerPage;
             nextInitialIndex <= list.size() && list.show(nextInitialIndex, itemsPerPage);
             numberOfcurrentItems += list.visibleItems.length;
             updateListControls();
           });
         }
         if (paginationButtonPrev) {
-          paginationButtonPrev.addEventListener('click', function (e) {
+          paginationButtonPrev.addEventListener('click', e => {
             e.preventDefault();
             pageCount -= 1;
             numberOfcurrentItems -= list.visibleItems.length;
-            var prevItem = list.i - itemsPerPage;
+            const prevItem = list.i - itemsPerPage;
             prevItem > 0 && list.show(prevItem, itemsPerPage);
             updateListControls();
           });
         }
-        var toggleViewBtn = function toggleViewBtn() {
+        const toggleViewBtn = () => {
           viewLess.classList.toggle('d-none');
           viewAll.classList.toggle('d-none');
         };
         if (viewAll) {
-          viewAll.addEventListener('click', function () {
+          viewAll.addEventListener('click', () => {
             list.show(1, totalItem);
             pageQuantity = 1;
             pageCount = 1;
@@ -4047,7 +4010,7 @@ var listInit = function listInit() {
           });
         }
         if (viewLess) {
-          viewLess.addEventListener('click', function () {
+          viewLess.addEventListener('click', () => {
             list.show(1, itemsPerPage);
             pageQuantity = Math.ceil(totalItem / itemsPerPage);
             pageCount = 1;
@@ -4058,7 +4021,7 @@ var listInit = function listInit() {
         }
         // numbering pagination
         if (options.pagination) {
-          el.querySelector('.pagination').addEventListener('click', function (e) {
+          el.querySelector('.pagination').addEventListener('click', e => {
             if (e.target.classList[0] === 'page') {
               pageCount = Number(e.target.innerText);
               updateListControls();
@@ -4066,9 +4029,11 @@ var listInit = function listInit() {
           });
         }
         if (options.filter) {
-          var key = options.filter.key;
-          listFilter.addEventListener('change', function (e) {
-            list.filter(function (item) {
+          const {
+            key
+          } = options.filter;
+          listFilter.addEventListener('change', e => {
+            list.filter(item => {
               if (e.target.value === '') {
                 return true;
               }
@@ -4079,18 +4044,16 @@ var listInit = function listInit() {
 
         //bulk-select
         if (bulkSelect) {
-          var bulkSelectInstance = window.BulkSelect.getInstance(bulkSelect);
-          bulkSelectInstance.attachRowNodes(list.items.map(function (item) {
-            return item.elm.querySelector('[data-bulk-select-row]');
-          }));
-          bulkSelect.addEventListener('change', function () {
+          const bulkSelectInstance = window.BulkSelect.getInstance(bulkSelect);
+          bulkSelectInstance.attachRowNodes(list.items.map(item => item.elm.querySelector('[data-bulk-select-row]')));
+          bulkSelect.addEventListener('change', () => {
             if (list) {
               if (bulkSelect.checked) {
-                list.items.forEach(function (item) {
+                list.items.forEach(item => {
                   item.elm.querySelector('[data-bulk-select-row]').checked = true;
                 });
               } else {
-                list.items.forEach(function (item) {
+                list.items.forEach(item => {
                   item.elm.querySelector('[data-bulk-select-row]').checked = false;
                 });
               }
@@ -4101,19 +4064,20 @@ var listInit = function listInit() {
     }
   }
 };
-var lottieInit = function lottieInit() {
-  var lotties = document.querySelectorAll('.lottie');
+const lottieInit = () => {
+  const lotties = document.querySelectorAll(".lottie");
   if (lotties.length) {
-    lotties.forEach(function (item) {
-      var options = utils.getData(item, 'options');
-      window.bodymovin.loadAnimation(_objectSpread({
+    lotties.forEach(item => {
+      const options = utils.getData(item, "options");
+      window.bodymovin.loadAnimation({
         container: item,
-        path: '../img/animated-icons/warning-light.json',
-        renderer: 'svg',
+        path: "../img/animated-icons/warning-light.json",
+        renderer: "svg",
         loop: true,
         autoplay: true,
-        name: 'Hello World'
-      }, options));
+        name: "Hello World",
+        ...options
+      });
     });
   }
 };
@@ -4122,8 +4086,8 @@ var lottieInit = function lottieInit() {
 /*                             Navbar Combo Layout                            */
 /* -------------------------------------------------------------------------- */
 
-var navbarComboInit = function navbarComboInit() {
-  var Selector = {
+const navbarComboInit = () => {
+  const Selector = {
     NAVBAR_VERTICAL: '.navbar-vertical',
     NAVBAR_TOP_COMBO: '[data-navbar-top="combo"]',
     COLLAPSE: '.collapse',
@@ -4131,32 +4095,39 @@ var navbarComboInit = function navbarComboInit() {
     NAVBAR_NAV: '.navbar-nav',
     NAVBAR_VERTICAL_DIVIDER: '.navbar-vertical-divider'
   };
-  var ClassName = {
+  const ClassName = {
     FLEX_COLUMN: 'flex-column'
   };
-  var navbarVertical = document.querySelector(Selector.NAVBAR_VERTICAL);
-  var navbarTopCombo = document.querySelector(Selector.NAVBAR_TOP_COMBO);
-  var moveNavContent = function moveNavContent(windowWidth) {
-    var navbarVerticalBreakpoint = utils.getBreakpoint(navbarVertical);
-    var navbarTopBreakpoint = utils.getBreakpoint(navbarTopCombo);
+  const navbarVertical = document.querySelector(Selector.NAVBAR_VERTICAL);
+  const navbarTopCombo = document.querySelector(Selector.NAVBAR_TOP_COMBO);
+  const moveNavContent = windowWidth => {
+    const navbarVerticalBreakpoint = utils.getBreakpoint(navbarVertical);
+    const navbarTopBreakpoint = utils.getBreakpoint(navbarTopCombo);
     if (windowWidth < navbarTopBreakpoint) {
-      var navbarCollapse = navbarTopCombo.querySelector(Selector.COLLAPSE);
-      var navbarTopContent = navbarCollapse.innerHTML;
+      const navbarCollapse = navbarTopCombo.querySelector(Selector.COLLAPSE);
+      const navbarTopContent = navbarCollapse.innerHTML;
       if (navbarTopContent) {
-        var targetID = utils.getData(navbarTopCombo, 'move-target');
-        var targetElement = document.querySelector(targetID);
+        const targetID = utils.getData(navbarTopCombo, 'move-target');
+        const targetElement = document.querySelector(targetID);
         navbarCollapse.innerHTML = '';
-        targetElement.insertAdjacentHTML('afterend', "\n            <div data-move-container>\n              <div class='navbar-vertical-divider'>\n                <hr class='navbar-vertical-hr' />\n              </div>\n              ".concat(navbarTopContent, "\n            </div>\n          "));
+        targetElement.insertAdjacentHTML('afterend', `
+            <div data-move-container>
+              <div class='navbar-vertical-divider'>
+                <hr class='navbar-vertical-hr' />
+              </div>
+              ${navbarTopContent}
+            </div>
+          `);
         if (navbarVerticalBreakpoint < navbarTopBreakpoint) {
-          var navbarNav = document.querySelector(Selector.DATA_MOVE_CONTAINER).querySelector(Selector.NAVBAR_NAV);
+          const navbarNav = document.querySelector(Selector.DATA_MOVE_CONTAINER).querySelector(Selector.NAVBAR_NAV);
           utils.addClass(navbarNav, ClassName.FLEX_COLUMN);
         }
       }
     } else {
-      var moveableContainer = document.querySelector(Selector.DATA_MOVE_CONTAINER);
+      const moveableContainer = document.querySelector(Selector.DATA_MOVE_CONTAINER);
       if (moveableContainer) {
-        var _navbarNav = moveableContainer.querySelector(Selector.NAVBAR_NAV);
-        utils.hasClass(_navbarNav, ClassName.FLEX_COLUMN) && _navbarNav.classList.remove(ClassName.FLEX_COLUMN);
+        const navbarNav = moveableContainer.querySelector(Selector.NAVBAR_NAV);
+        utils.hasClass(navbarNav, ClassName.FLEX_COLUMN) && navbarNav.classList.remove(ClassName.FLEX_COLUMN);
         moveableContainer.querySelector(Selector.NAVBAR_VERTICAL_DIVIDER).remove();
         navbarTopCombo.querySelector(Selector.COLLAPSE).innerHTML = moveableContainer.innerHTML;
         moveableContainer.remove();
@@ -4164,38 +4135,36 @@ var navbarComboInit = function navbarComboInit() {
     }
   };
   moveNavContent(window.innerWidth);
-  utils.resize(function () {
-    return moveNavContent(window.innerWidth);
-  });
+  utils.resize(() => moveNavContent(window.innerWidth));
 };
 
 /* -------------------------------------------------------------------------- */
 /*                         Navbar Darken on scroll                        */
 /* -------------------------------------------------------------------------- */
-var navbarDarkenOnScroll = function navbarDarkenOnScroll() {
-  var Selector = {
+const navbarDarkenOnScroll = () => {
+  const Selector = {
     NAVBAR: '[data-navbar-darken-on-scroll]',
     NAVBAR_COLLAPSE: '.navbar-collapse',
     NAVBAR_TOGGLER: '.navbar-toggler'
   };
-  var ClassNames = {
+  const ClassNames = {
     COLLAPSED: 'collapsed'
   };
-  var Events = {
+  const Events = {
     SCROLL: 'scroll',
     SHOW_BS_COLLAPSE: 'show.bs.collapse',
     HIDE_BS_COLLAPSE: 'hide.bs.collapse',
     HIDDEN_BS_COLLAPSE: 'hidden.bs.collapse'
   };
-  var DataKey = {
+  const DataKey = {
     NAVBAR_DARKEN_ON_SCROLL: 'navbar-darken-on-scroll'
   };
-  var navbar = document.querySelector(Selector.NAVBAR);
+  const navbar = document.querySelector(Selector.NAVBAR);
   function removeNavbarBgClass() {
     navbar.classList.remove('bg-dark');
     navbar.classList.remove('bg-100');
   }
-  var toggleThemeClass = function toggleThemeClass(theme) {
+  const toggleThemeClass = theme => {
     if (theme === 'dark') {
       navbar.classList.remove('navbar-dark');
       navbar.classList.add('navbar-light');
@@ -4205,26 +4174,31 @@ var navbarDarkenOnScroll = function navbarDarkenOnScroll() {
     }
   };
   function getBgClassName(name, defaultColorName) {
-    var parent = document.documentElement;
-    var allColors = _objectSpread(_objectSpread({}, utils.getColors(parent)), utils.getGrays(parent));
-    var colorName = Object.keys(allColors).includes(name) ? name : defaultColorName;
-    var color = allColors[colorName];
-    var bgClassName = "bg-".concat(colorName);
+    const parent = document.documentElement;
+    const allColors = {
+      ...utils.getColors(parent),
+      ...utils.getGrays(parent)
+    };
+    const colorName = Object.keys(allColors).includes(name) ? name : defaultColorName;
+    const color = allColors[colorName];
+    const bgClassName = `bg-${colorName}`;
     return {
-      color: color,
-      bgClassName: bgClassName
+      color,
+      bgClassName
     };
   }
   if (navbar) {
-    var theme = localStorage.getItem('theme');
-    var defaultColorName = theme === 'dark' ? '100' : 'dark';
-    var name = utils.getData(navbar, DataKey.NAVBAR_DARKEN_ON_SCROLL);
+    const theme = localStorage.getItem('theme');
+    let defaultColorName = theme === 'dark' ? '100' : 'dark';
+    const name = utils.getData(navbar, DataKey.NAVBAR_DARKEN_ON_SCROLL);
     toggleThemeClass(theme);
-    var themeController = document.body;
-    themeController.addEventListener('clickControl', function (_ref10) {
-      var _ref10$detail = _ref10.detail,
-        control = _ref10$detail.control,
-        value = _ref10$detail.value;
+    const themeController = document.body;
+    themeController.addEventListener('clickControl', ({
+      detail: {
+        control,
+        value
+      }
+    }) => {
       if (control === 'theme') {
         toggleThemeClass(value);
         defaultColorName = value === 'dark' ? '100' : 'dark';
@@ -4234,26 +4208,29 @@ var navbarDarkenOnScroll = function navbarDarkenOnScroll() {
         }
       }
     });
-    var windowHeight = window.innerHeight;
-    var html = document.documentElement;
-    var navbarCollapse = navbar.querySelector(Selector.NAVBAR_COLLAPSE);
-    var colorRgb = utils.hexToRgb(getBgClassName(name, defaultColorName).color);
-    var _window$getComputedSt = window.getComputedStyle(navbar),
-      backgroundImage = _window$getComputedSt.backgroundImage;
-    var transition = 'background-color 0.35s ease';
+    const windowHeight = window.innerHeight;
+    const html = document.documentElement;
+    const navbarCollapse = navbar.querySelector(Selector.NAVBAR_COLLAPSE);
+    const colorRgb = utils.hexToRgb(getBgClassName(name, defaultColorName).color);
+    const {
+      backgroundImage
+    } = window.getComputedStyle(navbar);
+    const transition = 'background-color 0.35s ease';
     navbar.style.backgroundImage = 'none';
     // Change navbar background color on scroll
-    window.addEventListener(Events.SCROLL, function () {
-      var scrollTop = html.scrollTop;
-      var alpha = scrollTop / windowHeight * 2;
+    window.addEventListener(Events.SCROLL, () => {
+      const {
+        scrollTop
+      } = html;
+      let alpha = scrollTop / windowHeight * 2;
       alpha >= 1 && (alpha = 1);
-      navbar.style.backgroundColor = "rgba(".concat(colorRgb[0], ", ").concat(colorRgb[1], ", ").concat(colorRgb[2], ", ").concat(alpha, ")");
+      navbar.style.backgroundColor = `rgba(${colorRgb[0]}, ${colorRgb[1]}, ${colorRgb[2]}, ${alpha})`;
       navbar.style.backgroundImage = alpha > 0 || utils.hasClass(navbarCollapse, 'show') ? backgroundImage : 'none';
     });
 
     // Toggle bg class on window resize
-    utils.resize(function () {
-      var breakPoint = utils.getBreakpoint(navbar);
+    utils.resize(() => {
+      const breakPoint = utils.getBreakpoint(navbar);
       if (window.innerWidth > breakPoint) {
         removeNavbarBgClass();
         navbar.style.backgroundImage = html.scrollTop ? backgroundImage : 'none';
@@ -4266,16 +4243,16 @@ var navbarDarkenOnScroll = function navbarDarkenOnScroll() {
         navbar.style.transition = utils.hasClass(navbarCollapse, 'show') ? transition : 'none';
       }
     });
-    navbarCollapse.addEventListener(Events.SHOW_BS_COLLAPSE, function () {
+    navbarCollapse.addEventListener(Events.SHOW_BS_COLLAPSE, () => {
       navbar.classList.add(getBgClassName(name, defaultColorName).bgClassName);
       navbar.style.backgroundImage = backgroundImage;
       navbar.style.transition = transition;
     });
-    navbarCollapse.addEventListener(Events.HIDE_BS_COLLAPSE, function () {
+    navbarCollapse.addEventListener(Events.HIDE_BS_COLLAPSE, () => {
       removeNavbarBgClass();
       !html.scrollTop && (navbar.style.backgroundImage = 'none');
     });
-    navbarCollapse.addEventListener(Events.HIDDEN_BS_COLLAPSE, function () {
+    navbarCollapse.addEventListener(Events.HIDDEN_BS_COLLAPSE, () => {
       navbar.style.transition = 'none';
     });
   }
@@ -4285,30 +4262,30 @@ var navbarDarkenOnScroll = function navbarDarkenOnScroll() {
 /*                                 Navbar Top                                 */
 /* -------------------------------------------------------------------------- */
 
-var navbarTopDropShadow = function navbarTopDropShadow() {
-  var Selector = {
+const navbarTopDropShadow = () => {
+  const Selector = {
     NAVBAR: '.navbar:not(.navbar-vertical)',
     NAVBAR_VERTICAL: '.navbar-vertical',
     NAVBAR_VERTICAL_CONTENT: '.navbar-vertical-content',
     NAVBAR_VERTICAL_COLLAPSE: 'navbarVerticalCollapse'
   };
-  var ClassNames = {
+  const ClassNames = {
     NAVBAR_GLASS_SHADOW: 'navbar-glass-shadow',
     SHOW: 'show'
   };
-  var Events = {
+  const Events = {
     SCROLL: 'scroll',
     SHOW_BS_COLLAPSE: 'show.bs.collapse',
     HIDDEN_BS_COLLAPSE: 'hidden.bs.collapse'
   };
-  var navDropShadowFlag = true;
-  var $navbar = document.querySelector(Selector.NAVBAR);
-  var $navbarVertical = document.querySelector(Selector.NAVBAR_VERTICAL);
-  var $navbarVerticalContent = document.querySelector(Selector.NAVBAR_VERTICAL_CONTENT);
-  var $navbarVerticalCollapse = document.getElementById(Selector.NAVBAR_VERTICAL_COLLAPSE);
-  var html = document.documentElement;
-  var breakPoint = utils.getBreakpoint($navbarVertical);
-  var setDropShadow = function setDropShadow($elem) {
+  let navDropShadowFlag = true;
+  const $navbar = document.querySelector(Selector.NAVBAR);
+  const $navbarVertical = document.querySelector(Selector.NAVBAR_VERTICAL);
+  const $navbarVerticalContent = document.querySelector(Selector.NAVBAR_VERTICAL_CONTENT);
+  const $navbarVerticalCollapse = document.getElementById(Selector.NAVBAR_VERTICAL_COLLAPSE);
+  const html = document.documentElement;
+  const breakPoint = utils.getBreakpoint($navbarVertical);
+  const setDropShadow = $elem => {
     if ($elem.scrollTop > 0 && navDropShadowFlag) {
       $navbar && $navbar.classList.add(ClassNames.NAVBAR_GLASS_SHADOW);
     } else {
@@ -4316,11 +4293,11 @@ var navbarTopDropShadow = function navbarTopDropShadow() {
     }
   };
   setDropShadow(html);
-  window.addEventListener(Events.SCROLL, function () {
+  window.addEventListener(Events.SCROLL, () => {
     setDropShadow(html);
   });
   if ($navbarVerticalContent) {
-    $navbarVerticalContent.addEventListener(Events.SCROLL, function () {
+    $navbarVerticalContent.addEventListener(Events.SCROLL, () => {
       if (window.outerWidth < breakPoint) {
         navDropShadowFlag = true;
         setDropShadow($navbarVerticalContent);
@@ -4328,7 +4305,7 @@ var navbarTopDropShadow = function navbarTopDropShadow() {
     });
   }
   if ($navbarVerticalCollapse) {
-    $navbarVerticalCollapse.addEventListener(Events.SHOW_BS_COLLAPSE, function () {
+    $navbarVerticalCollapse.addEventListener(Events.SHOW_BS_COLLAPSE, () => {
       if (window.outerWidth < breakPoint) {
         navDropShadowFlag = false;
         setDropShadow(html);
@@ -4336,7 +4313,7 @@ var navbarTopDropShadow = function navbarTopDropShadow() {
     });
   }
   if ($navbarVerticalCollapse) {
-    $navbarVerticalCollapse.addEventListener(Events.HIDDEN_BS_COLLAPSE, function () {
+    $navbarVerticalCollapse.addEventListener(Events.HIDDEN_BS_COLLAPSE, () => {
       if (utils.hasClass($navbarVerticalCollapse, ClassNames.SHOW) && window.outerWidth < breakPoint) {
         navDropShadowFlag = false;
       } else {
@@ -4351,45 +4328,45 @@ var navbarTopDropShadow = function navbarTopDropShadow() {
 /*                               Navbar Vertical                              */
 /* -------------------------------------------------------------------------- */
 
-var handleNavbarVerticalCollapsed = function handleNavbarVerticalCollapsed() {
-  var Selector = {
+const handleNavbarVerticalCollapsed = () => {
+  const Selector = {
     HTML: 'html',
     NAVBAR_VERTICAL_TOGGLE: '.navbar-vertical-toggle',
     NAVBAR_VERTICAL_COLLAPSE: '.navbar-vertical .navbar-collapse',
     ECHART_RESPONSIVE: '[data-echart-responsive]'
   };
-  var Events = {
+  const Events = {
     CLICK: 'click',
     MOUSE_OVER: 'mouseover',
     MOUSE_LEAVE: 'mouseleave',
     NAVBAR_VERTICAL_TOGGLE: 'navbar.vertical.toggle'
   };
-  var ClassNames = {
+  const ClassNames = {
     NAVBAR_VERTICAL_COLLAPSED: 'navbar-vertical-collapsed',
     NAVBAR_VERTICAL_COLLAPSED_HOVER: 'navbar-vertical-collapsed-hover'
   };
-  var navbarVerticalToggle = document.querySelector(Selector.NAVBAR_VERTICAL_TOGGLE);
-  var html = document.querySelector(Selector.HTML);
-  var navbarVerticalCollapse = document.querySelector(Selector.NAVBAR_VERTICAL_COLLAPSE);
+  const navbarVerticalToggle = document.querySelector(Selector.NAVBAR_VERTICAL_TOGGLE);
+  const html = document.querySelector(Selector.HTML);
+  const navbarVerticalCollapse = document.querySelector(Selector.NAVBAR_VERTICAL_COLLAPSE);
   if (navbarVerticalToggle) {
-    navbarVerticalToggle.addEventListener(Events.CLICK, function (e) {
+    navbarVerticalToggle.addEventListener(Events.CLICK, e => {
       navbarVerticalToggle.blur();
       html.classList.toggle(ClassNames.NAVBAR_VERTICAL_COLLAPSED);
 
       // Set collapse state on localStorage
-      var isNavbarVerticalCollapsed = utils.getItemFromStore('isNavbarVerticalCollapsed');
+      const isNavbarVerticalCollapsed = utils.getItemFromStore('isNavbarVerticalCollapsed');
       utils.setItemToStore('isNavbarVerticalCollapsed', !isNavbarVerticalCollapsed);
-      var event = new CustomEvent(Events.NAVBAR_VERTICAL_TOGGLE);
+      const event = new CustomEvent(Events.NAVBAR_VERTICAL_TOGGLE);
       e.currentTarget.dispatchEvent(event);
     });
   }
   if (navbarVerticalCollapse) {
-    navbarVerticalCollapse.addEventListener(Events.MOUSE_OVER, function () {
+    navbarVerticalCollapse.addEventListener(Events.MOUSE_OVER, () => {
       if (utils.hasClass(html, ClassNames.NAVBAR_VERTICAL_COLLAPSED)) {
         html.classList.add(ClassNames.NAVBAR_VERTICAL_COLLAPSED_HOVER);
       }
     });
-    navbarVerticalCollapse.addEventListener(Events.MOUSE_LEAVE, function () {
+    navbarVerticalCollapse.addEventListener(Events.MOUSE_LEAVE, () => {
       if (utils.hasClass(html, ClassNames.NAVBAR_VERTICAL_COLLAPSED_HOVER)) {
         html.classList.remove(ClassNames.NAVBAR_VERTICAL_COLLAPSED_HOVER);
       }
@@ -4400,13 +4377,13 @@ var handleNavbarVerticalCollapsed = function handleNavbarVerticalCollapsed() {
 /* -------------------------------------------------------------------------- */
 /*                               noUiSlider                                   */
 /* -------------------------------------------------------------------------- */
-var nouisliderInit = function nouisliderInit() {
+const nouisliderInit = () => {
   if (window.noUiSlider) {
-    var elements = document.querySelectorAll('[data-nouislider]');
-    elements.forEach(function (item) {
-      var sliderValue = document.querySelector('[data-nouislider-value]');
-      var userOptions = utils.getData(item, 'nouislider');
-      var defaultOptions = {
+    const elements = document.querySelectorAll('[data-nouislider]');
+    elements.forEach(item => {
+      const sliderValue = document.querySelector('[data-nouislider-value]');
+      const userOptions = utils.getData(item, 'nouislider');
+      const defaultOptions = {
         start: [10],
         connect: [true, false],
         step: 1,
@@ -4416,9 +4393,11 @@ var nouisliderInit = function nouisliderInit() {
         },
         tooltips: true
       };
-      var options = window._.merge(defaultOptions, userOptions);
-      window.noUiSlider.create(item, _objectSpread({}, options));
-      sliderValue && item.noUiSlider.on('update', function (values, handle) {
+      const options = window._.merge(defaultOptions, userOptions);
+      window.noUiSlider.create(item, {
+        ...options
+      });
+      sliderValue && item.noUiSlider.on('update', (values, handle) => {
         sliderValue.innerHTML = values[handle];
       });
     });
@@ -4428,27 +4407,29 @@ var nouisliderInit = function nouisliderInit() {
 /* -------------------------------------------------------------------------- */
 /*                                   Popover                                  */
 /* -------------------------------------------------------------------------- */
-var picmoInit = function picmoInit() {
-  var picmoBtns = document.querySelectorAll('[data-picmo]');
+const picmoInit = () => {
+  const picmoBtns = document.querySelectorAll('[data-picmo]');
   if (picmoBtns) {
-    Array.from(picmoBtns).forEach(function (btn) {
-      var inputTarget = utils.getData(btn, 'picmo-input-target');
-      var userOptions = utils.getData(btn, 'picmo');
-      var defaultOptions = {
+    Array.from(picmoBtns).forEach(btn => {
+      const inputTarget = utils.getData(btn, 'picmo-input-target');
+      const userOptions = utils.getData(btn, 'picmo');
+      const defaultOptions = {
         referenceElement: btn,
         triggerElement: btn,
         position: 'bottom-center',
         showCloseButton: false
       };
-      var options = window._.merge(defaultOptions, userOptions);
-      var picker = window.picmoPopup.createPopup({
+      const options = window._.merge(defaultOptions, userOptions);
+      const picker = window.picmoPopup.createPopup({
         showPreview: false
-      }, _objectSpread({}, options));
-      btn.addEventListener('click', function () {
+      }, {
+        ...options
+      });
+      btn.addEventListener('click', () => {
         picker.toggle();
       });
-      var input = document.querySelector(inputTarget);
-      picker.addEventListener('emoji:select', function (selection) {
+      const input = document.querySelector(inputTarget);
+      picker.addEventListener('emoji:select', selection => {
         if (input) {
           input.innerHTML += selection.emoji;
         }
@@ -4461,17 +4442,17 @@ var picmoInit = function picmoInit() {
 |   Inline Player [plyr]
 -----------------------------------------------*/
 
-var plyrInit = function plyrInit() {
+const plyrInit = () => {
   if (window.Plyr) {
-    var plyrs = document.querySelectorAll('.player');
-    plyrs.forEach(function (plyr) {
-      var userOptions = utils.getData(plyr, 'options');
-      var defaultOptions = {
+    const plyrs = document.querySelectorAll('.player');
+    plyrs.forEach(plyr => {
+      const userOptions = utils.getData(plyr, 'options');
+      const defaultOptions = {
         captions: {
           active: true
         }
       };
-      var options = window._.merge(defaultOptions, userOptions);
+      const options = window._.merge(defaultOptions, userOptions);
       return new window.Plyr(plyr, options);
     });
   }
@@ -4481,9 +4462,9 @@ var plyrInit = function plyrInit() {
 /*                                   Popover                                  */
 /* -------------------------------------------------------------------------- */
 
-var popoverInit = function popoverInit() {
-  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-  popoverTriggerList.map(function (popoverTriggerEl) {
+const popoverInit = () => {
+  const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+  popoverTriggerList.map(popoverTriggerEl => {
     return new window.bootstrap.Popover(popoverTriggerEl);
   });
 };
@@ -4492,12 +4473,12 @@ var popoverInit = function popoverInit() {
 /*                         Bootstrap Animated Progress                        */
 /* -------------------------------------------------------------------------- */
 
-var progressAnimationToggle = function progressAnimationToggle() {
-  var animatedProgress = document.querySelectorAll('[data-progress-animation]');
-  animatedProgress.forEach(function (progress) {
-    progress.addEventListener('click', function (e) {
-      var progressID = utils.getData(e.currentTarget, 'progressAnimation');
-      var $progress = document.getElementById(progressID);
+const progressAnimationToggle = () => {
+  const animatedProgress = document.querySelectorAll('[data-progress-animation]');
+  animatedProgress.forEach(progress => {
+    progress.addEventListener('click', e => {
+      const progressID = utils.getData(e.currentTarget, 'progressAnimation');
+      const $progress = document.getElementById(progressID);
       $progress.classList.toggle('progress-bar-animated');
     });
   });
@@ -4506,29 +4487,29 @@ var progressAnimationToggle = function progressAnimationToggle() {
 /*-----------------------------------------------
 |  Quantity
 -----------------------------------------------*/
-var quantityInit = function quantityInit() {
-  var Selector = {
+const quantityInit = () => {
+  const Selector = {
     DATA_QUANTITY_BTN: '[data-quantity] [data-type]',
     DATA_QUANTITY: '[data-quantity]',
     DATA_QUANTITY_INPUT: '[data-quantity] input[type="number"]'
   };
-  var Events = {
+  const Events = {
     CLICK: 'click'
   };
-  var Attributes = {
+  const Attributes = {
     MIN: 'min'
   };
-  var DataKey = {
+  const DataKey = {
     TYPE: 'type'
   };
-  var quantities = document.querySelectorAll(Selector.DATA_QUANTITY_BTN);
-  quantities.forEach(function (quantity) {
-    quantity.addEventListener(Events.CLICK, function (e) {
-      var el = e.currentTarget;
-      var type = utils.getData(el, DataKey.TYPE);
-      var numberInput = el.closest(Selector.DATA_QUANTITY).querySelector(Selector.DATA_QUANTITY_INPUT);
-      var min = numberInput.getAttribute(Attributes.MIN);
-      var value = parseInt(numberInput.value, 10);
+  const quantities = document.querySelectorAll(Selector.DATA_QUANTITY_BTN);
+  quantities.forEach(quantity => {
+    quantity.addEventListener(Events.CLICK, e => {
+      const el = e.currentTarget;
+      const type = utils.getData(el, DataKey.TYPE);
+      const numberInput = el.closest(Selector.DATA_QUANTITY).querySelector(Selector.DATA_QUANTITY_INPUT);
+      const min = numberInput.getAttribute(Attributes.MIN);
+      let value = parseInt(numberInput.value, 10);
       if (type === 'plus') {
         value += 1;
       } else {
@@ -4545,19 +4526,20 @@ var quantityInit = function quantityInit() {
 
 /* -------------------------------------------------------------------------- */
 
-var ratingInit = function ratingInit() {
-  var raters = document.querySelectorAll('[data-rater]');
-  raters.forEach(function (rater) {
-    var options = _objectSpread({
+const ratingInit = () => {
+  const raters = document.querySelectorAll("[data-rater]");
+  raters.forEach(rater => {
+    let options = {
       reverse: utils.getItemFromStore('isRTL'),
       starSize: 32,
       step: 0.5,
       element: rater,
-      rateCallback: function rateCallback(rating, done) {
+      rateCallback(rating, done) {
         this.setRating(rating);
         done();
-      }
-    }, utils.getData(rater, 'rater'));
+      },
+      ...utils.getData(rater, "rater")
+    };
     return window.raterJs(options);
   });
 };
@@ -4567,12 +4549,12 @@ var ratingInit = function ratingInit() {
 /* -------------------------------------------------------------------------- */
 // import utils from './utils';
 
-var scrollInit = function scrollInit() {
-  var dropdownElements = Array.from(document.querySelectorAll('[data-hide-on-body-scroll]'));
+const scrollInit = () => {
+  const dropdownElements = Array.from(document.querySelectorAll('[data-hide-on-body-scroll]'));
   if (window.innerWidth < 1200) {
-    window.addEventListener('scroll', function () {
-      dropdownElements.forEach(function (dropdownElement) {
-        var instanceEl = window.bootstrap.Dropdown.getInstance(dropdownElement);
+    window.addEventListener('scroll', () => {
+      dropdownElements.forEach(dropdownElement => {
+        const instanceEl = window.bootstrap.Dropdown.getInstance(dropdownElement);
         instanceEl && instanceEl.hide();
       });
     });
@@ -4583,15 +4565,13 @@ var scrollInit = function scrollInit() {
 /*                                 Scrollbars                                 */
 /* -------------------------------------------------------------------------- */
 
-var scrollbarInit = function scrollbarInit() {
-  Array.prototype.forEach.call(document.querySelectorAll('.scrollbar-overlay'), function (el) {
-    return new window.SimpleBar(el, {
-      autoHide: true
-    });
-  });
+const scrollbarInit = () => {
+  Array.prototype.forEach.call(document.querySelectorAll('.scrollbar-overlay'), el => new window.SimpleBar(el, {
+    autoHide: true
+  }));
 };
-var searchInit = function searchInit() {
-  var Selectors = {
+const searchInit = () => {
+  const Selectors = {
     SEARCH_DISMISS: '[data-bs-dismiss="search"]',
     DROPDOWN_TOGGLE: '[data-bs-toggle="dropdown"]',
     DROPDOWN_MENU: '.dropdown-menu',
@@ -4599,57 +4579,58 @@ var searchInit = function searchInit() {
     SEARCH_INPUT: '.search-input',
     SEARCH_TOGGLE: '[data-bs-toggle="search"]'
   };
-  var ClassName = {
+  const ClassName = {
     SHOW: 'show'
   };
-  var Attribute = {
+  const Attribute = {
     ARIA_EXPANDED: 'aria-expanded'
   };
-  var Events = {
+  const Events = {
     CLICK: 'click',
     FOCUS: 'focus',
     SHOW_BS_DROPDOWN: 'show.bs.dropdown',
     SEARCH_CLOSE: 'search.close'
   };
-  var hideSearchSuggestion = function hideSearchSuggestion(searchArea) {
-    var el = searchArea.querySelector(Selectors.SEARCH_TOGGLE);
-    var dropdownMenu = searchArea.querySelector(Selectors.DROPDOWN_MENU);
+  const hideSearchSuggestion = searchArea => {
+    const el = searchArea.querySelector(Selectors.SEARCH_TOGGLE);
+    const dropdownMenu = searchArea.querySelector(Selectors.DROPDOWN_MENU);
     if (!el || !dropdownMenu) return;
     el.setAttribute(Attribute.ARIA_EXPANDED, 'false');
     el.classList.remove(ClassName.SHOW);
     dropdownMenu.classList.remove(ClassName.SHOW);
   };
-  var searchAreas = document.querySelectorAll(Selectors.SEARCH_BOX);
-  var hideAllSearchAreas = function hideAllSearchAreas() {
+  const searchAreas = document.querySelectorAll(Selectors.SEARCH_BOX);
+  const hideAllSearchAreas = () => {
     searchAreas.forEach(hideSearchSuggestion);
   };
-  searchAreas.forEach(function (searchArea) {
-    var input = searchArea.querySelector(Selectors.SEARCH_INPUT);
-    var btnDropdownClose = searchArea.querySelector(Selectors.SEARCH_DISMISS);
-    var dropdownMenu = searchArea.querySelector(Selectors.DROPDOWN_MENU);
+  searchAreas.forEach(searchArea => {
+    const input = searchArea.querySelector(Selectors.SEARCH_INPUT);
+    const btnDropdownClose = searchArea.querySelector(Selectors.SEARCH_DISMISS);
+    const dropdownMenu = searchArea.querySelector(Selectors.DROPDOWN_MENU);
     if (input) {
-      input.addEventListener(Events.FOCUS, function () {
+      input.addEventListener(Events.FOCUS, () => {
         hideAllSearchAreas();
-        var el = searchArea.querySelector(Selectors.SEARCH_TOGGLE);
+        const el = searchArea.querySelector(Selectors.SEARCH_TOGGLE);
         if (!el || !dropdownMenu) return;
         el.setAttribute(Attribute.ARIA_EXPANDED, 'true');
         el.classList.add(ClassName.SHOW);
         dropdownMenu.classList.add(ClassName.SHOW);
       });
     }
-    document.addEventListener(Events.CLICK, function (_ref11) {
-      var target = _ref11.target;
+    document.addEventListener(Events.CLICK, ({
+      target
+    }) => {
       !searchArea.contains(target) && hideSearchSuggestion(searchArea);
     });
-    btnDropdownClose && btnDropdownClose.addEventListener(Events.CLICK, function (e) {
+    btnDropdownClose && btnDropdownClose.addEventListener(Events.CLICK, e => {
       hideSearchSuggestion(searchArea);
       input.value = '';
-      var event = new CustomEvent(Events.SEARCH_CLOSE);
+      const event = new CustomEvent(Events.SEARCH_CLOSE);
       e.currentTarget.dispatchEvent(event);
     });
   });
-  document.querySelectorAll(Selectors.DROPDOWN_TOGGLE).forEach(function (dropdown) {
-    dropdown.addEventListener(Events.SHOW_BS_DROPDOWN, function () {
+  document.querySelectorAll(Selectors.DROPDOWN_TOGGLE).forEach(dropdown => {
+    dropdown.addEventListener(Events.SHOW_BS_DROPDOWN, () => {
       hideAllSearchAreas();
     });
   });
@@ -4659,13 +4640,13 @@ var searchInit = function searchInit() {
 |   Select2
 -----------------------------------------------*/
 
-var select2Init = function select2Init() {
+const select2Init = () => {
   if (window.jQuery) {
-    var $ = window.jQuery;
-    var select2 = $('.selectpicker');
-    select2.length && select2.each(function (index, value) {
-      var $this = $(value);
-      var options = $.extend({
+    const $ = window.jQuery;
+    const select2 = $('.selectpicker');
+    select2.length && select2.each((index, value) => {
+      const $this = $(value);
+      const options = $.extend({
         theme: 'bootstrap-5'
       }, $this.data('options'));
       $this.select2(options);
@@ -4676,42 +4657,47 @@ var select2Init = function select2Init() {
 /*-----------------------------------------------
 |  Swiper
 -----------------------------------------------*/
-var swiperInit = function swiperInit() {
-  var swipers = document.querySelectorAll('[data-swiper]');
-  var navbarVerticalToggle = document.querySelector('.navbar-vertical-toggle');
-  swipers.forEach(function (swiper) {
-    var options = utils.getData(swiper, 'swiper');
-    var thumbsOptions = options.thumb;
-    var thumbsInit;
+const swiperInit = () => {
+  const swipers = document.querySelectorAll('[data-swiper]');
+  const navbarVerticalToggle = document.querySelector('.navbar-vertical-toggle');
+  swipers.forEach(swiper => {
+    const options = utils.getData(swiper, 'swiper');
+    const thumbsOptions = options.thumb;
+    let thumbsInit;
     if (thumbsOptions) {
-      var thumbImages = swiper.querySelectorAll('img');
-      var slides = '';
-      thumbImages.forEach(function (img) {
-        slides += "\n          <div class='swiper-slide '>\n            <img class='img-fluid rounded mt-1' src=".concat(img.src, " alt=''/>\n          </div>\n        ");
+      const thumbImages = swiper.querySelectorAll('img');
+      let slides = '';
+      thumbImages.forEach(img => {
+        slides += `
+          <div class='swiper-slide '>
+            <img class='img-fluid rounded mt-1' src=${img.src} alt=''/>
+          </div>
+        `;
       });
-      var thumbs = document.createElement('div');
+      const thumbs = document.createElement('div');
       thumbs.setAttribute('class', 'swiper-container thumb');
-      thumbs.innerHTML = "<div class='swiper-wrapper'>".concat(slides, "</div>");
+      thumbs.innerHTML = `<div class='swiper-wrapper'>${slides}</div>`;
       if (thumbsOptions.parent) {
-        var parent = document.querySelector(thumbsOptions.parent);
+        const parent = document.querySelector(thumbsOptions.parent);
         parent.parentNode.appendChild(thumbs);
       } else {
         swiper.parentNode.appendChild(thumbs);
       }
       thumbsInit = new window.Swiper(thumbs, thumbsOptions);
     }
-    var swiperNav = swiper.querySelector('.swiper-nav');
-    var newSwiper = new window.Swiper(swiper, _objectSpread(_objectSpread({}, options), {}, {
+    const swiperNav = swiper.querySelector('.swiper-nav');
+    const newSwiper = new window.Swiper(swiper, {
+      ...options,
       navigation: {
-        nextEl: swiperNav === null || swiperNav === void 0 ? void 0 : swiperNav.querySelector('.swiper-button-next'),
-        prevEl: swiperNav === null || swiperNav === void 0 ? void 0 : swiperNav.querySelector('.swiper-button-prev')
+        nextEl: swiperNav?.querySelector('.swiper-button-next'),
+        prevEl: swiperNav?.querySelector('.swiper-button-prev')
       },
       thumbs: {
         swiper: thumbsInit
       }
-    }));
+    });
     if (navbarVerticalToggle) {
-      navbarVerticalToggle.addEventListener('navbar.vertical.toggle', function () {
+      navbarVerticalToggle.addEventListener('navbar.vertical.toggle', () => {
         newSwiper.update();
       });
     }
@@ -4727,13 +4713,13 @@ var swiperInit = function swiperInit() {
 /* eslint-disable no-param-reassign */
 /* eslint-disable */
 
-var initialDomSetup = function initialDomSetup(element) {
+const initialDomSetup = element => {
   if (!element) return;
-  var dataUrlDom = element.querySelector('[data-theme-control = "navbarPosition"]');
-  var hasDataUrl = dataUrlDom ? getData(dataUrlDom, 'page-url') : null;
-  element.querySelectorAll('[data-theme-control]').forEach(function (el) {
-    var inputDataAttributeValue = getData(el, 'theme-control');
-    var localStorageValue = getItemFromStore(inputDataAttributeValue);
+  const dataUrlDom = element.querySelector('[data-theme-control = "navbarPosition"]');
+  const hasDataUrl = dataUrlDom ? getData(dataUrlDom, 'page-url') : null;
+  element.querySelectorAll('[data-theme-control]').forEach(el => {
+    const inputDataAttributeValue = getData(el, 'theme-control');
+    const localStorageValue = getItemFromStore(inputDataAttributeValue);
     if (inputDataAttributeValue === 'navbarStyle' && !hasDataUrl && (getItemFromStore('navbarPosition') === 'top' || getItemFromStore('navbarPosition') === 'double-top')) {
       el.setAttribute('disabled', true);
     }
@@ -4749,18 +4735,18 @@ var initialDomSetup = function initialDomSetup(element) {
         localStorageValue && el.setAttribute('checked', true);
       }
     } else if (el.type === 'radio') {
-      var isChecked = localStorageValue === el.value;
+      const isChecked = localStorageValue === el.value;
       isChecked && el.setAttribute('checked', true);
     } else {
-      var isActive = localStorageValue === el.value;
+      const isActive = localStorageValue === el.value;
       isActive && el.classList.add('active');
     }
   });
 };
-var changeTheme = function changeTheme(element) {
-  element.querySelectorAll('[data-theme-control = "theme"]').forEach(function (el) {
-    var inputDataAttributeValue = getData(el, 'theme-control');
-    var localStorageValue = getItemFromStore(inputDataAttributeValue);
+const changeTheme = element => {
+  element.querySelectorAll('[data-theme-control = "theme"]').forEach(el => {
+    const inputDataAttributeValue = getData(el, 'theme-control');
+    const localStorageValue = getItemFromStore(inputDataAttributeValue);
     if (el.type === 'checkbox') {
       if (localStorageValue === 'auto') {
         getSystemTheme() === 'dark' ? el.checked = true : el.checked = false;
@@ -4774,10 +4760,10 @@ var changeTheme = function changeTheme(element) {
     }
   });
 };
-var localStorageValue = getItemFromStore('theme');
-var handleThemeDropdownIcon = function handleThemeDropdownIcon(value) {
-  document.querySelectorAll('[data-theme-dropdown-toggle-icon]').forEach(function (el) {
-    var theme = getData(el, 'theme-dropdown-toggle-icon');
+const localStorageValue = getItemFromStore('theme');
+const handleThemeDropdownIcon = value => {
+  document.querySelectorAll('[data-theme-dropdown-toggle-icon]').forEach(el => {
+    const theme = getData(el, 'theme-dropdown-toggle-icon');
     if (value === theme) {
       el.classList.remove('d-none');
     } else {
@@ -4786,15 +4772,15 @@ var handleThemeDropdownIcon = function handleThemeDropdownIcon(value) {
   });
 };
 handleThemeDropdownIcon(localStorageValue);
-var themeControl = function themeControl() {
-  var themeController = new DomNode(document.body);
-  var navbarVertical = document.querySelector('.navbar-vertical');
+const themeControl = () => {
+  const themeController = new DomNode(document.body);
+  const navbarVertical = document.querySelector('.navbar-vertical');
   initialDomSetup(themeController.node);
-  themeController.on('click', function (e) {
-    var target = new DomNode(e.target);
+  themeController.on('click', e => {
+    const target = new DomNode(e.target);
     if (target.data('theme-control')) {
-      var control = target.data('theme-control');
-      var value = e.target[e.target.type === 'checkbox' ? 'checked' : 'value'];
+      const control = target.data('theme-control');
+      let value = e.target[e.target.type === 'checkbox' ? 'checked' : 'value'];
       if (control === 'theme') {
         typeof value === 'boolean' && (value = value ? 'dark' : 'light');
       }
@@ -4804,10 +4790,10 @@ var themeControl = function themeControl() {
           case 'theme':
             {
               document.documentElement.setAttribute('data-bs-theme', value === 'auto' ? getSystemTheme() : value);
-              var clickControl = new CustomEvent('clickControl', {
+              const clickControl = new CustomEvent('clickControl', {
                 detail: {
-                  control: control,
-                  value: value
+                  control,
+                  value
                 }
               });
               e.currentTarget.dispatchEvent(clickControl);
@@ -4820,13 +4806,13 @@ var themeControl = function themeControl() {
               navbarVertical.classList.remove('navbar-inverted');
               navbarVertical.classList.remove('navbar-vibrant');
               if (value !== 'transparent') {
-                navbarVertical.classList.add("navbar-".concat(value));
+                navbarVertical.classList.add(`navbar-${value}`);
               }
               break;
             }
           case 'reset':
             {
-              Object.keys(CONFIG).forEach(function (key) {
+              Object.keys(CONFIG).forEach(key => {
                 localStorage.setItem(key, CONFIG[key]);
               });
               window.location.reload();
@@ -4840,18 +4826,20 @@ var themeControl = function themeControl() {
   });
 
   // control navbar position
-  themeController.on('change', function (e) {
-    var target = new DomNode(e.target);
+  themeController.on('change', e => {
+    const target = new DomNode(e.target);
     if (target.data('theme-control') === 'navbarPosition') {
       CONFIG.hasOwnProperty('navbarPosition') && setItemToStore('navbarPosition', e.target.value);
-      var pageUrl = getData(target.node.selectedOptions[0], 'page-url');
+      const pageUrl = getData(target.node.selectedOptions[0], 'page-url');
       !!pageUrl ? window.location.replace(pageUrl) : window.location.replace(window.location.href.split('#')[0]);
     }
   });
-  themeController.on('clickControl', function (_ref12) {
-    var _ref12$detail = _ref12.detail,
-      control = _ref12$detail.control,
-      value = _ref12$detail.value;
+  themeController.on('clickControl', ({
+    detail: {
+      control,
+      value
+    }
+  }) => {
     if (control === 'theme') {
       handleThemeDropdownIcon(value);
     }
@@ -4862,9 +4850,9 @@ var themeControl = function themeControl() {
 /*                                   Tinymce                                  */
 /* -------------------------------------------------------------------------- */
 
-var tinymceInit = function tinymceInit() {
+const tinymceInit = () => {
   if (window.tinymce) {
-    var tinymces = document.querySelectorAll('[data-tinymce]');
+    const tinymces = document.querySelectorAll('[data-tinymce]');
     if (tinymces.length) {
       window.tinymce.execCommand('mceFocus', false, 'course-description');
       window.tinymce.init({
@@ -4872,7 +4860,7 @@ var tinymceInit = function tinymceInit() {
         height: '50vh',
         menubar: false,
         skin: utils.settings.tinymce.theme,
-        content_style: ".mce-content-body { color: ".concat(utils.getColors().emphasis, "; background-color: ").concat(utils.getColor('tinymce-bg'), " }"),
+        content_style: `.mce-content-body { color: ${utils.getColors().emphasis}; background-color: ${utils.getColor('tinymce-bg')} }`,
         mobile: {
           theme: 'mobile',
           toolbar: ['undo', 'bold']
@@ -4882,19 +4870,22 @@ var tinymceInit = function tinymceInit() {
         toolbar: 'styleselect | bold italic link bullist numlist image blockquote table media undo redo',
         directionality: utils.getItemFromStore('isRTL') ? 'rtl' : 'ltr',
         theme_advanced_toolbar_align: 'center',
-        setup: function setup(editor) {
-          editor.on('change', function () {
+        setup: editor => {
+          editor.on('change', () => {
             window.tinymce.triggerSave();
           });
         }
       });
     }
-    var themeController = document.body;
-    themeController && themeController.addEventListener('clickControl', function (_ref13) {
-      var control = _ref13.detail.control;
+    const themeController = document.body;
+    themeController && themeController.addEventListener('clickControl', ({
+      detail: {
+        control
+      }
+    }) => {
       if (control === 'theme') {
-        window.tinyMCE.editors.forEach(function (el) {
-          el.dom.addStyle(".mce-content-body{color: ".concat(utils.getColors().emphasis, " !important; background-color: ").concat(utils.getColor('tinymce-bg'), " !important;}"));
+        window.tinyMCE.editors.forEach(el => {
+          el.dom.addStyle(`.mce-content-body{color: ${utils.getColors().emphasis} !important; background-color: ${utils.getColor('tinymce-bg')} !important;}`);
         });
       }
     });
@@ -4905,15 +4896,13 @@ var tinymceInit = function tinymceInit() {
 /*                                    Toast                                   */
 /* -------------------------------------------------------------------------- */
 
-var toastInit = function toastInit() {
-  var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  toastElList.map(function (toastEl) {
-    return new window.bootstrap.Toast(toastEl);
-  });
-  var liveToastBtn = document.getElementById('liveToastBtn');
+const toastInit = () => {
+  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  toastElList.map(toastEl => new window.bootstrap.Toast(toastEl));
+  const liveToastBtn = document.getElementById('liveToastBtn');
   if (liveToastBtn) {
-    var liveToast = new window.bootstrap.Toast(document.getElementById('liveToast'));
-    liveToastBtn.addEventListener('click', function () {
+    const liveToast = new window.bootstrap.Toast(document.getElementById('liveToast'));
+    liveToastBtn.addEventListener('click', () => {
       liveToast && liveToast.show();
     });
   }
@@ -4922,13 +4911,11 @@ var toastInit = function toastInit() {
 /* -------------------------------------------------------------------------- */
 /*                                   Tooltip                                  */
 /* -------------------------------------------------------------------------- */
-var tooltipInit = function tooltipInit() {
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new window.bootstrap.Tooltip(tooltipTriggerEl, {
-      trigger: 'hover'
-    });
-  });
+const tooltipInit = () => {
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(tooltipTriggerEl => new window.bootstrap.Tooltip(tooltipTriggerEl, {
+    trigger: 'hover'
+  }));
 };
 
 /* eslint-disable no-param-reassign */
@@ -4936,13 +4923,13 @@ var tooltipInit = function tooltipInit() {
 /* -------------------------------------------------------------------------- */
 /*                                   Treeview                                  */
 /* -------------------------------------------------------------------------- */
-var treeviewInit = function treeviewInit() {
-  var Events = {
+const treeviewInit = () => {
+  const Events = {
     CHANGE: 'change',
     SHOW_BS_COLLAPSE: 'show.bs.collapse',
     HIDE_BS_COLLAPSE: 'hide.bs.collapse'
   };
-  var Selector = {
+  const Selector = {
     TREEVIEW_ROW: '.treeview > li > .treeview-row,.treeview-list.collapse-show > li > .treeview-row',
     TREEVIEW: '.treeview',
     TREEVIEW_LIST: '.treeview-list',
@@ -4951,7 +4938,7 @@ var treeviewInit = function treeviewInit() {
     TREEVIEW_LIST_ITEM: '.treeview-list-item',
     CHILD_SELECTOR: ':scope > li > .collapse.collapse-show'
   };
-  var ClassName = {
+  const ClassName = {
     TREEVIEW: 'treeview',
     TREEVIEW_LIST: 'treeview-list',
     TREEVIEW_BORDER: 'treeview-border',
@@ -4962,11 +4949,11 @@ var treeviewInit = function treeviewInit() {
     TREEVIEW_ROW_ODD: 'treeview-row-odd',
     TREEVIEW_ROW_EVEN: 'treeview-row-even'
   };
-  var treeviews = document.querySelectorAll(Selector.TREEVIEW);
-  var makeStriped = function makeStriped(treeview) {
-    var tags = Array.from(treeview.querySelectorAll(Selector.TREEVIEW_ROW));
-    var uTags = tags.filter(function (tag) {
-      var result = true;
+  const treeviews = document.querySelectorAll(Selector.TREEVIEW);
+  const makeStriped = treeview => {
+    const tags = Array.from(treeview.querySelectorAll(Selector.TREEVIEW_ROW));
+    const uTags = tags.filter(tag => {
+      let result = true;
       while (tag.parentElement) {
         if (tag.parentElement.classList.contains(ClassName.COLLAPSE_HIDDEN)) {
           result = false;
@@ -4976,7 +4963,7 @@ var treeviewInit = function treeviewInit() {
       }
       return result;
     });
-    uTags.forEach(function (tag, index) {
+    uTags.forEach((tag, index) => {
       if (index % 2 === 0) {
         tag.classList.add(ClassName.TREEVIEW_ROW_EVEN);
         tag.classList.remove(ClassName.TREEVIEW_ROW_ODD);
@@ -4987,26 +4974,26 @@ var treeviewInit = function treeviewInit() {
     });
   };
   if (treeviews.length) {
-    treeviews.forEach(function (treeview) {
-      var options = utils.getData(treeview, 'options');
-      var striped = options === null || options === void 0 ? void 0 : options.striped;
-      var select = options === null || options === void 0 ? void 0 : options.select;
+    treeviews.forEach(treeview => {
+      const options = utils.getData(treeview, 'options');
+      const striped = options?.striped;
+      const select = options?.select;
       if (striped) {
         makeStriped(treeview);
       }
-      var collapseElementList = Array.from(treeview.querySelectorAll(Selector.TREEVIEW_LIST));
-      var collapseListItem = Array.from(treeview.querySelectorAll(Selector.TREEVIEW_LIST_ITEM));
-      collapseListItem.forEach(function (item) {
-        var wholeRow = document.createElement('div');
+      const collapseElementList = Array.from(treeview.querySelectorAll(Selector.TREEVIEW_LIST));
+      const collapseListItem = Array.from(treeview.querySelectorAll(Selector.TREEVIEW_LIST_ITEM));
+      collapseListItem.forEach(item => {
+        const wholeRow = document.createElement('div');
         wholeRow.setAttribute('class', ClassName.TREEVIEW_ROW);
         item.prepend(wholeRow);
       });
-      collapseElementList.forEach(function (collapse) {
-        var collapseId = collapse.id;
+      collapseElementList.forEach(collapse => {
+        const collapseId = collapse.id;
         if (!striped) {
           collapse.classList.add(ClassName.TREEVIEW_BORDER);
         }
-        collapse.addEventListener(Events.SHOW_BS_COLLAPSE, function (e) {
+        collapse.addEventListener(Events.SHOW_BS_COLLAPSE, e => {
           e.target.classList.remove(ClassName.COLLAPSE_HIDDEN);
           e.target.classList.add(ClassName.COLLAPSE_SHOW);
           if (striped) {
@@ -5015,13 +5002,13 @@ var treeviewInit = function treeviewInit() {
             e.composedPath()[2].classList.add(ClassName.TREEVIEW_BORDER_TRANSPARENT);
           }
         });
-        collapse.addEventListener(Events.HIDE_BS_COLLAPSE, function (e) {
+        collapse.addEventListener(Events.HIDE_BS_COLLAPSE, e => {
           e.target.classList.add(ClassName.COLLAPSE_HIDDEN);
           e.target.classList.remove(ClassName.COLLAPSE_SHOW);
           if (striped) {
             makeStriped(treeview);
           } else {
-            var childs = e.composedPath()[2].querySelectorAll(Selector.CHILD_SELECTOR);
+            const childs = e.composedPath()[2].querySelectorAll(Selector.CHILD_SELECTOR);
             // eslint-disable-next-line
             if (!e.composedPath()[2].classList.contains(ClassName.TREEVIEW) && childs.length === 0) {
               e.composedPath()[2].classList.remove(ClassName.TREEVIEW_BORDER_TRANSPARENT);
@@ -5029,14 +5016,14 @@ var treeviewInit = function treeviewInit() {
           }
         });
         if (collapse.dataset.show === 'true') {
-          var parents = [collapse];
+          const parents = [collapse];
           while (collapse.parentElement) {
             if (collapse.parentElement.classList.contains(ClassName.TREEVIEW_LIST)) {
               parents.unshift(collapse.parentElement);
             }
             collapse = collapse.parentElement;
           }
-          parents.forEach(function (collapseEl) {
+          parents.forEach(collapseEl => {
             // eslint-disable-next-line no-new
             new window.bootstrap.Collapse(collapseEl, {
               show: true
@@ -5044,10 +5031,10 @@ var treeviewInit = function treeviewInit() {
           });
         }
         if (select) {
-          var inputElement = treeview.querySelector("input[data-target='#".concat(collapseId, "']"));
-          inputElement.addEventListener(Events.CHANGE, function (e) {
-            var childInputElements = Array.from(treeview.querySelector("#".concat(collapseId)).querySelectorAll(Selector.INPUT));
-            childInputElements.forEach(function (input) {
+          const inputElement = treeview.querySelector(`input[data-target='#${collapseId}']`);
+          inputElement.addEventListener(Events.CHANGE, e => {
+            const childInputElements = Array.from(treeview.querySelector(`#${collapseId}`).querySelectorAll(Selector.INPUT));
+            childInputElements.forEach(input => {
               input.checked = e.target.checked;
             });
           });
@@ -5061,10 +5048,10 @@ var treeviewInit = function treeviewInit() {
 /*                                 Typed Text                                 */
 /* -------------------------------------------------------------------------- */
 
-var typedTextInit = function typedTextInit() {
-  var typedTexts = document.querySelectorAll('.typed-text');
+const typedTextInit = () => {
+  const typedTexts = document.querySelectorAll('.typed-text');
   if (typedTexts.length && window.Typed) {
-    typedTexts.forEach(function (typedText) {
+    typedTexts.forEach(typedText => {
       return new window.Typed(typedText, {
         strings: utils.getData(typedText, 'typedText'),
         typeSpeed: 100,
@@ -5074,11 +5061,11 @@ var typedTextInit = function typedTextInit() {
     });
   }
 };
-var unresolvedTicketsTabInit = function unresolvedTicketsTabInit() {
-  var dropdownToggle = document.querySelectorAll('.dropdown-toggle-item a');
-  var layout = document.querySelector('.table-layout');
-  dropdownToggle.forEach(function (item) {
-    item.addEventListener('shown.bs.tab', function (e) {
+const unresolvedTicketsTabInit = () => {
+  const dropdownToggle = document.querySelectorAll('.dropdown-toggle-item a');
+  const layout = document.querySelector('.table-layout');
+  dropdownToggle.forEach(item => {
+    item.addEventListener('shown.bs.tab', e => {
       layout.innerText = e.target.innerText;
     });
   });
@@ -5092,9 +5079,11 @@ var unresolvedTicketsTabInit = function unresolvedTicketsTabInit() {
 /*                                 step wizard                                */
 /* -------------------------------------------------------------------------- */
 
-var wizardInit = function wizardInit() {
-  var getData = utils.getData;
-  var selectors = {
+const wizardInit = () => {
+  const {
+    getData
+  } = utils;
+  const selectors = {
     WIZARDS: '.theme-wizard',
     TOGGLE_BUTTON_EL: '[data-wizard-step]',
     FORMS: '[data-wizard-form]',
@@ -5104,34 +5093,32 @@ var wizardInit = function wizardInit() {
     PREV_BTN: '.previous button',
     FOOTER: '.theme-wizard .card-footer'
   };
-  var events = {
+  const events = {
     SUBMIT: 'submit',
     SHOW: 'show.bs.tab',
     SHOWN: 'shown.bs.tab',
     CLICK: 'click'
   };
-  var wizards = document.querySelectorAll(selectors.WIZARDS);
-  wizards.forEach(function (wizard) {
-    var tabToggleButtonEl = wizard.querySelectorAll(selectors.TOGGLE_BUTTON_EL);
-    var forms = wizard.querySelectorAll(selectors.FORMS);
-    var passwordInput = wizard.querySelector(selectors.PASSWORD_INPUT);
-    var confirmPasswordInput = wizard.querySelector(selectors.CONFIRM_PASSWORD_INPUT);
-    var nextButton = wizard.querySelector(selectors.NEXT_BTN);
-    var prevButton = wizard.querySelector(selectors.PREV_BTN);
-    var wizardFooter = wizard.querySelector(selectors.FOOTER);
-    var submitEvent = new Event(events.SUBMIT, {
+  const wizards = document.querySelectorAll(selectors.WIZARDS);
+  wizards.forEach(wizard => {
+    const tabToggleButtonEl = wizard.querySelectorAll(selectors.TOGGLE_BUTTON_EL);
+    const forms = wizard.querySelectorAll(selectors.FORMS);
+    const passwordInput = wizard.querySelector(selectors.PASSWORD_INPUT);
+    const confirmPasswordInput = wizard.querySelector(selectors.CONFIRM_PASSWORD_INPUT);
+    const nextButton = wizard.querySelector(selectors.NEXT_BTN);
+    const prevButton = wizard.querySelector(selectors.PREV_BTN);
+    const wizardFooter = wizard.querySelector(selectors.FOOTER);
+    const submitEvent = new Event(events.SUBMIT, {
       bubbles: true,
       cancelable: true
     });
 
     // eslint-disable-next-line
-    var tabs = Array.from(tabToggleButtonEl).map(function (item) {
-      return window.bootstrap.Tab.getOrCreateInstance(item);
-    });
-    var count = 0;
-    var showEvent = null;
-    forms.forEach(function (form) {
-      form.addEventListener(events.SUBMIT, function (e) {
+    const tabs = Array.from(tabToggleButtonEl).map(item => window.bootstrap.Tab.getOrCreateInstance(item));
+    let count = 0;
+    let showEvent = null;
+    forms.forEach(form => {
+      form.addEventListener(events.SUBMIT, e => {
         e.preventDefault();
         if (form.classList.contains('needs-validation')) {
           if (passwordInput && confirmPasswordInput) {
@@ -5150,42 +5137,42 @@ var wizardInit = function wizardInit() {
         return null;
       });
     });
-    nextButton.addEventListener(events.CLICK, function () {
+    nextButton.addEventListener(events.CLICK, () => {
       if (count + 1 < tabs.length) {
         tabs[count + 1].show();
       }
     });
-    prevButton.addEventListener(events.CLICK, function () {
+    prevButton.addEventListener(events.CLICK, () => {
       count -= 1;
       tabs[count].show();
     });
     if (tabToggleButtonEl.length) {
-      tabToggleButtonEl.forEach(function (item, index) {
-        item.addEventListener(events.SHOW, function (e) {
-          var step = getData(item, 'wizard-step');
+      tabToggleButtonEl.forEach((item, index) => {
+        item.addEventListener(events.SHOW, e => {
+          const step = getData(item, 'wizard-step');
           showEvent = e;
           if (step > count) {
             forms[count].dispatchEvent(submitEvent);
           }
         });
-        item.addEventListener(events.SHOWN, function () {
+        item.addEventListener(events.SHOWN, () => {
           count = index;
           // can't go back tab
           if (count === tabToggleButtonEl.length - 1) {
-            tabToggleButtonEl.forEach(function (tab) {
+            tabToggleButtonEl.forEach(tab => {
               tab.setAttribute('data-bs-toggle', 'modal');
               tab.setAttribute('data-bs-target', '#error-modal');
             });
           }
           // add done class
-          for (var i = 0; i < count; i += 1) {
+          for (let i = 0; i < count; i += 1) {
             tabToggleButtonEl[i].classList.add('done');
             if (i > 0) {
               tabToggleButtonEl[i - 1].classList.add('complete');
             }
           }
           // remove done class
-          for (var j = count; j < tabToggleButtonEl.length; j += 1) {
+          for (let j = count; j < tabToggleButtonEl.length; j += 1) {
             tabToggleButtonEl[j].classList.remove('done');
             if (j > 0) {
               tabToggleButtonEl[j - 1].classList.remove('complete');
@@ -5209,133 +5196,133 @@ var wizardInit = function wizardInit() {
     }
   });
 };
-var _window3 = window,
-  dayjs = _window3.dayjs;
-var currentDay = dayjs && dayjs().format('DD');
-var currentMonth = dayjs && dayjs().format('MM');
-var prevMonth = dayjs && dayjs().subtract(1, 'month').format('MM');
-var nextMonth = dayjs && dayjs().add(1, 'month').format('MM');
-var currentYear = dayjs && dayjs().format('YYYY');
-var events = [{
-  title: 'Boot Camp',
-  start: "".concat(currentYear, "-").concat(currentMonth, "-01 10:00:00"),
-  end: "".concat(currentYear, "-").concat(currentMonth, "-03 16:00:00"),
+const {
+  dayjs
+} = window;
+const currentDay = dayjs && dayjs().format("DD");
+const currentMonth = dayjs && dayjs().format("MM");
+const prevMonth = dayjs && dayjs().subtract(1, "month").format("MM");
+const nextMonth = dayjs && dayjs().add(1, "month").format("MM");
+const currentYear = dayjs && dayjs().format("YYYY");
+const events = [{
+  title: "Boot Camp",
+  start: `${currentYear}-${currentMonth}-01 10:00:00`,
+  end: `${currentYear}-${currentMonth}-03 16:00:00`,
   description: "Boston Harbor Now in partnership with the Friends of Christopher Columbus Park, the Wharf District Council and the City of Boston is proud to announce the New Year's Eve Midnight Harbor Fireworks! This beloved nearly 40-year old tradition is made possible by the generous support of local waterfront organizations and businesses and the support of the City of Boston and the Office of Mayor Marty Walsh.",
-  className: 'bg-success-subtle',
-  location: 'Boston Harborwalk, Christopher Columbus Park, <br /> Boston, MA 02109, United States',
-  organizer: 'Boston Harbor Now'
+  className: "bg-success-subtle",
+  location: "Boston Harborwalk, Christopher Columbus Park, <br /> Boston, MA 02109, United States",
+  organizer: "Boston Harbor Now"
 }, {
-  title: 'Crain\'s New York Business ',
-  start: "".concat(currentYear, "-").concat(currentMonth, "-11"),
+  title: `Crain's New York Business `,
+  start: `${currentYear}-${currentMonth}-11`,
   description: "Crain's 2020 Hall of Fame. Sponsored Content By Crain's Content Studio. Crain's Content Studio Presents: New Jersey: Perfect for Business. Crain's Business Forum: Letitia James, New York State Attorney General. Crain's NYC Summit: Examining racial disparities during the pandemic",
-  className: 'bg-primary-subtle'
+  className: "bg-primary-subtle"
 }, {
-  title: 'Conference',
-  start: "".concat(currentYear, "-").concat(currentMonth, "-").concat(currentDay),
-  description: 'The Milken Institute Global Conference gathered the best minds in the world to tackle some of its most stubborn challenges. It was a unique experience in which individuals with the power to enact change connected with experts who are reinventing health, technology, philanthropy, industry, and media.',
-  className: 'bg-success-subtle',
+  title: "Conference",
+  start: `${currentYear}-${currentMonth}-${currentDay}`,
+  description: "The Milken Institute Global Conference gathered the best minds in the world to tackle some of its most stubborn challenges. It was a unique experience in which individuals with the power to enact change connected with experts who are reinventing health, technology, philanthropy, industry, and media.",
+  className: "bg-success-subtle",
   allDay: true,
   schedules: [{
-    title: 'Reporting',
-    start: "".concat(currentYear, "-").concat(currentMonth, "-").concat(currentDay, " 11:00:00"),
-    description: 'Time to start the conference and will briefly describe all information about the event.  ',
-    className: 'event-bg-success-subtle'
+    title: "Reporting",
+    start: `${currentYear}-${currentMonth}-${currentDay} 11:00:00`,
+    description: "Time to start the conference and will briefly describe all information about the event.  ",
+    className: "event-bg-success-subtle"
   }, {
-    title: 'Lunch',
-    start: "".concat(currentYear, "-").concat(currentMonth, "-").concat(currentDay, " 14:00:00"),
-    description: 'Lunch facility for all the attendance in the conference.',
-    className: 'event-bg-success-subtle'
+    title: "Lunch",
+    start: `${currentYear}-${currentMonth}-${currentDay} 14:00:00`,
+    description: "Lunch facility for all the attendance in the conference.",
+    className: "event-bg-success-subtle"
   }, {
-    title: 'Contest',
-    start: "".concat(currentYear, "-").concat(currentMonth, "-").concat(currentDay, " 16:00:00"),
-    description: 'The starting of the programming contest',
-    className: 'event-bg-success-subtle'
+    title: "Contest",
+    start: `${currentYear}-${currentMonth}-${currentDay} 16:00:00`,
+    description: "The starting of the programming contest",
+    className: "event-bg-success-subtle"
   }, {
-    title: 'Dinner',
-    start: "".concat(currentYear, "-").concat(currentMonth, "-").concat(currentDay, " 22:00:00"),
-    description: 'Dinner facility for all the attendance in the conference',
-    className: 'event-bg-success-subtle'
+    title: "Dinner",
+    start: `${currentYear}-${currentMonth}-${currentDay} 22:00:00`,
+    description: "Dinner facility for all the attendance in the conference",
+    className: "event-bg-success-subtle"
   }]
 }, {
-  title: "ICT Expo ".concat(currentYear, " - Product Release"),
-  start: "".concat(currentYear, "-").concat(currentMonth, "-16 10:00:00"),
-  description: "ICT Expo ".concat(currentYear, " is the largest private-sector exposition aimed at showcasing IT and ITES products and services in Switzerland."),
-  end: "".concat(currentYear, "-").concat(currentMonth, "-18 16:00:00"),
-  className: 'bg-warning-subtle'
+  title: `ICT Expo ${currentYear} - Product Release`,
+  start: `${currentYear}-${currentMonth}-16 10:00:00`,
+  description: `ICT Expo ${currentYear} is the largest private-sector exposition aimed at showcasing IT and ITES products and services in Switzerland.`,
+  end: `${currentYear}-${currentMonth}-18 16:00:00`,
+  className: "bg-warning-subtle"
 }, {
-  title: 'Meeting',
-  start: "".concat(currentYear, "-").concat(currentMonth, "-07 10:00:00"),
-  description: 'Discuss about the upcoming projects in current year and assign all tasks to the individuals'
+  title: "Meeting",
+  start: `${currentYear}-${currentMonth}-07 10:00:00`,
+  description: "Discuss about the upcoming projects in current year and assign all tasks to the individuals"
 }, {
-  title: 'Contest',
-  start: "".concat(currentYear, "-").concat(currentMonth, "-14 10:00:00"),
-  description: 'PeaceX is an international peace and amity organisation that aims at casting a pall at the striking issues surmounting the development of peoples and is committed to impacting the lives of young people all over the world.'
+  title: "Contest",
+  start: `${currentYear}-${currentMonth}-14 10:00:00`,
+  description: "PeaceX is an international peace and amity organisation that aims at casting a pall at the striking issues surmounting the development of peoples and is committed to impacting the lives of young people all over the world."
 }, {
-  title: 'Event With Url',
-  start: "".concat(currentYear, "-").concat(currentMonth, "-23"),
-  description: 'Sample example of a event with url. Click the event, will redirect to the given link.',
-  className: 'bg-success-subtle',
-  url: 'http://google.com'
+  title: "Event With Url",
+  start: `${currentYear}-${currentMonth}-23`,
+  description: "Sample example of a event with url. Click the event, will redirect to the given link.",
+  className: "bg-success-subtle",
+  url: "http://google.com"
 }, {
-  title: 'Competition',
-  start: "".concat(currentYear, "-").concat(currentMonth, "-26"),
-  description: 'The Future of Zambia – Top 30 Under 30 is an annual award, ranking scheme, and recognition platform for young Zambian achievers under the age of 30, who are building brands, creating jobs, changing the game, and transforming the country.',
-  className: 'bg-danger-subtle'
+  title: "Competition",
+  start: `${currentYear}-${currentMonth}-26`,
+  description: "The Future of Zambia – Top 30 Under 30 is an annual award, ranking scheme, and recognition platform for young Zambian achievers under the age of 30, who are building brands, creating jobs, changing the game, and transforming the country.",
+  className: "bg-danger-subtle"
 }, {
-  title: 'Birthday Party',
-  start: "".concat(currentYear, "-").concat(nextMonth, "-05"),
-  description: 'Will celebrate birthday party with my friends and family',
-  className: 'bg-primary-subtle'
+  title: "Birthday Party",
+  start: `${currentYear}-${nextMonth}-05`,
+  description: "Will celebrate birthday party with my friends and family",
+  className: "bg-primary-subtle"
 }, {
-  title: 'Click for Google',
-  url: 'http://google.com/',
-  start: "".concat(currentYear, "-").concat(prevMonth, "-10"),
-  description: 'Applications are open for the New Media Writing Prize 2020. The New Media Writing Prize (NMWP) showcases exciting and inventive stories and poetry that integrate a variety of formats, platforms, and digital media.',
-  className: 'bg-primary-subtle'
+  title: "Click for Google",
+  url: "http://google.com/",
+  start: `${currentYear}-${prevMonth}-10`,
+  description: "Applications are open for the New Media Writing Prize 2020. The New Media Writing Prize (NMWP) showcases exciting and inventive stories and poetry that integrate a variety of formats, platforms, and digital media.",
+  className: "bg-primary-subtle"
 }];
+"use strict";
 
 /*-----------------------------------------------
 |   Calendar
 -----------------------------------------------*/
-var appCalendarInit = function appCalendarInit() {
-  var Selectors = {
-    ACTIVE: '.active',
-    ADD_EVENT_FORM: '#addEventForm',
-    ADD_EVENT_MODAL: '#addEventModal',
-    CALENDAR: '#appCalendar',
-    CALENDAR_TITLE: '.calendar-title',
-    DATA_CALENDAR_VIEW: '[data-fc-view]',
-    DATA_EVENT: '[data-event]',
-    DATA_VIEW_TITLE: '[data-view-title]',
-    EVENT_DETAILS_MODAL: '#eventDetailsModal',
-    EVENT_DETAILS_MODAL_CONTENT: '#eventDetailsModal .modal-content',
+const appCalendarInit = () => {
+  const Selectors = {
+    ACTIVE: ".active",
+    ADD_EVENT_FORM: "#addEventForm",
+    ADD_EVENT_MODAL: "#addEventModal",
+    CALENDAR: "#appCalendar",
+    CALENDAR_TITLE: ".calendar-title",
+    DATA_CALENDAR_VIEW: "[data-fc-view]",
+    DATA_EVENT: "[data-event]",
+    DATA_VIEW_TITLE: "[data-view-title]",
+    EVENT_DETAILS_MODAL: "#eventDetailsModal",
+    EVENT_DETAILS_MODAL_CONTENT: "#eventDetailsModal .modal-content",
     EVENT_START_DATE: '#addEventModal [name="startDate"]',
     INPUT_TITLE: '[name="title"]'
   };
-  var Events = {
-    CLICK: 'click',
-    SHOWN_BS_MODAL: 'shown.bs.modal',
-    SUBMIT: 'submit'
+  const Events = {
+    CLICK: "click",
+    SHOWN_BS_MODAL: "shown.bs.modal",
+    SUBMIT: "submit"
   };
-  var DataKeys = {
-    EVENT: 'event',
-    FC_VIEW: 'fc-view'
+  const DataKeys = {
+    EVENT: "event",
+    FC_VIEW: "fc-view"
   };
-  var ClassNames = {
-    ACTIVE: 'active'
+  const ClassNames = {
+    ACTIVE: "active"
   };
-  var eventList = events.reduce(function (acc, val) {
-    return val.schedules ? acc.concat(val.schedules.concat(val)) : acc.concat(val);
-  }, []);
-  var updateTitle = function updateTitle(title) {
+  const eventList = events.reduce((acc, val) => val.schedules ? acc.concat(val.schedules.concat(val)) : acc.concat(val), []);
+  const updateTitle = title => {
     document.querySelector(Selectors.CALENDAR_TITLE).textContent = title;
   };
-  var appCalendar = document.querySelector(Selectors.CALENDAR);
-  var addEventForm = document.querySelector(Selectors.ADD_EVENT_FORM);
-  var addEventModal = document.querySelector(Selectors.ADD_EVENT_MODAL);
-  var eventDetailsModal = document.querySelector(Selectors.EVENT_DETAILS_MODAL);
+  const appCalendar = document.querySelector(Selectors.CALENDAR);
+  const addEventForm = document.querySelector(Selectors.ADD_EVENT_FORM);
+  const addEventModal = document.querySelector(Selectors.ADD_EVENT_MODAL);
+  const eventDetailsModal = document.querySelector(Selectors.EVENT_DETAILS_MODAL);
   if (appCalendar) {
-    var calendar = renderCalendar(appCalendar, {
+    const calendar = renderCalendar(appCalendar, {
       headerToolbar: false,
       dayMaxEvents: 2,
       height: 800,
@@ -5346,46 +5333,46 @@ var appCalendarInit = function appCalendarInit() {
         }
       },
       eventTimeFormat: {
-        hour: 'numeric',
-        minute: '2-digit',
+        hour: "numeric",
+        minute: "2-digit",
         omitZeroMinute: true,
         meridiem: true
       },
       events: eventList,
-      eventClick: function eventClick(info) {
+      eventClick: info => {
         if (info.event.url) {
-          window.open(info.event.url, '_blank');
+          window.open(info.event.url, "_blank");
           info.jsEvent.preventDefault();
         } else {
-          var template = getTemplate(info.event);
+          const template = getTemplate(info.event);
           document.querySelector(Selectors.EVENT_DETAILS_MODAL_CONTENT).innerHTML = template;
-          var modal = new window.bootstrap.Modal(eventDetailsModal);
+          const modal = new window.bootstrap.Modal(eventDetailsModal);
           modal.show();
         }
       },
-      dateClick: function dateClick(info) {
-        var modal = new window.bootstrap.Modal(addEventModal);
+      dateClick(info) {
+        const modal = new window.bootstrap.Modal(addEventModal);
         modal.show();
         /*eslint-disable-next-line*/
-        var flatpickr = document.querySelector(Selectors.EVENT_START_DATE)._flatpickr;
+        const flatpickr = document.querySelector(Selectors.EVENT_START_DATE)._flatpickr;
         flatpickr.setDate([info.dateStr]);
       }
     });
     updateTitle(calendar.currentData.viewTitle);
-    document.querySelectorAll(Selectors.DATA_EVENT).forEach(function (button) {
-      button.addEventListener(Events.CLICK, function (e) {
-        var el = e.currentTarget;
-        var type = utils.getData(el, DataKeys.EVENT);
+    document.querySelectorAll(Selectors.DATA_EVENT).forEach(button => {
+      button.addEventListener(Events.CLICK, e => {
+        const el = e.currentTarget;
+        const type = utils.getData(el, DataKeys.EVENT);
         switch (type) {
-          case 'prev':
+          case "prev":
             calendar.prev();
             updateTitle(calendar.currentData.viewTitle);
             break;
-          case 'next':
+          case "next":
             calendar.next();
             updateTitle(calendar.currentData.viewTitle);
             break;
-          case 'today':
+          case "today":
             calendar.today();
             updateTitle(calendar.currentData.viewTitle);
             break;
@@ -5396,11 +5383,11 @@ var appCalendarInit = function appCalendarInit() {
         }
       });
     });
-    document.querySelectorAll(Selectors.DATA_CALENDAR_VIEW).forEach(function (link) {
-      link.addEventListener(Events.CLICK, function (e) {
+    document.querySelectorAll(Selectors.DATA_CALENDAR_VIEW).forEach(link => {
+      link.addEventListener(Events.CLICK, e => {
         e.preventDefault();
-        var el = e.currentTarget;
-        var text = el.textContent;
+        const el = e.currentTarget;
+        const text = el.textContent;
         el.parentElement.querySelector(Selectors.ACTIVE).classList.remove(ClassNames.ACTIVE);
         el.classList.add(ClassNames.ACTIVE);
         document.querySelector(Selectors.DATA_VIEW_TITLE).textContent = text;
@@ -5408,38 +5395,41 @@ var appCalendarInit = function appCalendarInit() {
         updateTitle(calendar.currentData.viewTitle);
       });
     });
-    addEventForm && addEventForm.addEventListener(Events.SUBMIT, function (e) {
+    addEventForm && addEventForm.addEventListener(Events.SUBMIT, e => {
       e.preventDefault();
-      var _e$target = e.target,
-        title = _e$target.title,
-        startDate = _e$target.startDate,
-        endDate = _e$target.endDate,
-        label = _e$target.label,
-        description = _e$target.description,
-        allDay = _e$target.allDay;
+      const {
+        title,
+        startDate,
+        endDate,
+        label,
+        description,
+        allDay
+      } = e.target;
       calendar.addEvent({
         title: title.value,
         start: startDate.value,
         end: endDate.value ? endDate.value : null,
         allDay: allDay.checked,
-        className: allDay.checked && label.value ? "bg-".concat(label.value, "-subtle") : '',
+        className: allDay.checked && label.value ? `bg-${label.value}-subtle` : "",
         description: description.value
       });
       e.target.reset();
       window.bootstrap.Modal.getInstance(addEventModal).hide();
     });
   }
-  addEventModal && addEventModal.addEventListener(Events.SHOWN_BS_MODAL, function (_ref14) {
-    var currentTarget = _ref14.currentTarget;
+  addEventModal && addEventModal.addEventListener(Events.SHOWN_BS_MODAL, ({
+    currentTarget
+  }) => {
     currentTarget.querySelector(Selectors.INPUT_TITLE).focus();
   });
 };
+'use strict';
 
 /*-----------------------------------------------
 |   Project Management Calendar
 -----------------------------------------------*/
-var managementCalendarInit = function managementCalendarInit() {
-  var Selectors = {
+const managementCalendarInit = () => {
+  const Selectors = {
     ADD_EVENT_FORM: '#addEventForm',
     ADD_EVENT_MODAL: '#addEventModal',
     CALENDAR: '#managementAppCalendar',
@@ -5450,82 +5440,88 @@ var managementCalendarInit = function managementCalendarInit() {
     EVENT_START_DATE: '#addEventModal [name="startDate"]',
     EVENT_MANAGEMENT_INFO: '[data-calendar-events]'
   };
-  var Events = {
+  const Events = {
     CLICK: 'click',
     SUBMIT: 'submit'
   };
-  var managementEventList = [];
-  var DataKeys = {
+  const managementEventList = [];
+  const DataKeys = {
     EVENT: 'event'
   };
-  var managementCalendar = document.querySelector(Selectors.CALENDAR);
+  const managementCalendar = document.querySelector(Selectors.CALENDAR);
   if (managementCalendar) {
-    var calendarData = utils.getData(managementCalendar, 'calendar-option');
-    var managementCalendarEvents = document.getElementById(calendarData === null || calendarData === void 0 ? void 0 : calendarData.events);
-    var addEventForm = document.querySelector(Selectors.ADD_EVENT_FORM);
-    var addEventModal = document.querySelector(Selectors.ADD_EVENT_MODAL);
-    var eventDetailsModal = document.querySelector(Selectors.EVENT_DETAILS_MODAL);
-    var updateTitle = function updateTitle(title) {
-      var selectTitle = document.getElementById(calendarData === null || calendarData === void 0 ? void 0 : calendarData.title);
+    const calendarData = utils.getData(managementCalendar, 'calendar-option');
+    const managementCalendarEvents = document.getElementById(calendarData?.events);
+    const addEventForm = document.querySelector(Selectors.ADD_EVENT_FORM);
+    const addEventModal = document.querySelector(Selectors.ADD_EVENT_MODAL);
+    const eventDetailsModal = document.querySelector(Selectors.EVENT_DETAILS_MODAL);
+    const updateTitle = title => {
+      const selectTitle = document.getElementById(calendarData?.title);
       if (selectTitle) {
         selectTitle.textContent = title;
       }
     };
-    var updateDay = function updateDay(day) {
-      var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      var selectDay = document.getElementById(calendarData === null || calendarData === void 0 ? void 0 : calendarData.day);
+    const updateDay = day => {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const selectDay = document.getElementById(calendarData?.day);
       if (selectDay) {
         selectDay.textContent = days[day];
       }
     };
     if (managementEvents) {
-      managementEvents.forEach(function (e) {
+      managementEvents.forEach(e => {
         managementEventList.push({
           start: e.start,
           end: e.end,
           display: 'background',
-          classNames: "border border-2 border-".concat(e.classNames, " bg-100")
+          classNames: `border border-2 border-${e.classNames} bg-100`
         });
       });
     }
     if (managementCalendarEvents) {
-      managementEvents.forEach(function (e) {
-        managementCalendarEvents.innerHTML += "\n          <li class= 'border-top pt-3 mb-3 pb-1 cursor-pointer' data-calendar-events>\n            <div class= 'border-start border-3 border-".concat(e.classNames, " ps-3 mt-1'>\n              <h6 class=\"mb-1 fw-semi-bold text-700\">").concat(e.title, "</h6>\n              <p class= 'fs--2 text-600 mb-0'>").concat(e.startTime || '', " ").concat(e.endTime ? '-' : '', " ").concat(e.endTime || '', "</p>\n            </div>\n          </li> ");
+      managementEvents.forEach(e => {
+        managementCalendarEvents.innerHTML += `
+          <li class= 'border-top pt-3 mb-3 pb-1 cursor-pointer' data-calendar-events>
+            <div class= 'border-start border-3 border-${e.classNames} ps-3 mt-1'>
+              <h6 class="mb-1 fw-semi-bold text-700">${e.title}</h6>
+              <p class= 'fs--2 text-600 mb-0'>${e.startTime || ''} ${e.endTime ? '-' : ''} ${e.endTime || ''}</p>
+            </div>
+          </li> `;
       });
     }
-    var eventManagementInfo = document.querySelectorAll(Selectors.EVENT_MANAGEMENT_INFO);
+    const eventManagementInfo = document.querySelectorAll(Selectors.EVENT_MANAGEMENT_INFO);
     if (eventManagementInfo) {
-      eventManagementInfo.forEach(function (li, index) {
-        li.addEventListener(Events.CLICK, function () {
-          var event = managementEvents[index];
-          var template = getTemplate(event);
+      eventManagementInfo.forEach((li, index) => {
+        li.addEventListener(Events.CLICK, () => {
+          const event = managementEvents[index];
+          const template = getTemplate(event);
           document.querySelector(Selectors.EVENT_DETAILS_MODAL_CONTENT).innerHTML = template;
-          var modal = new window.bootstrap.Modal(eventDetailsModal);
+          const modal = new window.bootstrap.Modal(eventDetailsModal);
           modal.show();
         });
       });
     }
     if (managementCalendar) {
-      var calendar = renderCalendar(managementCalendar, {
+      const calendar = renderCalendar(managementCalendar, {
         headerToolbar: false,
         dayMaxEvents: 2,
         height: 360,
         stickyHeaderDates: false,
-        dateClick: function dateClick(info) {
-          var modal = new window.bootstrap.Modal(addEventModal);
+        dateClick(info) {
+          const modal = new window.bootstrap.Modal(addEventModal);
           modal.show();
           /*eslint-disable-next-line*/
-          var flatpickr = document.querySelector(Selectors.EVENT_START_DATE)._flatpickr;
+          const flatpickr = document.querySelector(Selectors.EVENT_START_DATE)._flatpickr;
           flatpickr.setDate([info.dateStr]);
         },
         events: managementEventList
       });
       updateTitle(calendar.currentData.viewTitle);
       updateDay(calendar.currentData.currentDate.getDay());
-      document.querySelectorAll(Selectors.DATA_EVENT).forEach(function (button) {
-        button.addEventListener(Events.CLICK, function (e) {
-          var el = e.currentTarget;
-          var type = utils.getData(el, DataKeys.EVENT);
+      document.querySelectorAll(Selectors.DATA_EVENT).forEach(button => {
+        button.addEventListener(Events.CLICK, e => {
+          const el = e.currentTarget;
+          const type = utils.getData(el, DataKeys.EVENT);
           switch (type) {
             case 'prev':
               calendar.prev();
@@ -5547,7 +5543,7 @@ var managementCalendarInit = function managementCalendarInit() {
         });
       });
       if (addEventForm) {
-        addEventForm.addEventListener(Events.SUBMIT, function (e) {
+        addEventForm.addEventListener(Events.SUBMIT, e => {
           e.preventDefault();
           e.target.reset();
           window.bootstrap.Modal.getInstance(addEventModal).hide();
@@ -5556,19 +5552,19 @@ var managementCalendarInit = function managementCalendarInit() {
     }
   }
 };
-var thisDay = window.dayjs && window.dayjs().format('DD');
-var plus2Day = window.dayjs && window.dayjs().add(2, 'day').format('DD');
-var thisMonthNumber = window.dayjs && window.dayjs().format('MM');
-var thisMonthName = window.dayjs && window.dayjs().format('MMM');
-var upcomingMonthNumber = window.dayjs && window.dayjs().add(1, 'month').format('MM');
-var upcomingMonthName = window.dayjs && window.dayjs().format('MMM');
-var thisYear = window.dayjs && window.dayjs().format('YYYY');
-var managementEvents = [{
+const thisDay = window.dayjs && window.dayjs().format('DD');
+const plus2Day = window.dayjs && window.dayjs().add(2, 'day').format('DD');
+const thisMonthNumber = window.dayjs && window.dayjs().format('MM');
+const thisMonthName = window.dayjs && window.dayjs().format('MMM');
+const upcomingMonthNumber = window.dayjs && window.dayjs().add(1, 'month').format('MM');
+const upcomingMonthName = window.dayjs && window.dayjs().format('MMM');
+const thisYear = window.dayjs && window.dayjs().format('YYYY');
+const managementEvents = [{
   title: 'Monthly team meeting for Falcon React Project',
-  start: "".concat(thisYear, "-").concat(thisMonthNumber, "-07"),
-  end: "".concat(thisYear, "-").concat(thisMonthNumber, "-09"),
-  startTime: "07 ".concat(thisMonthName, ", ").concat(thisYear),
-  endTime: "10 ".concat(thisMonthName, ", ").concat(thisYear),
+  start: `${thisYear}-${thisMonthNumber}-07`,
+  end: `${thisYear}-${thisMonthNumber}-09`,
+  startTime: `07 ${thisMonthName}, ${thisYear}`,
+  endTime: `10 ${thisMonthName}, ${thisYear}`,
   classNames: 'primary',
   extendedProps: {
     description: 'Boston Harbor Now in partnership with the Friends of Christopher Columbus Park, the Wharf District Council.',
@@ -5577,9 +5573,9 @@ var managementEvents = [{
   }
 }, {
   title: 'Newmarket Nights',
-  start: "".concat(thisYear, "-").concat(thisMonthNumber, "-16"),
-  end: "".concat(thisYear, "-").concat(thisMonthNumber, "-18"),
-  startTime: "16 ".concat(thisMonthName, ", ").concat(thisYear),
+  start: `${thisYear}-${thisMonthNumber}-16`,
+  end: `${thisYear}-${thisMonthNumber}-18`,
+  startTime: `16 ${thisMonthName}, ${thisYear}`,
   classNames: 'success',
   extendedProps: {
     description: 'Boston Harbor Now in partnership with the Friends of Christopher Columbus Park, the Wharf District Council.',
@@ -5588,10 +5584,10 @@ var managementEvents = [{
   }
 }, {
   title: 'Folk Festival',
-  start: "".concat(thisYear, "-").concat(thisMonthNumber, "-25"),
-  end: "".concat(thisYear, "-").concat(thisMonthNumber, "-28"),
-  startTime: "07 ".concat(thisMonthName, ", ").concat(thisYear),
-  endTime: "10 ".concat(thisMonthName, ", ").concat(thisYear),
+  start: `${thisYear}-${thisMonthNumber}-25`,
+  end: `${thisYear}-${thisMonthNumber}-28`,
+  startTime: `07 ${thisMonthName}, ${thisYear}`,
+  endTime: `10 ${thisMonthName}, ${thisYear}`,
   classNames: 'warning',
   extendedProps: {
     description: 'Boston Harbor Now in partnership with the Friends of Christopher Columbus Park, the Wharf District Council.',
@@ -5600,10 +5596,10 @@ var managementEvents = [{
   }
 }, {
   title: 'Film Festival',
-  start: "".concat(thisYear, "-").concat(upcomingMonthNumber, "-").concat(thisDay),
-  end: "".concat(thisYear, "-").concat(upcomingMonthNumber, "-").concat(plus2Day),
-  startTime: "07 ".concat(upcomingMonthName, ", ").concat(thisYear),
-  endTime: "10 ".concat(upcomingMonthName, ", ").concat(thisYear),
+  start: `${thisYear}-${upcomingMonthNumber}-${thisDay}`,
+  end: `${thisYear}-${upcomingMonthNumber}-${plus2Day}`,
+  startTime: `07 ${upcomingMonthName}, ${thisYear}`,
+  endTime: `10 ${upcomingMonthName}, ${thisYear}`,
   classNames: 'danger',
   extendedProps: {
     description: 'Boston Harbor Now in partnership with the Friends of Christopher Columbus Park, the Wharf District Council.',
@@ -5612,8 +5608,8 @@ var managementEvents = [{
   }
 }, {
   title: 'Meeting',
-  start: "".concat(thisYear, "-").concat(upcomingMonthNumber, "-28"),
-  startTime: "07 ".concat(upcomingMonthName, ", ").concat(thisYear),
+  start: `${thisYear}-${upcomingMonthNumber}-28`,
+  startTime: `07 ${upcomingMonthName}, ${thisYear}`,
   classNames: 'warning',
   extendedProps: {
     description: 'Boston Harbor Now in partnership with the Friends of Christopher Columbus Park, the Wharf District Council.',
@@ -5621,40 +5617,724 @@ var managementEvents = [{
     organizer: 'Boston Harbor Now'
   }
 }];
-var getStackIcon = function getStackIcon(icon, transform) {
-  return "\n  <span class=\"fa-stack ms-n1 me-3\">\n    <i class=\"fas fa-circle fa-stack-2x text-200\"></i>\n    <i class=\"".concat(icon, " fa-stack-1x text-primary\" data-fa-transform=").concat(transform, "></i>\n  </span>\n");
+const getStackIcon = (icon, transform) => `
+  <span class="fa-stack ms-n1 me-3">
+    <i class="fas fa-circle fa-stack-2x text-200"></i>
+    <i class="${icon} fa-stack-1x text-primary" data-fa-transform=${transform}></i>
+  </span>
+`;
+const getTemplate = event => `
+<div class="modal-header bg-body-tertiary ps-card pe-5 border-bottom-0">
+  <div>
+    <h5 class="modal-title mb-0">${event.title}</h5>
+    ${!!event.extendedProps.organizer ? `<p class="mb-0 fs--1 mt-1">
+        by <a href="#!">${event.extendedProps.organizer}</a>
+      </p>` : ''}
+  </div>
+  <button type="button" class="btn-close position-absolute end-0 top-0 mt-3 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body px-card pb-card pt-1 fs--1">
+  ${event.extendedProps.description ? `
+      <div class="d-flex mt-3">
+        ${getStackIcon('fas fa-align-left')}
+        <div class="flex-1">
+          <h6>Description</h6>
+          <p class="mb-0">
+            
+          ${event.extendedProps.description.split(' ').slice(0, 30).join(' ')}
+          </p>
+        </div>
+      </div>
+    ` : ''} 
+  <div class="d-flex mt-3">
+    ${getStackIcon('fas fa-calendar-check')}
+    <div class="flex-1">
+        <h6>Date and Time</h6>
+        <p class="mb-1">
+          ${window.dayjs && window.dayjs(event.start).format('dddd, MMMM D, YYYY, h:mm A')} 
+          ${event.end ? `– <br/>${window.dayjs && window.dayjs(event.end).subtract(1, 'day').format('dddd, MMMM D, YYYY, h:mm A')}` : ''}
+        </p>
+    </div>
+  </div>
+  ${event.extendedProps.location ? `
+        <div class="d-flex mt-3">
+          ${getStackIcon('fas fa-map-marker-alt')}
+          <div class="flex-1">
+              <h6>Location</h6>
+              <p class="mb-0">${event.extendedProps.location}</p>
+          </div>
+        </div>
+      ` : ''}
+  ${event.schedules ? `
+        <div class="d-flex mt-3">
+        ${getStackIcon('fas fa-clock')}
+        <div class="flex-1">
+            <h6>Schedule</h6>
+            
+            <ul class="list-unstyled timeline mb-0">
+              ${event.schedules.map(schedule => `<li>${schedule.title}</li>`).join('')}
+            </ul>
+        </div>
+      ` : ''}
+  </div>
+</div>
+<div class="modal-footer d-flex justify-content-end bg-body-tertiary px-card border-top-0">
+  <a href="${document.location.href.split('/').slice(0, 5).join('/')}/app/events/create-an-event.html" class="btn btn-falcon-default btn-sm">
+    <span class="fas fa-pencil-alt fs--2 mr-2"></span> Edit
+  </a>
+  <a href='${document.location.href.split('/').slice(0, 5).join('/')}/app/events/event-detail.html' class="btn btn-falcon-primary btn-sm">
+    See more details
+    <span class="fas fa-angle-right fs--2 ml-1"></span>
+  </a>
+</div>
+`;
+
+/* -------------------------------------------------------------------------- */
+/*                                  bar-chart                                 */
+/* -------------------------------------------------------------------------- */
+
+const barChartInit = () => {
+  const barChartElement = document.getElementById('chartjs-bar-chart');
+  const getOptions = () => ({
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 6, 3],
+        backgroundColor: [utils.getSubtleColors()['secondary'], utils.getSubtleColors()['warning'], utils.getSubtleColors()['info'], utils.getSubtleColors()['success'], utils.getSubtleColors()['info'], utils.getSubtleColors()['primary']],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        }
+      }
+    }
+  });
+  chartJsInit(barChartElement, getOptions);
 };
-var getTemplate = function getTemplate(event) {
-  return "\n<div class=\"modal-header bg-body-tertiary ps-card pe-5 border-bottom-0\">\n  <div>\n    <h5 class=\"modal-title mb-0\">".concat(event.title, "</h5>\n    ").concat(event.extendedProps.organizer ? "<p class=\"mb-0 fs--1 mt-1\">\n        by <a href=\"#!\">".concat(event.extendedProps.organizer, "</a>\n      </p>") : '', "\n  </div>\n  <button type=\"button\" class=\"btn-close position-absolute end-0 top-0 mt-3 me-3\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n</div>\n<div class=\"modal-body px-card pb-card pt-1 fs--1\">\n  ").concat(event.extendedProps.description ? "\n      <div class=\"d-flex mt-3\">\n        ".concat(getStackIcon('fas fa-align-left'), "\n        <div class=\"flex-1\">\n          <h6>Description</h6>\n          <p class=\"mb-0\">\n            \n          ").concat(event.extendedProps.description.split(' ').slice(0, 30).join(' '), "\n          </p>\n        </div>\n      </div>\n    ") : '', " \n  <div class=\"d-flex mt-3\">\n    ").concat(getStackIcon('fas fa-calendar-check'), "\n    <div class=\"flex-1\">\n        <h6>Date and Time</h6>\n        <p class=\"mb-1\">\n          ").concat(window.dayjs && window.dayjs(event.start).format('dddd, MMMM D, YYYY, h:mm A'), " \n          ").concat(event.end ? "\u2013 <br/>".concat(window.dayjs && window.dayjs(event.end).subtract(1, 'day').format('dddd, MMMM D, YYYY, h:mm A')) : '', "\n        </p>\n    </div>\n  </div>\n  ").concat(event.extendedProps.location ? "\n        <div class=\"d-flex mt-3\">\n          ".concat(getStackIcon('fas fa-map-marker-alt'), "\n          <div class=\"flex-1\">\n              <h6>Location</h6>\n              <p class=\"mb-0\">").concat(event.extendedProps.location, "</p>\n          </div>\n        </div>\n      ") : '', "\n  ").concat(event.schedules ? "\n        <div class=\"d-flex mt-3\">\n        ".concat(getStackIcon('fas fa-clock'), "\n        <div class=\"flex-1\">\n            <h6>Schedule</h6>\n            \n            <ul class=\"list-unstyled timeline mb-0\">\n              ").concat(event.schedules.map(function (schedule) {
-    return "<li>".concat(schedule.title, "</li>");
-  }).join(''), "\n            </ul>\n        </div>\n      ") : '', "\n  </div>\n</div>\n<div class=\"modal-footer d-flex justify-content-end bg-body-tertiary px-card border-top-0\">\n  <a href=\"").concat(document.location.href.split('/').slice(0, 5).join('/'), "/app/events/create-an-event.html\" class=\"btn btn-falcon-default btn-sm\">\n    <span class=\"fas fa-pencil-alt fs--2 mr-2\"></span> Edit\n  </a>\n  <a href='").concat(document.location.href.split('/').slice(0, 5).join('/'), "/app/events/event-detail.html' class=\"btn btn-falcon-primary btn-sm\">\n    See more details\n    <span class=\"fas fa-angle-right fs--2 ml-1\"></span>\n  </a>\n</div>\n");
+
+/* eslint-disable */
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Bubble                                    */
+/* -------------------------------------------------------------------------- */
+
+const chartBubble = () => {
+  const pie = document.getElementById('chartjs-bubble-chart');
+  const getOptions = () => ({
+    type: 'bubble',
+    data: {
+      datasets: [{
+        label: 'Dataset 1',
+        data: getBubbleDataset(5, 5, 15, 0, 100),
+        backgroundColor: utils.getColor('info'),
+        hoverBackgroundColor: utils.getColor('info')
+      }, {
+        label: 'Dataset 2',
+        data: getBubbleDataset(5, 5, 15, 0, 100),
+        backgroundColor: utils.getColor('success'),
+        hoverBackgroundColor: utils.getColor('success')
+      }, {
+        label: 'Dataset 3',
+        data: getBubbleDataset(5, 5, 15, 0, 100),
+        backgroundColor: utils.getColor('warning'),
+        hoverBackgroundColor: utils.getColor('warning')
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        },
+        tooltip: chartJsDefaultTooltip()
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        }
+      }
+    }
+  });
+  chartJsInit(pie, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Combo                                  */
+/* -------------------------------------------------------------------------- */
+const chartCombo = () => {
+  const combo = document.getElementById('chartjs-combo-chart');
+  const getOptions = () => ({
+    type: 'bar',
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        type: 'line',
+        label: 'Dataset 1',
+        borderColor: utils.getColor('primary'),
+        borderWidth: 2,
+        fill: false,
+        data: [55, 80, -60, -22, -50, 40, 90]
+      }, {
+        type: 'bar',
+        label: 'Dataset 2',
+        backgroundColor: utils.getSubtleColors()['danger'],
+        data: [4, -80, 90, -22, 70, 35, -50],
+        borderWidth: 1
+      }, {
+        type: 'bar',
+        label: 'Dataset 3',
+        backgroundColor: utils.getSubtleColors()['primary'],
+        data: [-30, 30, -18, 100, -45, -25, -50],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          position: 'top',
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        }
+      }
+    }
+  });
+  chartJsInit(combo, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Doughnut                                  */
+/* -------------------------------------------------------------------------- */
+const chartDoughnut = () => {
+  const doughnut = document.getElementById('chartjs-doughnut-chart');
+  const getOptions = () => ({
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [5, 3, 2, 1, 1],
+        backgroundColor: [utils.rgbaColor(utils.getColor('facebook'), 0.75), utils.rgbaColor(utils.getColor('youtube'), 0.75), utils.rgbaColor(utils.getColor('twitter'), 0.75), utils.rgbaColor(utils.getColor('linkedin'), 0.75), utils.rgbaColor(utils.getColor('github'), 0.75)],
+        borderWidth: 1,
+        borderColor: utils.getGrays()['100']
+      }],
+      labels: ['Facebook', 'Youtube', 'Twitter', 'Linkedin', 'GitHub']
+    },
+    options: {
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      maintainAspectRatio: false
+    }
+  });
+  chartJsInit(doughnut, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Half Doughnut                             */
+/* -------------------------------------------------------------------------- */
+const chartHalfDoughnutInit = () => {
+  const $chartHalfDoughnuts = document.querySelectorAll('[data-half-doughnut]');
+  $chartHalfDoughnuts.forEach($chartHalfDoughnut => {
+    if ($chartHalfDoughnut) {
+      const getOptions = () => {
+        const userOptions = utils.getData($chartHalfDoughnut, 'half-doughnut');
+        const defaultOptions = {
+          type: 'doughnut',
+          data: {
+            labels: ['Reached', 'Target'],
+            datasets: [{
+              data: [50, 50],
+              backgroundColor: ['primary', 'gray-300'],
+              borderWidth: [0, 0, 0, 0]
+            }]
+          },
+          options: {
+            rotation: -90,
+            circumference: '180',
+            cutout: '80%',
+            hover: {
+              mode: null
+            },
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                enabled: false
+              }
+            }
+          }
+        };
+        const options = window._.merge(defaultOptions, userOptions);
+        const mergedDatasets = options.data.datasets[0];
+        mergedDatasets.backgroundColor = [utils.getColor(mergedDatasets.backgroundColor[0]), utils.getColor(mergedDatasets.backgroundColor[1])];
+        return options;
+      };
+      chartJsInit($chartHalfDoughnut, getOptions);
+    }
+  });
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Line                                  */
+/* -------------------------------------------------------------------------- */
+const chartLine = () => {
+  const line = document.getElementById('chartjs-line-chart');
+  const getOptions = () => ({
+    type: 'bar',
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        type: 'line',
+        label: 'Dataset 1',
+        borderColor: utils.getColor('primary'),
+        borderWidth: 2,
+        fill: false,
+        data: [55, 80, 60, 22, 50, 40, 90],
+        tension: 0.3
+      }]
+    },
+    options: {
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        }
+      }
+    }
+  });
+  chartJsInit(line, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Pie                                  */
+/* -------------------------------------------------------------------------- */
+const chartPie = () => {
+  const pie = document.getElementById('chartjs-pie-chart');
+  const getOptions = () => ({
+    type: 'pie',
+    data: {
+      datasets: [{
+        data: [5, 3, 2, 1, 1],
+        backgroundColor: [utils.rgbaColor(utils.getColor('facebook'), 0.75), utils.rgbaColor(utils.getColor('youtube'), 0.75), utils.rgbaColor(utils.getColor('twitter'), 0.75), utils.rgbaColor(utils.getColor('linkedin'), 0.75), utils.rgbaColor(utils.getColor('github'), 0.75)],
+        borderWidth: 1,
+        borderColor: utils.getGrays()['100']
+      }],
+      labels: ['Facebook', 'Youtube', 'Twitter', 'Linkedin', 'GitHub']
+    },
+    options: {
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      maintainAspectRatio: false
+    }
+  });
+  chartJsInit(pie, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Polar                                  */
+/* -------------------------------------------------------------------------- */
+const chartPolar = () => {
+  const polar = document.getElementById('chartjs-polar-chart');
+  const getOptions = () => ({
+    type: 'polarArea',
+    data: {
+      datasets: [{
+        data: [10, 20, 50, 40, 30],
+        backgroundColor: [utils.rgbaColor(utils.getColor('facebook'), 0.5), utils.rgbaColor(utils.getColor('youtube'), 0.5), utils.rgbaColor(utils.getColor('twitter'), 0.5), utils.rgbaColor(utils.getColor('linkedin'), 0.5), utils.rgbaColor(utils.getColor('success'), 0.5)],
+        borderWidth: 1,
+        borderColor: utils.getGrays()['400']
+      }],
+      labels: ['Facebook', 'Youtube', 'Twitter', 'Linkedin', 'Medium']
+    },
+    options: {
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          grid: {
+            color: utils.getGrays()['300']
+          }
+        }
+      }
+    }
+  });
+  chartJsInit(polar, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Radar                                  */
+/* -------------------------------------------------------------------------- */
+const chartRadar = () => {
+  const radar = document.getElementById('chartjs-radar-chart');
+  const getOptions = () => ({
+    type: 'radar',
+    data: {
+      labels: ['English', 'Maths', 'Physics', 'Chemistry', 'Biology', 'History'],
+      datasets: [{
+        label: 'Student A',
+        backgroundColor: utils.rgbaColor(utils.getColor('success'), 0.5),
+        data: [65, 75, 70, 80, 60, 80],
+        borderWidth: 1
+      }, {
+        label: 'Student B',
+        backgroundColor: utils.rgbaColor(utils.getColor('primary'), 0.5),
+        data: [54, 65, 60, 70, 70, 75],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          grid: {
+            color: utils.getGrays()['300']
+          }
+        }
+      }
+    }
+  });
+  chartJsInit(radar, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Scatter                                   */
+/* -------------------------------------------------------------------------- */
+const chartScatter = () => {
+  const scatter = document.getElementById('chartjs-scatter-chart');
+  const getOptions = () => ({
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: 'Dataset one',
+        data: [{
+          x: -98,
+          y: 42
+        }, {
+          x: -85,
+          y: -29
+        }, {
+          x: -87,
+          y: -70
+        }, {
+          x: -53,
+          y: 28
+        }, {
+          x: -29,
+          y: 4
+        }, {
+          x: -2,
+          y: -42
+        }, {
+          x: 5,
+          y: 3
+        }, {
+          x: 39,
+          y: 19
+        }, {
+          x: 49,
+          y: 79
+        }, {
+          x: 83,
+          y: -9
+        }, {
+          x: 93,
+          y: 12
+        }],
+        pointBackgroundColor: utils.getColor('primary'),
+        borderColor: utils.getColor('primary'),
+        borderWidth: 1
+      }, {
+        label: 'Dataset Two',
+        data: [{
+          x: 53,
+          y: 12
+        }, {
+          x: -78,
+          y: 42
+        }, {
+          x: -65,
+          y: -39
+        }, {
+          x: -57,
+          y: -20
+        }, {
+          x: 57,
+          y: 28
+        }, {
+          x: -35,
+          y: 75
+        }, {
+          x: -29,
+          y: -43
+        }, {
+          x: 15,
+          y: 31
+        }, {
+          x: 97,
+          y: 19
+        }, {
+          x: 49,
+          y: 69
+        }, {
+          x: 33,
+          y: -57
+        }],
+        pointBackgroundColor: utils.getColor('warning'),
+        borderColor: utils.getColor('warning'),
+        borderWidth: 1,
+        borderRadius: '50%'
+      }]
+    },
+    options: {
+      plugins: {
+        tooltip: chartJsDefaultTooltip(),
+        legend: {
+          labels: {
+            color: utils.getGrays()['500']
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: utils.getGrays()['500']
+          },
+          grid: {
+            color: utils.getGrays()['300'],
+            drawBorder: false
+          }
+        }
+      },
+      animation: {
+        duration: 2000
+      }
+    }
+  });
+  chartJsInit(scatter, getOptions);
+};
+
+/* -------------------------------------------------------------------------- */
+/*                            ChartJs Initialization                          */
+/* -------------------------------------------------------------------------- */
+
+const chartJsInit = (chartEl, config) => {
+  if (!chartEl) return;
+  const ctx = chartEl.getContext('2d');
+  let chart = new window.Chart(ctx, config());
+  const themeController = document.body;
+  themeController.addEventListener('clickControl', ({
+    detail: {
+      control
+    }
+  }) => {
+    if (control === 'theme') {
+      chart.destroy();
+      chart = new window.Chart(ctx, config());
+    }
+    return null;
+  });
+};
+const chartJsDefaultTooltip = () => ({
+  backgroundColor: utils.getGrays()['100'],
+  borderColor: utils.getGrays()['300'],
+  borderWidth: 1,
+  titleColor: utils.getColors()['emphasis'],
+  callbacks: {
+    labelTextColor() {
+      return utils.getColors()['emphasis'];
+    }
+  }
+});
+const getBubbleDataset = (count, rmin, rmax, min, max) => {
+  const arr = Array.from(Array(count).keys());
+  return arr.map(() => ({
+    x: utils.getRandomNumber(min, max),
+    y: utils.getRandomNumber(min, max),
+    r: utils.getRandomNumber(rmin, rmax)
+  }));
+};
+
+/* eslint-disable */
+
+/* -------------------------------------------------------------------------- */
+/*                            Chart Scatter                                   */
+/* -------------------------------------------------------------------------- */
+const productShareDoughnutInit = () => {
+  const marketShareDoughnutElement = document.getElementById('marketShareDoughnut');
+  const getOptions = () => ({
+    type: 'doughnut',
+    data: {
+      labels: ['Flacon', 'Sparrow'],
+      datasets: [{
+        data: [50, 88],
+        backgroundColor: [utils.getColor('primary'), utils.getColor('gray-300')],
+        borderColor: [utils.getColor('primary'), utils.getColor('gray-300')]
+      }]
+    },
+    options: {
+      tooltips: chartJsDefaultTooltip(),
+      rotation: -90,
+      circumference: '180',
+      cutout: '80%',
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+  chartJsInit(marketShareDoughnutElement, getOptions);
 };
 
 /* -------------------------------------------------------------------------- */
 /*                          D3 Packed Bubble Chart                            */
 /* -------------------------------------------------------------------------- */
 
-var D3PackedBubbleInit = function D3PackedBubbleInit() {
-  var $d3PackedBubble = document.querySelector('.d3-packed-bubble-chart');
+const D3PackedBubbleInit = () => {
+  const $d3PackedBubble = document.querySelector('.d3-packed-bubble-chart');
   if ($d3PackedBubble) {
-    var width = 960;
-    var height = 960;
-    var itemsSpacing = 30;
-    var svg = d3.select('.d3-packed-bubble-svg');
-    var tooltip = d3.select('.d3-packed-bubble-tooltip');
-    var tooltipDot = tooltip.select('.d3-tooltip-dot');
-    var tooltipName = tooltip.select('.d3-tooltip-name');
-    var tooltipValue = tooltip.select('.d3-tooltip-value');
-    var tooltipStyles = {
+    const width = 960;
+    const height = 960;
+    const itemsSpacing = 30;
+    const svg = d3.select('.d3-packed-bubble-svg');
+    const tooltip = d3.select('.d3-packed-bubble-tooltip');
+    const tooltipDot = tooltip.select('.d3-tooltip-dot');
+    const tooltipName = tooltip.select('.d3-tooltip-name');
+    const tooltipValue = tooltip.select('.d3-tooltip-value');
+    const tooltipStyles = {
       backgroundColor: utils.getColor('gray-100'),
       tooltipNameColor: utils.getColor('gray-700'),
       tooltipValueColor: utils.getColor('gray-700')
     };
-    var labelStyles = {
+    const labelStyles = {
       fill: '#ffffff',
       fontSize: '1.8rem'
     };
-    var packedBubbleData = [{
+    const packedBubbleData = [{
       name: 'Blockchain',
       value: 160,
       color: '#2A7BE4'
@@ -5763,45 +6443,27 @@ var D3PackedBubbleInit = function D3PackedBubbleInit() {
       value: 34,
       color: '#71AFFF'
     }];
-    var generateChart = function generateChart(data) {
-      var bubble = function bubble(bubbleData) {
-        return d3.pack().size([width, height]).padding(itemsSpacing)(d3.hierarchy({
-          children: bubbleData
-        }).sum(function (d) {
-          return d.value;
-        }));
-      };
+    const generateChart = data => {
+      const bubble = bubbleData => d3.pack().size([width, height]).padding(itemsSpacing)(d3.hierarchy({
+        children: bubbleData
+      }).sum(d => d.value));
       tooltip.style('visibility', 'hidden');
-      svg.attr('width', '100%').attr('height', '100%').attr('viewBox', "-20 10 ".concat(width, " ").concat(height));
-      var root = bubble(data);
-      var node = svg.selectAll().data(root.children).enter().append('g').style('cursor', 'pointer').style('pointer-events', 'all').attr('text-anchor', 'middle').on('mousemove', function (e) {
-        return tooltip.style('top', "".concat(e.clientY - 40, "px")).style('left', "".concat(e.clientX - 40, "px"));
-      }).attr('transform', function (d) {
-        return "translate(".concat(d.x, ", ").concat(d.y, ")");
-      });
-      var circle = node.append('circle').style('fill', function (d) {
-        return d.data.color;
-      }).on('mouseover', function (e, d) {
-        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', function (diagram) {
-          return diagram.r * 1.1;
-        });
-        tooltip.style('visibility', 'visible').style('z-index', '100000').style('background-color', tooltipStyles.backgroundColor).style('border', "1px solid ".concat(d.data.color));
+      svg.attr('width', '100%').attr('height', '100%').attr('viewBox', `-20 10 ${width} ${height}`);
+      const root = bubble(data);
+      const node = svg.selectAll().data(root.children).enter().append('g').style('cursor', 'pointer').style('pointer-events', 'all').attr('text-anchor', 'middle').on('mousemove', e => tooltip.style('top', `${e.clientY - 40}px`).style('left', `${e.clientX - 40}px`)).attr('transform', d => `translate(${d.x}, ${d.y})`);
+      const circle = node.append('circle').style('fill', d => d.data.color).on('mouseover', (e, d) => {
+        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', diagram => diagram.r * 1.1);
+        tooltip.style('visibility', 'visible').style('z-index', '100000').style('background-color', tooltipStyles.backgroundColor).style('border', `1px solid ${d.data.color}`);
         tooltipDot.style('background-color', d.data.color);
         tooltipName.text(d.data.name).style('color', tooltipStyles.tooltipNameColor);
         tooltipValue.text(d.data.value).style('color', tooltipStyles.tooltipValueColor);
-      }).on('mouseout', function (e) {
-        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', function (d) {
-          return d.r;
-        });
+      }).on('mouseout', e => {
+        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', d => d.r);
         tooltip.style('visibility', 'hidden');
       });
-      var label = node.append('text').style('fill', labelStyles.fill).style('font-size', labelStyles.fontSize).style('pointer-events', 'none').style('opacity', 0).attr('dy', '.35em').text(function (d) {
-        return d.data.name;
-      });
+      const label = node.append('text').style('fill', labelStyles.fill).style('font-size', labelStyles.fontSize).style('pointer-events', 'none').style('opacity', 0).attr('dy', '.35em').text(d => d.data.name);
       node.transition().ease(d3.easeExpInOut).duration(1000);
-      circle.transition().ease(d3.easeExpInOut).duration(1000).attr('r', function (d) {
-        return d.r;
-      });
+      circle.transition().ease(d3.easeExpInOut).duration(1000).attr('r', d => d.r);
       label.transition().delay(400).ease(d3.easeExpInOut).duration(2000).style('opacity', 1);
     };
     generateChart(packedBubbleData);
@@ -5812,95 +6474,156 @@ var D3PackedBubbleInit = function D3PackedBubbleInit() {
 /*                           Trending Keywords                                */
 /* -------------------------------------------------------------------------- */
 
-var trendingKeywordsInit = function trendingKeywordsInit() {
-  var $d3TrendingKeywords = document.querySelector('.d3-trending-keywords');
+const trendingKeywordsInit = () => {
+  const $d3TrendingKeywords = document.querySelector('.d3-trending-keywords');
   if ($d3TrendingKeywords) {
-    var width = 960;
-    var height = 960;
-    var itemsSpacing = 30;
-    var svg = d3.select('.d3-trending-keywords-svg');
-    var tooltip = d3.select('.d3-trending-keywords-tooltip');
-    var tooltipDot = tooltip.select('.d3-tooltip-dot');
-    var tooltipName = tooltip.select('.d3-tooltip-name');
-    var tooltipValue = tooltip.select('.d3-tooltip-value');
-    var tooltipStyles = {
+    const width = 960;
+    const height = 960;
+    const itemsSpacing = 30;
+    const svg = d3.select('.d3-trending-keywords-svg');
+    const tooltip = d3.select('.d3-trending-keywords-tooltip');
+    const tooltipDot = tooltip.select('.d3-tooltip-dot');
+    const tooltipName = tooltip.select('.d3-tooltip-name');
+    const tooltipValue = tooltip.select('.d3-tooltip-value');
+    const tooltipStyles = {
       backgroundColor: utils.getColor('gray-100'),
       tooltipNameColor: utils.getColor('gray-700'),
       tooltipValueColor: utils.getColor('gray-700')
     };
-    var labelStyles = {
+    const labelStyles = {
       fill: '#ffffff',
       fontSize: '1.8rem'
     };
-    var trendingKeywordsData = [
-      { name: '포스코', value: 160, color: '#2A7BE4' },
-      { name: '철근', value: 20, color: '#1956A6' },
-      { name: '포스코퓨처엠', value: 90, color: '#195099' },
-      { name: '회수', value: 57, color: '#2A7BE4' },
-      { name: '개발', value: 117, color: '#2A7BE4' },
-      { name: '폐내화물', value: 20, color: '#1956A6' },
-      { name: '바이오원료', value: 90, color: '#195099' },
-      { name: '식약처', value: 33, color: '#9DBFEB' },
-      { name: '광산', value: 117, color: '#2A7BE4' },
-      { name: '포스코이앤씨', value: 20, color: '#1956A6' },
-      { name: '호주', value: 90, color: '#195099' },
-      { name: '국감', value: 33, color: '#9DBFEB' },
-      { name: '철근누락', value: 117, color: '#2A7BE4' },
-      { name: '사업', value: 20, color: '#1956A6' },
-      { name: '전기차', value: 90, color: '#195099' },
-      { name: '컬러강판', value: 33, color: '#9DBFEB' },
-      { name: '포스코인터내셔널', value: 12, color: '#0F67D9' },
-      { name: 'ISO50001', value: 66, color: '#7FA5D5' },
-      { name: '체결', value: 33, color: '#8ABBFB' },
-      { name: '부실시공', value: 56, color: '#85B6F5' },
-      { name: '동국씨엠', value: 28, color: '#6486B4' },
-      { name: '최정우교수', value: 66, color: '#2A7BE4' },
-      { name: '공급', value: 66, color: '#68A0E9' },
-      { name: '솔루션', value: 20, color: '#385780' },
-      { name: '투자비', value: 88, color: '#74A2DE' },
-      { name: '광산', value: 80, color: '#4E7AB4' },
-      { name: '폐배터리', value: 34, color: '#71AFFF' },
-
-	];
-    var generateChart = function generateChart(data) {
-      var bubble = function bubble(bubbleData) {
-        return d3.pack().size([width, height]).padding(itemsSpacing)(d3.hierarchy({
-          children: bubbleData
-        }).sum(function (d) {
-          return d.value;
-        }));
-      };
+    const trendingKeywordsData = [{
+      name: '포스코',
+      value: 160,
+      color: '#2A7BE4'
+    }, {
+      name: '철근',
+      value: 20,
+      color: '#1956A6'
+    }, {
+      name: '포스코퓨처엠',
+      value: 90,
+      color: '#195099'
+    }, {
+      name: '회수',
+      value: 57,
+      color: '#2A7BE4'
+    }, {
+      name: '개발',
+      value: 117,
+      color: '#2A7BE4'
+    }, {
+      name: '폐내화물',
+      value: 20,
+      color: '#1956A6'
+    }, {
+      name: '바이오원료',
+      value: 90,
+      color: '#195099'
+    }, {
+      name: '식약처',
+      value: 33,
+      color: '#9DBFEB'
+    }, {
+      name: '광산',
+      value: 117,
+      color: '#2A7BE4'
+    }, {
+      name: '포스코이앤씨',
+      value: 20,
+      color: '#1956A6'
+    }, {
+      name: '호주',
+      value: 90,
+      color: '#195099'
+    }, {
+      name: '국감',
+      value: 33,
+      color: '#9DBFEB'
+    }, {
+      name: '철근누락',
+      value: 117,
+      color: '#2A7BE4'
+    }, {
+      name: '사업',
+      value: 20,
+      color: '#1956A6'
+    }, {
+      name: '전기차',
+      value: 90,
+      color: '#195099'
+    }, {
+      name: '컬러강판',
+      value: 33,
+      color: '#9DBFEB'
+    }, {
+      name: '포스코인터내셔널',
+      value: 12,
+      color: '#0F67D9'
+    }, {
+      name: 'ISO50001',
+      value: 66,
+      color: '#7FA5D5'
+    }, {
+      name: '체결',
+      value: 33,
+      color: '#8ABBFB'
+    }, {
+      name: '부실시공',
+      value: 56,
+      color: '#85B6F5'
+    }, {
+      name: '동국씨엠',
+      value: 28,
+      color: '#6486B4'
+    }, {
+      name: '최정우교수',
+      value: 66,
+      color: '#2A7BE4'
+    }, {
+      name: '공급',
+      value: 66,
+      color: '#68A0E9'
+    }, {
+      name: '솔루션',
+      value: 20,
+      color: '#385780'
+    }, {
+      name: '투자비',
+      value: 88,
+      color: '#74A2DE'
+    }, {
+      name: '광산',
+      value: 80,
+      color: '#4E7AB4'
+    }, {
+      name: '폐배터리',
+      value: 34,
+      color: '#71AFFF'
+    }];
+    const generateChart = data => {
+      const bubble = bubbleData => d3.pack().size([width, height]).padding(itemsSpacing)(d3.hierarchy({
+        children: bubbleData
+      }).sum(d => d.value));
       tooltip.style('visibility', 'hidden');
-      svg.attr('width', '100%').attr('height', '100%').attr('viewBox', "-20 10 ".concat(width, " ").concat(height));
-      var root = bubble(data);
-      var node = svg.selectAll().data(root.children).enter().append('g').style('cursor', 'pointer').style('pointer-events', 'all').attr('text-anchor', 'middle').on('mousemove', function (e) {
-        return tooltip.style('top', "".concat(e.clientY - 40, "px")).style('left', "".concat(e.clientX - 40, "px"));
-      }).attr('transform', function (d) {
-        return "translate(".concat(d.x, ", ").concat(d.y, ")");
-      });
-      var circle = node.append('circle').style('fill', function (d) {
-        return d.data.color;
-      }).on('mouseover', function (e, d) {
-        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', function (diagram) {
-          return diagram.r * 1.1;
-        });
-        tooltip.style('visibility', 'visible').style('z-index', '100000').style('background-color', tooltipStyles.backgroundColor).style('border', "1px solid ".concat(d.data.color));
+      svg.attr('width', '100%').attr('height', '100%').attr('viewBox', `-20 10 ${width} ${height}`);
+      const root = bubble(data);
+      const node = svg.selectAll().data(root.children).enter().append('g').style('cursor', 'pointer').style('pointer-events', 'all').attr('text-anchor', 'middle').on('mousemove', e => tooltip.style('top', `${e.clientY - 40}px`).style('left', `${e.clientX - 40}px`)).attr('transform', d => `translate(${d.x}, ${d.y})`);
+      const circle = node.append('circle').style('fill', d => d.data.color).on('mouseover', (e, d) => {
+        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', diagram => diagram.r * 1.1);
+        tooltip.style('visibility', 'visible').style('z-index', '100000').style('background-color', tooltipStyles.backgroundColor).style('border', `1px solid ${d.data.color}`);
         tooltipDot.style('background-color', d.data.color);
         tooltipName.text(d.data.name).style('color', tooltipStyles.tooltipNameColor);
         tooltipValue.text(d.data.value).style('color', tooltipStyles.tooltipValueColor);
-      }).on('mouseout', function (e) {
-        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', function (d) {
-          return d.r;
-        });
+      }).on('mouseout', e => {
+        d3.select(e.target).transition().ease(d3.easeExpInOut).duration(200).attr('r', d => d.r);
         tooltip.style('visibility', 'hidden');
       });
-      var label = node.append('text').style('fill', labelStyles.fill).style('font-size', labelStyles.fontSize).style('pointer-events', 'none').style('opacity', 0).attr('dy', '.35em').text(function (d) {
-        return d.data.name;
-      });
+      const label = node.append('text').style('fill', labelStyles.fill).style('font-size', labelStyles.fontSize).style('pointer-events', 'none').style('opacity', 0).attr('dy', '.35em').text(d => d.data.name);
       node.transition().ease(d3.easeExpInOut).duration(1000);
-      circle.transition().ease(d3.easeExpInOut).duration(1000).attr('r', function (d) {
-        return d.r;
-      });
+      circle.transition().ease(d3.easeExpInOut).duration(1000).attr('r', d => d.r);
       label.transition().delay(400).ease(d3.easeExpInOut).duration(2000).style('opacity', 1);
     };
     generateChart(trendingKeywordsData);
@@ -5908,789 +6631,148 @@ var trendingKeywordsInit = function trendingKeywordsInit() {
 };
 
 /* -------------------------------------------------------------------------- */
-/*                                  bar-chart                                 */
-/* -------------------------------------------------------------------------- */
-
-var barChartInit = function barChartInit() {
-  var barChartElement = document.getElementById('chartjs-bar-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 6, 3],
-          backgroundColor: [utils.getSubtleColors().secondary, utils.getSubtleColors().warning, utils.getSubtleColors().info, utils.getSubtleColors().success, utils.getSubtleColors().info, utils.getSubtleColors().primary],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          },
-          y: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          }
-        }
-      }
-    };
-  };
-  chartJsInit(barChartElement, getOptions);
-};
-
-/* eslint-disable */
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Bubble                                    */
-/* -------------------------------------------------------------------------- */
-
-var chartBubble = function chartBubble() {
-  var pie = document.getElementById('chartjs-bubble-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'bubble',
-      data: {
-        datasets: [{
-          label: 'Dataset 1',
-          data: getBubbleDataset(5, 5, 15, 0, 100),
-          backgroundColor: utils.getColor('info'),
-          hoverBackgroundColor: utils.getColor('info')
-        }, {
-          label: 'Dataset 2',
-          data: getBubbleDataset(5, 5, 15, 0, 100),
-          backgroundColor: utils.getColor('success'),
-          hoverBackgroundColor: utils.getColor('success')
-        }, {
-          label: 'Dataset 3',
-          data: getBubbleDataset(5, 5, 15, 0, 100),
-          backgroundColor: utils.getColor('warning'),
-          hoverBackgroundColor: utils.getColor('warning')
-        }]
-      },
-      options: {
-        plugins: {
-          legend: {
-            position: 'top',
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          },
-          tooltip: chartJsDefaultTooltip()
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          },
-          y: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          }
-        }
-      }
-    };
-  };
-  chartJsInit(pie, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Combo                                  */
-/* -------------------------------------------------------------------------- */
-var chartCombo = function chartCombo() {
-  var combo = document.getElementById('chartjs-combo-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'bar',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-          type: 'line',
-          label: 'Dataset 1',
-          borderColor: utils.getColor('primary'),
-          borderWidth: 2,
-          fill: false,
-          data: [55, 80, -60, -22, -50, 40, 90]
-        }, {
-          type: 'bar',
-          label: 'Dataset 2',
-          backgroundColor: utils.getSubtleColors().danger,
-          data: [4, -80, 90, -22, 70, 35, -50],
-          borderWidth: 1
-        }, {
-          type: 'bar',
-          label: 'Dataset 3',
-          backgroundColor: utils.getSubtleColors().primary,
-          data: [-30, 30, -18, 100, -45, -25, -50],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            position: 'top',
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          },
-          y: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          }
-        }
-      }
-    };
-  };
-  chartJsInit(combo, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Doughnut                                  */
-/* -------------------------------------------------------------------------- */
-var chartDoughnut = function chartDoughnut() {
-  var doughnut = document.getElementById('chartjs-doughnut-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [5, 3, 2, 1, 1],
-          backgroundColor: [utils.rgbaColor(utils.getColor('facebook'), 0.75), utils.rgbaColor(utils.getColor('youtube'), 0.75), utils.rgbaColor(utils.getColor('twitter'), 0.75), utils.rgbaColor(utils.getColor('linkedin'), 0.75), utils.rgbaColor(utils.getColor('github'), 0.75)],
-          borderWidth: 1,
-          borderColor: utils.getGrays()['100']
-        }],
-        labels: ['Facebook', 'Youtube', 'Twitter', 'Linkedin', 'GitHub']
-      },
-      options: {
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        maintainAspectRatio: false
-      }
-    };
-  };
-  chartJsInit(doughnut, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Half Doughnut                             */
-/* -------------------------------------------------------------------------- */
-var chartHalfDoughnutInit = function chartHalfDoughnutInit() {
-  var $chartHalfDoughnuts = document.querySelectorAll('[data-half-doughnut]');
-  $chartHalfDoughnuts.forEach(function ($chartHalfDoughnut) {
-    if ($chartHalfDoughnut) {
-      var getOptions = function getOptions() {
-        var userOptions = utils.getData($chartHalfDoughnut, 'half-doughnut');
-        var defaultOptions = {
-          type: 'doughnut',
-          data: {
-            labels: ['Reached', 'Target'],
-            datasets: [{
-              data: [50, 50],
-              backgroundColor: ['primary', 'gray-300'],
-              borderWidth: [0, 0, 0, 0]
-            }]
-          },
-          options: {
-            rotation: -90,
-            circumference: '180',
-            cutout: '80%',
-            hover: {
-              mode: null
-            },
-            plugins: {
-              legend: {
-                display: false
-              },
-              tooltip: {
-                enabled: false
-              }
-            }
-          }
-        };
-        var options = window._.merge(defaultOptions, userOptions);
-        var mergedDatasets = options.data.datasets[0];
-        mergedDatasets.backgroundColor = [utils.getColor(mergedDatasets.backgroundColor[0]), utils.getColor(mergedDatasets.backgroundColor[1])];
-        return options;
-      };
-      chartJsInit($chartHalfDoughnut, getOptions);
-    }
-  });
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Line                                  */
-/* -------------------------------------------------------------------------- */
-var chartLine = function chartLine() {
-  var line = document.getElementById('chartjs-line-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'bar',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-          type: 'line',
-          label: 'Dataset 1',
-          borderColor: utils.getColor('primary'),
-          borderWidth: 2,
-          fill: false,
-          data: [55, 80, 60, 22, 50, 40, 90],
-          tension: 0.3
-        }]
-      },
-      options: {
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          },
-          y: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          }
-        }
-      }
-    };
-  };
-  chartJsInit(line, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Pie                                  */
-/* -------------------------------------------------------------------------- */
-var chartPie = function chartPie() {
-  var pie = document.getElementById('chartjs-pie-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'pie',
-      data: {
-        datasets: [{
-          data: [5, 3, 2, 1, 1],
-          backgroundColor: [utils.rgbaColor(utils.getColor('facebook'), 0.75), utils.rgbaColor(utils.getColor('youtube'), 0.75), utils.rgbaColor(utils.getColor('twitter'), 0.75), utils.rgbaColor(utils.getColor('linkedin'), 0.75), utils.rgbaColor(utils.getColor('github'), 0.75)],
-          borderWidth: 1,
-          borderColor: utils.getGrays()['100']
-        }],
-        labels: ['Facebook', 'Youtube', 'Twitter', 'Linkedin', 'GitHub']
-      },
-      options: {
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        maintainAspectRatio: false
-      }
-    };
-  };
-  chartJsInit(pie, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Polar                                  */
-/* -------------------------------------------------------------------------- */
-var chartPolar = function chartPolar() {
-  var polar = document.getElementById('chartjs-polar-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'polarArea',
-      data: {
-        datasets: [{
-          data: [10, 20, 50, 40, 30],
-          backgroundColor: [utils.rgbaColor(utils.getColor('facebook'), 0.5), utils.rgbaColor(utils.getColor('youtube'), 0.5), utils.rgbaColor(utils.getColor('twitter'), 0.5), utils.rgbaColor(utils.getColor('linkedin'), 0.5), utils.rgbaColor(utils.getColor('success'), 0.5)],
-          borderWidth: 1,
-          borderColor: utils.getGrays()['400']
-        }],
-        labels: ['Facebook', 'Youtube', 'Twitter', 'Linkedin', 'Medium']
-      },
-      options: {
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        maintainAspectRatio: false,
-        scales: {
-          r: {
-            grid: {
-              color: utils.getGrays()['300']
-            }
-          }
-        }
-      }
-    };
-  };
-  chartJsInit(polar, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Radar                                  */
-/* -------------------------------------------------------------------------- */
-var chartRadar = function chartRadar() {
-  var radar = document.getElementById('chartjs-radar-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'radar',
-      data: {
-        labels: ['English', 'Maths', 'Physics', 'Chemistry', 'Biology', 'History'],
-        datasets: [{
-          label: 'Student A',
-          backgroundColor: utils.rgbaColor(utils.getColor('success'), 0.5),
-          data: [65, 75, 70, 80, 60, 80],
-          borderWidth: 1
-        }, {
-          label: 'Student B',
-          backgroundColor: utils.rgbaColor(utils.getColor('primary'), 0.5),
-          data: [54, 65, 60, 70, 70, 75],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        maintainAspectRatio: false,
-        scales: {
-          r: {
-            grid: {
-              color: utils.getGrays()['300']
-            }
-          }
-        }
-      }
-    };
-  };
-  chartJsInit(radar, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Scatter                                   */
-/* -------------------------------------------------------------------------- */
-var chartScatter = function chartScatter() {
-  var scatter = document.getElementById('chartjs-scatter-chart');
-  var getOptions = function getOptions() {
-    return {
-      type: 'scatter',
-      data: {
-        datasets: [{
-          label: 'Dataset one',
-          data: [{
-            x: -98,
-            y: 42
-          }, {
-            x: -85,
-            y: -29
-          }, {
-            x: -87,
-            y: -70
-          }, {
-            x: -53,
-            y: 28
-          }, {
-            x: -29,
-            y: 4
-          }, {
-            x: -2,
-            y: -42
-          }, {
-            x: 5,
-            y: 3
-          }, {
-            x: 39,
-            y: 19
-          }, {
-            x: 49,
-            y: 79
-          }, {
-            x: 83,
-            y: -9
-          }, {
-            x: 93,
-            y: 12
-          }],
-          pointBackgroundColor: utils.getColor('primary'),
-          borderColor: utils.getColor('primary'),
-          borderWidth: 1
-        }, {
-          label: 'Dataset Two',
-          data: [{
-            x: 53,
-            y: 12
-          }, {
-            x: -78,
-            y: 42
-          }, {
-            x: -65,
-            y: -39
-          }, {
-            x: -57,
-            y: -20
-          }, {
-            x: 57,
-            y: 28
-          }, {
-            x: -35,
-            y: 75
-          }, {
-            x: -29,
-            y: -43
-          }, {
-            x: 15,
-            y: 31
-          }, {
-            x: 97,
-            y: 19
-          }, {
-            x: 49,
-            y: 69
-          }, {
-            x: 33,
-            y: -57
-          }],
-          pointBackgroundColor: utils.getColor('warning'),
-          borderColor: utils.getColor('warning'),
-          borderWidth: 1,
-          borderRadius: '50%'
-        }]
-      },
-      options: {
-        plugins: {
-          tooltip: chartJsDefaultTooltip(),
-          legend: {
-            labels: {
-              color: utils.getGrays()['500']
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          },
-          y: {
-            ticks: {
-              color: utils.getGrays()['500']
-            },
-            grid: {
-              color: utils.getGrays()['300'],
-              drawBorder: false
-            }
-          }
-        },
-        animation: {
-          duration: 2000
-        }
-      }
-    };
-  };
-  chartJsInit(scatter, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
-/*                            ChartJs Initialization                          */
-/* -------------------------------------------------------------------------- */
-
-var chartJsInit = function chartJsInit(chartEl, config) {
-  if (!chartEl) return;
-  var ctx = chartEl.getContext('2d');
-  var chart = new window.Chart(ctx, config());
-  var themeController = document.body;
-  themeController.addEventListener('clickControl', function (_ref15) {
-    var control = _ref15.detail.control;
-    if (control === 'theme') {
-      chart.destroy();
-      chart = new window.Chart(ctx, config());
-    }
-    return null;
-  });
-};
-var chartJsDefaultTooltip = function chartJsDefaultTooltip() {
-  return {
-    backgroundColor: utils.getGrays()['100'],
-    borderColor: utils.getGrays()['300'],
-    borderWidth: 1,
-    titleColor: utils.getColors().emphasis,
-    callbacks: {
-      labelTextColor: function labelTextColor() {
-        return utils.getColors().emphasis;
-      }
-    }
-  };
-};
-var getBubbleDataset = function getBubbleDataset(count, rmin, rmax, min, max) {
-  var arr = Array.from(Array(count).keys());
-  return arr.map(function () {
-    return {
-      x: utils.getRandomNumber(min, max),
-      y: utils.getRandomNumber(min, max),
-      r: utils.getRandomNumber(rmin, rmax)
-    };
-  });
-};
-
-/* eslint-disable */
-
-/* -------------------------------------------------------------------------- */
-/*                            Chart Scatter                                   */
-/* -------------------------------------------------------------------------- */
-var productShareDoughnutInit = function productShareDoughnutInit() {
-  var marketShareDoughnutElement = document.getElementById('marketShareDoughnut');
-  var getOptions = function getOptions() {
-    return {
-      type: 'doughnut',
-      data: {
-        labels: ['Flacon', 'Sparrow'],
-        datasets: [{
-          data: [50, 88],
-          backgroundColor: [utils.getColor('primary'), utils.getColor('gray-300')],
-          borderColor: [utils.getColor('primary'), utils.getColor('gray-300')]
-        }]
-      },
-      options: {
-        tooltips: chartJsDefaultTooltip(),
-        rotation: -90,
-        circumference: '180',
-        cutout: '80%',
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
-      }
-    };
-  };
-  chartJsInit(marketShareDoughnutElement, getOptions);
-};
-
-/* -------------------------------------------------------------------------- */
 /*                             Echarts Active Users                           */
 /* -------------------------------------------------------------------------- */
 
-var activeUsersChartReportInit = function activeUsersChartReportInit() {
-  var $echartsActiveUsersChart = document.querySelector('.echart-active-users-report');
+const activeUsersChartReportInit = () => {
+  const $echartsActiveUsersChart = document.querySelector('.echart-active-users-report');
   if ($echartsActiveUsersChart) {
-    var userOptions = utils.getData($echartsActiveUsersChart, 'options');
-    var chart = window.echarts.init($echartsActiveUsersChart);
-    var _tooltipFormatter = function _tooltipFormatter(params) {
-      return "\n      <div>\n        <p class='mb-2 text-600'>".concat(window.dayjs(params[0].axisValue).format('MMM DD, YYYY'), "</p>\n        <div class='ms-1'>\n          <h6 class=\"fs--1 text-700\"><span class=\"fas fa-circle text-primary me-2\"></span>").concat(params[0].value, "</h6>\n          <h6 class=\"fs--1 text-700\"><span class=\"fas fa-circle text-success me-2\"></span>").concat(params[1].value, "</h6>\n          <h6 class=\"fs--1 text-700\"><span class=\"fas fa-circle text-info me-2\"></span>").concat(params[2].value, "</h6>\n        </div>\n      </div>\n      ");
+    const userOptions = utils.getData($echartsActiveUsersChart, 'options');
+    const chart = window.echarts.init($echartsActiveUsersChart);
+    const tooltipFormatter = params => {
+      return `
+      <div>
+        <p class='mb-2 text-600'>${window.dayjs(params[0].axisValue).format('MMM DD, YYYY')}</p>
+        <div class='ms-1'>
+          <h6 class="fs--1 text-700"><span class="fas fa-circle text-primary me-2"></span>${params[0].value}</h6>
+          <h6 class="fs--1 text-700"><span class="fas fa-circle text-success me-2"></span>${params[1].value}</h6>
+          <h6 class="fs--1 text-700"><span class="fas fa-circle text-info me-2"></span>${params[2].value}</h6>
+        </div>
+      </div>
+      `;
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColor('primary'), utils.getColor('success'), utils.getColor('info')],
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: _tooltipFormatter
+    const getDefaultOptions = () => ({
+      color: [utils.getColor('primary'), utils.getColor('success'), utils.getColor('info')],
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        xAxis: {
-          type: 'category',
-          data: utils.getPastDates(30).map(function (date) {
-            return window.dayjs(date).format('DD MMM, YYYY');
-          }),
-          boundaryGap: false,
-          silent: true,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          axisTick: {
-            show: true,
-            length: 20,
-            lineStyle: {
-              color: utils.getGrays()['200']
-            },
-            interval: 5
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('MMM DD');
-            },
-            align: 'left',
-            fontSize: 11,
-            padding: [0, 0, 0, 5],
-            interval: 5
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        },
+        formatter: tooltipFormatter
+      },
+      xAxis: {
+        type: 'category',
+        data: utils.getPastDates(30).map(date => window.dayjs(date).format('DD MMM, YYYY')),
+        boundaryGap: false,
+        silent: true,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['300']
           }
         },
-        yAxis: {
-          type: 'value',
-          position: 'right',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return "".concat(Math.round(value / 1000 * 10) / 10, "k");
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300']
           }
         },
-        series: [{
-          type: 'line',
-          data: [4164, 4652, 4817, 4841, 4920, 5439, 5486, 5498, 5512, 5538, 5841, 5877, 6086, 6146, 6199, 6431, 6704, 7939, 8127, 8296, 8322, 8389, 8411, 8502, 8868, 8977, 9273, 9325, 9345, 9430],
-          showSymbol: false,
-          symbol: 'circle',
-          itemStyle: {
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
+        axisTick: {
+          show: true,
+          length: 20,
           lineStyle: {
-            color: utils.getColor('primary')
+            color: utils.getGrays()['200']
           },
-          symbolSize: 2
-        }, {
-          type: 'line',
-          data: [2164, 2292, 2386, 2430, 2528, 3045, 3255, 3295, 3481, 3604, 3688, 3840, 3932, 3949, 4003, 4298, 4424, 4869, 4922, 4973, 5155, 5267, 5566, 5689, 5692, 5758, 5773, 5799, 5960, 6000],
-          showSymbol: false,
-          symbol: 'circle',
-          itemStyle: {
-            borderColor: utils.getColors().success,
-            borderWidth: 2
-          },
-          lineStyle: {
-            color: utils.getColor('success')
-          },
-          symbolSize: 2
-        }, {
-          type: 'line',
-          data: [1069, 1089, 1125, 1141, 1162, 1179, 1185, 1216, 1274, 1322, 1346, 1395, 1439, 1564, 1581, 1590, 1656, 1815, 1868, 2010, 2133, 2179, 2264, 2265, 2278, 2343, 2354, 2456, 2472, 2480],
-          showSymbol: false,
-          symbol: 'circle',
-          itemStyle: {
-            borderColor: utils.getColors().info,
-            borderWidth: 2
-          },
-          lineStyle: {
-            color: utils.getColor('info')
-          },
-          symbolSize: 2
-        }],
-        grid: {
-          right: '30px',
-          left: '5px',
-          bottom: '20px',
-          top: '20px'
+          interval: 5
+        },
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => window.dayjs(value).format('MMM DD'),
+          align: 'left',
+          fontSize: 11,
+          padding: [0, 0, 0, 5],
+          interval: 5
         }
-      };
-    };
+      },
+      yAxis: {
+        type: 'value',
+        position: 'right',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200']
+          }
+        },
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['600'],
+          formatter: value => `${Math.round(value / 1000 * 10) / 10}k`
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        type: 'line',
+        data: [4164, 4652, 4817, 4841, 4920, 5439, 5486, 5498, 5512, 5538, 5841, 5877, 6086, 6146, 6199, 6431, 6704, 7939, 8127, 8296, 8322, 8389, 8411, 8502, 8868, 8977, 9273, 9325, 9345, 9430],
+        showSymbol: false,
+        symbol: 'circle',
+        itemStyle: {
+          borderColor: utils.getColors().primary,
+          borderWidth: 2
+        },
+        lineStyle: {
+          color: utils.getColor('primary')
+        },
+        symbolSize: 2
+      }, {
+        type: 'line',
+        data: [2164, 2292, 2386, 2430, 2528, 3045, 3255, 3295, 3481, 3604, 3688, 3840, 3932, 3949, 4003, 4298, 4424, 4869, 4922, 4973, 5155, 5267, 5566, 5689, 5692, 5758, 5773, 5799, 5960, 6000],
+        showSymbol: false,
+        symbol: 'circle',
+        itemStyle: {
+          borderColor: utils.getColors().success,
+          borderWidth: 2
+        },
+        lineStyle: {
+          color: utils.getColor('success')
+        },
+        symbolSize: 2
+      }, {
+        type: 'line',
+        data: [1069, 1089, 1125, 1141, 1162, 1179, 1185, 1216, 1274, 1322, 1346, 1395, 1439, 1564, 1581, 1590, 1656, 1815, 1868, 2010, 2133, 2179, 2264, 2265, 2278, 2343, 2354, 2456, 2472, 2480],
+        showSymbol: false,
+        symbol: 'circle',
+        itemStyle: {
+          borderColor: utils.getColors().info,
+          borderWidth: 2
+        },
+        lineStyle: {
+          color: utils.getColor('info')
+        },
+        symbolSize: 2
+      }],
+      grid: {
+        right: '30px',
+        left: '5px',
+        bottom: '20px',
+        top: '20px'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -6699,12 +6781,12 @@ var activeUsersChartReportInit = function activeUsersChartReportInit() {
 /*                                Market Share                                */
 /* -------------------------------------------------------------------------- */
 
-var assignmentScoresInit = function assignmentScoresInit() {
-  var $echartAssignmentScores = document.querySelector('.echart-assignment-scores');
+const assignmentScoresInit = () => {
+  const $echartAssignmentScores = document.querySelector('.echart-assignment-scores');
   if ($echartAssignmentScores) {
-    var userOptions = utils.getData($echartAssignmentScores, 'options');
-    var chart = window.echarts.init($echartAssignmentScores);
-    var data = [{
+    const userOptions = utils.getData($echartAssignmentScores, 'options');
+    const chart = window.echarts.init($echartAssignmentScores);
+    const data = [{
       value: 12,
       name: '90-100%'
     }, {
@@ -6717,61 +6799,59 @@ var assignmentScoresInit = function assignmentScoresInit() {
       value: 2,
       name: '0-40%'
     }];
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().success, utils.getColors().primary, utils.getColors().info, utils.getColors().warning],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().success, utils.getColors().primary, utils.getColors().info, utils.getColors().warning],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter(params) {
+          return `<strong>${params.data.name}:</strong> ${params.data.value} courses`;
+        }
+      },
+      position(pos, params, dom, rect, size) {
+        return getPosition(pos, params, dom, rect, size);
+      },
+      legend: {
+        show: false
+      },
+      series: [{
+        type: 'pie',
+        radius: ['85%', '60%'],
+        avoidLabelOverlap: false,
+        hoverAnimation: false,
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: utils.getColor('gray-100')
+        },
+        label: {
+          normal: {
+            show: false,
+            position: 'center',
+            textStyle: {
+              fontSize: '20',
+              fontWeight: '500',
+              color: utils.getGrays()['700']
+            }
           },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return "<strong>".concat(params.data.name, ":</strong> ").concat(params.data.value, " courses");
+          emphasis: {
+            show: false
           }
         },
-        position: function position(pos, params, dom, rect, size) {
-          return getPosition(pos, params, dom, rect, size);
+        labelLine: {
+          normal: {
+            show: false
+          }
         },
-        legend: {
-          show: false
-        },
-        series: [{
-          type: 'pie',
-          radius: ['85%', '60%'],
-          avoidLabelOverlap: false,
-          hoverAnimation: false,
-          itemStyle: {
-            borderWidth: 2,
-            borderColor: utils.getColor('gray-100')
-          },
-          label: {
-            normal: {
-              show: false,
-              position: 'center',
-              textStyle: {
-                fontSize: '20',
-                fontWeight: '500',
-                color: utils.getGrays()['700']
-              }
-            },
-            emphasis: {
-              show: false
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: data
-        }]
-      };
-    };
+        data
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -6780,8 +6860,8 @@ var assignmentScoresInit = function assignmentScoresInit() {
 /*                                Audience Chart                              */
 /* -------------------------------------------------------------------------- */
 
-var audienceChartInit = function audienceChartInit() {
-  var data = {
+const audienceChartInit = () => {
+  const data = {
     dates: utils.getPastDates(7),
     dataset: {
       users: [[504, 333, 400, 606, 451, 685, 404], [237, 229, 707, 575, 420, 536, 258]],
@@ -6790,140 +6870,147 @@ var audienceChartInit = function audienceChartInit() {
       duration: [[625, 269, 479, 654, 549, 305, 671], [499, 670, 550, 222, 696, 695, 469]]
     }
   };
-  var tooltipFormatter = function tooltipFormatter(params) {
-    var percentage = (params[0].value - params[1].value) / params[1].value * 100;
-    var perTemp = "\n      <div class=\"d-flex align-items-center ms-2\">\n        <span class=\"fas fa-caret-".concat(percentage < 0 ? 'down' : 'up', " text-").concat(percentage < 0 ? 'danger' : 'success', "\"></span>\n        <h6 class=\"fs--2 mb-0 ms-1 fw-semi-bold\">").concat(Math.abs(percentage).toFixed(2), " %</h6>\n      </div>\n    ");
-    var currentDate = new Date(params[0].axisValue);
-    var prevDate = new Date(new Date().setDate(currentDate.getDate() - 7));
-    return "<div>\n          <p class='mb-0 fs--2 text-600'>".concat(window.dayjs(params[0].axisValue).format('MMM DD'), " vs ").concat(window.dayjs(prevDate).format('MMM DD'), "</p>\n          <div class=\"d-flex align-items-center\">\n            <p class='mb-0 text-600 fs--1'>\n              Users: <span class='text-800 fw-semi-bold fs--1'>").concat(params[0].data, "</span>\n            </p>\n            ").concat(perTemp, "\n          </div>\n        </div>");
+  const tooltipFormatter = params => {
+    const percentage = (params[0].value - params[1].value) / params[1].value * 100;
+    const perTemp = `
+      <div class="d-flex align-items-center ms-2">
+        <span class="fas fa-caret-${percentage < 0 ? 'down' : 'up'} text-${percentage < 0 ? 'danger' : 'success'}"></span>
+        <h6 class="fs--2 mb-0 ms-1 fw-semi-bold">${Math.abs(percentage).toFixed(2)} %</h6>
+      </div>
+    `;
+    const currentDate = new Date(params[0].axisValue);
+    const prevDate = new Date(new Date().setDate(currentDate.getDate() - 7));
+    return `<div>
+          <p class='mb-0 fs--2 text-600'>${window.dayjs(params[0].axisValue).format('MMM DD')} vs ${window.dayjs(prevDate).format('MMM DD')}</p>
+          <div class="d-flex align-items-center">
+            <p class='mb-0 text-600 fs--1'>
+              Users: <span class='text-800 fw-semi-bold fs--1'>${params[0].data}</span>
+            </p>
+            ${perTemp}
+          </div>
+        </div>`;
   };
-  var getDefaultOptions = function getDefaultOptions(data1, data2) {
-    return function () {
-      return {
-        color: utils.getGrays()['100'],
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          axisPointer: {
-            type: 'none'
-          },
-          formatter: tooltipFormatter
-        },
-        xAxis: {
-          type: 'category',
-          data: data.dates,
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('MMM DD');
-            },
-            align: 'left',
-            fontSize: 11,
-            padding: [0, 0, 0, 5],
-            showMaxLabel: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisTick: {
-            show: true,
-            length: 20,
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          boundaryGap: false
-        },
-        yAxis: {
-          position: 'right',
-          axisPointer: {
-            type: 'none'
-          },
-          axisTick: 'none',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          }
-        },
-        series: [{
-          type: 'line',
-          data: data1,
-          showSymbol: false,
-          symbol: 'circle',
-          itemStyle: {
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
-          lineStyle: {
-            color: utils.getColor('primary')
-          },
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColors().primary, 0.2)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColors().primary, 0)
-              }]
-            }
-          }
-        }, {
-          type: 'line',
-          data: data2,
-          symbol: 'none',
-          lineStyle: {
-            type: 'dashed',
-            width: 1,
-            color: utils.getColor('info')
-          }
-        }],
-        grid: {
-          right: '40px',
-          left: '5px',
-          bottom: '10%',
-          top: '3%'
+  const getDefaultOptions = (data1, data2) => () => ({
+    color: utils.getGrays()['100'],
+    tooltip: {
+      trigger: 'axis',
+      padding: [7, 10],
+      backgroundColor: utils.getGrays()['100'],
+      borderColor: utils.getGrays()['300'],
+      textStyle: {
+        color: utils.getGrays()['1100']
+      },
+      borderWidth: 1,
+      transitionDuration: 0,
+      position(pos, params, dom, rect, size) {
+        return getPosition(pos, params, dom, rect, size);
+      },
+      axisPointer: {
+        type: 'none'
+      },
+      formatter: tooltipFormatter
+    },
+    xAxis: {
+      type: 'category',
+      data: data.dates,
+      axisLabel: {
+        color: utils.getGrays()['600'],
+        formatter: value => window.dayjs(value).format('MMM DD'),
+        align: 'left',
+        fontSize: 11,
+        padding: [0, 0, 0, 5],
+        showMaxLabel: false
+      },
+      axisLine: {
+        lineStyle: {
+          color: utils.getGrays()['200']
         }
-      };
-    };
-  };
-  var initChart = function initChart(el, options) {
-    var userOptions = utils.getData(el, 'options');
-    var chart = window.echarts.init(el);
+      },
+      axisTick: {
+        show: true,
+        length: 20,
+        lineStyle: {
+          color: utils.getGrays()['200']
+        }
+      },
+      boundaryGap: false
+    },
+    yAxis: {
+      position: 'right',
+      axisPointer: {
+        type: 'none'
+      },
+      axisTick: 'none',
+      splitLine: {
+        lineStyle: {
+          color: utils.getGrays()['200']
+        }
+      },
+      axisLine: {
+        show: false
+      },
+      axisLabel: {
+        color: utils.getGrays()['600']
+      }
+    },
+    series: [{
+      type: 'line',
+      data: data1,
+      showSymbol: false,
+      symbol: 'circle',
+      itemStyle: {
+        borderColor: utils.getColors().primary,
+        borderWidth: 2
+      },
+      lineStyle: {
+        color: utils.getColor('primary')
+      },
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [{
+            offset: 0,
+            color: utils.rgbaColor(utils.getColors().primary, 0.2)
+          }, {
+            offset: 1,
+            color: utils.rgbaColor(utils.getColors().primary, 0)
+          }]
+        }
+      }
+    }, {
+      type: 'line',
+      data: data2,
+      symbol: 'none',
+      lineStyle: {
+        type: 'dashed',
+        width: 1,
+        color: utils.getColor('info')
+      }
+    }],
+    grid: {
+      right: '40px',
+      left: '5px',
+      bottom: '10%',
+      top: '3%'
+    }
+  });
+  const initChart = (el, options) => {
+    const userOptions = utils.getData(el, 'options');
+    const chart = window.echarts.init(el);
     echartSetOption(chart, userOptions, options);
   };
-  var tab = document.querySelector('#audience-chart-tab');
+  const tab = document.querySelector('#audience-chart-tab');
   if (tab) {
     initChart(document.querySelector('.echart-audience'), getDefaultOptions(data.dataset.users[0], data.dataset.users[1]));
-    var triggerTabList = Array.from(tab.querySelectorAll('[data-bs-toggle="tab"]'));
+    const triggerTabList = Array.from(tab.querySelectorAll('[data-bs-toggle="tab"]'));
     triggerTabList.forEach(function (triggerEl) {
       triggerEl.addEventListener('shown.bs.tab', function () {
-        var key = triggerEl.href.split('#').pop();
-        var $echartAudience = document.getElementById(key).querySelector('.echart-audience');
+        const key = triggerEl.href.split('#').pop();
+        const $echartAudience = document.getElementById(key).querySelector('.echart-audience');
         initChart($echartAudience, getDefaultOptions(data.dataset[key][0], data.dataset[key][1]));
       });
     });
@@ -6934,201 +7021,199 @@ var audienceChartInit = function audienceChartInit() {
 /*                      Echarts Total Sales Courses                           */
 /* -------------------------------------------------------------------------- */
 
-var avgEnrollmentRateInit = function avgEnrollmentRateInit() {
-  var $echartsLineAvgEnrollmentLms = document.querySelector('.echart-avg-enrollment-rate');
+const avgEnrollmentRateInit = () => {
+  const $echartsLineAvgEnrollmentLms = document.querySelector('.echart-avg-enrollment-rate');
   function getFormatter(params) {
-    return params.map(function (_ref16) {
-      var seriesName = _ref16.seriesName,
-        value = _ref16.value,
-        borderColor = _ref16.borderColor;
-      return "<span class= \"fas fa-circle fs--2\" style=\"color: ".concat(borderColor, "\"></span>\n            <span class='text-600'>\n              ").concat(seriesName, " : <strong>").concat(value, "</strong>\n            </span>");
-    }).join('<br/>');
+    return params.map(({
+      seriesName,
+      value,
+      borderColor
+    }) => `<span class= "fas fa-circle fs--2" style="color: ${borderColor}"></span>
+            <span class='text-600'>
+              ${seriesName} : <strong>${value}</strong>
+            </span>`).join('<br/>');
   }
   if ($echartsLineAvgEnrollmentLms) {
-    var userOptions = utils.getData($echartsLineAvgEnrollmentLms, 'options');
-    var onSaleCourseRate = document.querySelector("#".concat(userOptions.optionOne));
-    var regularPaidCourseRate = document.querySelector("#".concat(userOptions.optionTwo));
-    var chart = window.echarts.init($echartsLineAvgEnrollmentLms);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: utils.getGrays()['100'],
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          formatter: function formatter(params) {
-            return getFormatter(params);
-          },
-          transitionDuration: 0
+    const userOptions = utils.getData($echartsLineAvgEnrollmentLms, 'options');
+    const onSaleCourseRate = document.querySelector(`#${userOptions.optionOne}`);
+    const regularPaidCourseRate = document.querySelector(`#${userOptions.optionTwo}`);
+    const chart = window.echarts.init($echartsLineAvgEnrollmentLms);
+    const getDefaultOptions = () => ({
+      color: utils.getGrays()['100'],
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        legend: {
+        borderWidth: 1,
+        formatter(params) {
+          return getFormatter(params);
+        },
+        transitionDuration: 0
+      },
+      legend: {
+        show: false
+      },
+      xAxis: [{
+        type: 'category',
+        position: 'bottom',
+        data: ['launch', 'week 1', 'week 2', 'week 3', 'week 4', 'week 5', 'week 6', 'week 7', 'week 8', 'week 9', 'week 10', 'week 11', 'week 12'],
+        boundaryGap: false,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['200'],
+            type: 'line'
+          }
+        },
+        splitLine: {
           show: false
         },
-        xAxis: [{
-          type: 'category',
-          position: 'bottom',
-          data: ['launch', 'week 1', 'week 2', 'week 3', 'week 4', 'week 5', 'week 6', 'week 7', 'week 8', 'week 9', 'week 10', 'week 11', 'week 12'],
-          boundaryGap: false,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['200'],
-              type: 'line'
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['200'],
-              type: 'line'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getColor('gray-500'),
-            formatter: function formatter(value) {
-              return value;
-            },
-            interval: 3,
-            margin: 15,
-            showMinLabel: true,
-            showMaxLabel: false,
-            align: 'center'
-          }
-        }, {
-          type: 'category',
-          position: 'bottom',
-          data: ['launch', 'week 1', 'week 2', 'week 3', 'week 4', 'week 5', 'week 6', 'week 7', 'week 8', 'week 9', 'week 10', 'week 11', 'week 12'],
-          boundaryGap: false,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['200'],
-              type: 'line'
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['200'],
-              type: 'line'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getColor('gray-500'),
-            formatter: function formatter(value) {
-              return value;
-            },
-            interval: 200,
-            margin: 15,
-            showMaxLabel: true,
-            showMinLabel: false,
-            align: 'right'
-          }
-        }],
-        yAxis: {
-          type: 'value',
-          splitNumber: 3,
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getColor('gray-200'),
-              type: 'line'
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            showMinLabel: false,
-            show: true,
-            color: utils.getColor('gray-400'),
-            formatter: function formatter(value) {
-              return "".concat(Math.round(value / 1000 * 10) / 10, "k");
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['200'],
+            type: 'line'
           }
         },
-        series: [{
-          name: 'On Sale Course',
-          type: 'line',
-          data: [2000, 2800, 2200, 3001, 600, 600, 2000, 2000, 700, 1000, 200, 900, 1200],
-          lineStyle: {
-            color: utils.getColor('primary')
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getColor('gray-500'),
+          formatter(value) {
+            return value;
           },
-          itemStyle: {
-            borderColor: utils.getColor('primary'),
-            borderWidth: 2
-          },
-          symbol: 'circle',
-          symbolSize: 10,
-          hoverAnimation: true
-        }, {
-          name: 'Regular Paid Course',
-          type: 'line',
-          data: [1700, 1200, 500, 700, 1500, 1100, 700, 1100, 2600, 2050, 1050, 600, 700],
-          lineStyle: {
-            color: utils.getColor('warning'),
-            type: 'dashed'
-          },
-          itemStyle: {
-            borderColor: utils.getColor('warning'),
-            borderWidth: 2
-          },
-          symbol: 'circle',
-          symbolSize: 10,
-          hoverAnimation: true,
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColor('warning'), 0.4)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColor('warning'), 0)
-              }]
-            }
-          }
-        }],
-        grid: {
-          right: '10px',
-          left: '30px',
-          bottom: '15%',
-          top: '5%'
+          interval: 3,
+          margin: 15,
+          showMinLabel: true,
+          showMaxLabel: false,
+          align: 'center'
         }
-      };
-    };
+      }, {
+        type: 'category',
+        position: 'bottom',
+        data: ['launch', 'week 1', 'week 2', 'week 3', 'week 4', 'week 5', 'week 6', 'week 7', 'week 8', 'week 9', 'week 10', 'week 11', 'week 12'],
+        boundaryGap: false,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['200'],
+            type: 'line'
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['200'],
+            type: 'line'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getColor('gray-500'),
+          formatter(value) {
+            return value;
+          },
+          interval: 200,
+          margin: 15,
+          showMaxLabel: true,
+          showMinLabel: false,
+          align: 'right'
+        }
+      }],
+      yAxis: {
+        type: 'value',
+        splitNumber: 3,
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getColor('gray-200'),
+            type: 'line'
+          }
+        },
+        boundaryGap: false,
+        axisLabel: {
+          showMinLabel: false,
+          show: true,
+          color: utils.getColor('gray-400'),
+          formatter: value => `${Math.round(value / 1000 * 10) / 10}k`
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        name: 'On Sale Course',
+        type: 'line',
+        data: [2000, 2800, 2200, 3001, 600, 600, 2000, 2000, 700, 1000, 200, 900, 1200],
+        lineStyle: {
+          color: utils.getColor('primary')
+        },
+        itemStyle: {
+          borderColor: utils.getColor('primary'),
+          borderWidth: 2
+        },
+        symbol: 'circle',
+        symbolSize: 10,
+        hoverAnimation: true
+      }, {
+        name: 'Regular Paid Course',
+        type: 'line',
+        data: [1700, 1200, 500, 700, 1500, 1100, 700, 1100, 2600, 2050, 1050, 600, 700],
+        lineStyle: {
+          color: utils.getColor('warning'),
+          type: 'dashed'
+        },
+        itemStyle: {
+          borderColor: utils.getColor('warning'),
+          borderWidth: 2
+        },
+        symbol: 'circle',
+        symbolSize: 10,
+        hoverAnimation: true,
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: utils.rgbaColor(utils.getColor('warning'), 0.4)
+            }, {
+              offset: 1,
+              color: utils.rgbaColor(utils.getColor('warning'), 0)
+            }]
+          }
+        }
+      }],
+      grid: {
+        right: '10px',
+        left: '30px',
+        bottom: '15%',
+        top: '5%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    onSaleCourseRate.addEventListener('click', function () {
+    onSaleCourseRate.addEventListener('click', () => {
       onSaleCourseRate.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
         name: 'On Sale Course'
       });
     });
-    regularPaidCourseRate.addEventListener('click', function () {
+    regularPaidCourseRate.addEventListener('click', () => {
       regularPaidCourseRate.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
@@ -7142,79 +7227,77 @@ var avgEnrollmentRateInit = function avgEnrollmentRateInit() {
 /*                            Bandwidth Saved                                 */
 /* -------------------------------------------------------------------------- */
 
-var bandwidthSavedInit = function bandwidthSavedInit() {
-  var $echartsBandwidthSaved = document.querySelector('.echart-bandwidth-saved');
+const bandwidthSavedInit = () => {
+  const $echartsBandwidthSaved = document.querySelector('.echart-bandwidth-saved');
   if ($echartsBandwidthSaved) {
-    var userOptions = utils.getData($echartsBandwidthSaved, 'options');
-    var chart = window.echarts.init($echartsBandwidthSaved);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        series: [{
-          type: 'gauge',
-          startAngle: 90,
-          endAngle: -270,
-          radius: '90%',
-          pointer: {
-            show: false
-          },
-          progress: {
-            show: true,
-            overlap: false,
-            roundCap: true,
-            clip: false,
-            itemStyle: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 1,
-                y2: 0,
-                colorStops: [{
-                  offset: 0,
-                  color: '#1970e2'
-                }, {
-                  offset: 1,
-                  color: '#4695ff'
-                }]
-              }
+    const userOptions = utils.getData($echartsBandwidthSaved, 'options');
+    const chart = window.echarts.init($echartsBandwidthSaved);
+    const getDefaultOptions = () => ({
+      series: [{
+        type: 'gauge',
+        startAngle: 90,
+        endAngle: -270,
+        radius: '90%',
+        pointer: {
+          show: false
+        },
+        progress: {
+          show: true,
+          overlap: false,
+          roundCap: true,
+          clip: false,
+          itemStyle: {
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 1,
+              y2: 0,
+              colorStops: [{
+                offset: 0,
+                color: '#1970e2'
+              }, {
+                offset: 1,
+                color: '#4695ff'
+              }]
             }
-          },
-          axisLine: {
-            lineStyle: {
-              width: 8,
-              color: [[1, utils.getColor('gray-200')]]
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          data: [{
-            value: 93,
-            detail: {
-              offsetCenter: ['7%', '4%']
-            }
-          }],
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            width: 8,
+            color: [[1, utils.getColor('gray-200')]]
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        data: [{
+          value: 93,
           detail: {
-            width: 50,
-            height: 14,
-            fontSize: 28,
-            fontWeight: 500,
-            fontFamily: 'poppins',
-            color: utils.getColor('gray-500'),
-            formatter: '{value}%',
-            valueAnimation: true
-          },
-          animationDuration: 3000
-        }]
-      };
-    };
-    var initChart = function initChart() {
+            offsetCenter: ['7%', '4%']
+          }
+        }],
+        detail: {
+          width: 50,
+          height: 14,
+          fontSize: 28,
+          fontWeight: 500,
+          fontFamily: 'poppins',
+          color: utils.getColor('gray-500'),
+          formatter: '{value}%',
+          valueAnimation: true
+        },
+        animationDuration: 3000
+      }]
+    });
+    const initChart = () => {
       if (utils.isScrolledIntoView($echartsBandwidthSaved)) {
         echartSetOption(chart, userOptions, getDefaultOptions);
         window.removeEventListener('scroll', initChart);
@@ -7228,69 +7311,67 @@ var bandwidthSavedInit = function bandwidthSavedInit() {
 /*                     Echart Bar Member info                                 */
 /* -------------------------------------------------------------------------- */
 
-var basicEchartsInit = function basicEchartsInit() {
-  var $echartBasicCharts = document.querySelectorAll('[data-echarts]');
-  $echartBasicCharts.forEach(function ($echartBasicChart) {
-    var userOptions = utils.getData($echartBasicChart, 'echarts');
-    var chart = window.echarts.init($echartBasicChart);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: utils.getColors().primary,
-        tooltip: {
-          trigger: 'item',
-          axisPointer: {
-            type: 'none'
-          },
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          }
+const basicEchartsInit = () => {
+  const $echartBasicCharts = document.querySelectorAll('[data-echarts]');
+  $echartBasicCharts.forEach($echartBasicChart => {
+    const userOptions = utils.getData($echartBasicChart, 'echarts');
+    const chart = window.echarts.init($echartBasicChart);
+    const getDefaultOptions = () => ({
+      color: utils.getColors().primary,
+      tooltip: {
+        trigger: 'item',
+        axisPointer: {
+          type: 'none'
         },
-        xAxis: {
-          type: 'category',
-          show: false,
-          boundaryGap: false
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        yAxis: {
-          show: false,
-          type: 'value',
-          boundaryGap: false
-        },
-        series: [{
-          type: 'bar',
-          symbol: 'none',
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColor('primary'), 0.25)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColor('primary'), 0)
-              }]
-            }
-          }
-        }],
-        grid: {
-          right: '0',
-          left: '0',
-          bottom: '0',
-          top: '0'
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         }
-      };
-    };
+      },
+      xAxis: {
+        type: 'category',
+        show: false,
+        boundaryGap: false
+      },
+      yAxis: {
+        show: false,
+        type: 'value',
+        boundaryGap: false
+      },
+      series: [{
+        type: 'bar',
+        symbol: 'none',
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: utils.rgbaColor(utils.getColor('primary'), 0.25)
+            }, {
+              offset: 1,
+              color: utils.rgbaColor(utils.getColor('primary'), 0)
+            }]
+          }
+        }
+      }],
+      grid: {
+        right: '0',
+        left: '0',
+        bottom: '0',
+        top: '0'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   });
 };
@@ -7299,134 +7380,131 @@ var basicEchartsInit = function basicEchartsInit() {
 /*                             Echarts Bounce Rate                            */
 /* -------------------------------------------------------------------------- */
 
-var bounceRateChartInit = function bounceRateChartInit() {
-  var $echartsBounceRateChart = document.querySelector('.echart-bounce-rate');
-  var tooltipFormatter = function tooltipFormatter(params) {
-    return "<div>\n          <p class='mb-0 text-600'>".concat(window.dayjs(params[0].axisValue).format('DD, MMMM'), "</p>\n          <div class=\"d-flex align-items-center\">\n            <p class=\"mb-0 text-600\">\n              Rate : <span class='text-800'>").concat(params[0].value, "%</span>\n            </p>\n          </div>\n        </div>");
+const bounceRateChartInit = () => {
+  const $echartsBounceRateChart = document.querySelector('.echart-bounce-rate');
+  const tooltipFormatter = params => {
+    return `<div>
+          <p class='mb-0 text-600'>${window.dayjs(params[0].axisValue).format('DD, MMMM')}</p>
+          <div class="d-flex align-items-center">
+            <p class="mb-0 text-600">
+              Rate : <span class='text-800'>${params[0].value}%</span>
+            </p>
+          </div>
+        </div>`;
   };
-  var dataset = {
+  const dataset = {
     week: [41, 45, 37, 44, 35, 39, 43],
     month: [40, 37, 42, 44, 36, 39, 37, 43, 38, 35, 43, 39, 42, 36, 37, 36, 42, 44, 34, 41, 37, 41, 40, 40, 43, 34, 41, 35, 44, 41, 40]
   };
   if ($echartsBounceRateChart) {
-    var userOptions = utils.getData($echartsBounceRateChart, 'options');
-    var chart = window.echarts.init($echartsBounceRateChart);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: utils.getGrays()['100'],
-        title: {
-          text: 'Bounce Rate',
-          padding: [5, 0, 0, 0],
-          textStyle: {
-            color: utils.getGrays()['900'],
-            fontSize: 13,
-            fontWeight: 600
-          }
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'none'
-          },
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: tooltipFormatter
-        },
-        xAxis: {
-          type: 'category',
-          data: utils.getPastDates(30).map(function (date) {
-            return window.dayjs(date).format('DD MMM, YYYY');
-          }),
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['400']
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('MMM DD');
-            },
-            fontSize: 11
-          }
-        },
-        yAxis: {
-          type: 'value',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return "".concat(value, "%");
-            },
-            margin: 15
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          data: [40, 37, 42, 44, 36, 39, 37, 43, 38, 35, 43, 39, 42, 36, 37, 36, 42, 44, 34, 41, 37, 41, 40, 40, 43, 34, 41, 35, 44, 41, 40],
-          showSymbol: false,
-          symbol: 'circle',
-          itemStyle: {
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
-          lineStyle: {
-            color: utils.getColor('primary')
-          },
-          symbolSize: 2
-        }],
-        grid: {
-          right: '10px',
-          left: '40px',
-          bottom: '10%',
-          top: '13%'
+    const userOptions = utils.getData($echartsBounceRateChart, 'options');
+    const chart = window.echarts.init($echartsBounceRateChart);
+    const getDefaultOptions = () => ({
+      color: utils.getGrays()['100'],
+      title: {
+        text: 'Bounce Rate',
+        padding: [5, 0, 0, 0],
+        textStyle: {
+          color: utils.getGrays()['900'],
+          fontSize: 13,
+          fontWeight: 600
         }
-      };
-    };
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'none'
+        },
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        },
+        formatter: tooltipFormatter
+      },
+      xAxis: {
+        type: 'category',
+        data: utils.getPastDates(30).map(date => window.dayjs(date).format('DD MMM, YYYY')),
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['300']
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['400']
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => window.dayjs(value).format('MMM DD'),
+          fontSize: 11
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200']
+          }
+        },
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['600'],
+          formatter: value => `${value}%`,
+          margin: 15
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        type: 'line',
+        data: [40, 37, 42, 44, 36, 39, 37, 43, 38, 35, 43, 39, 42, 36, 37, 36, 42, 44, 34, 41, 37, 41, 40, 40, 43, 34, 41, 35, 44, 41, 40],
+        showSymbol: false,
+        symbol: 'circle',
+        itemStyle: {
+          borderColor: utils.getColors().primary,
+          borderWidth: 2
+        },
+        lineStyle: {
+          color: utils.getColor('primary')
+        },
+        symbolSize: 2
+      }],
+      grid: {
+        right: '10px',
+        left: '40px',
+        bottom: '10%',
+        top: '13%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    var selectMenu = document.querySelector("[data-target='.echart-bounce-rate']");
+    const selectMenu = document.querySelector("[data-target='.echart-bounce-rate']");
     if (selectMenu) {
-      selectMenu.addEventListener('change', function (e) {
-        var value = e.currentTarget.value;
+      selectMenu.addEventListener('change', e => {
+        const value = e.currentTarget.value;
         chart.setOption({
           xAxis: {
-            data: utils.getPastDates(value).map(function (date) {
-              return window.dayjs(date).format('DD MMM, YYYY');
-            })
+            data: utils.getPastDates(value).map(date => window.dayjs(date).format('DD MMM, YYYY'))
           },
           series: [{
             data: dataset[value]
@@ -7441,129 +7519,133 @@ var bounceRateChartInit = function bounceRateChartInit() {
 /*                                Browsed Courses                           */
 /* -------------------------------------------------------------------------- */
 
-var browsedCoursesInit = function browsedCoursesInit() {
-  var $echartsBrowsedCourses = document.querySelector('.echart-browsed-courses');
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var tooltipFormatter = function tooltipFormatter(params) {
-    return "\n    <div>\n      <p class='mb-2 text-600'>\n      ".concat(window.dayjs(params[0].axisValue).isValid() ? window.dayjs(params[0].axisValue).format('MMMM YYYY') : params[0].axisValue, "\n      </p>\n      ").concat(params.map(function (_ref17) {
-      var seriesName = _ref17.seriesName,
-        value = _ref17.value,
-        borderColor = _ref17.borderColor;
-      return "<span class= \"fas fa-circle fs--2\" style=\"color: ".concat(borderColor, "\"></span>\n            <span class='text-600'>\n              ").concat(seriesName, " : <strong>").concat(value, "</strong>\n            </span>");
-    }).join('<br />'), "\n    </div>");
-  };
+const browsedCoursesInit = () => {
+  const $echartsBrowsedCourses = document.querySelector('.echart-browsed-courses');
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const tooltipFormatter = params => `
+    <div>
+      <p class='mb-2 text-600'>
+      ${window.dayjs(params[0].axisValue).isValid() ? window.dayjs(params[0].axisValue).format('MMMM YYYY') : params[0].axisValue}
+      </p>
+      ${params.map(({
+    seriesName,
+    value,
+    borderColor
+  }) => `<span class= "fas fa-circle fs--2" style="color: ${borderColor}"></span>
+            <span class='text-600'>
+              ${seriesName} : <strong>${value}</strong>
+            </span>`).join('<br />')}
+    </div>`;
   if ($echartsBrowsedCourses) {
-    var userOptions = utils.getData($echartsBrowsedCourses, 'options');
-    var newCourseBrowsedEl = document.querySelector("#".concat(userOptions.optionOne));
-    var paidCourseBrowsedEl = document.querySelector("#".concat(userOptions.optionTwo));
-    var chart = window.echarts.init($echartsBrowsedCourses);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: utils.getGrays()['100'],
-        legend: {
-          data: ['newCourseBrowsed', 'paidCourseBrowsed'],
+    const userOptions = utils.getData($echartsBrowsedCourses, 'options');
+    const newCourseBrowsedEl = document.querySelector(`#${userOptions.optionOne}`);
+    const paidCourseBrowsedEl = document.querySelector(`#${userOptions.optionTwo}`);
+    const chart = window.echarts.init($echartsBrowsedCourses);
+    const getDefaultOptions = () => ({
+      color: utils.getGrays()['100'],
+      legend: {
+        data: ['newCourseBrowsed', 'paidCourseBrowsed'],
+        show: false
+      },
+      xAxis: {
+        type: 'category',
+        data: ['2020-01-01', '2020-02-01', '2020-03-01', '2020-04-01', '2020-05-01', '2020-06-01', '2020-07-01', '2020-08-01', '2020-09-01', '2020-10-01', '2020-11-01', '2020-12-01', '2021-01-01', '2021-02-01', '2021-03-01', '2021-04-01', '2021-05-01', '2021-06-01', '2021-07-01', '2021-08-01', '2021-09-01', '2021-10-01', '2021-11-01', '2021-12-01'],
+        axisLine: {
           show: false
         },
-        xAxis: {
-          type: 'category',
-          data: ['2020-01-01', '2020-02-01', '2020-03-01', '2020-04-01', '2020-05-01', '2020-06-01', '2020-07-01', '2020-08-01', '2020-09-01', '2020-10-01', '2020-11-01', '2020-12-01', '2021-01-01', '2021-02-01', '2021-03-01', '2021-04-01', '2021-05-01', '2021-06-01', '2021-07-01', '2021-08-01', '2021-09-01', '2021-10-01', '2021-11-01', '2021-12-01'],
-          axisLine: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              var date = new Date(value);
-              return "".concat(months[date.getMonth()]);
-            },
-            interval: 2
-          }
-        },
-        yAxis: {
-          type: 'value',
+        splitLine: {
           show: false
         },
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          axisPointer: {
-            type: 'none'
-          },
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return tooltipFormatter(params);
-          }
+        axisTick: {
+          show: false
         },
-        series: [{
-          name: 'Total',
-          type: 'bar',
-          barWidth: '50%',
-          z: -1,
-          data: [600, 832, 901, 934, 1290, 1330, 1320, 1250, 1190, 1345, 1009, 1320, 600, 832, 901, 934, 1290, 1330, 1320, 1250, 1190, 1345, 1009, 1320],
-          itemStyle: {
-            emphasis: {
-              color: utils.getSubtleColors().info,
-              barBorderRadius: [5, 5, 0, 0],
-              borderWidth: 1,
-              borderColor: utils.getGrays()[300]
-            },
-            normal: {
-              color: utils.getSubtleColors().primary,
-              barBorderRadius: [5, 5, 0, 0],
-              borderWidth: 1,
-              borderColor: utils.getGrays()[300]
-            }
-          }
-        }, {
-          name: 'Paid',
-          type: 'bar',
-          barWidth: '50%',
-          barGap: '-100%',
-          data: [320, 420, 800, 100, 1000, 930, 720, 1020, 800, 320, 450, 150, 320, 420, 800, 100, 1000, 930, 720, 1020, 800, 320, 450, 150],
-          itemStyle: {
-            normal: {
-              barBorderRadius: [5, 5, 0, 0],
-              color: utils.getColors().primary,
-              borderWidth: 1,
-              borderColor: utils.getColors().primary
-            }
-          }
-        }],
-        grid: {
-          right: '0px',
-          left: '0px',
-          bottom: '10%',
-          top: '15%'
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => {
+            const date = new Date(value);
+            return `${months[date.getMonth()]}`;
+          },
+          interval: 2
         }
-      };
-    };
-    var initChart = function initChart() {
+      },
+      yAxis: {
+        type: 'value',
+        show: false
+      },
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        axisPointer: {
+          type: 'none'
+        },
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter(params) {
+          return tooltipFormatter(params);
+        }
+      },
+      series: [{
+        name: 'Total',
+        type: 'bar',
+        barWidth: '50%',
+        z: -1,
+        data: [600, 832, 901, 934, 1290, 1330, 1320, 1250, 1190, 1345, 1009, 1320, 600, 832, 901, 934, 1290, 1330, 1320, 1250, 1190, 1345, 1009, 1320],
+        itemStyle: {
+          emphasis: {
+            color: utils.getSubtleColors().info,
+            barBorderRadius: [5, 5, 0, 0],
+            borderWidth: 1,
+            borderColor: utils.getGrays()[300]
+          },
+          normal: {
+            color: utils.getSubtleColors().primary,
+            barBorderRadius: [5, 5, 0, 0],
+            borderWidth: 1,
+            borderColor: utils.getGrays()[300]
+          }
+        }
+      }, {
+        name: 'Paid',
+        type: 'bar',
+        barWidth: '50%',
+        barGap: '-100%',
+        data: [320, 420, 800, 100, 1000, 930, 720, 1020, 800, 320, 450, 150, 320, 420, 800, 100, 1000, 930, 720, 1020, 800, 320, 450, 150],
+        itemStyle: {
+          normal: {
+            barBorderRadius: [5, 5, 0, 0],
+            color: utils.getColors().primary,
+            borderWidth: 1,
+            borderColor: utils.getColors().primary
+          }
+        }
+      }],
+      grid: {
+        right: '0px',
+        left: '0px',
+        bottom: '10%',
+        top: '15%'
+      }
+    });
+    const initChart = () => {
       if (utils.isScrolledIntoView($echartsBrowsedCourses)) {
         echartSetOption(chart, userOptions, getDefaultOptions);
         window.removeEventListener('scroll', initChart);
       }
     };
     window.addEventListener('scroll', initChart);
-    newCourseBrowsedEl.addEventListener('click', function () {
+    newCourseBrowsedEl.addEventListener('click', () => {
       newCourseBrowsedEl.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
         name: 'Total'
       });
     });
-    paidCourseBrowsedEl.addEventListener('click', function () {
+    paidCourseBrowsedEl.addEventListener('click', () => {
       paidCourseBrowsedEl.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
@@ -7577,150 +7659,146 @@ var browsedCoursesInit = function browsedCoursesInit() {
 /*                             Echarts Candle Chart                           */
 /* -------------------------------------------------------------------------- */
 
-var candleChartInit = function candleChartInit() {
-  var ECHART_CANDLE_CHART = '.echart-candle-chart';
-  var ECHART_ZOOM_IN = "[data-zoom='in']";
-  var ECHART_ZOOM_OUT = "[data-zoom='out']";
-  var $echartsCandleChart = document.querySelector(ECHART_CANDLE_CHART);
+const candleChartInit = () => {
+  const ECHART_CANDLE_CHART = '.echart-candle-chart';
+  const ECHART_ZOOM_IN = "[data-zoom='in']";
+  const ECHART_ZOOM_OUT = "[data-zoom='out']";
+  const $echartsCandleChart = document.querySelector(ECHART_CANDLE_CHART);
   if ($echartsCandleChart) {
-    var userOptions = utils.getData($echartsCandleChart, 'options');
-    var chart = window.echarts.init($echartsCandleChart);
-    var $echartsZoomIn = document.getElementById($echartsCandleChart.dataset.actionTarget).querySelector(ECHART_ZOOM_IN);
-    var $echartsZoomOut = document.getElementById($echartsCandleChart.dataset.actionTarget).querySelector(ECHART_ZOOM_OUT);
-    var _utils$getColors = utils.getColors(),
-      warning = _utils$getColors.warning;
-    var _utils$getColors2 = utils.getColors(),
-      primary = _utils$getColors2.primary;
-    var splitData = function splitData(rawData) {
-      var categoryData = [];
-      var values = [];
-      rawData.forEach(function (item) {
+    const userOptions = utils.getData($echartsCandleChart, 'options');
+    const chart = window.echarts.init($echartsCandleChart);
+    const $echartsZoomIn = document.getElementById($echartsCandleChart.dataset.actionTarget).querySelector(ECHART_ZOOM_IN);
+    const $echartsZoomOut = document.getElementById($echartsCandleChart.dataset.actionTarget).querySelector(ECHART_ZOOM_OUT);
+    let warning = utils.getColors()['warning'];
+    let primary = utils.getColors()['primary'];
+    const splitData = rawData => {
+      let categoryData = [];
+      let values = [];
+      rawData.forEach(item => {
         categoryData.push(item.splice(0, 1)[0]);
         values.push(item);
       });
       return {
-        categoryData: categoryData,
-        values: values
+        categoryData,
+        values
       };
     };
-    var data = splitData([['2013/1/24', 2320.26, 2320.26, 2287.3, 2362.94], ['2013/1/25', 2300, 2291.3, 2288.26, 2308.38], ['2013/1/28', 2295.35, 2346.5, 2295.35, 2346.92], ['2013/1/29', 2347.22, 2358.98, 2337.35, 2363.8], ['2013/1/30', 2360.75, 2382.48, 2347.89, 2383.76], ['2013/1/31', 2383.43, 2385.42, 2371.23, 2391.82], ['2013/2/1', 2377.41, 2419.02, 2369.57, 2421.15], ['2013/2/4', 2425.92, 2428.15, 2417.58, 2440.38], ['2013/2/5', 2411, 2433.13, 2403.3, 2437.42], ['2013/2/6', 2432.68, 2434.48, 2427.7, 2441.73], ['2013/2/7', 2430.69, 2418.53, 2394.22, 2433.89], ['2013/2/8', 2416.62, 2432.4, 2414.4, 2443.03], ['2013/2/18', 2441.91, 2421.56, 2415.43, 2444.8], ['2013/2/19', 2420.26, 2382.91, 2373.53, 2427.07], ['2013/2/20', 2383.49, 2397.18, 2370.61, 2397.94], ['2013/2/21', 2378.82, 2325.95, 2309.17, 2378.82], ['2013/2/22', 2322.94, 2314.16, 2308.76, 2330.88], ['2013/2/25', 2320.62, 2325.82, 2315.01, 2338.78], ['2013/2/26', 2313.74, 2293.34, 2289.89, 2340.71], ['2013/2/27', 2297.77, 2313.22, 2292.03, 2324.63], ['2013/2/28', 2322.32, 2365.59, 2308.92, 2366.16], ['2013/3/1', 2364.54, 2359.51, 2330.86, 2369.65], ['2013/3/4', 2332.08, 2273.4, 2259.25, 2333.54], ['2013/3/5', 2274.81, 2326.31, 2270.1, 2328.14], ['2013/3/6', 2333.61, 2347.18, 2321.6, 2351.44], ['2013/3/7', 2340.44, 2324.29, 2304.27, 2352.02], ['2013/3/8', 2326.42, 2318.61, 2314.59, 2333.67], ['2013/3/11', 2314.68, 2310.59, 2296.58, 2320.96], ['2013/3/12', 2309.16, 2286.6, 2264.83, 2333.29], ['2013/3/13', 2282.17, 2263.97, 2253.25, 2286.33], ['2013/3/14', 2255.77, 2270.28, 2253.31, 2276.22], ['2013/3/15', 2269.31, 2278.4, 2250, 2312.08], ['2013/3/18', 2267.29, 2240.02, 2239.21, 2276.05], ['2013/3/19', 2244.26, 2257.43, 2232.02, 2261.31], ['2013/3/20', 2257.74, 2317.37, 2257.42, 2317.86], ['2013/3/21', 2318.21, 2324.24, 2311.6, 2330.81], ['2013/3/22', 2321.4, 2328.28, 2314.97, 2332], ['2013/3/25', 2334.74, 2326.72, 2319.91, 2344.89], ['2013/3/26', 2318.58, 2297.67, 2281.12, 2319.99], ['2013/3/27', 2299.38, 2301.26, 2289, 2323.48], ['2013/3/28', 2273.55, 2236.3, 2232.91, 2273.55], ['2013/3/29', 2238.49, 2236.62, 2228.81, 2246.87], ['2013/4/1', 2229.46, 2234.4, 2227.31, 2243.95], ['2013/4/2', 2234.9, 2227.74, 2220.44, 2253.42], ['2013/4/3', 2232.69, 2225.29, 2217.25, 2241.34], ['2013/4/8', 2196.24, 2211.59, 2180.67, 2212.59], ['2013/4/9', 2215.47, 2225.77, 2215.47, 2234.73], ['2013/4/10', 2224.93, 2226.13, 2212.56, 2233.04], ['2013/4/11', 2236.98, 2219.55, 2217.26, 2242.48], ['2013/4/12', 2218.09, 2206.78, 2204.44, 2226.26]]);
-    var zoomStart = 0;
-    var zoomEnd = 70;
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'axis',
-          // axisPointer: {
-          //   type: "cross",
-          // },
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          }
+    const data = splitData([['2013/1/24', 2320.26, 2320.26, 2287.3, 2362.94], ['2013/1/25', 2300, 2291.3, 2288.26, 2308.38], ['2013/1/28', 2295.35, 2346.5, 2295.35, 2346.92], ['2013/1/29', 2347.22, 2358.98, 2337.35, 2363.8], ['2013/1/30', 2360.75, 2382.48, 2347.89, 2383.76], ['2013/1/31', 2383.43, 2385.42, 2371.23, 2391.82], ['2013/2/1', 2377.41, 2419.02, 2369.57, 2421.15], ['2013/2/4', 2425.92, 2428.15, 2417.58, 2440.38], ['2013/2/5', 2411, 2433.13, 2403.3, 2437.42], ['2013/2/6', 2432.68, 2434.48, 2427.7, 2441.73], ['2013/2/7', 2430.69, 2418.53, 2394.22, 2433.89], ['2013/2/8', 2416.62, 2432.4, 2414.4, 2443.03], ['2013/2/18', 2441.91, 2421.56, 2415.43, 2444.8], ['2013/2/19', 2420.26, 2382.91, 2373.53, 2427.07], ['2013/2/20', 2383.49, 2397.18, 2370.61, 2397.94], ['2013/2/21', 2378.82, 2325.95, 2309.17, 2378.82], ['2013/2/22', 2322.94, 2314.16, 2308.76, 2330.88], ['2013/2/25', 2320.62, 2325.82, 2315.01, 2338.78], ['2013/2/26', 2313.74, 2293.34, 2289.89, 2340.71], ['2013/2/27', 2297.77, 2313.22, 2292.03, 2324.63], ['2013/2/28', 2322.32, 2365.59, 2308.92, 2366.16], ['2013/3/1', 2364.54, 2359.51, 2330.86, 2369.65], ['2013/3/4', 2332.08, 2273.4, 2259.25, 2333.54], ['2013/3/5', 2274.81, 2326.31, 2270.1, 2328.14], ['2013/3/6', 2333.61, 2347.18, 2321.6, 2351.44], ['2013/3/7', 2340.44, 2324.29, 2304.27, 2352.02], ['2013/3/8', 2326.42, 2318.61, 2314.59, 2333.67], ['2013/3/11', 2314.68, 2310.59, 2296.58, 2320.96], ['2013/3/12', 2309.16, 2286.6, 2264.83, 2333.29], ['2013/3/13', 2282.17, 2263.97, 2253.25, 2286.33], ['2013/3/14', 2255.77, 2270.28, 2253.31, 2276.22], ['2013/3/15', 2269.31, 2278.4, 2250, 2312.08], ['2013/3/18', 2267.29, 2240.02, 2239.21, 2276.05], ['2013/3/19', 2244.26, 2257.43, 2232.02, 2261.31], ['2013/3/20', 2257.74, 2317.37, 2257.42, 2317.86], ['2013/3/21', 2318.21, 2324.24, 2311.6, 2330.81], ['2013/3/22', 2321.4, 2328.28, 2314.97, 2332], ['2013/3/25', 2334.74, 2326.72, 2319.91, 2344.89], ['2013/3/26', 2318.58, 2297.67, 2281.12, 2319.99], ['2013/3/27', 2299.38, 2301.26, 2289, 2323.48], ['2013/3/28', 2273.55, 2236.3, 2232.91, 2273.55], ['2013/3/29', 2238.49, 2236.62, 2228.81, 2246.87], ['2013/4/1', 2229.46, 2234.4, 2227.31, 2243.95], ['2013/4/2', 2234.9, 2227.74, 2220.44, 2253.42], ['2013/4/3', 2232.69, 2225.29, 2217.25, 2241.34], ['2013/4/8', 2196.24, 2211.59, 2180.67, 2212.59], ['2013/4/9', 2215.47, 2225.77, 2215.47, 2234.73], ['2013/4/10', 2224.93, 2226.13, 2212.56, 2233.04], ['2013/4/11', 2236.98, 2219.55, 2217.26, 2242.48], ['2013/4/12', 2218.09, 2206.78, 2204.44, 2226.26]]);
+    let zoomStart = 0;
+    let zoomEnd = 70;
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'axis',
+        // axisPointer: {
+        //   type: "cross",
+        // },
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        xAxis: {
-          type: 'category',
-          data: data.categoryData,
-          scale: true,
-          splitLine: {
-            show: false
-          },
-          splitNumber: 10,
-          min: 'dataMin',
-          max: 'dataMax',
-          boundaryGap: true,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'solid'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return new Date(value).toLocaleString('en-US', {
-                month: 'short',
-                day: 'numeric'
-              });
-            },
-            margin: 15,
-            fontWeight: 500
-          }
-        },
-        yAxis: {
-          scale: true,
-          position: 'right',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200'],
-              type: 'dashed'
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['600'],
-            margin: 15,
-            fontWeight: 500
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        dataZoom: [{
-          type: 'inside',
-          start: zoomStart,
-          end: zoomEnd
-        }],
-        series: [{
-          name: 'candlestick',
-          type: 'candlestick',
-          data: data.values,
-          itemStyle: {
-            color: warning,
-            color0: primary,
-            borderColor: warning,
-            borderColor0: primary
-          }
-        }],
-        grid: {
-          right: '70px',
-          left: '20px',
-          bottom: '15%',
-          top: '20px'
+        borderWidth: 1,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         }
-      };
-    };
+      },
+      xAxis: {
+        type: 'category',
+        data: data.categoryData,
+        scale: true,
+        splitLine: {
+          show: false
+        },
+        splitNumber: 10,
+        min: 'dataMin',
+        max: 'dataMax',
+        boundaryGap: true,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'solid'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: function (value) {
+            return new Date(value).toLocaleString('en-US', {
+              month: 'short',
+              day: 'numeric'
+            });
+          },
+          margin: 15,
+          fontWeight: 500
+        }
+      },
+      yAxis: {
+        scale: true,
+        position: 'right',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200'],
+            type: 'dashed'
+          }
+        },
+        boundaryGap: false,
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['600'],
+          margin: 15,
+          fontWeight: 500
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      dataZoom: [{
+        type: 'inside',
+        start: zoomStart,
+        end: zoomEnd
+      }],
+      series: [{
+        name: 'candlestick',
+        type: 'candlestick',
+        data: data.values,
+        itemStyle: {
+          color: warning,
+          color0: primary,
+          borderColor: warning,
+          borderColor0: primary
+        }
+      }],
+      grid: {
+        right: '70px',
+        left: '20px',
+        bottom: '15%',
+        top: '20px'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    var dispatchZoomAction = function dispatchZoomAction() {
+    const dispatchZoomAction = () => {
       chart.dispatchAction({
         type: 'dataZoom',
         start: zoomStart,
         end: zoomEnd
       });
     };
-    $echartsZoomIn.addEventListener('click', function () {
+    $echartsZoomIn.addEventListener('click', () => {
       if (zoomEnd > 10) {
         zoomEnd -= 10;
       }
@@ -7732,7 +7810,7 @@ var candleChartInit = function candleChartInit() {
         dispatchZoomAction();
       }
     });
-    $echartsZoomOut.addEventListener('click', function () {
+    $echartsZoomOut.addEventListener('click', () => {
       if (zoomEnd < 100) {
         zoomEnd += 10;
       }
@@ -7757,155 +7835,153 @@ var candleChartInit = function candleChartInit() {
 /*                             Echarts Total Sales                            */
 /* -------------------------------------------------------------------------- */
 
-var closedVsGoalInit = function closedVsGoalInit() {
-  var ECHART_LINE_TOTAL_SALES = '.echart-closed-vs-goal';
-  var $echartsLineTotalSales = document.querySelector(ECHART_LINE_TOTAL_SALES);
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const closedVsGoalInit = () => {
+  const ECHART_LINE_TOTAL_SALES = '.echart-closed-vs-goal';
+  const $echartsLineTotalSales = document.querySelector(ECHART_LINE_TOTAL_SALES);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   if ($echartsLineTotalSales) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartsLineTotalSales, 'options');
-    var chart = window.echarts.init($echartsLineTotalSales);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.getColors().warning],
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          formatter: tooltipFormatter,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          }
+    const userOptions = utils.getData($echartsLineTotalSales, 'options');
+    const chart = window.echarts.init($echartsLineTotalSales);
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.getColors().warning],
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        legend: {
-          left: 'left',
-          data: ['Closed Amount', 'Revenue Date'],
-          itemWidth: 10,
-          itemHeight: 10,
-          borderRadius: 0,
-          icon: 'circle',
-          inactiveColor: utils.getGrays()['400'],
-          textStyle: {
-            color: utils.getGrays()['700']
-          },
-          itemGap: 20
-        },
-        xAxis: {
-          type: 'category',
-          name: 'Closed Date',
-          nameGap: 50,
-          nameLocation: 'center',
-          offset: 0,
-          nameTextStyle: {
-            color: utils.getGrays()['700']
-          },
-          data: ['2019-06-15', '2019-06-22', '2019-06-29', '2019-07-06', '2019-07-13', '2019-07-20', '2019-07-27', '2019-07-12', '2019-07-03'],
-          boundaryGap: false,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.rgbaColor('#000', 0.01),
-              type: 'dashed'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['400'],
-            formatter: function formatter(value) {
-              var date = new Date(value);
-              return "".concat(date.getDate(), " ").concat(months[date.getMonth()], " , 21");
-            },
-            margin: 20
-          }
-        },
-        yAxis: {
-          type: 'value',
-          name: 'Closed Amount',
-          nameGap: 85,
-          nameLocation: 'middle',
-          nameTextStyle: {
-            color: utils.getGrays()['700']
-          },
-          splitNumber: 3,
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['400'],
-            formatter: function formatter(value) {
-              return "$".concat(value);
-            },
-            margin: 15
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          name: 'Closed Amount',
-          data: [0, 5000, 18000, 40000, 58000, 65000, 90000, 110000, 140000],
-          symbolSize: 5,
-          symbol: 'circle',
-          smooth: false,
-          hoverAnimation: true,
-          lineStyle: {
-            color: utils.rgbaColor(utils.getColor('primary'))
-          },
-          itemStyle: {
-            borderColor: utils.rgbaColor(utils.getColor('primary'), 0.6),
-            borderWidth: 2
-          }
-        }, {
-          type: 'line',
-          name: 'Revenue Date',
-          data: [0, 10000, 24000, 35000, 45000, 53000, 57000, 68000, 79000],
-          symbolSize: 5,
-          symbol: 'circle',
-          smooth: false,
-          hoverAnimation: true,
-          lineStyle: {
-            color: utils.rgbaColor(utils.getColor('warning'))
-          },
-          itemStyle: {
-            borderColor: utils.rgbaColor(utils.getColor('warning'), 0.6),
-            borderWidth: 2
-          }
-        }],
-        grid: {
-          right: '25px',
-          left: '100px',
-          bottom: '60px',
-          top: '35px'
+        borderWidth: 1,
+        formatter: tooltipFormatter,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         }
-      };
-    };
+      },
+      legend: {
+        left: 'left',
+        data: ['Closed Amount', 'Revenue Date'],
+        itemWidth: 10,
+        itemHeight: 10,
+        borderRadius: 0,
+        icon: 'circle',
+        inactiveColor: utils.getGrays()['400'],
+        textStyle: {
+          color: utils.getGrays()['700']
+        },
+        itemGap: 20
+      },
+      xAxis: {
+        type: 'category',
+        name: 'Closed Date',
+        nameGap: 50,
+        nameLocation: 'center',
+        offset: 0,
+        nameTextStyle: {
+          color: utils.getGrays()['700']
+        },
+        data: ['2019-06-15', '2019-06-22', '2019-06-29', '2019-07-06', '2019-07-13', '2019-07-20', '2019-07-27', '2019-07-12', '2019-07-03'],
+        boundaryGap: false,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.rgbaColor('#000', 0.01),
+            type: 'dashed'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['400'],
+          formatter: function (value) {
+            var date = new Date(value);
+            return `${date.getDate()} ${months[date.getMonth()]} , 21`;
+          },
+          margin: 20
+        }
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Closed Amount',
+        nameGap: 85,
+        nameLocation: 'middle',
+        nameTextStyle: {
+          color: utils.getGrays()['700']
+        },
+        splitNumber: 3,
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200']
+          }
+        },
+        boundaryGap: false,
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['400'],
+          formatter: function (value) {
+            return `$${value}`;
+          },
+          margin: 15
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        type: 'line',
+        name: 'Closed Amount',
+        data: [0, 9000, 18000, 40000, 58000, 65000, 90000, 110000, 140000],
+        symbolSize: 5,
+        symbol: 'circle',
+        smooth: false,
+        hoverAnimation: true,
+        lineStyle: {
+          color: utils.rgbaColor(utils.getColor('primary'))
+        },
+        itemStyle: {
+          borderColor: utils.rgbaColor(utils.getColor('primary'), 0.6),
+          borderWidth: 2
+        }
+      }, {
+        type: 'line',
+        name: 'Revenue Date',
+        data: [0, 10000, 24000, 35000, 45000, 53000, 57000, 68000, 79000],
+        symbolSize: 5,
+        symbol: 'circle',
+        smooth: false,
+        hoverAnimation: true,
+        lineStyle: {
+          color: utils.rgbaColor(utils.getColor('warning'))
+        },
+        itemStyle: {
+          borderColor: utils.rgbaColor(utils.getColor('warning'), 0.6),
+          borderWidth: 2
+        }
+      }],
+      grid: {
+        right: '25px',
+        left: '100px',
+        bottom: '60px',
+        top: '35px'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -7914,153 +7990,147 @@ var closedVsGoalInit = function closedVsGoalInit() {
 /*                             Course Enrollment                              */
 /* -------------------------------------------------------------------------- */
 
-var courseEnrollmentsInit = function courseEnrollmentsInit() {
-  var $echartBarCourseEnrollments = document.querySelector('.echart-bar-course-enrollments');
-  var data = [['course', 'Free Course', 'Paid Course', 'On sale Course'], ['Sun', 4300, 8500, 5000], ['Mon', 8300, 7300, 4500], ['Tue', 8600, 6200, 3600], ['Wed', 7200, 5300, 4500], ['Thu', 8000, 5000, 2600], ['Fri', 5000, 7000, 8800], ['Sat', 8000, 9000, 6000]];
+const courseEnrollmentsInit = () => {
+  const $echartBarCourseEnrollments = document.querySelector('.echart-bar-course-enrollments');
+  const data = [['course', 'Free Course', 'Paid Course', 'On sale Course'], ['Sun', 4300, 8500, 5000], ['Mon', 8300, 7300, 4500], ['Tue', 8600, 6200, 3600], ['Wed', 7200, 5300, 4500], ['Thu', 8000, 5000, 2600], ['Fri', 5000, 7000, 8800], ['Sat', 8000, 9000, 6000]];
   if ($echartBarCourseEnrollments) {
-    var userOptions = utils.getData($echartBarCourseEnrollments, 'options');
-    var chart = window.echarts.init($echartBarCourseEnrollments);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.rgbaColor(utils.getColors().info, 0.6), utils.getColors().primary, utils.rgbaColor(utils.getColors().warning, 0.4)],
-        dataset: {
-          source: data
+    const userOptions = utils.getData($echartBarCourseEnrollments, 'options');
+    const chart = window.echarts.init($echartBarCourseEnrollments);
+    const getDefaultOptions = () => ({
+      color: [utils.rgbaColor(utils.getColors().info, 0.6), utils.getColors().primary, utils.rgbaColor(utils.getColors().warning, 0.4)],
+      dataset: {
+        source: data
+      },
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays().primary,
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays().primary,
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return "<div class=\"font-weight-semi-bold\">".concat(params.seriesName, "</div><div class=\"fs--1 text-600\"><strong>").concat(params.name, ":</strong> ").concat(params.value[params.componentIndex + 1], "</div>");
-          }
-        },
-        legend: {
-          data: ['Free Course', 'Paid Course', 'On sale Course'],
-          left: 'left',
-          itemWidth: 10,
-          itemHeight: 10,
-          borderRadius: 0,
-          icon: 'circle',
-          inactiveColor: utils.getGrays()['400'],
-          textStyle: {
-            color: utils.getGrays()['700']
-          }
-        },
-        xAxis: {
-          type: 'category',
-          axisLabel: {
-            color: utils.getGrays()['400']
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'line'
-            }
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: utils.getGrays()['200'],
-              type: 'line',
-              width: 0.5
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          boundaryGap: true
-        },
-        yAxis: {
-          axisPointer: {
-            type: 'none'
-          },
-          axisTick: 'none',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200'],
-              type: 'dashed'
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['400'],
-            formatter: function formatter(value) {
-              return "".concat(Math.round(value / 1000 * 10) / 10, "k");
-            }
-          }
-        },
-        series: [{
-          type: 'bar',
-          barWidth: '15%',
-          barGap: '30%',
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          z: 10,
-          emphasis: {
-            focus: 'series'
-          },
-          itemStyle: {
-            normal: {
-              barBorderRadius: [2, 2, 0, 0]
-            }
-          }
-        }, {
-          type: 'bar',
-          barWidth: '15%',
-          barGap: '30%',
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          z: 10,
-          emphasis: {
-            focus: 'series'
-          },
-          itemStyle: {
-            normal: {
-              barBorderRadius: [2, 2, 0, 0]
-            }
-          }
-        }, {
-          type: 'bar',
-          barWidth: '15%',
-          barGap: '30%',
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          z: 10,
-          emphasis: {
-            focus: 'series'
-          },
-          itemStyle: {
-            normal: {
-              barBorderRadius: [2, 2, 0, 0]
-            }
-          }
-        }],
-        grid: {
-          right: '1px',
-          left: '30px',
-          bottom: '10%',
-          top: '20%'
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter: params => `<div class="font-weight-semi-bold">${params.seriesName}</div><div class="fs--1 text-600"><strong>${params.name}:</strong> ${params.value[params.componentIndex + 1]}</div>`
+      },
+      legend: {
+        data: ['Free Course', 'Paid Course', 'On sale Course'],
+        left: 'left',
+        itemWidth: 10,
+        itemHeight: 10,
+        borderRadius: 0,
+        icon: 'circle',
+        inactiveColor: utils.getGrays()['400'],
+        textStyle: {
+          color: utils.getGrays()['700']
         }
-      };
-    };
-    var initChart = function initChart() {
+      },
+      xAxis: {
+        type: 'category',
+        axisLabel: {
+          color: utils.getGrays()['400']
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'line'
+          }
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: utils.getGrays()['200'],
+            type: 'line',
+            width: 0.5
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        boundaryGap: true
+      },
+      yAxis: {
+        axisPointer: {
+          type: 'none'
+        },
+        axisTick: 'none',
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200'],
+            type: 'dashed'
+          }
+        },
+        axisLine: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['400'],
+          formatter: value => `${Math.round(value / 1000 * 10) / 10}k`
+        }
+      },
+      series: [{
+        type: 'bar',
+        barWidth: '15%',
+        barGap: '30%',
+        label: {
+          normal: {
+            show: false
+          }
+        },
+        z: 10,
+        emphasis: {
+          focus: 'series'
+        },
+        itemStyle: {
+          normal: {
+            barBorderRadius: [2, 2, 0, 0]
+          }
+        }
+      }, {
+        type: 'bar',
+        barWidth: '15%',
+        barGap: '30%',
+        label: {
+          normal: {
+            show: false
+          }
+        },
+        z: 10,
+        emphasis: {
+          focus: 'series'
+        },
+        itemStyle: {
+          normal: {
+            barBorderRadius: [2, 2, 0, 0]
+          }
+        }
+      }, {
+        type: 'bar',
+        barWidth: '15%',
+        barGap: '30%',
+        label: {
+          normal: {
+            show: false
+          }
+        },
+        z: 10,
+        emphasis: {
+          focus: 'series'
+        },
+        itemStyle: {
+          normal: {
+            barBorderRadius: [2, 2, 0, 0]
+          }
+        }
+      }],
+      grid: {
+        right: '1px',
+        left: '30px',
+        bottom: '10%',
+        top: '20%'
+      }
+    });
+    const initChart = () => {
       if (utils.isScrolledIntoView($echartBarCourseEnrollments)) {
         echartSetOption(chart, userOptions, getDefaultOptions);
         window.removeEventListener('scroll', initChart);
@@ -8074,9 +8144,9 @@ var courseEnrollmentsInit = function courseEnrollmentsInit() {
 /*                             Echarts Pie Chart                              */
 /* -------------------------------------------------------------------------- */
 
-var courseStatusInit = function courseStatusInit() {
-  var $echartsCourseStatus = document.querySelector('.echart-course-status');
-  var data = [{
+const courseStatusInit = () => {
+  const $echartsCourseStatus = document.querySelector('.echart-course-status');
+  const data = [{
     value: 13,
     name: 'Completed',
     itemStyle: {
@@ -8102,43 +8172,41 @@ var courseStatusInit = function courseStatusInit() {
     }
   }];
   if ($echartsCourseStatus) {
-    var userOptions = utils.getData($echartsCourseStatus, 'options');
-    var chart = window.echarts.init($echartsCourseStatus);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        legend: {
+    const userOptions = utils.getData($echartsCourseStatus, 'options');
+    const chart = window.echarts.init($echartsCourseStatus);
+    const getDefaultOptions = () => ({
+      legend: {
+        show: false
+      },
+      series: [{
+        type: 'pie',
+        radius: '70%',
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: utils.getColor('gray-100')
+        },
+        label: {
           show: false
         },
-        series: [{
-          type: 'pie',
-          radius: '70%',
-          itemStyle: {
-            borderWidth: 2,
-            borderColor: utils.getColor('gray-100')
-          },
-          label: {
-            show: false
-          },
-          center: ['50%', '50%'],
-          data: data
-        }],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
+        center: ['50%', '50%'],
+        data
+      }],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        axisPointer: {
+          type: 'none'
         }
-      };
-    };
-    var initChart = function initChart() {
+      }
+    });
+    const initChart = () => {
       if (utils.isScrolledIntoView($echartsCourseStatus)) {
         echartSetOption(chart, userOptions, getDefaultOptions);
         window.removeEventListener('scroll', initChart);
@@ -8152,8 +8220,8 @@ var courseStatusInit = function courseStatusInit() {
 /*                                Audience Chart                              */
 /* -------------------------------------------------------------------------- */
 
-var revenueChartInit = function revenueChartInit() {
-  var data = {
+const revenueChartInit = () => {
+  const data = {
     dates: utils.getDates(new Date('5-6-2019'), new Date('5-6-2021'), 1000 * 60 * 60 * 24 * 30),
     dataset: {
       revenue: [[645, 500, 550, 550, 473, 405, 286, 601, 743, 450, 604, 815, 855, 722, 700, 896, 866, 952, 719, 558, 737, 885, 972, 650, 600], [440, 250, 270, 400, 175, 180, 200, 400, 600, 380, 340, 550, 650, 450, 400, 688, 650, 721, 500, 300, 445, 680, 568, 400, 371]],
@@ -8162,186 +8230,188 @@ var revenueChartInit = function revenueChartInit() {
       profit: [[545, 400, 450, 627, 673, 605, 686, 501, 843, 518, 504, 715, 955, 622, 627, 716, 736, 952, 619, 558, 937, 785, 872, 550, 400], [340, 360, 330, 300, 410, 380, 450, 400, 420, 240, 200, 250, 355, 320, 500, 630, 680, 400, 420, 450, 650, 620, 700, 450, 340]]
     }
   };
-  var tooltipFormatter = function tooltipFormatter(params) {
-    return "<div class=\"card\">\n                <div class=\"card-header bg-body-tertiary py-2\">\n                  <h6 class=\"text-600 mb-0\">".concat(params[0].axisValue, "</h6>\n                </div>\n              <div class=\"card-body py-2\">\n                <h6 class=\"text-600 fw-normal\">\n                  <span class=\"fas fa-circle text-primary me-2\"></span>Revenue: \n                  <span class=\"fw-medium\">$").concat(params[0].data, "</span></h6>\n                <h6 class=\"text-600 mb-0 fw-normal\"> \n                  <span class=\"fas fa-circle text-warning me-2\"></span>Revenue Goal: \n                  <span class=\"fw-medium\">$").concat(params[1].data, "</span></h6>\n              </div>\n            </div>");
+  const tooltipFormatter = params => {
+    return `<div class="card">
+                <div class="card-header bg-body-tertiary py-2">
+                  <h6 class="text-600 mb-0">${params[0].axisValue}</h6>
+                </div>
+              <div class="card-body py-2">
+                <h6 class="text-600 fw-normal">
+                  <span class="fas fa-circle text-primary me-2"></span>Revenue: 
+                  <span class="fw-medium">$${params[0].data}</span></h6>
+                <h6 class="text-600 mb-0 fw-normal"> 
+                  <span class="fas fa-circle text-warning me-2"></span>Revenue Goal: 
+                  <span class="fw-medium">$${params[1].data}</span></h6>
+              </div>
+            </div>`;
   };
-  var getDefaultOptions = function getDefaultOptions(data1, data2) {
-    return function () {
-      return {
-        color: utils.getColors().white,
-        tooltip: {
-          trigger: 'axis',
-          padding: 0,
-          backgroundColor: 'transparent',
-          borderWidth: 0,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          axisPointer: {
-            type: 'none'
-          },
-          formatter: tooltipFormatter
-        },
-        xAxis: {
-          type: 'category',
-          data: utils.getPastDates(25).map(function (date) {
-            return window.dayjs(date).format('DD MMM, YYYY');
-          }),
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('MMM DD');
-            },
-            align: 'left',
-            fontSize: 11,
-            padding: [0, 0, 0, 5],
-            showMaxLabel: false
-          },
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          boundaryGap: true
-        },
-        yAxis: {
-          position: 'right',
-          axisPointer: {
-            type: 'none'
-          },
-          axisTick: 'none',
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'bar',
-          name: 'Revenue',
-          data: data1,
-          lineStyle: {
-            color: utils.getColor('primary')
-          },
-          itemStyle: {
-            barBorderRadius: [4, 4, 0, 0],
-            color: utils.getGrays()['100'],
-            borderColor: utils.getGrays()['300'],
-            borderWidth: 1
-          },
-          emphasis: {
-            itemStyle: {
-              color: utils.getColor('primary')
-            }
-          }
-        }, {
-          type: 'line',
-          name: 'Revenue Goal',
-          data: data2,
-          symbol: 'circle',
-          symbolSize: 6,
-          animation: false,
-          itemStyle: {
-            color: utils.getColor('warning')
-          },
-          lineStyle: {
-            type: 'dashed',
-            width: 2,
-            color: utils.getColor('warning')
-          }
-        }],
-        grid: {
-          right: 5,
-          left: 5,
-          bottom: '8%',
-          top: '5%'
+  const getDefaultOptions = (data1, data2) => () => ({
+    color: utils.getColors().white,
+    tooltip: {
+      trigger: 'axis',
+      padding: 0,
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      transitionDuration: 0,
+      position(pos, params, dom, rect, size) {
+        return getPosition(pos, params, dom, rect, size);
+      },
+      axisPointer: {
+        type: 'none'
+      },
+      formatter: tooltipFormatter
+    },
+    xAxis: {
+      type: 'category',
+      data: utils.getPastDates(25).map(date => window.dayjs(date).format('DD MMM, YYYY')),
+      axisLabel: {
+        color: utils.getGrays()['600'],
+        formatter: value => window.dayjs(value).format('MMM DD'),
+        align: 'left',
+        fontSize: 11,
+        padding: [0, 0, 0, 5],
+        showMaxLabel: false
+      },
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      boundaryGap: true
+    },
+    yAxis: {
+      position: 'right',
+      axisPointer: {
+        type: 'none'
+      },
+      axisTick: 'none',
+      splitLine: {
+        show: false
+      },
+      axisLine: {
+        show: false
+      },
+      axisLabel: {
+        show: false
+      }
+    },
+    series: [{
+      type: 'bar',
+      name: 'Revenue',
+      data: data1,
+      lineStyle: {
+        color: utils.getColor('primary')
+      },
+      itemStyle: {
+        barBorderRadius: [4, 4, 0, 0],
+        color: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        borderWidth: 1
+      },
+      emphasis: {
+        itemStyle: {
+          color: utils.getColor('primary')
         }
-      };
-    };
-  };
-  var initChart = function initChart(el, options) {
-    var userOptions = utils.getData(el, 'options');
-    var chart = window.echarts.init(el);
+      }
+    }, {
+      type: 'line',
+      name: 'Revenue Goal',
+      data: data2,
+      symbol: 'circle',
+      symbolSize: 6,
+      animation: false,
+      itemStyle: {
+        color: utils.getColor('warning')
+      },
+      lineStyle: {
+        type: 'dashed',
+        width: 2,
+        color: utils.getColor('warning')
+      }
+    }],
+    grid: {
+      right: 5,
+      left: 5,
+      bottom: '8%',
+      top: '5%'
+    }
+  });
+  const initChart = (el, options) => {
+    const userOptions = utils.getData(el, 'options');
+    const chart = window.echarts.init(el);
     echartSetOption(chart, userOptions, options);
   };
-  var chartKeys = ['revenue', 'users', 'deals', 'profit'];
-  chartKeys.forEach(function (key) {
-    var el = document.querySelector(".echart-crm-".concat(key));
+  const chartKeys = ['revenue', 'users', 'deals', 'profit'];
+  chartKeys.forEach(key => {
+    const el = document.querySelector(`.echart-crm-${key}`);
     el && initChart(el, getDefaultOptions(data.dataset[key][0], data.dataset[key][1]));
   });
 };
-var echartsCustomerSatisfactionInit = function echartsCustomerSatisfactionInit() {
-  var $echartCustomerSatisfaction = document.querySelector('.echart-customer-setisfaction');
+const echartsCustomerSatisfactionInit = () => {
+  const $echartCustomerSatisfaction = document.querySelector('.echart-customer-setisfaction');
   if ($echartCustomerSatisfaction) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartCustomerSatisfaction, 'options');
-    var chart = window.echarts.init($echartCustomerSatisfaction);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        legend: {
-          left: 'center',
-          bottom: 22,
-          itemWidth: 12,
-          itemHeight: 12,
-          borderRadius: 0,
-          icon: 'circle',
-          inactiveColor: utils.getGrays()['400'],
-          inactiveBorderColor: 'transparent',
-          textStyle: {
-            color: utils.getGrays()['600'],
-            fontSize: 12,
-            fontFamily: 'Poppins',
-            fontWeight: '500'
-          },
-          itemGap: 16
+    const userOptions = utils.getData($echartCustomerSatisfaction, 'options');
+    const chart = window.echarts.init($echartCustomerSatisfaction);
+    const getDefaultOptions = () => ({
+      legend: {
+        left: 'center',
+        bottom: 22,
+        itemWidth: 12,
+        itemHeight: 12,
+        borderRadius: 0,
+        icon: 'circle',
+        inactiveColor: utils.getGrays()['400'],
+        inactiveBorderColor: 'transparent',
+        textStyle: {
+          color: utils.getGrays()['600'],
+          fontSize: 12,
+          fontFamily: 'Poppins',
+          fontWeight: '500'
         },
-        series: [{
-          type: 'pie',
-          radius: '70%',
-          label: {
-            show: false
-          },
-          center: ['50%', '45%'],
+        itemGap: 16
+      },
+      series: [{
+        type: 'pie',
+        radius: '70%',
+        label: {
+          show: false
+        },
+        center: ['50%', '45%'],
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: localStorage.getItem('theme') === 'dark' ? '#121E2D' : utils.getGrays()['100']
+        },
+        data: [{
+          value: 1100,
+          name: 'Positive',
           itemStyle: {
-            borderWidth: 2,
-            borderColor: localStorage.getItem('theme') === 'dark' ? '#121E2D' : utils.getGrays()['100']
-          },
-          data: [{
-            value: 1100,
-            name: 'Positive',
-            itemStyle: {
-              color: utils.getColor('primary')
-            }
-          }, {
-            value: 550,
-            name: 'Nagative',
-            itemStyle: {
-              color: utils.rgbaColor(utils.getColor('primary'), 0.5)
-            }
-          }]
-        }],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
+            color: utils.getColor('primary')
           }
+        }, {
+          value: 550,
+          name: 'Nagative',
+          itemStyle: {
+            color: utils.rgbaColor(utils.getColor('primary'), 0.5)
+          }
+        }]
+      }],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        axisPointer: {
+          type: 'none'
         }
-      };
-    };
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -8350,240 +8420,248 @@ var echartsCustomerSatisfactionInit = function echartsCustomerSatisfactionInit()
 /*                             Echarts Bounce Rate                            */
 /* -------------------------------------------------------------------------- */
 
-var dealStorageFunnelInit = function dealStorageFunnelInit() {
-  var $echartDealStorageFunnel = document.querySelector('.echart-deal-storage-funnel');
+const dealStorageFunnelInit = () => {
+  const $echartDealStorageFunnel = document.querySelector('.echart-deal-storage-funnel');
   if ($echartDealStorageFunnel) {
-    var userOptions = utils.getData($echartDealStorageFunnel, 'options');
-    var data = userOptions.data,
-      dataAxis1 = userOptions.dataAxis1,
-      dataAxis2 = userOptions.dataAxis2;
-    var chart = window.echarts.init($echartDealStorageFunnel);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        yAxis: [{
-          data: dataAxis1,
-          axisLabel: {
-            inside: true,
-            textStyle: {
-              color: utils.getGrays()['700'],
-              fontWeight: 500,
-              fontSize: 11,
-              fontFamily: 'poppins'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          z: 10
-        }, {
-          data: dataAxis2,
-          axisLabel: {
-            inside: false,
-            textStyle: {
-              color: utils.getColors().primary,
-              fontWeight: 500,
-              fontSize: 11,
-              fontFamily: 'poppins'
-            },
-            borderRadius: 5,
-            backgroundColor: utils.getSubtleColors().primary,
-            padding: [6, 16, 6, 16],
-            width: 115
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          z: 10
-        }],
-        xAxis: {
-          type: 'value',
-          //min: 0,
-          //max: 35,
-          axisLine: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          },
-          inverse: true,
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
+    const userOptions = utils.getData($echartDealStorageFunnel, 'options');
+    const {
+      data,
+      dataAxis1,
+      dataAxis2
+    } = userOptions;
+    const chart = window.echarts.init($echartDealStorageFunnel);
+    const getDefaultOptions = () => ({
+      yAxis: [{
+        data: dataAxis1,
+        axisLabel: {
+          inside: true,
+          textStyle: {
+            color: utils.getGrays()['700'],
+            fontWeight: 500,
+            fontSize: 11,
+            fontFamily: 'poppins'
           }
         },
-        series: [{
-          type: 'bar',
-          showBackground: true,
-          barWidth: 25,
-          label: {
-            show: true,
-            formatter: '{c} ',
-            position: 'insideLeft'
-          },
-          backgroundStyle: {
-            color: utils.getGrays()['200'],
-            borderRadius: 5
-          },
-          itemStyle: {
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        },
+        z: 10
+      }, {
+        data: dataAxis2,
+        axisLabel: {
+          inside: false,
+          textStyle: {
             color: utils.getColors().primary,
-            borderRadius: 5
+            fontWeight: 500,
+            fontSize: 11,
+            fontFamily: 'poppins'
           },
-          data: data
-        }],
-        grid: {
-          right: '65px',
-          left: '0',
-          bottom: '0',
-          top: '0'
+          borderRadius: 5,
+          backgroundColor: utils.getSubtleColors().primary,
+          padding: [6, 16, 6, 16],
+          width: 115
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        },
+        z: 10
+      }],
+      xAxis: {
+        type: 'value',
+        //min: 0,
+        // max: 35,
+        axisLine: {
+          show: false
+        },
+        splitLine: {
+          show: false
+        },
+        inverse: true,
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
         }
-      };
-    };
+      },
+      series: [{
+        type: 'bar',
+        showBackground: true,
+        barWidth: 25,
+        label: {
+          show: true,
+          formatter: '{c} ',
+          position: 'insideLeft'
+        },
+        backgroundStyle: {
+          color: utils.getGrays()['200'],
+          borderRadius: 5
+        },
+        itemStyle: {
+          color: utils.getColors().primary,
+          borderRadius: 5
+        },
+        data: data
+      }],
+      grid: {
+        right: '65px',
+        left: '0',
+        bottom: '0',
+        top: '0'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
-var echartsDistributionOfPerformanceInit = function echartsDistributionOfPerformanceInit() {
-  var $distributionOfPerformance = document.querySelector('.echart-distribution-of-performance');
+const echartsDistributionOfPerformanceInit = () => {
+  const $distributionOfPerformance = document.querySelector('.echart-distribution-of-performance');
   if ($distributionOfPerformance) {
-    var userOptions = utils.getData($distributionOfPerformance, 'options');
-    var chart = window.echarts.init($distributionOfPerformance);
-    var xAxisData = ['Mar 01', 'Mar 02', 'Mar 03', 'Mar 04', 'Mar 05', 'Mar 06', 'Mar 07', 'Mar 08', 'Mar 09', 'Mar 10', 'Mar 11', 'Mar 12'];
-    var data1 = [50, 25, 35, 30, 45, 35, 38, 30, 35, 30, 35, 38];
-    var data2 = [45, 50, 40, 35, 50, 40, 44, 35, 40, 45, 40, 44];
-    var emphasisStyle = {
+    const userOptions = utils.getData($distributionOfPerformance, 'options');
+    const chart = window.echarts.init($distributionOfPerformance);
+    let xAxisData = ["Mar 01", "Mar 02", "Mar 03", "Mar 04", "Mar 05", "Mar 06", "Mar 07", "Mar 08", "Mar 09", "Mar 10", "Mar 11", "Mar 12"];
+    let data1 = [50, 25, 35, 30, 45, 35, 38, 30, 35, 30, 35, 38];
+    let data2 = [45, 50, 40, 35, 50, 40, 44, 35, 40, 45, 40, 44];
+    const emphasisStyle = {
       itemStyle: {
         shadowColor: utils.rgbaColor(utils.getColor('dark'), 0.3)
       }
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColor('primary'), localStorage.getItem('theme') === 'dark' ? '#236EA1' : '#7DD7FE'],
-        legend: {
-          data: ['Agent Support', 'Group Support'],
-          icon: 'circle',
-          itemWidth: 10,
-          itemHeight: 10,
-          padding: [0, 0, 0, 0],
-          textStyle: {
-            color: utils.getGrays()['700'],
-            fontWeight: '500',
-            fontSize: '13px'
-          },
-          left: 0,
-          itemGap: 16
+    const getDefaultOptions = () => ({
+      color: [utils.getColor('primary'), localStorage.getItem('theme') === 'dark' ? '#236EA1' : '#7DD7FE'],
+      legend: {
+        data: ['Agent Support', 'Group Support'],
+        icon: 'circle',
+        itemWidth: 10,
+        itemHeight: 10,
+        padding: [0, 0, 0, 0],
+        textStyle: {
+          color: utils.getGrays()['700'],
+          fontWeight: "500",
+          fontSize: "13px"
         },
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['900']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
+        left: 0,
+        itemGap: 16
+      },
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['900']
         },
-        xAxis: {
-          data: xAxisData,
-          splitLine: {
-            show: false
-          },
-          splitArea: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        },
-        yAxis: {
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          }
-        },
-        series: [{
-          name: 'Agent Support',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data1
-        }, {
-          name: 'Group Support',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data2,
-          itemStyle: {
-            barBorderRadius: [3, 3, 0, 0]
-          }
-        }],
-        barWidth: '15px',
-        grid: {
-          top: '15%',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          containLabel: true
+        borderWidth: 1,
+        transitionDuration: 0,
+        axisPointer: {
+          type: 'none'
         }
-      };
-    };
+      },
+      xAxis: {
+        data: xAxisData,
+        splitLine: {
+          show: false
+        },
+        splitArea: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300']
+          }
+        },
+        axisTick: {
+          show: false
+        }
+      },
+      yAxis: {
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
+          }
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        }
+      },
+      series: [{
+        name: 'Agent Support',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data1
+      }, {
+        name: 'Group Support',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data2,
+        itemStyle: {
+          barBorderRadius: [3, 3, 0, 0]
+        }
+      }],
+      barWidth: "15px",
+      grid: {
+        top: '15%',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        containLabel: true
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
 
 /* eslint-disable */
-var getPosition = function getPosition(pos, params, dom, rect, size) {
-  return {
-    top: pos[1] - size.contentSize[1] - 10,
-    left: pos[0] - size.contentSize[0] / 2
-  };
-};
-var echartSetOption = function echartSetOption(chart, userOptions, getDefaultOptions) {
-  var themeController = document.body;
+const getPosition = (pos, params, dom, rect, size) => ({
+  top: pos[1] - size.contentSize[1] - 10,
+  left: pos[0] - size.contentSize[0] / 2
+});
+const echartSetOption = (chart, userOptions, getDefaultOptions) => {
+  const themeController = document.body;
   // Merge user options with lodash
   chart.setOption(window._.merge(getDefaultOptions(), userOptions));
-  themeController.addEventListener('clickControl', function (_ref18) {
-    var control = _ref18.detail.control;
+  themeController.addEventListener('clickControl', ({
+    detail: {
+      control
+    }
+  }) => {
     if (control === 'theme') {
       chart.setOption(window._.merge(getDefaultOptions(), userOptions));
     }
   });
 };
-var tooltipFormatter = function tooltipFormatter(params) {
-  var tooltipItem = "";
-  params.forEach(function (el) {
-    tooltipItem = tooltipItem + "<div class='ms-1'>\n        <h6 class=\"text-700\"><span class=\"fas fa-circle me-1 fs--2\" style=\"color:".concat(el.borderColor ? el.borderColor : el.color, "\"></span>\n          ").concat(el.seriesName, " : ").concat(_typeof(el.value) === 'object' ? el.value[1] : el.value, "\n        </h6>\n      </div>");
+const tooltipFormatter = params => {
+  let tooltipItem = ``;
+  params.forEach(el => {
+    tooltipItem = tooltipItem + `<div class='ms-1'>
+        <h6 class="text-700"><span class="fas fa-circle me-1 fs--2" style="color:${el.borderColor ? el.borderColor : el.color}"></span>
+          ${el.seriesName} : ${typeof el.value === 'object' ? el.value[1] : el.value}
+        </h6>
+      </div>`;
   });
-  return "<div>\n            <p class='mb-2 text-600'>\n              ".concat(window.dayjs(params[0].axisValue).isValid() ? window.dayjs(params[0].axisValue).format('MMMM DD') : params[0].axisValue, "\n            </p>\n            ").concat(tooltipItem, "\n          </div>");
+  return `<div>
+            <p class='mb-2 text-600'>
+              ${window.dayjs(params[0].axisValue).isValid() ? window.dayjs(params[0].axisValue).format('MMMM DD') : params[0].axisValue}
+            </p>
+            ${tooltipItem}
+          </div>`;
 };
-var resizeEcharts = function resizeEcharts() {
-  var $echarts = document.querySelectorAll('[data-echart-responsive]');
-  if ($echarts.length) {
-    $echarts.forEach(function (item) {
-      if (utils.getData(item, 'echart-responsive')) {
+const resizeEcharts = () => {
+  const $echarts = document.querySelectorAll('[data-echart-responsive]');
+  if (!!$echarts.length) {
+    $echarts.forEach(item => {
+      if (!!utils.getData(item, 'echart-responsive')) {
         if (!(item.closest('.tab-pane') && window.getComputedStyle(item.closest('.tab-pane')).display === 'none')) {
           window.echarts.init(item).resize();
         }
@@ -8591,21 +8669,19 @@ var resizeEcharts = function resizeEcharts() {
     });
   }
 };
-utils.resize(function () {
-  return resizeEcharts();
-});
-var navbarVerticalToggle = document.querySelector('.navbar-vertical-toggle');
-navbarVerticalToggle && navbarVerticalToggle.addEventListener('navbar.vertical.toggle', function () {
-  return resizeEcharts();
-});
-var echartTabs = document.querySelectorAll('[data-tab-has-echarts]');
-echartTabs && echartTabs.forEach(function (tab) {
-  tab.addEventListener('shown.bs.tab', function (e) {
-    var el = e.target;
-    var hash = el.hash;
-    var id = hash || el.dataset.bsTarget;
-    var content = document.getElementById(id.substring(1));
-    var chart = content === null || content === void 0 ? void 0 : content.querySelector('[data-echart-tab]');
+utils.resize(() => resizeEcharts());
+const navbarVerticalToggle = document.querySelector('.navbar-vertical-toggle');
+navbarVerticalToggle && navbarVerticalToggle.addEventListener('navbar.vertical.toggle', () => resizeEcharts());
+const echartTabs = document.querySelectorAll('[data-tab-has-echarts]');
+echartTabs && echartTabs.forEach(tab => {
+  tab.addEventListener('shown.bs.tab', e => {
+    const el = e.target;
+    const {
+      hash
+    } = el;
+    const id = hash ? hash : el.dataset.bsTarget;
+    const content = document.getElementById(id.substring(1));
+    const chart = content?.querySelector('[data-echart-tab]');
     chart && window.echarts.init(chart).resize();
   });
 });
@@ -8614,165 +8690,167 @@ echartTabs && echartTabs.forEach(function (tab) {
 /*                             Echarts Gross Revenue                          */
 /* -------------------------------------------------------------------------- */
 
-var grossRevenueChartInit = function grossRevenueChartInit() {
-  var ECHART_GROSS_REVENUE = '.echart-gross-revenue-chart';
-  var $echartsGrossRevenue = document.querySelector(ECHART_GROSS_REVENUE);
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const grossRevenueChartInit = () => {
+  const ECHART_GROSS_REVENUE = '.echart-gross-revenue-chart';
+  const $echartsGrossRevenue = document.querySelector(ECHART_GROSS_REVENUE);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   if ($echartsGrossRevenue) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartsGrossRevenue, 'options');
-    var chart = window.echarts.init($echartsGrossRevenue);
-    var SELECT_MONTH = "#".concat(userOptions.monthSelect);
-    var LEGEND_MONTH_TARGET = userOptions.target;
-    var LEGEND_CURRENT_MONTH = "#".concat(userOptions.optionOne);
-    var LEGEND_PREV_MONTH = "#".concat(userOptions.optionTwo);
-    var $legendCurrentMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_CURRENT_MONTH);
-    var $legendPrevMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_PREV_MONTH);
-    var dates = function dates(month) {
+    const userOptions = utils.getData($echartsGrossRevenue, 'options');
+    const chart = window.echarts.init($echartsGrossRevenue);
+    const SELECT_MONTH = `#${userOptions.monthSelect}`;
+    const LEGEND_MONTH_TARGET = userOptions.target;
+    const LEGEND_CURRENT_MONTH = `#${userOptions.optionOne}`;
+    const LEGEND_PREV_MONTH = `#${userOptions.optionTwo}`;
+    const $legendCurrentMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_CURRENT_MONTH);
+    const $legendPrevMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_PREV_MONTH);
+    const dates = month => {
       return utils.getDates(window.dayjs().month(month).date(1), window.dayjs().month(Number(month) + 1).date(0), 1000 * 60 * 60 * 24 * 3);
     };
-    var monthsnumber = [[20, 40, 20, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 80, 60, 80, 65, 130, 120, 100, 30, 40, 30, 70], [100, 70, 80, 50, 120, 100, 130, 140, 90, 100, 40, 50], [80, 50, 60, 40, 60, 120, 100, 130, 60, 80, 50, 60], [70, 80, 100, 70, 90, 60, 80, 130, 40, 60, 50, 80], [90, 40, 80, 80, 100, 140, 100, 130, 90, 60, 70, 50], [80, 60, 80, 60, 40, 100, 120, 100, 30, 40, 30, 70], [20, 40, 20, 50, 70, 60, 110, 80, 90, 30, 50, 50], [60, 70, 30, 40, 80, 140, 80, 140, 120, 130, 100, 110], [90, 90, 40, 60, 40, 110, 90, 110, 60, 80, 60, 70], [50, 80, 50, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 90, 60, 70, 40, 70, 100, 140, 30, 40, 30, 70], [20, 40, 20, 50, 30, 80, 120, 100, 30, 40, 30, 70]];
-    var _tooltipFormatter2 = function _tooltipFormatter2(params) {
-      var currentDate = window.dayjs(params[0].axisValue);
-      var tooltipItem = '';
-      params.forEach(function (el) {
-        tooltipItem += "<h6 class=\"fs--1 text-700\"><span class=\"fas fa-circle me-2\" style=\"color:".concat(el.borderColor, "\"></span>\n        ").concat(currentDate.format('MMM DD'), " : ").concat(el.value, "\n      </h6>");
+    const monthsnumber = [[20, 40, 20, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 80, 60, 80, 65, 130, 120, 100, 30, 40, 30, 70], [100, 70, 80, 50, 120, 100, 130, 140, 90, 100, 40, 50], [80, 50, 60, 40, 60, 120, 100, 130, 60, 80, 50, 60], [70, 80, 100, 70, 90, 60, 80, 130, 40, 60, 50, 80], [90, 40, 80, 80, 100, 140, 100, 130, 90, 60, 70, 50], [80, 60, 80, 60, 40, 100, 120, 100, 30, 40, 30, 70], [20, 40, 20, 50, 70, 60, 110, 80, 90, 30, 50, 50], [60, 70, 30, 40, 80, 140, 80, 140, 120, 130, 100, 110], [90, 90, 40, 60, 40, 110, 90, 110, 60, 80, 60, 70], [50, 80, 50, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 90, 60, 70, 40, 70, 100, 140, 30, 40, 30, 70], [20, 40, 20, 50, 30, 80, 120, 100, 30, 40, 30, 70]];
+    const tooltipFormatter = params => {
+      const currentDate = window.dayjs(params[0].axisValue);
+      let tooltipItem = ``;
+      params.forEach(el => {
+        tooltipItem = tooltipItem + `<h6 class="fs--1 text-700"><span class="fas fa-circle me-2" style="color:${el.borderColor}"></span>
+        ${currentDate.format('MMM DD')} : ${el.value}
+      </h6>`;
       });
-      return "<div class='ms-1'>\n                ".concat(tooltipItem, "\n              </div>");
+      return `<div class='ms-1'>
+                ${tooltipItem}
+              </div>`;
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        title: {
-          text: 'Sales over time',
-          textStyle: {
-            fontWeight: 500,
-            fontSize: 13,
-            fontFamily: 'poppins'
+    const getDefaultOptions = () => ({
+      title: {
+        text: 'Sales over time',
+        textStyle: {
+          fontWeight: 500,
+          fontSize: 13,
+          fontFamily: 'poppins'
+        }
+      },
+      legend: {
+        show: false,
+        data: ['currentMonth', 'prevMonth']
+      },
+      color: utils.getColors().white,
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        formatter: tooltipFormatter,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        }
+      },
+      xAxis: {
+        type: 'category',
+        data: dates(0),
+        boundaryGap: false,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
           }
         },
-        legend: {
-          show: false,
-          data: ['currentMonth', 'prevMonth']
-        },
-        color: utils.getColors().white,
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          formatter: _tooltipFormatter2,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'solid'
           }
         },
-        xAxis: {
-          type: 'category',
-          data: dates(0),
-          boundaryGap: false,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'solid'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['400'],
-            formatter: function formatter(value) {
-              var date = new Date(value);
-              return "".concat(months[date.getMonth()].substring(0, 3), " ").concat(date.getDate());
-            },
-            margin: 15
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          }
+        axisTick: {
+          show: false
         },
-        yAxis: {
-          type: 'value',
-          axisPointer: {
-            show: false
+        axisLabel: {
+          color: utils.getGrays()['400'],
+          formatter: function (value) {
+            var date = new Date(value);
+            return `${months[date.getMonth()].substring(0, 3)} ${date.getDate()}`;
           },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['400'],
-            margin: 15
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
+          margin: 15
         },
-        series: [{
-          name: 'prevMonth',
-          type: 'line',
-          data: monthsnumber[0],
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
           lineStyle: {
             color: utils.getGrays()['300']
-          },
-          itemStyle: {
-            borderColor: utils.getGrays()['300'],
-            borderWidth: 2
-          },
-          symbol: 'none',
-          smooth: false,
-          hoverAnimation: true
-        }, {
-          name: 'currentMonth',
-          type: 'line',
-          data: monthsnumber[1],
-          lineStyle: {
-            color: utils.getColors().primary
-          },
-          itemStyle: {
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
-          symbol: 'none',
-          smooth: false,
-          hoverAnimation: true
-        }],
-        grid: {
-          right: '8px',
-          left: '40px',
-          bottom: '15%',
-          top: '20%'
+          }
+        },
+        boundaryGap: false,
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['400'],
+          margin: 15
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
         }
-      };
-    };
+      },
+      series: [{
+        name: 'prevMonth',
+        type: 'line',
+        data: monthsnumber[0],
+        lineStyle: {
+          color: utils.getGrays()['300']
+        },
+        itemStyle: {
+          borderColor: utils.getGrays()['300'],
+          borderWidth: 2
+        },
+        symbol: 'none',
+        smooth: false,
+        hoverAnimation: true
+      }, {
+        name: 'currentMonth',
+        type: 'line',
+        data: monthsnumber[1],
+        lineStyle: {
+          color: utils.getColors().primary
+        },
+        itemStyle: {
+          borderColor: utils.getColors().primary,
+          borderWidth: 2
+        },
+        symbol: 'none',
+        smooth: false,
+        hoverAnimation: true
+      }],
+      grid: {
+        right: '8px',
+        left: '40px',
+        bottom: '15%',
+        top: '20%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
 
     // Change chart options accordiong to the selected month
-    var monthSelect = document.querySelector(SELECT_MONTH);
-    var month = 0;
-    var currentMonthData = monthsnumber[Number(month) + 1];
-    var prevMonthData = monthsnumber[monthSelect.selectedIndex];
-    monthSelect.addEventListener('change', function (e) {
+    const monthSelect = document.querySelector(SELECT_MONTH);
+    let month = 0;
+    let currentMonthData = monthsnumber[Number(month) + 1];
+    let prevMonthData = monthsnumber[monthSelect.selectedIndex];
+    monthSelect.addEventListener('change', e => {
       month = e.currentTarget.value;
       currentMonthData = monthsnumber[Number(month) + 1];
       prevMonthData = monthsnumber[month];
@@ -8789,14 +8867,14 @@ var grossRevenueChartInit = function grossRevenueChartInit() {
         }]
       });
     });
-    $legendCurrentMonth.addEventListener('click', function () {
+    $legendCurrentMonth.addEventListener('click', () => {
       $legendCurrentMonth.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
         name: 'currentMonth'
       });
     });
-    $legendPrevMonth.addEventListener('click', function () {
+    $legendPrevMonth.addEventListener('click', () => {
       $legendPrevMonth.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
@@ -8810,112 +8888,110 @@ var grossRevenueChartInit = function grossRevenueChartInit() {
 /*                                Traffic Channels                           */
 /* -------------------------------------------------------------------------- */
 
-var leadConversionInit = function leadConversionInit() {
-  var $leadConversion = document.querySelector('.echart-lead-conversion');
+const leadConversionInit = () => {
+  const $leadConversion = document.querySelector('.echart-lead-conversion');
   if ($leadConversion) {
-    var userOptions = utils.getData($leadConversion, 'options');
-    var chart = window.echarts.init($leadConversion);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.rgbaColor(utils.getColors().primary, 0.7), utils.rgbaColor(utils.getColors().info, 0.6), utils.rgbaColor(utils.getColors().secondary, 0.2), utils.rgbaColor(utils.getColors().warning, 0.6)],
-        legend: {
-          data: ['Campaigns', 'Lead', 'Opportunity', 'Deal'],
-          left: '0%',
-          icon: 'circle',
-          inactiveColor: utils.getGrays()['400'],
-          textStyle: {
-            color: utils.getGrays()['700']
-          },
-          itemGap: 10
+    const userOptions = utils.getData($leadConversion, 'options');
+    const chart = window.echarts.init($leadConversion);
+    const getDefaultOptions = () => ({
+      color: [utils.rgbaColor(utils.getColors().primary, 0.7), utils.rgbaColor(utils.getColors().info, 0.6), utils.rgbaColor(utils.getColors().secondary, 0.2), utils.rgbaColor(utils.getColors().warning, 0.6)],
+      legend: {
+        data: ['Campaigns', 'Lead', 'Opportunity', 'Deal'],
+        left: '0%',
+        icon: 'circle',
+        inactiveColor: utils.getGrays()['400'],
+        textStyle: {
+          color: utils.getGrays()['700']
         },
-        yAxis: {
-          type: 'category',
-          data: ['kerry Ingram', 'Bradie Pitter', 'Harrington', 'Ashley Shaw', 'Jenny Horas', 'Chris Pratt'],
-          axisLine: {
-            show: false
-          },
-          boundaryGap: false,
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
+        itemGap: 10
+      },
+      yAxis: {
+        type: 'category',
+        data: ['kerry Ingram', 'Bradie Pitter', 'Harrington', 'Ashley Shaw', 'Jenny Horas', 'Chris Pratt'],
+        axisLine: {
+          show: false
+        },
+        boundaryGap: false,
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200']
           }
         },
-        xAxis: {
-          type: 'value',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          }
+        axisTick: {
+          show: false
         },
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          axisPointer: {
-            type: 'none'
-          },
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: tooltipFormatter
-        },
-        series: [{
-          name: 'Campaigns',
-          type: 'bar',
-          stack: 'total',
-          data: [1405, 1300, 1620, 1430, 1500, 1520],
-          barWidth: '20%'
-        }, {
-          name: 'Lead',
-          type: 'bar',
-          stack: 'total',
-          data: [320, 302, 301, 334, 340, 390],
-          barWidth: '20%'
-        }, {
-          name: 'Opportunity',
-          type: 'bar',
-          stack: 'total',
-          data: [220, 182, 351, 234, 290, 300],
-          barWidth: '20%'
-        }, {
-          name: 'Deal',
-          type: 'bar',
-          stack: 'total',
-          data: [120, 182, 191, 134, 190, 170],
-          barWidth: '20%'
-        }],
-        grid: {
-          right: 5,
-          left: 5,
-          bottom: 8,
-          top: 60,
-          containLabel: true
+        axisLabel: {
+          color: utils.getGrays()['600']
         }
-      };
-    };
+      },
+      xAxis: {
+        type: 'value',
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200']
+          }
+        },
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        }
+      },
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        axisPointer: {
+          type: 'none'
+        },
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        },
+        formatter: tooltipFormatter
+      },
+      series: [{
+        name: 'Campaigns',
+        type: 'bar',
+        stack: 'total',
+        data: [1405, 1300, 1620, 1430, 1500, 1520],
+        barWidth: '20%'
+      }, {
+        name: 'Lead',
+        type: 'bar',
+        stack: 'total',
+        data: [320, 302, 301, 334, 340, 390],
+        barWidth: '20%'
+      }, {
+        name: 'Opportunity',
+        type: 'bar',
+        stack: 'total',
+        data: [220, 182, 351, 234, 290, 300],
+        barWidth: '20%'
+      }, {
+        name: 'Deal',
+        type: 'bar',
+        stack: 'total',
+        data: [120, 182, 191, 134, 190, 170],
+        barWidth: '20%'
+      }],
+      grid: {
+        right: 5,
+        left: 5,
+        bottom: 8,
+        top: 60,
+        containLabel: true
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -8924,135 +9000,127 @@ var leadConversionInit = function leadConversionInit() {
 /*                             Echarts Line Payment                           */
 /* -------------------------------------------------------------------------- */
 
-var linePaymentChartInit = function linePaymentChartInit() {
-  var $echartsLinePaymentChart = document.querySelector('.echart-line-payment');
-  var dataset = {
+const linePaymentChartInit = () => {
+  const $echartsLinePaymentChart = document.querySelector('.echart-line-payment');
+  const dataset = {
     all: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     successful: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     failed: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-  var labels = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM'];
+  const labels = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM'];
   if ($echartsLinePaymentChart) {
-    var userOptions = utils.getData($echartsLinePaymentChart, 'options');
-    var chart = window.echarts.init($echartsLinePaymentChart);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'none'
-          },
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return "".concat(params[0].axisValue, " - ").concat(params[0].value, " USD");
-          },
-          textStyle: {
-            fontWeight: 500,
-            fontSize: 12,
-            color: utils.getGrays()['1100']
-          }
+    const userOptions = utils.getData($echartsLinePaymentChart, 'options');
+    const chart = window.echarts.init($echartsLinePaymentChart);
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'none'
         },
-        xAxis: {
-          type: 'category',
-          data: labels,
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: utils.rgbaColor('#fff', 0.1)
-            },
-            interval: 0
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.rgbaColor('#fff', 0.1)
-            }
-          },
-          axisTick: {
-            show: true,
-            length: 10,
-            lineStyle: {
-              color: utils.rgbaColor('#fff', 0.1)
-            }
-          },
-          axisLabel: {
-            color: utils.getGrays()['400'],
-            fontWeight: 600,
-            formatter: function formatter(value) {
-              return value.substring(0, value.length - 3);
-            },
-            fontSize: 12,
-            interval: window.innerWidth < 768 ? 'auto' : 0,
-            margin: 15
-          },
-          boundaryGap: false
-        },
-        yAxis: {
-          type: 'value',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          smooth: true,
-          data: dataset.successful.map(function (d) {
-            return (d * 3.14).toFixed(2);
-          }),
-          symbol: 'emptyCircle',
-          itemStyle: {
-            color: localStorage.getItem('theme') === 'light' ? utils.getColors().white : utils.getColors().primary
-          },
-          lineStyle: {
-            color: localStorage.getItem('theme') === 'light' ? utils.rgbaColor(utils.getColors().white, 0.8) : utils.getColors().primary
-          },
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: localStorage.getItem('theme') === 'light' ? 'rgba(255, 255, 255, 0.5)' : utils.rgbaColor(utils.getColors().primary, 0.5)
-              }, {
-                offset: 1,
-                color: localStorage.getItem('theme') === 'light' ? 'rgba(255, 255, 255, 0)' : utils.rgbaColor(utils.getColors().primary, 0)
-              }]
-            }
-          },
-          emphasis: {
-            lineStyle: {
-              width: 2
-            }
-          }
-        }],
-        grid: {
-          right: 15,
-          left: 15,
-          bottom: '15%',
-          top: 0
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter: params => `${params[0].axisValue} - ${params[0].value} USD`,
+        textStyle: {
+          fontWeight: 500,
+          fontSize: 12,
+          color: utils.getGrays()['1100']
         }
-      };
-    };
+      },
+      xAxis: {
+        type: 'category',
+        data: labels,
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: utils.rgbaColor('#fff', 0.1)
+          },
+          interval: 0
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.rgbaColor('#fff', 0.1)
+          }
+        },
+        axisTick: {
+          show: true,
+          length: 10,
+          lineStyle: {
+            color: utils.rgbaColor('#fff', 0.1)
+          }
+        },
+        axisLabel: {
+          color: utils.getGrays()['400'],
+          fontWeight: 600,
+          formatter: value => value.substring(0, value.length - 3),
+          fontSize: 12,
+          interval: window.innerWidth < 768 ? 'auto' : 0,
+          margin: 15
+        },
+        boundaryGap: false
+      },
+      yAxis: {
+        type: 'value',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        type: 'line',
+        smooth: true,
+        data: dataset.successful.map(d => (d * 3.14).toFixed(2)),
+        symbol: 'emptyCircle',
+        itemStyle: {
+          color: localStorage.getItem('theme') === 'light' ? utils.getColors().white : utils.getColors().primary
+        },
+        lineStyle: {
+          color: localStorage.getItem('theme') === 'light' ? utils.rgbaColor(utils.getColors().white, 0.8) : utils.getColors().primary
+        },
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: localStorage.getItem('theme') === 'light' ? 'rgba(255, 255, 255, 0.5)' : utils.rgbaColor(utils.getColors().primary, 0.5)
+            }, {
+              offset: 1,
+              color: localStorage.getItem('theme') === 'light' ? 'rgba(255, 255, 255, 0)' : utils.rgbaColor(utils.getColors().primary, 0)
+            }]
+          }
+        },
+        emphasis: {
+          lineStyle: {
+            width: 2
+          }
+        }
+      }],
+      grid: {
+        right: 15,
+        left: 15,
+        bottom: '15%',
+        top: 0
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    utils.resize(function () {
+    utils.resize(() => {
       if (window.innerWidth < 768) {
         chart.setOption({
           xAxis: {
@@ -9063,15 +9131,13 @@ var linePaymentChartInit = function linePaymentChartInit() {
         });
       }
     });
-    var selectMenu = document.querySelector('#dashboard-chart-select');
+    const selectMenu = document.querySelector('#dashboard-chart-select');
     if (selectMenu) {
-      selectMenu.addEventListener('change', function (e) {
-        var value = e.currentTarget.value;
+      selectMenu.addEventListener('change', e => {
+        const value = e.currentTarget.value;
         chart.setOption({
           series: [{
-            data: dataset[value].map(function (d) {
-              return (d * 3.14).toFixed(2);
-            })
+            data: dataset[value].map(d => (d * 3.14).toFixed(2))
           }]
         });
       });
@@ -9083,9 +9149,9 @@ var linePaymentChartInit = function linePaymentChartInit() {
 /*                                Session By Country Map                      */
 /* -------------------------------------------------------------------------- */
 
-var locationBySessionInit = function locationBySessionInit() {
-  var $locationBySessionMap = document.querySelector('.echart-location-by-session-map');
-  var data = [{
+const locationBySessionInit = () => {
+  const $locationBySessionMap = document.querySelector('.echart-location-by-session-map');
+  const data = [{
     name: 'Afghanistan',
     value: 28397.812
   }, {
@@ -9620,69 +9686,63 @@ var locationBySessionInit = function locationBySessionInit() {
     name: 'Zimbabwe',
     value: 13076.978
   }];
-  var total = 6961500;
-  var maxZoomLevel = 5;
-  var minZoomLevel = 1;
+  const total = 6961500;
+  const maxZoomLevel = 5;
+  const minZoomLevel = 1;
   if ($locationBySessionMap) {
-    var _document$querySelect2, _document$querySelect3, _document$querySelect4;
-    var userOptions = utils.getData($locationBySessionMap, 'options');
-    var chart = window.echarts.init($locationBySessionMap);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            var _params$data, _params$data2;
-            return "<strong>".concat((_params$data = params.data) === null || _params$data === void 0 ? void 0 : _params$data.name, " :</strong> ").concat((((_params$data2 = params.data) === null || _params$data2 === void 0 ? void 0 : _params$data2.value) / total * 100).toFixed(2), "%");
-          }
+    const userOptions = utils.getData($locationBySessionMap, 'options');
+    const chart = window.echarts.init($locationBySessionMap);
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        visualMap: {
-          show: false,
-          min: 800,
-          max: 50000,
-          inRange: {
-            color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)].reverse()
-          }
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter: params => `<strong>${params.data?.name} :</strong> ${(params.data?.value / total * 100).toFixed(2)}%`
+      },
+      visualMap: {
+        show: false,
+        min: 800,
+        max: 50000,
+        inRange: {
+          color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)].reverse()
+        }
+      },
+      series: [{
+        type: 'map',
+        map: 'world',
+        data,
+        roam: 'move',
+        scaleLimit: {
+          min: minZoomLevel,
+          max: maxZoomLevel
         },
-        series: [{
-          type: 'map',
-          map: 'world',
-          data: data,
-          roam: 'move',
-          scaleLimit: {
-            min: minZoomLevel,
-            max: maxZoomLevel
-          },
-          left: 0,
-          right: 0,
+        left: 0,
+        right: 0,
+        label: {
+          show: false
+        },
+        itemStyle: {
+          borderColor: utils.getGrays()['300']
+        },
+        emphasis: {
           label: {
             show: false
           },
           itemStyle: {
-            borderColor: utils.getGrays()['300']
-          },
-          emphasis: {
-            label: {
-              show: false
-            },
-            itemStyle: {
-              areaColor: utils.getColor('warning')
-            }
+            areaColor: utils.getColor('warning')
           }
-        }]
-      };
-    };
+        }
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    var zoomLevel = 1;
-    (_document$querySelect2 = document.querySelector('.location-by-session-map-reset')) === null || _document$querySelect2 === void 0 ? void 0 : _document$querySelect2.addEventListener('click', function () {
+    let zoomLevel = 1;
+    document.querySelector('.location-by-session-map-reset')?.addEventListener('click', () => {
       zoomLevel = 1;
       chart.dispatchAction({
         type: 'restore'
@@ -9693,7 +9753,7 @@ var locationBySessionInit = function locationBySessionInit() {
         }
       });
     });
-    (_document$querySelect3 = document.querySelector('.location-by-session-map-zoom')) === null || _document$querySelect3 === void 0 ? void 0 : _document$querySelect3.addEventListener('click', function () {
+    document.querySelector('.location-by-session-map-zoom')?.addEventListener('click', () => {
       if (zoomLevel < maxZoomLevel) {
         zoomLevel += 1;
       }
@@ -9703,7 +9763,7 @@ var locationBySessionInit = function locationBySessionInit() {
         }
       });
     });
-    (_document$querySelect4 = document.querySelector('.location-by-session-map-zoomOut')) === null || _document$querySelect4 === void 0 ? void 0 : _document$querySelect4.addEventListener('click', function () {
+    document.querySelector('.location-by-session-map-zoomOut')?.addEventListener('click', () => {
       if (zoomLevel > minZoomLevel) {
         zoomLevel -= 1;
       }
@@ -9720,76 +9780,74 @@ var locationBySessionInit = function locationBySessionInit() {
 /*                                Product Share                               */
 /* -------------------------------------------------------------------------- */
 
-var marketShareEcommerceInit = function marketShareEcommerceInit() {
-  var ECHART_PRODUCT_SHARE = '.echart-product-share';
-  var $echartProductShare = document.querySelector(ECHART_PRODUCT_SHARE);
+const marketShareEcommerceInit = () => {
+  const ECHART_PRODUCT_SHARE = '.echart-product-share';
+  const $echartProductShare = document.querySelector(ECHART_PRODUCT_SHARE);
   if ($echartProductShare) {
-    var userOptions = utils.getData($echartProductShare, 'options');
-    var chart = window.echarts.init($echartProductShare);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.getColors().info, utils.getColors().warning],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
+    const userOptions = utils.getData($echartProductShare, 'options');
+    const chart = window.echarts.init($echartProductShare);
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.getColors().info, utils.getColors().warning],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter(params) {
+          return `<strong>${params.data.name}:</strong> ${params.percent}%`;
+        }
+      },
+      position(pos, params, dom, rect, size) {
+        return getPosition(pos, params, dom, rect, size);
+      },
+      legend: {
+        show: false
+      },
+      series: [{
+        type: 'pie',
+        radius: ['100%', '80%'],
+        avoidLabelOverlap: false,
+        hoverAnimation: false,
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: utils.getColor('gray-100')
+        },
+        label: {
+          normal: {
+            show: false,
+            position: 'center',
+            textStyle: {
+              fontSize: '20',
+              fontWeight: '500',
+              color: utils.getGrays()['700']
+            }
           },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return "<strong>".concat(params.data.name, ":</strong> ").concat(params.percent, "%");
+          emphasis: {
+            show: false
           }
         },
-        position: function position(pos, params, dom, rect, size) {
-          return getPosition(pos, params, dom, rect, size);
+        labelLine: {
+          normal: {
+            show: false
+          }
         },
-        legend: {
-          show: false
-        },
-        series: [{
-          type: 'pie',
-          radius: ['100%', '80%'],
-          avoidLabelOverlap: false,
-          hoverAnimation: false,
-          itemStyle: {
-            borderWidth: 2,
-            borderColor: utils.getColor('gray-100')
-          },
-          label: {
-            normal: {
-              show: false,
-              position: 'center',
-              textStyle: {
-                fontSize: '20',
-                fontWeight: '500',
-                color: utils.getGrays()['700']
-              }
-            },
-            emphasis: {
-              show: false
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: [{
-            value: 5300000,
-            name: 'Falcon'
-          }, {
-            value: 1900000,
-            name: 'Sparrow'
-          }, {
-            value: 2000000,
-            name: 'Phoenix'
-          }]
+        data: [{
+          value: 5300000,
+          name: 'Falcon'
+        }, {
+          value: 1900000,
+          name: 'Sparrow'
+        }, {
+          value: 2000000,
+          name: 'Phoenix'
         }]
-      };
-    };
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -9798,76 +9856,74 @@ var marketShareEcommerceInit = function marketShareEcommerceInit() {
 /*                                Market Share                                */
 /* -------------------------------------------------------------------------- */
 
-var marketShareInit = function marketShareInit() {
-  var ECHART_MARKET_SHARE = '.echart-market-share';
-  var $echartMarketShare = document.querySelector(ECHART_MARKET_SHARE);
+const marketShareInit = () => {
+  const ECHART_MARKET_SHARE = '.echart-market-share';
+  const $echartMarketShare = document.querySelector(ECHART_MARKET_SHARE);
   if ($echartMarketShare) {
-    var userOptions = utils.getData($echartMarketShare, 'options');
-    var chart = window.echarts.init($echartMarketShare);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.getColors().info, utils.getGrays()[300]],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
+    const userOptions = utils.getData($echartMarketShare, 'options');
+    const chart = window.echarts.init($echartMarketShare);
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.getColors().info, utils.getGrays()[300]],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter(params) {
+          return `<strong>${params.data.name}:</strong> ${params.percent}%`;
+        }
+      },
+      position(pos, params, dom, rect, size) {
+        return getPosition(pos, params, dom, rect, size);
+      },
+      legend: {
+        show: false
+      },
+      series: [{
+        type: 'pie',
+        radius: ['100%', '87%'],
+        avoidLabelOverlap: false,
+        hoverAnimation: false,
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: utils.getColor('gray-100')
+        },
+        label: {
+          normal: {
+            show: false,
+            position: 'center',
+            textStyle: {
+              fontSize: '20',
+              fontWeight: '500',
+              color: utils.getGrays()['100']
+            }
           },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return "<strong>".concat(params.data.name, ":</strong> ").concat(params.percent, "%");
+          emphasis: {
+            show: false
           }
         },
-        position: function position(pos, params, dom, rect, size) {
-          return getPosition(pos, params, dom, rect, size);
+        labelLine: {
+          normal: {
+            show: false
+          }
         },
-        legend: {
-          show: false
-        },
-        series: [{
-          type: 'pie',
-          radius: ['100%', '87%'],
-          avoidLabelOverlap: false,
-          hoverAnimation: false,
-          itemStyle: {
-            borderWidth: 2,
-            borderColor: utils.getColor('gray-100')
-          },
-          label: {
-            normal: {
-              show: false,
-              position: 'center',
-              textStyle: {
-                fontSize: '20',
-                fontWeight: '500',
-                color: utils.getGrays()['100']
-              }
-            },
-            emphasis: {
-              show: false
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: [{
-            value: 5300000,
-            name: 'Samsung'
-          }, {
-            value: 1900000,
-            name: 'Huawei'
-          }, {
-            value: 2000000,
-            name: 'Apple'
-          }]
+        data: [{
+          value: 5300000,
+          name: 'Samsung'
+        }, {
+          value: 1900000,
+          name: 'Huawei'
+        }, {
+          value: 2000000,
+          name: 'Apple'
         }]
-      };
-    };
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -9876,12 +9932,12 @@ var marketShareInit = function marketShareInit() {
 /*                            Bandwidth Saved                                 */
 /* -------------------------------------------------------------------------- */
 
-var marketingExpensesInit = function marketingExpensesInit() {
-  var $echartsMarketingExp = document.querySelector('.echart-marketing-expenses');
+const marketingExpensesInit = () => {
+  const $echartsMarketingExp = document.querySelector('.echart-marketing-expenses');
   if ($echartsMarketingExp) {
-    var userOptions = utils.getData($echartsMarketingExp, 'options');
-    var chart = window.echarts.init($echartsMarketingExp);
-    var marketingExpenses = [{
+    const userOptions = utils.getData($echartsMarketingExp, 'options');
+    const chart = window.echarts.init($echartsMarketingExp);
+    const marketingExpenses = [{
       value: 412600,
       name: 'Offline Marketing',
       itemStyle: {
@@ -9908,7 +9964,7 @@ var marketingExpensesInit = function marketingExpensesInit() {
         }
       }
     }];
-    var detailedExpenses = [{
+    const detailedExpenses = [{
       value: 91600,
       name: 'Event Sponsorship',
       itemStyle: {
@@ -9957,56 +10013,54 @@ var marketingExpensesInit = function marketingExpensesInit() {
         color: utils.rgbaColor(utils.getColor('info'), 0.8)
       }
     }];
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'item',
-          backgroundColor: utils.getGrays()['100'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          formatter: '{b}<br/> {c} ({d}%)'
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: utils.getGrays()['100'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        series: [{
-          name: 'Marketing Expenses',
-          type: 'pie',
-          selectedMode: 'single',
-          radius: ['45%', '60%'],
-          label: {
-            show: false
-          },
-          labelLine: {
-            show: false
-          },
-          itemStyle: {
-            borderColor: utils.getColor('gray-100'),
-            borderWidth: 2
-          },
-          data: detailedExpenses
-        }, {
-          name: 'Marketing Expenses',
-          type: 'pie',
-          radius: ['70%', '75%'],
-          barWidth: 10,
-          labelLine: {
-            length: 0,
-            show: false
-          },
-          label: {
-            formatter: '{per|{d}%}',
-            rich: {
-              per: {
-                fontSize: 14,
-                fontWeight: 'bold',
-                lineHeight: 33
-              }
+        formatter: '{b}<br/> {c} ({d}%)'
+      },
+      series: [{
+        name: 'Marketing Expenses',
+        type: 'pie',
+        selectedMode: 'single',
+        radius: ['45%', '60%'],
+        label: {
+          show: false
+        },
+        labelLine: {
+          show: false
+        },
+        itemStyle: {
+          borderColor: utils.getColor('gray-100'),
+          borderWidth: 2
+        },
+        data: detailedExpenses
+      }, {
+        name: 'Marketing Expenses',
+        type: 'pie',
+        radius: ['70%', '75%'],
+        barWidth: 10,
+        labelLine: {
+          length: 0,
+          show: false
+        },
+        label: {
+          formatter: '{per|{d}%}',
+          rich: {
+            per: {
+              fontSize: 14,
+              fontWeight: 'bold',
+              lineHeight: 33
             }
-          },
-          data: marketingExpenses
-        }]
-      };
-    };
-    var initChart = function initChart() {
+          }
+        },
+        data: marketingExpenses
+      }]
+    });
+    const initChart = () => {
       if (utils.isScrolledIntoView($echartsMarketingExp)) {
         echartSetOption(chart, userOptions, getDefaultOptions);
         window.removeEventListener('scroll', initChart);
@@ -10020,193 +10074,189 @@ var marketingExpensesInit = function marketingExpensesInit() {
 /*                                Market Share                                */
 /* -------------------------------------------------------------------------- */
 
-var mostLeadsInit = function mostLeadsInit() {
-  var ECHART_MOST_LEADS = '.echart-most-leads';
-  var $echartMostLeads = document.querySelector(ECHART_MOST_LEADS);
+const mostLeadsInit = () => {
+  const ECHART_MOST_LEADS = '.echart-most-leads';
+  const $echartMostLeads = document.querySelector(ECHART_MOST_LEADS);
   if ($echartMostLeads) {
-    var userOptions = utils.getData($echartMostLeads, 'options');
-    var chart = window.echarts.init($echartMostLeads);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.5), utils.getColors().warning, utils.getColors().info],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
+    const userOptions = utils.getData($echartMostLeads, 'options');
+    const chart = window.echarts.init($echartMostLeads);
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.5), utils.getColors().warning, utils.getColors().info],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter(params) {
+          return `<strong>${params.data.name}:</strong> ${params.percent}%`;
+        }
+      },
+      position(pos, params, dom, rect, size) {
+        return getPosition(pos, params, dom, rect, size);
+      },
+      legend: {
+        show: false
+      },
+      series: [{
+        type: 'pie',
+        radius: ['100%', '67%'],
+        avoidLabelOverlap: false,
+        hoverAnimation: false,
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: utils.getColor('gray-100')
+        },
+        label: {
+          normal: {
+            show: false,
+            position: 'center',
+            textStyle: {
+              fontSize: '20',
+              fontWeight: '500',
+              color: utils.getGrays()['700']
+            }
           },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return "<strong>".concat(params.data.name, ":</strong> ").concat(params.percent, "%");
+          emphasis: {
+            show: false
           }
         },
-        position: function position(pos, params, dom, rect, size) {
-          return getPosition(pos, params, dom, rect, size);
+        labelLine: {
+          normal: {
+            show: false
+          }
         },
-        legend: {
-          show: false
-        },
-        series: [{
-          type: 'pie',
-          radius: ['100%', '67%'],
-          avoidLabelOverlap: false,
-          hoverAnimation: false,
-          itemStyle: {
-            borderWidth: 2,
-            borderColor: utils.getColor('gray-100')
-          },
-          label: {
-            normal: {
-              show: false,
-              position: 'center',
-              textStyle: {
-                fontSize: '20',
-                fontWeight: '500',
-                color: utils.getGrays()['700']
-              }
-            },
-            emphasis: {
-              show: false
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: [{
-            value: 60,
-            name: 'Social'
-          }, {
-            value: 30,
-            name: 'Other'
-          }, {
-            value: 10,
-            name: 'Call'
-          }, {
-            value: 120,
-            name: 'Email'
-          }]
+        data: [{
+          value: 60,
+          name: 'Social'
+        }, {
+          value: 30,
+          name: 'Other'
+        }, {
+          value: 10,
+          name: 'Call'
+        }, {
+          value: 120,
+          name: 'Email'
         }]
-      };
-    };
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
-var echartsNumberOfTicketsInit = function echartsNumberOfTicketsInit() {
-  var $numberOfTickets = document.querySelector('.echart-number-of-tickets');
+const echartsNumberOfTicketsInit = () => {
+  const $numberOfTickets = document.querySelector('.echart-number-of-tickets');
   if ($numberOfTickets) {
-    var userOptions = utils.getData($numberOfTickets, 'options');
-    var chart = window.echarts.init($numberOfTickets);
-    var numberOfTicketsLegend = document.querySelectorAll('[data-number-of-tickets]');
-    var xAxisData = ['Mar 01', 'Mar 02', 'Mar 03', 'Mar 04', 'Mar 05', 'Mar 06'];
-    var data1 = [45, 35, 55, 55, 55, 45];
-    var data2 = [58, 42, 65, 65, 65, 30];
-    var data3 = [38, 25, 42, 42, 42, 45];
-    var data4 = [62, 45, 75, 75, 75, 55];
-    var emphasisStyle = {
+    const userOptions = utils.getData($numberOfTickets, 'options');
+    const chart = window.echarts.init($numberOfTickets);
+    const numberOfTicketsLegend = document.querySelectorAll("[data-number-of-tickets]");
+    let xAxisData = ["Mar 01", "Mar 02", "Mar 03", "Mar 04", "Mar 05", "Mar 06"];
+    let data1 = [45, 35, 55, 55, 55, 45];
+    let data2 = [58, 42, 65, 65, 65, 30];
+    let data3 = [38, 25, 42, 42, 42, 45];
+    let data4 = [62, 45, 75, 75, 75, 55];
+    const emphasisStyle = {
       itemStyle: {
         shadowColor: utils.rgbaColor(utils.getColor('dark'), 0.3),
         borderRadius: [5, 5, 5, 5]
       }
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColor('primary'), localStorage.getItem('theme') === 'dark' ? '#1E4C88' : '#94BCF1', localStorage.getItem('theme') === 'dark' ? '#1A3A64' : '#C0D8F7', localStorage.getItem('theme') === 'dark' ? '#225FAE' : '#6AA3ED'],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['900']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
+    const getDefaultOptions = () => ({
+      color: [utils.getColor('primary'), localStorage.getItem('theme') === 'dark' ? '#1E4C88' : '#94BCF1', localStorage.getItem('theme') === 'dark' ? '#1A3A64' : '#C0D8F7', localStorage.getItem('theme') === 'dark' ? '#225FAE' : '#6AA3ED'],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['900']
         },
-        legend: {
-          data: ['On Hold Tickets', 'Open Tickets', 'Due Tickets', 'Unassigned Tickets'],
+        borderWidth: 1,
+        transitionDuration: 0,
+        axisPointer: {
+          type: 'none'
+        }
+      },
+      legend: {
+        data: ['On Hold Tickets', 'Open Tickets', 'Due Tickets', 'Unassigned Tickets'],
+        show: false
+      },
+      xAxis: {
+        data: xAxisData,
+        splitLine: {
           show: false
         },
-        xAxis: {
-          data: xAxisData,
-          splitLine: {
-            show: false
-          },
-          splitArea: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisTick: {
-            show: false
+        splitArea: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
           }
         },
-        yAxis: {
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          }
-        },
-        series: [{
-          name: 'On Hold Tickets',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data1
-        }, {
-          name: 'Open Tickets',
-          type: 'bar',
-          stack: 'two',
-          emphasis: emphasisStyle,
-          data: data2
-        }, {
-          name: 'Due Tickets',
-          type: 'bar',
-          stack: 'three',
-          emphasis: emphasisStyle,
-          data: data3
-        }, {
-          name: 'Unassigned Tickets',
-          type: 'bar',
-          stack: 'four',
-          emphasis: emphasisStyle,
-          data: data4
-        }],
-        itemStyle: {
-          borderRadius: [3, 3, 0, 0]
-        },
-        barWidth: '12px',
-        grid: {
-          top: '10%',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          containLabel: true
+        axisTick: {
+          show: false
         }
-      };
-    };
+      },
+      yAxis: {
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
+          }
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        }
+      },
+      series: [{
+        name: 'On Hold Tickets',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data1
+      }, {
+        name: 'Open Tickets',
+        type: 'bar',
+        stack: 'two',
+        emphasis: emphasisStyle,
+        data: data2
+      }, {
+        name: 'Due Tickets',
+        type: 'bar',
+        stack: 'three',
+        emphasis: emphasisStyle,
+        data: data3
+      }, {
+        name: 'Unassigned Tickets',
+        type: 'bar',
+        stack: 'four',
+        emphasis: emphasisStyle,
+        data: data4
+      }],
+      itemStyle: {
+        borderRadius: [3, 3, 0, 0]
+      },
+      barWidth: "12px",
+      grid: {
+        top: '10%',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        containLabel: true
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    numberOfTicketsLegend.forEach(function (el) {
-      el.addEventListener('change', function () {
+    numberOfTicketsLegend.forEach(el => {
+      el.addEventListener('change', () => {
         chart.dispatchAction({
           type: 'legendToggleSelect',
           name: utils.getData(el, 'number-of-tickets')
@@ -10220,83 +10270,87 @@ var echartsNumberOfTicketsInit = function echartsNumberOfTicketsInit() {
 /*                             Echarts Real Time Users                        */
 /* -------------------------------------------------------------------------- */
 
-var realTimeUsersChartInit = function realTimeUsersChartInit() {
-  var $echartsRealTimeUsers = document.querySelector('.echart-real-time-users');
+const realTimeUsersChartInit = () => {
+  const $echartsRealTimeUsers = document.querySelector('.echart-real-time-users');
   if ($echartsRealTimeUsers) {
-    var userOptions = utils.getData($echartsRealTimeUsers, 'options');
-    var chart = window.echarts.init($echartsRealTimeUsers);
-    var data = [921, 950, 916, 913, 909, 962, 926, 936, 977, 976, 999, 981, 998, 1000, 900, 906, 973, 911, 994, 982, 917, 972, 952, 963, 991];
-    var axisData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-    var _tooltipFormatter3 = function _tooltipFormatter3(params) {
-      return "\n      <div>\n          <h6 class=\"fs--1 text-700 mb-0\"><span class=\"fas fa-circle me-1 text-info\"></span>\n            Users : ".concat(params[0].value, "\n          </h6>\n      </div>\n      ");
+    const userOptions = utils.getData($echartsRealTimeUsers, 'options');
+    const chart = window.echarts.init($echartsRealTimeUsers);
+    const data = [921, 950, 916, 913, 909, 962, 926, 936, 977, 976, 999, 981, 998, 1000, 900, 906, 973, 911, 994, 982, 917, 972, 952, 963, 991];
+    const axisData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+    const tooltipFormatter = params => {
+      return `
+      <div>
+          <h6 class="fs--1 text-700 mb-0"><span class="fas fa-circle me-1 text-info"></span>
+            Users : ${params[0].value}
+          </h6>
+      </div>
+      `;
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          axisPointer: {
-            type: 'none'
-          },
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: _tooltipFormatter3
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        axisPointer: {
+          type: 'none'
         },
-        xAxis: {
-          type: 'category',
-          axisLabel: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          boundaryGap: [0.2, 0.2],
-          data: axisData
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        yAxis: {
-          type: 'value',
-          scale: true,
-          boundaryGap: false,
-          axisLabel: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          },
-          min: 500,
-          max: 1100
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         },
-        series: [{
-          type: 'bar',
-          barCategoryGap: '12%',
-          data: data,
-          itemStyle: {
-            color: utils.rgbaColor('#fff', 0.3)
-          }
-        }],
-        grid: {
-          right: '0px',
-          left: '0px',
-          bottom: 0,
-          top: 0
+        formatter: tooltipFormatter
+      },
+      xAxis: {
+        type: 'category',
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        },
+        boundaryGap: [0.2, 0.2],
+        data: axisData
+      },
+      yAxis: {
+        type: 'value',
+        scale: true,
+        boundaryGap: false,
+        axisLabel: {
+          show: false
+        },
+        splitLine: {
+          show: false
+        },
+        min: 500,
+        max: 1100
+      },
+      series: [{
+        type: 'bar',
+        barCategoryGap: '12%',
+        data,
+        itemStyle: {
+          color: utils.rgbaColor('#fff', 0.3)
         }
-      };
-    };
+      }],
+      grid: {
+        right: '0px',
+        left: '0px',
+        bottom: 0,
+        top: 0
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    var userCounterDom = document.querySelector('.real-time-user');
-    setInterval(function () {
-      var rndData = utils.getRandomNumber(900, 1000);
+    const userCounterDom = document.querySelector('.real-time-user');
+    setInterval(() => {
+      const rndData = utils.getRandomNumber(900, 1000);
       data.shift();
       data.push(rndData);
       axisData.shift();
@@ -10307,121 +10361,119 @@ var realTimeUsersChartInit = function realTimeUsersChartInit() {
           data: axisData
         },
         series: [{
-          data: data
+          data
         }]
       });
     }, 2000);
   }
 };
-var echartsReceivedTicketsInit = function echartsReceivedTicketsInit() {
-  var $receivedTickets = document.querySelector('.echart-received-tickets');
+const echartsReceivedTicketsInit = () => {
+  const $receivedTickets = document.querySelector('.echart-received-tickets');
   if ($receivedTickets) {
-    var userOptions = utils.getData($receivedTickets, 'options');
-    var chart = window.echarts.init($receivedTickets);
-    var xAxisData = ['Apr 01', 'Apr 02', 'Apr 03', 'Apr 04', 'Apr 05', 'Apr 06', 'Apr 07', 'Apr 08', 'Apr 09', 'Apr 10'];
-    var data1 = [28, 35, 28, 25, 21, 32, 25, 30, 23, 37];
-    var data2 = [20, 27, 21, 15, 17, 22, 18, 20, 15, 27];
-    var data3 = [15, 21, 23, 21, 12, 14, 13, 15, 10, 19];
-    var emphasisStyle = {
+    const userOptions = utils.getData($receivedTickets, 'options');
+    const chart = window.echarts.init($receivedTickets);
+    let xAxisData = ["Apr 01", "Apr 02", "Apr 03", "Apr 04", "Apr 05", "Apr 06", "Apr 07", "Apr 08", "Apr 09", "Apr 10"];
+    let data1 = [28, 35, 28, 25, 21, 32, 25, 30, 23, 37];
+    let data2 = [20, 27, 21, 15, 17, 22, 18, 20, 15, 27];
+    let data3 = [15, 21, 23, 21, 12, 14, 13, 15, 10, 19];
+    const emphasisStyle = {
       itemStyle: {
         shadowColor: utils.rgbaColor(utils.getColor('dark'), 0.3)
       }
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColor('primary'), utils.getColor('info'), utils.getGrays()['300']],
-        legend: {
-          data: ['All Received Tickets', 'New Received Tickets', 'Total Received Load Tickets'],
-          icon: 'circle',
-          itemWidth: 10,
-          itemHeight: 10,
-          padding: [0, 0, 0, 0],
-          textStyle: {
-            color: utils.getGrays()['700'],
-            fontWeight: '500',
-            fontSize: '13px'
-          },
-          left: 0,
-          itemGap: 16
+    const getDefaultOptions = () => ({
+      color: [utils.getColor('primary'), utils.getColor('info'), utils.getGrays()['300']],
+      legend: {
+        data: ['All Received Tickets', 'New Received Tickets', 'Total Received Load Tickets'],
+        icon: 'circle',
+        itemWidth: 10,
+        itemHeight: 10,
+        padding: [0, 0, 0, 0],
+        textStyle: {
+          color: utils.getGrays()['700'],
+          fontWeight: "500",
+          fontSize: "13px"
         },
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['900']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
+        left: 0,
+        itemGap: 16
+      },
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['900']
         },
-        xAxis: {
-          data: xAxisData,
-          splitLine: {
-            show: false
-          },
-          splitArea: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        },
-        yAxis: {
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          }
-        },
-        series: [{
-          name: 'All Received Tickets',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data1
-        }, {
-          name: 'New Received Tickets',
-          type: 'bar',
-          stack: 'two',
-          emphasis: emphasisStyle,
-          data: data2
-        }, {
-          name: 'Total Received Load Tickets',
-          type: 'bar',
-          stack: 'three',
-          emphasis: emphasisStyle,
-          data: data3
-        }],
-        itemStyle: {
-          borderRadius: [3, 3, 0, 0]
-        },
-        barWidth: '13.03px',
-        grid: {
-          top: '13%',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          containLabel: true
+        borderWidth: 1,
+        transitionDuration: 0,
+        axisPointer: {
+          type: 'none'
         }
-      };
-    };
+      },
+      xAxis: {
+        data: xAxisData,
+        splitLine: {
+          show: false
+        },
+        splitArea: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
+          }
+        },
+        axisTick: {
+          show: false
+        }
+      },
+      yAxis: {
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
+          }
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        }
+      },
+      series: [{
+        name: 'All Received Tickets',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data1
+      }, {
+        name: 'New Received Tickets',
+        type: 'bar',
+        stack: 'two',
+        emphasis: emphasisStyle,
+        data: data2
+      }, {
+        name: 'Total Received Load Tickets',
+        type: 'bar',
+        stack: 'three',
+        emphasis: emphasisStyle,
+        data: data3
+      }],
+      itemStyle: {
+        borderRadius: [3, 3, 0, 0]
+      },
+      barWidth: "13.03px",
+      grid: {
+        top: '13%',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        containLabel: true
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -10430,126 +10482,122 @@ var echartsReceivedTicketsInit = function echartsReceivedTicketsInit() {
 /*                     Echart Bar Report For This Week                        */
 /* -------------------------------------------------------------------------- */
 
-var reportForThisWeekInit = function reportForThisWeekInit() {
-  var ECHART_BAR_REPORT_FOR_THIS_WEEK = '.echart-bar-report-for-this-week';
-  var $echartBarReportForThisWeek = document.querySelector(ECHART_BAR_REPORT_FOR_THIS_WEEK);
+const reportForThisWeekInit = () => {
+  const ECHART_BAR_REPORT_FOR_THIS_WEEK = '.echart-bar-report-for-this-week';
+  const $echartBarReportForThisWeek = document.querySelector(ECHART_BAR_REPORT_FOR_THIS_WEEK);
   if ($echartBarReportForThisWeek) {
-    var selectChart = utils.getData($echartBarReportForThisWeek, 'chart');
-    var legendThisWeek = document.getElementById(selectChart === null || selectChart === void 0 ? void 0 : selectChart.option1);
-    var legendLastWeek = document.getElementById(selectChart === null || selectChart === void 0 ? void 0 : selectChart.option2);
-    var data = [['product', 'This Week', 'Last Week'], ['Sun', 43, 85], ['Mon', 83, 73], ['Tue', 86, 62], ['Wed', 72, 53], ['Thu', 80, 50], ['Fri', 50, 70], ['Sat', 80, 90]];
-    var userOptions = utils.getData($echartBarReportForThisWeek, 'options');
-    var chart = window.echarts.init($echartBarReportForThisWeek);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.getGrays()['300']],
-        dataset: {
-          source: data
+    const selectChart = utils.getData($echartBarReportForThisWeek, 'chart');
+    const legendThisWeek = document.getElementById(selectChart?.option1);
+    const legendLastWeek = document.getElementById(selectChart?.option2);
+    const data = [['product', 'This Week', 'Last Week'], ['Sun', 43, 85], ['Mon', 83, 73], ['Tue', 86, 62], ['Wed', 72, 53], ['Thu', 80, 50], ['Fri', 50, 70], ['Sat', 80, 90]];
+    const userOptions = utils.getData($echartBarReportForThisWeek, 'options');
+    const chart = window.echarts.init($echartBarReportForThisWeek);
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.getGrays()['300']],
+      dataset: {
+        source: data
+      },
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: function formatter(params) {
-            return "<div class=\"font-weight-semi-bold\">".concat(params.seriesName, "</div><div class=\"fs--1 text-600\"><strong>").concat(params.name, ":</strong> ").concat(params.value[params.componentIndex + 1], "</div>");
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        },
+        formatter: function (params) {
+          return `<div class="font-weight-semi-bold">${params.seriesName}</div><div class="fs--1 text-600"><strong>${params.name}:</strong> ${params.value[params.componentIndex + 1]}</div>`;
+        }
+      },
+      legend: {
+        show: false
+      },
+      xAxis: {
+        type: 'category',
+        axisLabel: {
+          color: utils.getGrays()['400']
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
           }
         },
-        legend: {
+        axisTick: false,
+        boundaryGap: true
+      },
+      yAxis: {
+        axisPointer: {
+          type: 'none'
+        },
+        axisTick: 'none',
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        axisLine: {
           show: false
         },
-        xAxis: {
-          type: 'category',
-          axisLabel: {
-            color: utils.getGrays()['400']
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisTick: false,
-          boundaryGap: true
-        },
-        yAxis: {
-          axisPointer: {
-            type: 'none'
-          },
-          axisTick: 'none',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['400'],
-            formatter: function formatter(value) {
-              return "".concat(value, " hr");
-            }
-          }
-        },
-        series: [{
-          type: 'bar',
-          name: '',
-          barWidth: '12%',
-          barGap: '30%',
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          z: 10,
-          itemStyle: {
-            normal: {
-              barBorderRadius: [10, 10, 0, 0],
-              color: utils.getColors().primary
-            }
-          }
-        }, {
-          type: 'bar',
-          barWidth: '12%',
-          barGap: '30%',
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          itemStyle: {
-            normal: {
-              barBorderRadius: [4, 4, 0, 0],
-              color: utils.getGrays()[300]
-            }
-          }
-        }],
-        grid: {
-          right: '0',
-          left: '40px',
-          bottom: '10%',
-          top: '15%'
+        axisLabel: {
+          color: utils.getGrays()['400'],
+          formatter: value => `${value} hr`
         }
-      };
-    };
-    legendLastWeek && legendLastWeek.addEventListener('click', function () {
+      },
+      series: [{
+        type: 'bar',
+        name: '',
+        barWidth: '12%',
+        barGap: '30%',
+        label: {
+          normal: {
+            show: false
+          }
+        },
+        z: 10,
+        itemStyle: {
+          normal: {
+            barBorderRadius: [10, 10, 0, 0],
+            color: utils.getColors().primary
+          }
+        }
+      }, {
+        type: 'bar',
+        barWidth: '12%',
+        barGap: '30%',
+        label: {
+          normal: {
+            show: false
+          }
+        },
+        itemStyle: {
+          normal: {
+            barBorderRadius: [4, 4, 0, 0],
+            color: utils.getGrays()[300]
+          }
+        }
+      }],
+      grid: {
+        right: '0',
+        left: '40px',
+        bottom: '10%',
+        top: '15%'
+      }
+    });
+    legendLastWeek && legendLastWeek.addEventListener('click', () => {
       legendLastWeek.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
         name: 'Last Week'
       });
     });
-    legendThisWeek && legendThisWeek.addEventListener('click', function () {
+    legendThisWeek && legendThisWeek.addEventListener('click', () => {
       legendThisWeek.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
@@ -10563,192 +10611,190 @@ var reportForThisWeekInit = function reportForThisWeekInit() {
 /* -------------------------------------------------------------------------- */
 /*                     Echarts Line Returing Customer Rate                    */
 /* -------------------------------------------------------------------------- */
-var returningCustomerRateInit = function returningCustomerRateInit() {
-  var ECHART_LINE_RETURNING_CUSTOMER_RATE = '.echart-line-returning-customer-rate';
-  var $echartsLineReturningCustomerRate = document.querySelector(ECHART_LINE_RETURNING_CUSTOMER_RATE);
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const returningCustomerRateInit = () => {
+  const ECHART_LINE_RETURNING_CUSTOMER_RATE = '.echart-line-returning-customer-rate';
+  const $echartsLineReturningCustomerRate = document.querySelector(ECHART_LINE_RETURNING_CUSTOMER_RATE);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   if ($echartsLineReturningCustomerRate) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartsLineReturningCustomerRate, 'options');
-    var LEGEND_MONTH_TARGET = userOptions.target;
-    var SELECT_MONTH = "#".concat(userOptions.monthSelect);
-    var LEGEND_NEW_MONTH = "#".concat(userOptions.optionOne);
-    var LEGEND_RETURNING_MONTH = "#".concat(userOptions.optionTwo);
-    var $legendNewMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_NEW_MONTH);
-    var $legendReturningMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_RETURNING_MONTH);
-    var chart = window.echarts.init($echartsLineReturningCustomerRate);
-    var monthNumbers = [[20, 40, 20, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 80, 60, 80, 65, 130, 120, 100, 30, 40, 30, 70], [100, 70, 80, 50, 120, 100, 130, 140, 90, 100, 40, 50], [80, 50, 60, 40, 60, 120, 100, 130, 60, 80, 50, 60], [70, 80, 100, 70, 90, 60, 80, 130, 40, 60, 50, 80], [90, 40, 80, 80, 100, 140, 100, 130, 90, 60, 70, 50], [80, 60, 80, 60, 40, 100, 120, 100, 30, 40, 30, 70], [20, 40, 20, 50, 70, 60, 110, 80, 90, 30, 50, 50], [60, 70, 30, 40, 80, 140, 80, 140, 120, 130, 100, 110], [90, 90, 40, 60, 40, 110, 90, 110, 60, 80, 60, 70], [50, 80, 50, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 90, 60, 70, 40, 70, 100, 140, 30, 40, 30, 70], [20, 40, 20, 50, 30, 80, 120, 100, 30, 40, 30, 70]];
-    var dates = function dates(month) {
+    const userOptions = utils.getData($echartsLineReturningCustomerRate, 'options');
+    const LEGEND_MONTH_TARGET = userOptions.target;
+    const SELECT_MONTH = `#${userOptions.monthSelect}`;
+    const LEGEND_NEW_MONTH = `#${userOptions.optionOne}`;
+    const LEGEND_RETURNING_MONTH = `#${userOptions.optionTwo}`;
+    const $legendNewMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_NEW_MONTH);
+    const $legendReturningMonth = document.getElementById(LEGEND_MONTH_TARGET).querySelector(LEGEND_RETURNING_MONTH);
+    const chart = window.echarts.init($echartsLineReturningCustomerRate);
+    const monthNumbers = [[20, 40, 20, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 80, 60, 80, 65, 130, 120, 100, 30, 40, 30, 70], [100, 70, 80, 50, 120, 100, 130, 140, 90, 100, 40, 50], [80, 50, 60, 40, 60, 120, 100, 130, 60, 80, 50, 60], [70, 80, 100, 70, 90, 60, 80, 130, 40, 60, 50, 80], [90, 40, 80, 80, 100, 140, 100, 130, 90, 60, 70, 50], [80, 60, 80, 60, 40, 100, 120, 100, 30, 40, 30, 70], [20, 40, 20, 50, 70, 60, 110, 80, 90, 30, 50, 50], [60, 70, 30, 40, 80, 140, 80, 140, 120, 130, 100, 110], [90, 90, 40, 60, 40, 110, 90, 110, 60, 80, 60, 70], [50, 80, 50, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 90, 60, 70, 40, 70, 100, 140, 30, 40, 30, 70], [20, 40, 20, 50, 30, 80, 120, 100, 30, 40, 30, 70]];
+    const dates = month => {
       return utils.getDates(window.dayjs().month(month).date(1), window.dayjs().month(Number(month) + 1).date(0), 1000 * 60 * 60 * 24 * 3);
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        title: {
-          text: 'Customers',
-          textStyle: {
-            fontWeight: 500,
-            fontSize: 13,
-            fontFamily: 'poppins',
-            color: utils.getColor('gray-900')
-          }
-        },
-        legend: {
-          show: false,
-          data: ['New', 'Returning']
-        },
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: tooltipFormatter
-        },
-        xAxis: {
-          type: 'category',
-          data: dates(0),
-          boundaryGap: false,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getColor('gray-300'),
-              type: 'dashed'
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getColor('gray-300'),
-              type: 'solid'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getColor('gray-400'),
-            formatter: function formatter(value) {
-              var date = new Date(value);
-              if (date.getDate() === 1) {
-                return "".concat(months[date.getMonth()].substring(0, 3), " ").concat(date.getDate());
-              }
-              return "".concat(date.getDate());
-            },
-            margin: 15
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          }
-        },
-        yAxis: {
-          type: 'value',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['400'],
-            margin: 15
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        series: [{
-          name: 'New',
-          type: 'line',
-          data: monthNumbers[1],
-          lineStyle: {
-            color: utils.getColors().primary
-          },
-          itemStyle: {
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColor('primary'), 0.2)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColor('primary'), 0.01)
-              }]
-            }
-          },
-          symbol: 'none',
-          smooth: false,
-          hoverAnimation: true
-        }, {
-          name: 'Returning',
-          type: 'line',
-          data: monthNumbers[0],
-          lineStyle: {
-            color: utils.getColor('warning')
-          },
-          itemStyle: {
-            borderColor: utils.getColor('warning'),
-            borderWidth: 2
-          },
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColor('warning'), 0.2)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColor('warning'), 0.01)
-              }]
-            }
-          },
-          symbol: 'none',
-          smooth: false,
-          hoverAnimation: true
-        }],
-        grid: {
-          right: '7px',
-          left: '35px',
-          bottom: '8%',
-          top: '15%'
+    const getDefaultOptions = () => ({
+      title: {
+        text: 'Customers',
+        textStyle: {
+          fontWeight: 500,
+          fontSize: 13,
+          fontFamily: 'poppins',
+          color: utils.getColor('gray-900')
         }
-      };
-    };
+      },
+      legend: {
+        show: false,
+        data: ['New', 'Returning']
+      },
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        },
+        formatter: tooltipFormatter
+      },
+      xAxis: {
+        type: 'category',
+        data: dates(0),
+        boundaryGap: false,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getColor('gray-300'),
+            type: 'dashed'
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getColor('gray-300'),
+            type: 'solid'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getColor('gray-400'),
+          formatter(value) {
+            const date = new Date(value);
+            if (date.getDate() === 1) {
+              return `${months[date.getMonth()].substring(0, 3)} ${date.getDate()}`;
+            }
+            return `${date.getDate()}`;
+          },
+          margin: 15
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300']
+          }
+        },
+        boundaryGap: false,
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['400'],
+          margin: 15
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        name: 'New',
+        type: 'line',
+        data: monthNumbers[1],
+        lineStyle: {
+          color: utils.getColors().primary
+        },
+        itemStyle: {
+          borderColor: utils.getColors().primary,
+          borderWidth: 2
+        },
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: utils.rgbaColor(utils.getColor('primary'), 0.2)
+            }, {
+              offset: 1,
+              color: utils.rgbaColor(utils.getColor('primary'), 0.01)
+            }]
+          }
+        },
+        symbol: 'none',
+        smooth: false,
+        hoverAnimation: true
+      }, {
+        name: 'Returning',
+        type: 'line',
+        data: monthNumbers[0],
+        lineStyle: {
+          color: utils.getColor('warning')
+        },
+        itemStyle: {
+          borderColor: utils.getColor('warning'),
+          borderWidth: 2
+        },
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: utils.rgbaColor(utils.getColor('warning'), 0.2)
+            }, {
+              offset: 1,
+              color: utils.rgbaColor(utils.getColor('warning'), 0.01)
+            }]
+          }
+        },
+        symbol: 'none',
+        smooth: false,
+        hoverAnimation: true
+      }],
+      grid: {
+        right: '7px',
+        left: '35px',
+        bottom: '8%',
+        top: '15%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
 
     // Change chart options accordiong to the selected month
-    var monthSelect = document.querySelector(SELECT_MONTH);
-    monthSelect.addEventListener('change', function (e) {
-      var month = e.currentTarget.value;
-      var dataNewMonth = monthNumbers[Number(month) + 1];
-      var dataReturningMonth = monthNumbers[month];
+    const monthSelect = document.querySelector(SELECT_MONTH);
+    monthSelect.addEventListener('change', e => {
+      const month = e.currentTarget.value;
+      const dataNewMonth = monthNumbers[Number(month) + 1];
+      const dataReturningMonth = monthNumbers[month];
       chart.setOption({
         xAxis: {
           data: dates(month)
@@ -10760,14 +10806,14 @@ var returningCustomerRateInit = function returningCustomerRateInit() {
         }]
       });
     });
-    $legendNewMonth.addEventListener('click', function () {
+    $legendNewMonth.addEventListener('click', () => {
       $legendNewMonth.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
         name: 'New'
       });
     });
-    $legendReturningMonth.addEventListener('click', function () {
+    $legendReturningMonth.addEventListener('click', () => {
       $legendReturningMonth.classList.toggle('opacity-50');
       chart.dispatchAction({
         type: 'legendToggleSelect',
@@ -10781,235 +10827,239 @@ var returningCustomerRateInit = function returningCustomerRateInit() {
 /*                          Echarts Sales Pos Location                        */
 /* -------------------------------------------------------------------------- */
 
-var salesByPosLocationInit = function salesByPosLocationInit() {
-  var ECHART_RADAR_SALES_BY_POS_LOCATION = '.echart-radar-sales-by-pos-location';
+const salesByPosLocationInit = () => {
+  const ECHART_RADAR_SALES_BY_POS_LOCATION = '.echart-radar-sales-by-pos-location';
 
   // eslint-disable-next-line
-  var $echartsRadarSalesByPosLocation = document.querySelector(ECHART_RADAR_SALES_BY_POS_LOCATION);
+  const $echartsRadarSalesByPosLocation = document.querySelector(ECHART_RADAR_SALES_BY_POS_LOCATION);
   function getformatter(params) {
     //const indicators = ['Marketing','Sales', 'Dev', 'Support', 'Tech', 'Admin']
-    return "<strong > ".concat(params.name, " </strong>\n    <div class=\"fs--1 text-600\">\n      <strong >Marketing</strong>: ").concat(params.value[0], "  <br>\n      <strong>Sales</strong>: ").concat(params.value[1], "  <br>\n      <strong>Dev</strong>: ").concat(params.value[2], "  <br>\n      <strong>Support</strong>: ").concat(params.value[3], "  <br>\n      <strong>Tech</strong>: ").concat(params.value[4], "  <br>\n      <strong>Admin</strong>: ").concat(params.value[5], "  <br>\n    </div>");
+    return `<strong > ${params.name} </strong>
+    <div class="fs--1 text-600">
+      <strong >Marketing</strong>: ${params.value[0]}  <br>
+      <strong>Sales</strong>: ${params.value[1]}  <br>
+      <strong>Dev</strong>: ${params.value[2]}  <br>
+      <strong>Support</strong>: ${params.value[3]}  <br>
+      <strong>Tech</strong>: ${params.value[4]}  <br>
+      <strong>Admin</strong>: ${params.value[5]}  <br>
+    </div>`;
   }
   if ($echartsRadarSalesByPosLocation) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartsRadarSalesByPosLocation, 'options');
-    var chart = window.echarts.init($echartsRadarSalesByPosLocation);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getColor('gray-100'),
-          borderColor: utils.getColor('gray-300'),
+    const userOptions = utils.getData($echartsRadarSalesByPosLocation, 'options');
+    const chart = window.echarts.init($echartsRadarSalesByPosLocation);
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getColor('gray-100'),
+        borderColor: utils.getColor('gray-300'),
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter: getformatter
+      },
+      radar: {
+        splitNumber: 7,
+        radius: '75%',
+        axisLine: {
+          show: true,
+          symbol: 'circle',
+          symbolSize: [13, 13],
+          lineStyle: {
+            color: {
+              type: 'radial',
+              x: 0.5,
+              y: 0.5,
+              r: 0.5,
+              colorStops: [{
+                offset: 0.7,
+                color: utils.getColor('gray-100')
+              }, {
+                offset: 1,
+                color: utils.getColor('gray-400')
+              }]
+            }
+          }
+        },
+        splitArea: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getColor('gray-300')
+          }
+        },
+        name: {
           textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: getformatter
+            color: utils.getColor('gray-600'),
+            fontWeight: 500
+          }
         },
-        radar: {
-          splitNumber: 7,
-          radius: '75%',
-          axisLine: {
-            show: true,
-            symbol: 'circle',
-            symbolSize: [13, 13],
-            lineStyle: {
-              color: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.5,
-                colorStops: [{
-                  offset: 0.7,
-                  color: utils.getColor('gray-100')
-                }, {
-                  offset: 1,
-                  color: utils.getColor('gray-400')
-                }]
-              }
-            }
+        indicator: [{
+          name: 'Marketing',
+          max: 70
+        }, {
+          name: 'Admin',
+          max: 70
+        }, {
+          name: 'Tech',
+          max: 70
+        }, {
+          name: 'Support',
+          max: 70
+        }, {
+          name: 'Dev',
+          max: 70
+        }, {
+          name: 'Sales',
+          max: 70
+        }]
+      },
+      series: [{
+        name: 'Budget vs spending',
+        type: 'radar',
+        symbol: 'pin',
+        data: [{
+          value: [20, 50, 60, 50, 60, 60],
+          name: 'Budget',
+          itemStyle: {
+            color: utils.rgbaColor(utils.getColors().warning, 0.5)
           },
-          splitArea: {
-            show: false
+          areaStyle: {
+            color: utils.rgbaColor(utils.getColors().warning, 0.24)
           },
-          splitLine: {
-            lineStyle: {
-              color: utils.getColor('gray-300')
-            }
+          symbol: 'circle',
+          symbolSize: 8
+        }, {
+          value: [40, 60, 30, 15, 60, 35],
+          name: 'Spending',
+          areaStyle: {
+            color: utils.rgbaColor(utils.getColors().primary, 0.24)
           },
-          name: {
-            textStyle: {
-              color: utils.getColor('gray-600'),
-              fontWeight: 500
-            }
-          },
-          indicator: [{
-            name: 'Marketing',
-            max: 70
-          }, {
-            name: 'Admin',
-            max: 70
-          }, {
-            name: 'Tech',
-            max: 70
-          }, {
-            name: 'Support',
-            max: 70
-          }, {
-            name: 'Dev',
-            max: 70
-          }, {
-            name: 'Sales',
-            max: 70
-          }]
-        },
-        series: [{
-          name: 'Budget vs spending',
-          type: 'radar',
-          symbol: 'pin',
-          data: [{
-            value: [20, 50, 60, 50, 60, 60],
-            name: 'Budget',
-            itemStyle: {
-              color: utils.rgbaColor(utils.getColors().warning, 0.5)
-            },
-            areaStyle: {
-              color: utils.rgbaColor(utils.getColors().warning, 0.24)
-            },
-            symbol: 'circle',
-            symbolSize: 8
-          }, {
-            value: [40, 60, 30, 15, 60, 35],
-            name: 'Spending',
-            areaStyle: {
-              color: utils.rgbaColor(utils.getColors().primary, 0.24)
-            },
-            symbol: 'circle',
-            symbolSize: 8,
-            itemStyle: {
-              color: utils.rgbaColor(utils.getColors().primary)
-            }
-          }]
-        }],
-        grid: {
-          top: 0,
-          bottom: '100px'
-        }
-      };
-    };
+          symbol: 'circle',
+          symbolSize: 8,
+          itemStyle: {
+            color: utils.rgbaColor(utils.getColors().primary)
+          }
+        }]
+      }],
+      grid: {
+        top: 0,
+        bottom: '100px'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
-var echartsSatisfactionSurveyInit = function echartsSatisfactionSurveyInit() {
-  var $satisfactionSurvey = document.querySelector('.echart-satisfaction-survey');
+const echartsSatisfactionSurveyInit = () => {
+  const $satisfactionSurvey = document.querySelector('.echart-satisfaction-survey');
   if ($satisfactionSurvey) {
-    var userOptions = utils.getData($satisfactionSurvey, 'options');
-    var chart = window.echarts.init($satisfactionSurvey);
-    var xAxisData = ['05 April', '06 April', '07 April', '08 April', '09 April', '10 April', '11 April', '12 April', '13 April', '14 April', '15 April'];
-    var data1 = [98, 105, 65, 110, 75, 55, 95, 75, 90, 45, 70];
-    var data2 = [80, 60, 78, 58, 65, 65, 75, 110, 40, 60, 60];
-    var emphasisStyle1 = {
+    const userOptions = utils.getData($satisfactionSurvey, 'options');
+    const chart = window.echarts.init($satisfactionSurvey);
+    let xAxisData = ["05 April", "06 April", "07 April", "08 April", "09 April", "10 April", "11 April", "12 April", "13 April", "14 April", "15 April"];
+    let data1 = [98, 105, 65, 110, 75, 55, 95, 75, 90, 45, 70];
+    let data2 = [80, 60, 78, 58, 65, 65, 75, 110, 40, 60, 60];
+    const emphasisStyle1 = {
       itemStyle: {
         shadowColor: utils.rgbaColor(utils.getColor('dark'), 0.3),
         color: utils.rgbaColor(utils.getColor('primary'), 0.8)
       }
     };
-    var emphasisStyle2 = {
+    const emphasisStyle2 = {
       itemStyle: {
         shadowColor: utils.rgbaColor(utils.getColor('dark'), 0.3),
         color: utils.getGrays()['300']
       }
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColor('primary'), utils.getGrays()['200']],
-        legend: {
-          data: ['Satisfied', 'Dissatisfied'],
-          icon: 'circle',
-          itemWidth: 10,
-          itemHeight: 10,
-          padding: [0, 0, 0, 0],
-          textStyle: {
-            color: utils.getGrays()['700'],
-            fontWeight: '500',
-            fontSize: '13px'
-          },
-          left: 0,
-          itemGap: 16
+    const getDefaultOptions = () => ({
+      color: [utils.getColor('primary'), utils.getGrays()['200']],
+      legend: {
+        data: ['Satisfied', 'Dissatisfied'],
+        icon: 'circle',
+        itemWidth: 10,
+        itemHeight: 10,
+        padding: [0, 0, 0, 0],
+        textStyle: {
+          color: utils.getGrays()['700'],
+          fontWeight: "500",
+          fontSize: "13px"
         },
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['900']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
+        left: 0,
+        itemGap: 16
+      },
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['900']
         },
-        xAxis: {
-          data: xAxisData,
-          splitLine: {
-            show: false
-          },
-          splitArea: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        },
-        yAxis: {
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          }
-        },
-        series: [{
-          name: 'Satisfied',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle1,
-          data: data1
-        }, {
-          name: 'Dissatisfied',
-          type: 'bar',
-          stack: 'two',
-          emphasis: emphasisStyle2,
-          data: data2
-        }],
-        itemStyle: {
-          borderRadius: [3, 3, 0, 0]
-        },
-        barWidth: '13.03px',
-        grid: {
-          top: '13%',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          containLabel: true
+        borderWidth: 1,
+        transitionDuration: 0,
+        axisPointer: {
+          type: 'none'
         }
-      };
-    };
+      },
+      xAxis: {
+        data: xAxisData,
+        splitLine: {
+          show: false
+        },
+        splitArea: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300']
+          }
+        },
+        axisTick: {
+          show: false
+        }
+      },
+      yAxis: {
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
+          }
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        }
+      },
+      series: [{
+        name: 'Satisfied',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle1,
+        data: data1
+      }, {
+        name: 'Dissatisfied',
+        type: 'bar',
+        stack: 'two',
+        emphasis: emphasisStyle2,
+        data: data2
+      }],
+      itemStyle: {
+        borderRadius: [3, 3, 0, 0]
+      },
+      barWidth: "13.03px",
+      grid: {
+        top: '13%',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        containLabel: true
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -11018,12 +11068,12 @@ var echartsSatisfactionSurveyInit = function echartsSatisfactionSurveyInit() {
 /*                                Session By Device                           */
 /* -------------------------------------------------------------------------- */
 
-var sessionByBrowserChartInit = function sessionByBrowserChartInit() {
-  var $sessionByBroswser = document.querySelector('.echart-session-by-browser');
+const sessionByBrowserChartInit = () => {
+  const $sessionByBroswser = document.querySelector('.echart-session-by-browser');
   if ($sessionByBroswser) {
-    var userOptions = utils.getData($sessionByBroswser, 'options');
-    var chart = window.echarts.init($sessionByBroswser);
-    var dataset = {
+    const userOptions = utils.getData($sessionByBroswser, 'options');
+    const chart = window.echarts.init($sessionByBroswser);
+    const dataset = {
       week: [{
         value: 50.3,
         name: 'Chrome'
@@ -11055,60 +11105,58 @@ var sessionByBrowserChartInit = function sessionByBrowserChartInit() {
         name: 'Mozilla'
       }]
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.getColors().success, utils.getColors().info],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.getColors().success, utils.getColors().info],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter: params => `<strong>${params.data.name}:</strong> ${params.data.value}%`,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        }
+      },
+      legend: {
+        show: false
+      },
+      series: [{
+        type: 'pie',
+        radius: ['100%', '65%'],
+        avoidLabelOverlap: false,
+        hoverAnimation: false,
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: utils.getColor('gray-100')
+        },
+        label: {
+          normal: {
+            show: false
           },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            return "<strong>".concat(params.data.name, ":</strong> ").concat(params.data.value, "%");
-          },
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
+          emphasis: {
+            show: false
           }
         },
-        legend: {
-          show: false
+        labelLine: {
+          normal: {
+            show: false
+          }
         },
-        series: [{
-          type: 'pie',
-          radius: ['100%', '65%'],
-          avoidLabelOverlap: false,
-          hoverAnimation: false,
-          itemStyle: {
-            borderWidth: 2,
-            borderColor: utils.getColor('gray-100')
-          },
-          label: {
-            normal: {
-              show: false
-            },
-            emphasis: {
-              show: false
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: dataset.week
-        }]
-      };
-    };
+        data: dataset.week
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    var selectMenu = document.querySelector("[data-target='.echart-session-by-browser']");
+    const selectMenu = document.querySelector("[data-target='.echart-session-by-browser']");
     if (selectMenu) {
-      selectMenu.addEventListener('change', function (e) {
-        var value = e.currentTarget.value;
+      selectMenu.addEventListener('change', e => {
+        const {
+          value
+        } = e.currentTarget;
         chart.setOption({
           series: [{
             data: dataset[value]
@@ -11123,9 +11171,9 @@ var sessionByBrowserChartInit = function sessionByBrowserChartInit() {
 /*                                Session By Country Map                      */
 /* -------------------------------------------------------------------------- */
 
-var sessionByCountryMapInit = function sessionByCountryMapInit() {
-  var $sessionByCountryMap = document.querySelector('.echart-session-by-country-map');
-  var data = [{
+const sessionByCountryMapInit = () => {
+  const $sessionByCountryMap = document.querySelector('.echart-session-by-country-map');
+  const data = [{
     name: 'Afghanistan',
     value: 28397.812
   }, {
@@ -11660,72 +11708,66 @@ var sessionByCountryMapInit = function sessionByCountryMapInit() {
     name: 'Zimbabwe',
     value: 13076.978
   }];
-  var total = 6961500;
+  const total = 6961500;
   if ($sessionByCountryMap) {
-    var _document$querySelect5;
-    var userOptions = utils.getData($sessionByCountryMap, 'options');
-    var chart = window.echarts.init($sessionByCountryMap);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            var _params$data3, _params$data4;
-            return "<strong>".concat((_params$data3 = params.data) === null || _params$data3 === void 0 ? void 0 : _params$data3.name, " :</strong> ").concat((((_params$data4 = params.data) === null || _params$data4 === void 0 ? void 0 : _params$data4.value) / total * 100).toFixed(2), "%");
-          }
+    const userOptions = utils.getData($sessionByCountryMap, 'options');
+    const chart = window.echarts.init($sessionByCountryMap);
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        toolbox: {
-          show: false,
-          feature: {
-            restore: {}
-          }
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter: params => `<strong>${params.data?.name} :</strong> ${(params.data?.value / total * 100).toFixed(2)}%`
+      },
+      toolbox: {
+        show: false,
+        feature: {
+          restore: {}
+        }
+      },
+      visualMap: {
+        show: false,
+        min: 800,
+        max: 50000,
+        inRange: {
+          color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)].reverse()
+        }
+      },
+      series: [{
+        type: 'map',
+        map: 'world',
+        data,
+        roam: true,
+        scaleLimit: {
+          min: 1,
+          max: 5
         },
-        visualMap: {
-          show: false,
-          min: 800,
-          max: 50000,
-          inRange: {
-            color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)].reverse()
-          }
+        left: 0,
+        right: 0,
+        label: {
+          show: false
         },
-        series: [{
-          type: 'map',
-          map: 'world',
-          data: data,
-          roam: true,
-          scaleLimit: {
-            min: 1,
-            max: 5
-          },
-          left: 0,
-          right: 0,
+        itemStyle: {
+          borderColor: utils.getGrays()['300']
+        },
+        emphasis: {
           label: {
             show: false
           },
           itemStyle: {
-            borderColor: utils.getGrays()['300']
-          },
-          emphasis: {
-            label: {
-              show: false
-            },
-            itemStyle: {
-              areaColor: utils.getColor('warning')
-            }
+            areaColor: utils.getColor('warning')
           }
-        }]
-      };
-    };
+        }
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    (_document$querySelect5 = document.querySelector('.session-by-country-map-reset')) === null || _document$querySelect5 === void 0 ? void 0 : _document$querySelect5.addEventListener('click', function () {
+    document.querySelector('.session-by-country-map-reset')?.addEventListener('click', () => {
       chart.dispatchAction({
         type: 'restore'
       });
@@ -11737,117 +11779,113 @@ var sessionByCountryMapInit = function sessionByCountryMapInit() {
 /*                                Session By Country                          */
 /* -------------------------------------------------------------------------- */
 
-var sessionByCountryChartInit = function sessionByCountryChartInit() {
-  var $sessionByCountry = document.querySelector('.echart-session-by-country');
-  var data = [['CHINA', 'INDIA', 'USA', 'IRAN', 'BRAZIL', 'PAKISTAN'], [19.53, 17.32, 4.49, 3.46, 2.8, 1.7]];
+const sessionByCountryChartInit = () => {
+  const $sessionByCountry = document.querySelector('.echart-session-by-country');
+  const data = [['CHINA', 'INDIA', 'USA', 'IRAN', 'BRAZIL', 'PAKISTAN'], [19.53, 17.32, 4.49, 3.46, 2.8, 1.7]];
   if ($sessionByCountry) {
-    var userOptions = utils.getData($sessionByCountry, 'options');
-    var chart = window.echarts.init($sessionByCountry);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          axisPointer: {
-            type: 'none'
-          },
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          } // formatter: tooltipFormatter
+    const userOptions = utils.getData($sessionByCountry, 'options');
+    const chart = window.echarts.init($sessionByCountry);
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        axisPointer: {
+          type: 'none'
         },
-        xAxis: {
-          type: 'category',
-          data: data[0],
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return value.substring(0, 3);
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['400']
-            }
-          },
-          axisTick: {
-            show: true,
-            // length: 8,
-            alignWithLabel: true,
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          }
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        yAxis: {
-          type: 'value',
-          // inverse: true,
-          axisTick: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return "".concat(value, "%");
-            },
-            fontWeight: 500,
-            padding: [3, 0, 0, 0],
-            margin: 12
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'bar',
-          data: data[1],
-          itemStyle: {
-            barBorderRadius: [3, 3, 0, 0],
-            color: utils.getColors().primary
-          },
-          barWidth: 15
-        }],
-        grid: {
-          right: '12px',
-          left: '40px',
-          bottom: '10%',
-          top: '16px'
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         }
-      };
-    };
+        // formatter: tooltipFormatter
+      },
+
+      xAxis: {
+        type: 'category',
+        data: data[0],
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => value.substring(0, 3)
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['400']
+          }
+        },
+        axisTick: {
+          show: true,
+          // length: 8,
+          alignWithLabel: true,
+          lineStyle: {
+            color: utils.getGrays()['200']
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        // inverse: true,
+        axisTick: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => `${value}%`,
+          fontWeight: 500,
+          padding: [3, 0, 0, 0],
+          margin: 12
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        type: 'bar',
+        data: data[1],
+        itemStyle: {
+          barBorderRadius: [3, 3, 0, 0],
+          color: utils.getColors().primary
+        },
+        barWidth: 15
+      }],
+      grid: {
+        right: '12px',
+        left: '40px',
+        bottom: '10%',
+        top: '16px'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
-var echartTicketPriority = function echartTicketPriority() {
-  var $paginationBtnNext = document.querySelector('[data-list-pagination-chart="next"]');
-  var $paginationBtnPrev = document.querySelector('[data-list-pagination-chart="prev"]');
-  var $paginationContainer = document.querySelector('[data-list-pagination-chart]');
+const echartTicketPriority = () => {
+  const $paginationBtnNext = document.querySelector('[data-list-pagination-chart="next"]');
+  const $paginationBtnPrev = document.querySelector('[data-list-pagination-chart="prev"]');
+  const $paginationContainer = document.querySelector('[data-list-pagination-chart]');
   if ($paginationBtnNext) {
-    $paginationBtnNext.addEventListener('click', function () {
+    $paginationBtnNext.addEventListener('click', () => {
       basicEchartsInit();
     });
   }
   if ($paginationBtnPrev) {
-    $paginationBtnPrev.addEventListener('click', function () {
+    $paginationBtnPrev.addEventListener('click', () => {
       basicEchartsInit();
     });
   }
   if ($paginationContainer) {
-    $paginationContainer.addEventListener('click', function (e) {
+    $paginationContainer.addEventListener('click', e => {
       if (e.target.tagName === 'BUTTON') {
-        setTimeout(function () {
+        setTimeout(() => {
           basicEchartsInit();
         });
       }
@@ -11859,131 +11897,127 @@ var echartTicketPriority = function echartTicketPriority() {
 /*                                Traffic Channels                           */
 /* -------------------------------------------------------------------------- */
 
-var ticketVolumeChartInit = function ticketVolumeChartInit() {
-  var $ticketVolume = document.querySelector('.echart-ticket-volume');
+const ticketVolumeChartInit = () => {
+  const $ticketVolume = document.querySelector('.echart-ticket-volume');
   if ($ticketVolume) {
-    var userOptions = utils.getData($ticketVolume, 'options');
-    var chart = window.echarts.init($ticketVolume);
-    var ticketVolumeLegend = document.querySelectorAll('[data-ticket-volume]');
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, localStorage.getItem('theme') === 'dark' ? '#235FAD' : '#6AA2EC', localStorage.getItem('theme') === 'dark' ? '#1C4477' : '#AACAF4', localStorage.getItem('theme') === 'dark' ? '#152C48' : '#DFEBFB'],
-        legend: {
-          data: ['On Hold Tickets', 'Open Tickets', 'Due Tickets', 'Unassigned Tickets'],
+    const userOptions = utils.getData($ticketVolume, 'options');
+    const chart = window.echarts.init($ticketVolume);
+    const ticketVolumeLegend = document.querySelectorAll('[data-ticket-volume]');
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, localStorage.getItem('theme') === 'dark' ? '#235FAD' : '#6AA2EC', localStorage.getItem('theme') === 'dark' ? '#1C4477' : '#AACAF4', localStorage.getItem('theme') === 'dark' ? '#152C48' : '#DFEBFB'],
+      legend: {
+        data: ['On Hold Tickets', 'Open Tickets', 'Due Tickets', 'Unassigned Tickets'],
+        show: false
+      },
+      xAxis: {
+        type: 'category',
+        data: utils.getPastDates(10),
+        axisLine: {
           show: false
         },
-        xAxis: {
-          type: 'category',
-          data: utils.getPastDates(10),
-          axisLine: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('MMM DD');
-            }
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300']
           }
         },
-        yAxis: {
-          type: 'value',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300']
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['600']
-          }
+        axisTick: {
+          show: false
         },
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          axisPointer: {
-            type: 'none'
-          },
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: tooltipFormatter
-        },
-        series: [{
-          name: 'On Hold Tickets',
-          type: 'bar',
-          stack: 'total',
-          data: [8, 6, 5, 12, 9, 6, 9, 6, 4, 7],
-          emphasis: {
-            itemStyle: {
-              color: utils.getColor('primary')
-            }
-          }
-        }, {
-          name: 'Open Tickets',
-          type: 'bar',
-          stack: 'total',
-          data: [15, 10, 7, 7, 5, 6, 15, 10, 7, 12],
-          emphasis: {
-            itemStyle: {
-              color: localStorage.getItem('theme') === 'dark' ? '#2567BD' : '#5595E9'
-            }
-          }
-        }, {
-          name: 'Due Tickets',
-          type: 'bar',
-          stack: 'total',
-          data: [5, 4, 4, 6, 6, 8, 7, 4, 3, 5],
-          emphasis: {
-            itemStyle: {
-              color: localStorage.getItem('theme') === 'dark' ? '#205396' : '#7FB0EF'
-            }
-          }
-        }, {
-          name: 'Unassigned Tickets',
-          type: 'bar',
-          stack: 'total',
-          data: [6, 3, 6, 4, 12, 7, 5, 3, 2, 4],
-          itemStyle: {
-            barBorderRadius: [2, 2, 0, 0]
-          },
-          emphasis: {
-            itemStyle: {
-              color: localStorage.getItem('theme') === 'dark' ? '#1A3F6F' : '#AACAF4'
-            }
-          }
-        }],
-        grid: {
-          right: '0px',
-          left: '23px',
-          bottom: '6%',
-          top: '10%'
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => window.dayjs(value).format('MMM DD')
         }
-      };
-    };
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300']
+          }
+        },
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['600']
+        }
+      },
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        axisPointer: {
+          type: 'none'
+        },
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        },
+        formatter: tooltipFormatter
+      },
+      series: [{
+        name: 'On Hold Tickets',
+        type: 'bar',
+        stack: 'total',
+        data: [8, 6, 5, 12, 9, 6, 9, 6, 4, 7],
+        emphasis: {
+          itemStyle: {
+            color: utils.getColor('primary')
+          }
+        }
+      }, {
+        name: 'Open Tickets',
+        type: 'bar',
+        stack: 'total',
+        data: [15, 10, 7, 7, 5, 6, 15, 10, 7, 12],
+        emphasis: {
+          itemStyle: {
+            color: localStorage.getItem('theme') === 'dark' ? '#2567BD' : '#5595E9'
+          }
+        }
+      }, {
+        name: 'Due Tickets',
+        type: 'bar',
+        stack: 'total',
+        data: [5, 4, 4, 6, 6, 8, 7, 4, 3, 5],
+        emphasis: {
+          itemStyle: {
+            color: localStorage.getItem('theme') === 'dark' ? '#205396' : '#7FB0EF'
+          }
+        }
+      }, {
+        name: 'Unassigned Tickets',
+        type: 'bar',
+        stack: 'total',
+        data: [6, 3, 6, 4, 12, 7, 5, 3, 2, 4],
+        itemStyle: {
+          barBorderRadius: [2, 2, 0, 0]
+        },
+        emphasis: {
+          itemStyle: {
+            color: localStorage.getItem('theme') === 'dark' ? '#1A3F6F' : '#AACAF4'
+          }
+        }
+      }],
+      grid: {
+        right: '0px',
+        left: '23px',
+        bottom: '6%',
+        top: '10%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    ticketVolumeLegend.forEach(function (el) {
-      el.addEventListener('change', function () {
+    ticketVolumeLegend.forEach(el => {
+      el.addEventListener('change', () => {
         chart.dispatchAction({
           type: 'legendToggleSelect',
           name: utils.getData(el, 'ticket-volume')
@@ -11997,8 +12031,8 @@ var ticketVolumeChartInit = function ticketVolumeChartInit() {
 /*                                Audience Chart                              */
 /* -------------------------------------------------------------------------- */
 
-var topCustomersChartInit = function topCustomersChartInit() {
-  var data = {
+const topCustomersChartInit = () => {
+  const data = {
     hours: ['1H', '2H', '3H', '4H', '5H', '6H', '7H', '8H', '9H', '10H'],
     dataset: {
       monday: [[18, 50, 45, 80, 45, 60, 55, 82, 61, 50]],
@@ -12010,120 +12044,116 @@ var topCustomersChartInit = function topCustomersChartInit() {
       sunday: [[11, 50, 45, 78, 45, 54, 80, 90, 50, 65]]
     }
   };
-  var getDefaultOptions = function getDefaultOptions(data1) {
-    return function () {
-      return {
-        color: utils.getGrays()['100'],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          axisPointer: {
-            type: 'none'
-          }
-        },
-        xAxis: {
-          type: 'category',
-          data: data.hours,
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            margin: 15
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          boundaryGap: false
-        },
-        yAxis: {
-          type: 'value',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['600'],
-            margin: 25
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          data: data1,
-          symbol: 'circle',
-          symbolSize: 10,
-          itemStyle: {
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
-          lineStyle: {
-            color: utils.getColors().primary
-          },
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColors().primary, 0.1)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColors().primary, 0)
-              }]
-            }
-          }
-        }],
-        grid: {
-          right: '12px',
-          left: '46px',
-          bottom: '12%',
-          top: '3%'
+  const getDefaultOptions = data1 => () => ({
+    color: utils.getGrays()['100'],
+    tooltip: {
+      trigger: 'item',
+      padding: [7, 10],
+      backgroundColor: utils.getGrays()['100'],
+      borderColor: utils.getGrays()['300'],
+      textStyle: {
+        color: utils.getGrays()['1100']
+      },
+      borderWidth: 1,
+      transitionDuration: 0,
+      position(pos, params, dom, rect, size) {
+        return getPosition(pos, params, dom, rect, size);
+      },
+      axisPointer: {
+        type: 'none'
+      }
+    },
+    xAxis: {
+      type: 'category',
+      data: data.hours,
+      axisLabel: {
+        color: utils.getGrays()['600'],
+        margin: 15
+      },
+      axisLine: {
+        lineStyle: {
+          color: utils.getGrays()['300'],
+          type: 'dashed'
         }
-      };
-    };
-  };
-  var initChart = function initChart(el, options) {
-    var userOptions = utils.getData(el, 'options');
-    var chart = window.echarts.init(el);
+      },
+      axisTick: {
+        show: false
+      },
+      boundaryGap: false
+    },
+    yAxis: {
+      type: 'value',
+      axisPointer: {
+        show: false
+      },
+      splitLine: {
+        lineStyle: {
+          color: utils.getGrays()['300'],
+          type: 'dashed'
+        }
+      },
+      boundaryGap: false,
+      axisLabel: {
+        show: true,
+        color: utils.getGrays()['600'],
+        margin: 25
+      },
+      axisTick: {
+        show: false
+      },
+      axisLine: {
+        show: false
+      }
+    },
+    series: [{
+      type: 'line',
+      data: data1,
+      symbol: 'circle',
+      symbolSize: 10,
+      itemStyle: {
+        borderColor: utils.getColors().primary,
+        borderWidth: 2
+      },
+      lineStyle: {
+        color: utils.getColors().primary
+      },
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [{
+            offset: 0,
+            color: utils.rgbaColor(utils.getColors().primary, 0.1)
+          }, {
+            offset: 1,
+            color: utils.rgbaColor(utils.getColors().primary, 0)
+          }]
+        }
+      }
+    }],
+    grid: {
+      right: '12px',
+      left: '46px',
+      bottom: '12%',
+      top: '3%'
+    }
+  });
+  const initChart = (el, options) => {
+    const userOptions = utils.getData(el, 'options');
+    const chart = window.echarts.init(el);
     echartSetOption(chart, userOptions, options);
   };
-  var tab = document.querySelector('#top-customers-chart-tab');
+  const tab = document.querySelector('#top-customers-chart-tab');
   if (tab) {
     initChart(document.querySelector('.echart-top-customers'), getDefaultOptions(data.dataset.monday[0]));
-    var triggerTabList = Array.from(tab.querySelectorAll('[data-bs-toggle="tab"]'));
+    const triggerTabList = Array.from(tab.querySelectorAll('[data-bs-toggle="tab"]'));
     triggerTabList.forEach(function (triggerEl) {
       triggerEl.addEventListener('shown.bs.tab', function () {
-        var key = triggerEl.href.split('#').pop();
-        var $echartTopCustomers = document.getElementById(key).querySelector('.echart-top-customers');
+        const key = triggerEl.href.split('#').pop();
+        const $echartTopCustomers = document.getElementById(key).querySelector('.echart-top-customers');
         initChart($echartTopCustomers, getDefaultOptions(data.dataset[key][0]));
       });
     });
@@ -12134,120 +12164,118 @@ var topCustomersChartInit = function topCustomersChartInit() {
 /*                                Top Products                                */
 /* -------------------------------------------------------------------------- */
 
-var topProductsInit = function topProductsInit() {
-  var ECHART_BAR_TOP_PRODUCTS = '.echart-bar-top-products';
-  var $echartBarTopProducts = document.querySelector(ECHART_BAR_TOP_PRODUCTS);
+const topProductsInit = () => {
+  const ECHART_BAR_TOP_PRODUCTS = '.echart-bar-top-products';
+  const $echartBarTopProducts = document.querySelector(ECHART_BAR_TOP_PRODUCTS);
   if ($echartBarTopProducts) {
-    var data = [['product', '2019', '2018'], ['Boots4', 43, 85], ['Reign Pro', 83, 73], ['Slick', 86, 62], ['Falcon', 72, 53], ['Sparrow', 80, 50], ['Hideway', 50, 70], ['Freya', 80, 90]];
-    var userOptions = utils.getData($echartBarTopProducts, 'options');
-    var chart = window.echarts.init($echartBarTopProducts);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.getGrays()['300']],
-        dataset: {
-          source: data
+    const data = [['product', '2019', '2018'], ['Boots4', 43, 85], ['Reign Pro', 83, 73], ['Slick', 86, 62], ['Falcon', 72, 53], ['Sparrow', 80, 50], ['Hideway', 50, 70], ['Freya', 80, 90]];
+    const userOptions = utils.getData($echartBarTopProducts, 'options');
+    const chart = window.echarts.init($echartBarTopProducts);
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.getGrays()['300']],
+      dataset: {
+        source: data
+      },
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: function formatter(params) {
-            return "<div class=\"font-weight-semi-bold\">".concat(params.seriesName, "</div><div class=\"fs--1 text-600\"><strong>").concat(params.name, ":</strong> ").concat(params.value[params.componentIndex + 1], "</div>");
-          }
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         },
-        legend: {
-          data: ['2019', '2018'],
-          left: 'left',
-          itemWidth: 10,
-          itemHeight: 10,
-          borderRadius: 0,
-          icon: 'circle',
-          inactiveColor: utils.getGrays()['400'],
-          textStyle: {
-            color: utils.getGrays()['700']
-          }
-        },
-        xAxis: {
-          type: 'category',
-          axisLabel: {
-            color: utils.getGrays()['400']
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisTick: false,
-          boundaryGap: true
-        },
-        yAxis: {
-          axisPointer: {
-            type: 'none'
-          },
-          axisTick: 'none',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['400']
-          }
-        },
-        series: [{
-          type: 'bar',
-          barWidth: '10px',
-          barGap: '30%',
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          z: 10,
-          itemStyle: {
-            normal: {
-              barBorderRadius: [10, 10, 0, 0],
-              color: utils.getColors().primary
-            }
-          }
-        }, {
-          type: 'bar',
-          barWidth: '10px',
-          barGap: '30%',
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          itemStyle: {
-            normal: {
-              barBorderRadius: [4, 4, 0, 0],
-              color: utils.getGrays()[300]
-            }
-          }
-        }],
-        grid: {
-          right: '0',
-          left: '30px',
-          bottom: '10%',
-          top: '20%'
+        formatter: function (params) {
+          return `<div class="font-weight-semi-bold">${params.seriesName}</div><div class="fs--1 text-600"><strong>${params.name}:</strong> ${params.value[params.componentIndex + 1]}</div>`;
         }
-      };
-    };
+      },
+      legend: {
+        data: ['2019', '2018'],
+        left: 'left',
+        itemWidth: 10,
+        itemHeight: 10,
+        borderRadius: 0,
+        icon: 'circle',
+        inactiveColor: utils.getGrays()['400'],
+        textStyle: {
+          color: utils.getGrays()['700']
+        }
+      },
+      xAxis: {
+        type: 'category',
+        axisLabel: {
+          color: utils.getGrays()['400']
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        axisTick: false,
+        boundaryGap: true
+      },
+      yAxis: {
+        axisPointer: {
+          type: 'none'
+        },
+        axisTick: 'none',
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        axisLine: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['400']
+        }
+      },
+      series: [{
+        type: 'bar',
+        barWidth: '10px',
+        barGap: '30%',
+        label: {
+          normal: {
+            show: false
+          }
+        },
+        z: 10,
+        itemStyle: {
+          normal: {
+            barBorderRadius: [10, 10, 0, 0],
+            color: utils.getColors().primary
+          }
+        }
+      }, {
+        type: 'bar',
+        barWidth: '10px',
+        barGap: '30%',
+        label: {
+          normal: {
+            show: false
+          }
+        },
+        itemStyle: {
+          normal: {
+            barBorderRadius: [4, 4, 0, 0],
+            color: utils.getGrays()[300]
+          }
+        }
+      }],
+      grid: {
+        right: '0',
+        left: '30px',
+        bottom: '10%',
+        top: '20%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -12256,123 +12284,121 @@ var topProductsInit = function topProductsInit() {
 /*                                Total Order                                 */
 /* -------------------------------------------------------------------------- */
 
-var totalOrderInit = function totalOrderInit() {
-  var ECHART_LINE_TOTAL_ORDER = '.echart-line-total-order';
+const totalOrderInit = () => {
+  const ECHART_LINE_TOTAL_ORDER = '.echart-line-total-order';
 
   //
   // ─── TOTAL ORDER CHART ──────────────────────────────────────────────────────────
   //
-  var $echartLineTotalOrder = document.querySelector(ECHART_LINE_TOTAL_ORDER);
+  const $echartLineTotalOrder = document.querySelector(ECHART_LINE_TOTAL_ORDER);
   if ($echartLineTotalOrder) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartLineTotalOrder, 'options');
-    var chart = window.echarts.init($echartLineTotalOrder);
+    const userOptions = utils.getData($echartLineTotalOrder, 'options');
+    const chart = window.echarts.init($echartLineTotalOrder);
 
     // Default options
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          triggerOn: 'mousemove',
-          trigger: 'axis',
-          padding: [7, 10],
-          formatter: '{b0}: {c0}',
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getColors().dark
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          }
+    const getDefaultOptions = () => ({
+      tooltip: {
+        triggerOn: 'mousemove',
+        trigger: 'axis',
+        padding: [7, 10],
+        formatter: '{b0}: {c0}',
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getColors().dark
         },
-        xAxis: {
-          type: 'category',
-          data: ['Week 4', 'Week 5', 'Week 6', 'Week 7'],
-          boundaryGap: false,
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            show: false,
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLabel: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisPointer: {
-            type: 'none'
-          }
-        },
-        yAxis: {
-          type: 'value',
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisPointer: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          lineStyle: {
-            color: utils.getColors().primary,
-            width: 3
-          },
-          itemStyle: {
-            color: utils.getColors().white,
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
-          hoverAnimation: true,
-          data: [20, 40, 100, 120],
-          // connectNulls: true,
-          smooth: 0.6,
-          smoothMonotone: 'x',
-          showSymbol: false,
-          symbol: 'circle',
-          symbolSize: 8,
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColors().primary, 0.25)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColors().primary, 0)
-              }]
-            }
-          }
-        }],
-        grid: {
-          bottom: '2%',
-          top: '0%',
-          right: '10px',
-          left: '10px'
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         }
-      };
-    };
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Week 4', 'Week 5', 'Week 6', 'Week 7'],
+        boundaryGap: false,
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          show: false,
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisPointer: {
+          type: 'none'
+        }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisPointer: {
+          show: false
+        }
+      },
+      series: [{
+        type: 'line',
+        lineStyle: {
+          color: utils.getColors().primary,
+          width: 3
+        },
+        itemStyle: {
+          color: utils.getColors().white,
+          borderColor: utils.getColors().primary,
+          borderWidth: 2
+        },
+        hoverAnimation: true,
+        data: [20, 40, 100, 120],
+        // connectNulls: true,
+        smooth: 0.6,
+        smoothMonotone: 'x',
+        showSymbol: false,
+        symbol: 'circle',
+        symbolSize: 8,
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: utils.rgbaColor(utils.getColors().primary, 0.25)
+            }, {
+              offset: 1,
+              color: utils.rgbaColor(utils.getColors().primary, 0)
+            }]
+          }
+        }
+      }],
+      grid: {
+        bottom: '2%',
+        top: '0%',
+        right: '10px',
+        left: '10px'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -12381,169 +12407,167 @@ var totalOrderInit = function totalOrderInit() {
 /*                      Echarts Total Sales E-commerce                        */
 /* -------------------------------------------------------------------------- */
 
-var totalSalesEcommerce = function totalSalesEcommerce() {
-  var ECHART_LINE_TOTAL_SALES_ECOMM = '.echart-line-total-sales-ecommerce';
-  var $echartsLineTotalSalesEcomm = document.querySelector(ECHART_LINE_TOTAL_SALES_ECOMM);
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const totalSalesEcommerce = () => {
+  const ECHART_LINE_TOTAL_SALES_ECOMM = '.echart-line-total-sales-ecommerce';
+  const $echartsLineTotalSalesEcomm = document.querySelector(ECHART_LINE_TOTAL_SALES_ECOMM);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   function getFormatter(params) {
-    return params.map(function (_ref19) {
-      var value = _ref19.value,
-        borderColor = _ref19.borderColor,
-        seriesName = _ref19.seriesName;
-      return "<span class= \"fas fa-circle\" style=\"color: ".concat(borderColor, "\"></span>\n    <span class='text-600'>").concat(seriesName === 'lastMonth' ? 'Last Month' : 'Previous Year', ": ").concat(value, "</span>");
-    }).join('<br/>');
+    return params.map(({
+      value,
+      borderColor,
+      seriesName
+    }) => `<span class= "fas fa-circle" style="color: ${borderColor}"></span>
+    <span class='text-600'>${seriesName === 'lastMonth' ? 'Last Month' : 'Previous Year'}: ${value}</span>`).join('<br/>');
   }
   if ($echartsLineTotalSalesEcomm) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartsLineTotalSalesEcomm, 'options');
-    var TOTAL_SALES_LAST_MONTH = "#".concat(userOptions.optionOne);
-    var TOTAL_SALES_PREVIOUS_YEAR = "#".concat(userOptions.optionTwo);
-    var totalSalesLastMonth = document.querySelector(TOTAL_SALES_LAST_MONTH);
-    var totalSalesPreviousYear = document.querySelector(TOTAL_SALES_PREVIOUS_YEAR);
-    var chart = window.echarts.init($echartsLineTotalSalesEcomm);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: utils.getGrays()['100'],
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          formatter: function formatter(params) {
-            return getFormatter(params);
-          },
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
+    const userOptions = utils.getData($echartsLineTotalSalesEcomm, 'options');
+    const TOTAL_SALES_LAST_MONTH = `#${userOptions.optionOne}`;
+    const TOTAL_SALES_PREVIOUS_YEAR = `#${userOptions.optionTwo}`;
+    const totalSalesLastMonth = document.querySelector(TOTAL_SALES_LAST_MONTH);
+    const totalSalesPreviousYear = document.querySelector(TOTAL_SALES_PREVIOUS_YEAR);
+    const chart = window.echarts.init($echartsLineTotalSalesEcomm);
+    const getDefaultOptions = () => ({
+      color: utils.getGrays()['100'],
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        formatter(params) {
+          return getFormatter(params);
+        },
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        }
+      },
+      legend: {
+        data: ['lastMonth', 'previousYear'],
+        show: false
+      },
+      xAxis: {
+        type: 'category',
+        data: ['2019-01-05', '2019-01-06', '2019-01-07', '2019-01-08', '2019-01-09', '2019-01-10', '2019-01-11', '2019-01-12', '2019-01-13', '2019-01-14', '2019-01-15', '2019-01-16'],
+        boundaryGap: false,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getColor('gray-300'),
+            type: 'dashed'
           }
         },
-        legend: {
-          data: ['lastMonth', 'previousYear'],
+        splitLine: {
           show: false
         },
-        xAxis: {
-          type: 'category',
-          data: ['2019-01-05', '2019-01-06', '2019-01-07', '2019-01-08', '2019-01-09', '2019-01-10', '2019-01-11', '2019-01-12', '2019-01-13', '2019-01-14', '2019-01-15', '2019-01-16'],
-          boundaryGap: false,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getColor('gray-300'),
-              type: 'dashed'
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              // color: utils.getGrays()['300'],
-              color: utils.rgbaColor('#000', 0.01),
-              type: 'dashed'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getColor('gray-400'),
-            formatter: function formatter(value) {
-              var date = new Date(value);
-              return "".concat(months[date.getMonth()], " ").concat(date.getDate());
-            },
-            margin: 15
-            // showMaxLabel: false
+        axisLine: {
+          lineStyle: {
+            // color: utils.getGrays()['300'],
+            color: utils.rgbaColor('#000', 0.01),
+            type: 'dashed'
           }
         },
-
-        yAxis: {
-          type: 'value',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getColor('gray-300'),
-              type: 'dashed'
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            show: true,
-            color: utils.getColor('gray-400'),
-            margin: 15
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
+        axisTick: {
+          show: false
         },
-        series: [{
-          name: 'lastMonth',
-          type: 'line',
-          data: [50, 80, 60, 80, 65, 90, 130, 90, 30, 40, 30, 70],
-          lineStyle: {
-            color: utils.getColor('primary')
+        axisLabel: {
+          color: utils.getColor('gray-400'),
+          formatter(value) {
+            const date = new Date(value);
+            return `${months[date.getMonth()]} ${date.getDate()}`;
           },
-          itemStyle: {
-            borderColor: utils.getColor('primary'),
-            borderWidth: 2
-          },
-          symbol: 'circle',
-          symbolSize: 10,
-          hoverAnimation: true,
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColor('primary'), 0.2)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColor('primary'), 0)
-              }]
-            }
-          }
-        }, {
-          name: 'previousYear',
-          type: 'line',
-          data: [110, 30, 40, 50, 80, 70, 50, 40, 110, 90, 60, 60],
-          lineStyle: {
-            color: utils.rgbaColor(utils.getColor('warning'), 0.3)
-          },
-          itemStyle: {
-            borderColor: utils.rgbaColor(utils.getColor('warning'), 0.6),
-            borderWidth: 2
-          },
-          symbol: 'circle',
-          symbolSize: 10,
-          hoverAnimation: true
-        }],
-        grid: {
-          right: '18px',
-          left: '40px',
-          bottom: '15%',
-          top: '5%'
+          margin: 15
+          // showMaxLabel: false
         }
-      };
-    };
+      },
+
+      yAxis: {
+        type: 'value',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getColor('gray-300'),
+            type: 'dashed'
+          }
+        },
+        boundaryGap: false,
+        axisLabel: {
+          show: true,
+          color: utils.getColor('gray-400'),
+          margin: 15
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        name: 'lastMonth',
+        type: 'line',
+        data: [50, 80, 60, 80, 65, 90, 130, 90, 30, 40, 30, 70],
+        lineStyle: {
+          color: utils.getColor('primary')
+        },
+        itemStyle: {
+          borderColor: utils.getColor('primary'),
+          borderWidth: 2
+        },
+        symbol: 'circle',
+        symbolSize: 10,
+        hoverAnimation: true,
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: utils.rgbaColor(utils.getColor('primary'), 0.2)
+            }, {
+              offset: 1,
+              color: utils.rgbaColor(utils.getColor('primary'), 0)
+            }]
+          }
+        }
+      }, {
+        name: 'previousYear',
+        type: 'line',
+        data: [110, 30, 40, 50, 80, 70, 50, 40, 110, 90, 60, 60],
+        lineStyle: {
+          color: utils.rgbaColor(utils.getColor('warning'), 0.3)
+        },
+        itemStyle: {
+          borderColor: utils.rgbaColor(utils.getColor('warning'), 0.6),
+          borderWidth: 2
+        },
+        symbol: 'circle',
+        symbolSize: 10,
+        hoverAnimation: true
+      }],
+      grid: {
+        right: '18px',
+        left: '40px',
+        bottom: '15%',
+        top: '5%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    totalSalesLastMonth.addEventListener('click', function () {
+    totalSalesLastMonth.addEventListener('click', () => {
       chart.dispatchAction({
         type: 'legendToggleSelect',
         name: 'lastMonth'
       });
     });
-    totalSalesPreviousYear.addEventListener('click', function () {
+    totalSalesPreviousYear.addEventListener('click', () => {
       chart.dispatchAction({
         type: 'legendToggleSelect',
         name: 'previousYear'
@@ -12556,167 +12580,167 @@ var totalSalesEcommerce = function totalSalesEcommerce() {
 /*                             Echarts Total Sales                            */
 /* -------------------------------------------------------------------------- */
 
-var totalSalesInit = function totalSalesInit() {
-  var ECHART_LINE_TOTAL_SALES = '.echart-line-total-sales';
-  var SELECT_MONTH = '.select-month';
-  var $echartsLineTotalSales = document.querySelector(ECHART_LINE_TOTAL_SALES);
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const totalSalesInit = () => {
+  const ECHART_LINE_TOTAL_SALES = '.echart-line-total-sales';
+  const SELECT_MONTH = '.select-month';
+  const $echartsLineTotalSales = document.querySelector(ECHART_LINE_TOTAL_SALES);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   function getFormatter(params) {
-    var _params$ = params[0],
-      name = _params$.name,
-      value = _params$.value;
-    var date = new Date(name);
-    return "".concat(months[0], " ").concat(date.getDate(), ", ").concat(value);
+    const {
+      name,
+      value
+    } = params[0];
+    const date = new Date(name);
+    return `${months[0]} ${date.getDate()}, ${value}`;
   }
   if ($echartsLineTotalSales) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartsLineTotalSales, 'options');
-    var chart = window.echarts.init($echartsLineTotalSales);
-    var monthsnumber = [[60, 80, 60, 80, 65, 130, 120, 100, 30, 40, 30, 70], [100, 70, 80, 50, 120, 100, 130, 140, 90, 100, 40, 50], [80, 50, 60, 40, 60, 120, 100, 130, 60, 80, 50, 60], [70, 80, 100, 70, 90, 60, 80, 130, 40, 60, 50, 80], [90, 40, 80, 80, 100, 140, 100, 130, 90, 60, 70, 50], [80, 60, 80, 60, 40, 100, 120, 100, 30, 40, 30, 70], [20, 40, 20, 50, 70, 60, 110, 80, 90, 30, 50, 50], [60, 70, 30, 40, 80, 140, 80, 140, 120, 130, 100, 110], [90, 90, 40, 60, 40, 110, 90, 110, 60, 80, 60, 70], [50, 80, 50, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 90, 60, 70, 40, 70, 100, 140, 30, 40, 30, 70], [20, 40, 20, 50, 30, 80, 120, 100, 30, 40, 30, 70]];
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: utils.getGrays()['100'],
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          formatter: function formatter(params) {
-            return getFormatter(params);
-          },
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          }
+    const userOptions = utils.getData($echartsLineTotalSales, 'options');
+    const chart = window.echarts.init($echartsLineTotalSales);
+    const monthsnumber = [[60, 80, 60, 80, 65, 130, 120, 100, 30, 40, 30, 70], [100, 70, 80, 50, 120, 100, 130, 140, 90, 100, 40, 50], [80, 50, 60, 40, 60, 120, 100, 130, 60, 80, 50, 60], [70, 80, 100, 70, 90, 60, 80, 130, 40, 60, 50, 80], [90, 40, 80, 80, 100, 140, 100, 130, 90, 60, 70, 50], [80, 60, 80, 60, 40, 100, 120, 100, 30, 40, 30, 70], [20, 40, 20, 50, 70, 60, 110, 80, 90, 30, 50, 50], [60, 70, 30, 40, 80, 140, 80, 140, 120, 130, 100, 110], [90, 90, 40, 60, 40, 110, 90, 110, 60, 80, 60, 70], [50, 80, 50, 80, 50, 80, 120, 80, 50, 120, 110, 110], [60, 90, 60, 70, 40, 70, 100, 140, 30, 40, 30, 70], [20, 40, 20, 50, 30, 80, 120, 100, 30, 40, 30, 70]];
+    const getDefaultOptions = () => ({
+      color: utils.getGrays()['100'],
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        xAxis: {
-          type: 'category',
-          data: ['2019-01-05', '2019-01-06', '2019-01-07', '2019-01-08', '2019-01-09', '2019-01-10', '2019-01-11', '2019-01-12', '2019-01-13', '2019-01-14', '2019-01-15', '2019-01-16'],
-          boundaryGap: false,
-          axisPointer: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              // color: utils.getGrays()['300'],
-              color: utils.rgbaColor('#000', 0.01),
-              type: 'dashed'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['400'],
-            formatter: function formatter(value) {
-              var date = new Date(value);
-              return "".concat(months[date.getMonth()], " ").concat(date.getDate());
-            },
-            margin: 15
-          }
+        borderWidth: 1,
+        formatter(params) {
+          return getFormatter(params);
         },
-        yAxis: {
-          type: 'value',
-          axisPointer: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          boundaryGap: false,
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['400'],
-            margin: 15
-          },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        series: [{
-          type: 'line',
-          data: monthsnumber[0],
-          lineStyle: {
-            color: utils.getColors().primary
-          },
-          itemStyle: {
-            borderColor: utils.getColors().primary,
-            borderWidth: 2
-          },
-          symbol: 'circle',
-          symbolSize: 10,
-          smooth: false,
-          hoverAnimation: true,
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                offset: 0,
-                color: utils.rgbaColor(utils.getColors().primary, 0.2)
-              }, {
-                offset: 1,
-                color: utils.rgbaColor(utils.getColors().primary, 0)
-              }]
-            }
-          }
-        }],
-        grid: {
-          right: '28px',
-          left: '40px',
-          bottom: '15%',
-          top: '5%'
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         }
-      };
-    };
+      },
+      xAxis: {
+        type: 'category',
+        data: ['2019-01-05', '2019-01-06', '2019-01-07', '2019-01-08', '2019-01-09', '2019-01-10', '2019-01-11', '2019-01-12', '2019-01-13', '2019-01-14', '2019-01-15', '2019-01-16'],
+        boundaryGap: false,
+        axisPointer: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            // color: utils.getGrays()['300'],
+            color: utils.rgbaColor('#000', 0.01),
+            type: 'dashed'
+          }
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['400'],
+          formatter: value => {
+            const date = new Date(value);
+            return `${months[date.getMonth()]} ${date.getDate()}`;
+          },
+          margin: 15
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisPointer: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: 'dashed'
+          }
+        },
+        boundaryGap: false,
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['400'],
+          margin: 15
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        }
+      },
+      series: [{
+        type: 'line',
+        data: monthsnumber[0],
+        lineStyle: {
+          color: utils.getColors().primary
+        },
+        itemStyle: {
+          borderColor: utils.getColors().primary,
+          borderWidth: 2
+        },
+        symbol: 'circle',
+        symbolSize: 10,
+        smooth: false,
+        hoverAnimation: true,
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0,
+              color: utils.rgbaColor(utils.getColors().primary, 0.2)
+            }, {
+              offset: 1,
+              color: utils.rgbaColor(utils.getColors().primary, 0)
+            }]
+          }
+        }
+      }],
+      grid: {
+        right: '28px',
+        left: '40px',
+        bottom: '15%',
+        top: '5%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
 
     // Change chart options accordiong to the selected month
-    var monthSelect = document.querySelector(SELECT_MONTH);
+    const monthSelect = document.querySelector(SELECT_MONTH);
     if (monthSelect) {
-      monthSelect.addEventListener('change', function (e) {
-        var month = e.currentTarget.value;
-        var data = monthsnumber[month];
+      monthSelect.addEventListener('change', e => {
+        const month = e.currentTarget.value;
+        const data = monthsnumber[month];
         chart.setOption({
           tooltip: {
-            formatter: function formatter(params) {
-              var _params$2 = params[0],
-                name = _params$2.name,
-                value = _params$2.value;
-              var date = new Date(name);
-              return "".concat(months[month], " ").concat(date.getDate(), ", ").concat(value);
+            formatter: params => {
+              const {
+                name,
+                value
+              } = params[0];
+              const date = new Date(name);
+              return `${months[month]} ${date.getDate()}, ${value}`;
             }
           },
           xAxis: {
             axisLabel: {
-              formatter: function formatter(value) {
-                var date = new Date(value);
-                return "".concat(months[month], " ").concat(date.getDate());
+              formatter: value => {
+                const date = new Date(value);
+                return `${months[month]} ${date.getDate()}`;
               },
               margin: 15
             }
           },
           series: [{
-            data: data
+            data
           }]
         });
       });
@@ -12728,241 +12752,233 @@ var totalSalesInit = function totalSalesInit() {
 /*                                Traffic Channels                           */
 /* -------------------------------------------------------------------------- */
 
-var trafficChannelChartInit = function trafficChannelChartInit() {
-  var $trafficChannels = document.querySelector('.echart-traffic-channels');
+const trafficChannelChartInit = () => {
+  const $trafficChannels = document.querySelector('.echart-traffic-channels');
   if ($trafficChannels) {
-    var userOptions = utils.getData($trafficChannels, 'options');
-    var chart = window.echarts.init($trafficChannels);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)],
-        legend: {
-          data: ['Display', 'Direct', 'Organic Search', 'Paid Search', 'Other'],
-          left: 5,
-          // bottom: 10,
-          itemWidth: 10,
-          itemHeight: 10,
-          borderRadius: 0,
-          icon: 'circle',
-          inactiveColor: utils.getGrays()['400'],
-          textStyle: {
-            color: utils.getGrays()['700']
-          },
-          itemGap: 20
+    const userOptions = utils.getData($trafficChannels, 'options');
+    const chart = window.echarts.init($trafficChannels);
+    const getDefaultOptions = () => ({
+      color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)],
+      legend: {
+        data: ['Display', 'Direct', 'Organic Search', 'Paid Search', 'Other'],
+        left: 5,
+        // bottom: 10,
+        itemWidth: 10,
+        itemHeight: 10,
+        borderRadius: 0,
+        icon: 'circle',
+        inactiveColor: utils.getGrays()['400'],
+        textStyle: {
+          color: utils.getGrays()['700']
         },
-        xAxis: {
-          type: 'category',
-          data: utils.getPastDates(7).map(function (date) {
-            return window.dayjs(date).format('DD MMM, YYYY');
-          }),
-          axisLine: {
-            show: false
-          },
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('ddd');
-            }
+        itemGap: 20
+      },
+      xAxis: {
+        type: 'category',
+        data: utils.getPastDates(7).map(date => window.dayjs(date).format('DD MMM, YYYY')),
+        axisLine: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200']
           }
         },
-        yAxis: {
-          type: 'value',
-          position: 'right',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: true,
-            color: utils.getGrays()['600'],
-            margin: 15
-          }
+        axisTick: {
+          show: false
         },
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          axisPointer: {
-            type: 'none'
-          },
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          },
-          formatter: tooltipFormatter
-        },
-        series: [{
-          name: 'Display',
-          type: 'bar',
-          stack: 'total',
-          data: [320, 302, 301, 334, 390, 330, 320]
-        }, {
-          name: 'Direct',
-          type: 'bar',
-          stack: 'total',
-          data: [120, 132, 101, 134, 90, 230, 210]
-        }, {
-          name: 'Organic Search',
-          type: 'bar',
-          stack: 'total',
-          data: [220, 182, 191, 234, 290, 330, 310]
-        }, {
-          name: 'Paid Search',
-          type: 'bar',
-          stack: 'total',
-          data: [150, 212, 201, 154, 190, 330, 410]
-        }, {
-          name: 'Other',
-          type: 'bar',
-          stack: 'total',
-          data: [820, 832, 901, 934, 1290, 1330, 1320],
-          itemStyle: {
-            barBorderRadius: [5, 5, 0, 0]
-          }
-        }],
-        grid: {
-          right: '50px',
-          left: '0px',
-          bottom: '10%',
-          top: '15%'
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => window.dayjs(value).format('ddd')
         }
-      };
-    };
+      },
+      yAxis: {
+        type: 'value',
+        position: 'right',
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['200']
+          }
+        },
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: true,
+          color: utils.getGrays()['600'],
+          margin: 15
+        }
+      },
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        axisPointer: {
+          type: 'none'
+        },
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
+        },
+        borderWidth: 1,
+        transitionDuration: 0,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
+        },
+        formatter: tooltipFormatter
+      },
+      series: [{
+        name: 'Display',
+        type: 'bar',
+        stack: 'total',
+        data: [320, 302, 301, 334, 390, 330, 320]
+      }, {
+        name: 'Direct',
+        type: 'bar',
+        stack: 'total',
+        data: [120, 132, 101, 134, 90, 230, 210]
+      }, {
+        name: 'Organic Search',
+        type: 'bar',
+        stack: 'total',
+        data: [220, 182, 191, 234, 290, 330, 310]
+      }, {
+        name: 'Paid Search',
+        type: 'bar',
+        stack: 'total',
+        data: [150, 212, 201, 154, 190, 330, 410]
+      }, {
+        name: 'Other',
+        type: 'bar',
+        stack: 'total',
+        data: [820, 832, 901, 934, 1290, 1330, 1320],
+        itemStyle: {
+          barBorderRadius: [5, 5, 0, 0]
+        }
+      }],
+      grid: {
+        right: '50px',
+        left: '0px',
+        bottom: '10%',
+        top: '15%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
-var echartsUnresolvedTicketsInit = function echartsUnresolvedTicketsInit() {
-  var $unresolvedTickets = document.querySelector('.echart-unresolved-tickets');
+const echartsUnresolvedTicketsInit = () => {
+  const $unresolvedTickets = document.querySelector('.echart-unresolved-tickets');
   if ($unresolvedTickets) {
-    var userOptions = utils.getData($unresolvedTickets, 'options');
-    var chart = window.echarts.init($unresolvedTickets);
-    var unresolvedTicketsLegend = document.querySelectorAll('[data-unresolved-tickets]');
-    var xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    var data1 = [20, 18, 15, 20, 12, 15, 10];
-    var data2 = [30, 20, 20, 25, 20, 15, 10];
-    var data3 = [35, 32, 40, 50, 30, 25, 15];
-    var data4 = [15, 25, 20, 18, 10, 15, 25];
-    var emphasisStyle = {
+    const userOptions = utils.getData($unresolvedTickets, 'options');
+    const chart = window.echarts.init($unresolvedTickets);
+    const unresolvedTicketsLegend = document.querySelectorAll("[data-unresolved-tickets]");
+    let xAxisData = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    let data1 = [20, 18, 15, 20, 12, 15, 10];
+    let data2 = [30, 20, 20, 25, 20, 15, 10];
+    let data3 = [35, 32, 40, 50, 30, 25, 15];
+    let data4 = [15, 25, 20, 18, 10, 15, 25];
+    const emphasisStyle = {
       itemStyle: {
         shadowColor: utils.rgbaColor(utils.getColor('dark'), 0.3)
       }
     };
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        color: [utils.getColor('primary'), utils.getColor('info'), localStorage.getItem('theme') === 'dark' ? '#229BD2' : '#73D3FE', localStorage.getItem('theme') === 'dark' ? '#195979' : '#A9E4FF'],
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['900']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
+    const getDefaultOptions = () => ({
+      color: [utils.getColor('primary'), utils.getColor('info'), localStorage.getItem('theme') === 'dark' ? '#229BD2' : '#73D3FE', localStorage.getItem('theme') === 'dark' ? '#195979' : '#A9E4FF'],
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['900']
         },
-        legend: {
-          data: ['Urgent', 'High', 'Medium', 'Low'],
+        borderWidth: 1,
+        transitionDuration: 0,
+        axisPointer: {
+          type: 'none'
+        }
+      },
+      legend: {
+        data: ['Urgent', 'High', 'Medium', 'Low'],
+        show: false
+      },
+      xAxis: {
+        data: xAxisData,
+        splitLine: {
           show: false
         },
-        xAxis: {
-          data: xAxisData,
-          splitLine: {
-            show: false
-          },
-          splitArea: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            margin: 8
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisTick: {
-            show: false
+        splitArea: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          margin: 8
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
           }
         },
-        yAxis: {
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['300'],
-              type: 'dashed'
-            }
-          },
-          axisLabel: {
-            color: utils.getGrays()['600']
-          },
-          position: 'right'
-        },
-        series: [{
-          name: 'Urgent',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data1
-        }, {
-          name: 'High',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data2
-        }, {
-          name: 'Medium',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data3
-        }, {
-          name: 'Low',
-          type: 'bar',
-          stack: 'one',
-          emphasis: emphasisStyle,
-          data: data4,
-          itemStyle: {
-            borderRadius: [2, 2, 0, 0]
-          }
-        }],
-        barWidth: '15px',
-        grid: {
-          top: '8%',
-          bottom: 10,
-          left: 0,
-          right: 2,
-          containLabel: true
+        axisTick: {
+          show: false
         }
-      };
-    };
+      },
+      yAxis: {
+        splitLine: {
+          lineStyle: {
+            color: utils.getGrays()['300'],
+            type: "dashed"
+          }
+        },
+        axisLabel: {
+          color: utils.getGrays()['600']
+        },
+        position: "right"
+      },
+      series: [{
+        name: 'Urgent',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data1
+      }, {
+        name: 'High',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data2
+      }, {
+        name: 'Medium',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data3
+      }, {
+        name: 'Low',
+        type: 'bar',
+        stack: 'one',
+        emphasis: emphasisStyle,
+        data: data4,
+        itemStyle: {
+          borderRadius: [2, 2, 0, 0]
+        }
+      }],
+      barWidth: "15px",
+      grid: {
+        top: '8%',
+        bottom: 10,
+        left: 0,
+        right: 2,
+        containLabel: true
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    unresolvedTicketsLegend.forEach(function (el) {
-      el.addEventListener('change', function () {
+    unresolvedTicketsLegend.forEach(el => {
+      el.addEventListener('change', () => {
         chart.dispatchAction({
           type: 'legendToggleSelect',
           name: utils.getData(el, 'unresolved-tickets')
@@ -12976,9 +12992,9 @@ var echartsUnresolvedTicketsInit = function echartsUnresolvedTicketsInit() {
 /*                                User By Location Map                      */
 /* -------------------------------------------------------------------------- */
 
-var userByLocationInit = function userByLocationInit() {
-  var $userByLocationMap = document.querySelector('.echart-user-by-location-map');
-  var data = [{
+const userByLocationInit = () => {
+  const $userByLocationMap = document.querySelector('.echart-user-by-location-map');
+  const data = [{
     name: 'Afghanistan',
     value: 28397
   }, {
@@ -13513,68 +13529,62 @@ var userByLocationInit = function userByLocationInit() {
     name: 'Zimbabwe',
     value: 13076
   }];
-  var maxZoomLevel = 5;
-  var minZoomLevel = 1;
+  const maxZoomLevel = 5;
+  const minZoomLevel = 1;
   if ($userByLocationMap) {
-    var _document$querySelect6, _document$querySelect7;
-    var userOptions = utils.getData($userByLocationMap, 'options');
-    var chart = window.echarts.init($userByLocationMap);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'item',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          transitionDuration: 0,
-          formatter: function formatter(params) {
-            var _params$data5, _params$data6;
-            return "<strong>".concat((_params$data5 = params.data) === null || _params$data5 === void 0 ? void 0 : _params$data5.name, " :</strong> ").concat((_params$data6 = params.data) === null || _params$data6 === void 0 ? void 0 : _params$data6.value);
-          }
+    const userOptions = utils.getData($userByLocationMap, 'options');
+    const chart = window.echarts.init($userByLocationMap);
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'item',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        visualMap: {
-          show: false,
-          min: 800,
-          max: 50000,
-          inRange: {
-            color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)].reverse()
-          }
+        borderWidth: 1,
+        transitionDuration: 0,
+        formatter: params => `<strong>${params.data?.name} :</strong> ${params.data?.value}`
+      },
+      visualMap: {
+        show: false,
+        min: 800,
+        max: 50000,
+        inRange: {
+          color: [utils.getColors().primary, utils.rgbaColor(utils.getColors().primary, 0.8), utils.rgbaColor(utils.getColors().primary, 0.6), utils.rgbaColor(utils.getColors().primary, 0.4), utils.rgbaColor(utils.getColors().primary, 0.2)].reverse()
+        }
+      },
+      series: [{
+        type: 'map',
+        map: 'world',
+        data,
+        roam: 'move',
+        scaleLimit: {
+          min: minZoomLevel,
+          max: maxZoomLevel
         },
-        series: [{
-          type: 'map',
-          map: 'world',
-          data: data,
-          roam: 'move',
-          scaleLimit: {
-            min: minZoomLevel,
-            max: maxZoomLevel
-          },
-          left: 0,
-          right: 0,
+        left: 0,
+        right: 0,
+        label: {
+          show: false
+        },
+        itemStyle: {
+          borderColor: utils.getGrays()['300']
+        },
+        emphasis: {
           label: {
             show: false
           },
           itemStyle: {
-            borderColor: utils.getGrays()['300']
-          },
-          emphasis: {
-            label: {
-              show: false
-            },
-            itemStyle: {
-              areaColor: utils.getColor('warning')
-            }
+            areaColor: utils.getColor('warning')
           }
-        }]
-      };
-    };
+        }
+      }]
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
-    var zoomLevel = 1;
-    (_document$querySelect6 = document.querySelector('.user-by-location-map-zoom')) === null || _document$querySelect6 === void 0 ? void 0 : _document$querySelect6.addEventListener('click', function () {
+    let zoomLevel = 1;
+    document.querySelector('.user-by-location-map-zoom')?.addEventListener('click', () => {
       if (zoomLevel < maxZoomLevel) {
         zoomLevel += 1;
       }
@@ -13584,7 +13594,7 @@ var userByLocationInit = function userByLocationInit() {
         }
       });
     });
-    (_document$querySelect7 = document.querySelector('.user-by-location-map-zoomOut')) === null || _document$querySelect7 === void 0 ? void 0 : _document$querySelect7.addEventListener('click', function () {
+    document.querySelector('.user-by-location-map-zoomOut')?.addEventListener('click', () => {
       if (zoomLevel > minZoomLevel) {
         zoomLevel -= 1;
       }
@@ -13601,121 +13611,124 @@ var userByLocationInit = function userByLocationInit() {
 /*                             Echarts Users By Time                          */
 /* -------------------------------------------------------------------------- */
 
-var usersByTimeChartInit = function usersByTimeChartInit() {
-  var $echartUsersByTimeChart = document.querySelector('.echart-users-by-time');
-  var hours = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'];
-  var data = [];
-  for (var i = 0; i < 24; i += 1) {
-    for (var j = 0; j < 7; j += 1) {
+const usersByTimeChartInit = () => {
+  const $echartUsersByTimeChart = document.querySelector('.echart-users-by-time');
+  const hours = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'];
+  const data = [];
+  for (let i = 0; i < 24; i += 1) {
+    for (let j = 0; j < 7; j += 1) {
       data.push([j, i, utils.getRandomNumber(20, 300)]);
     }
   }
-  var tooltipFormatter = function tooltipFormatter(params) {
-    return "<div>\n          <p class='mb-0 text-600'>".concat(window.dayjs(params.name).format('MMM DD, YYYY'), "</p>\n          <div class=\"d-flex align-items-center\">\n            <p class=\"mb-0 text-600\">\n              ").concat(window.dayjs().hour(params.data[1]).format('hA'), " : <span class='text-800 fw-semi-bold'>").concat(params.data[2], "</span>\n            </p>\n          </div>\n        </div>");
+  const tooltipFormatter = params => {
+    return `<div>
+          <p class='mb-0 text-600'>${window.dayjs(params.name).format('MMM DD, YYYY')}</p>
+          <div class="d-flex align-items-center">
+            <p class="mb-0 text-600">
+              ${window.dayjs().hour(params.data[1]).format('hA')} : <span class='text-800 fw-semi-bold'>${params.data[2]}</span>
+            </p>
+          </div>
+        </div>`;
   };
   if ($echartUsersByTimeChart) {
-    var userOptions = utils.getData($echartUsersByTimeChart, 'options');
-    var chart = window.echarts.init($echartUsersByTimeChart);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        gradientColor: [utils.getColor('info'), utils.getColor('primary')],
-        tooltip: {
-          position: 'top',
-          padding: [7, 10],
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          formatter: tooltipFormatter
+    const userOptions = utils.getData($echartUsersByTimeChart, 'options');
+    const chart = window.echarts.init($echartUsersByTimeChart);
+    const getDefaultOptions = () => ({
+      gradientColor: [utils.getColor('info'), utils.getColor('primary')],
+      tooltip: {
+        position: 'top',
+        padding: [7, 10],
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        xAxis: {
-          type: 'category',
-          data: utils.getPastDates(7),
-          splitArea: {
-            show: true
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('ddd');
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['400']
-            }
-          }
+        borderWidth: 1,
+        formatter: tooltipFormatter
+      },
+      xAxis: {
+        type: 'category',
+        data: utils.getPastDates(7),
+        splitArea: {
+          show: true
         },
-        yAxis: {
-          position: 'right',
-          type: 'category',
-          inverse: true,
-          data: hours,
-          splitArea: {
-            show: true
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: utils.getGrays()['600'],
-            margin: 20,
-            padding: [10, 0, 0, 0]
-          },
-          axisLine: {
-            lineStyle: {
-              color: utils.getGrays()['400']
-            }
-          }
+        axisTick: {
+          show: false
         },
-        visualMap: {
-          type: 'piecewise',
-          orient: 'horizontal',
-          left: 'left',
-          bottom: '3%',
-          itemSymbol: 'diamond',
-          itemWidth: '10px',
-          itemHeight: '10px',
-          min: 20,
-          max: 300,
-          splitNumber: 4,
-          textGap: 5,
-          textStyle: {
-            color: utils.getGrays()['600'],
-            fontWeight: 500
-          }
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          formatter: value => window.dayjs(value).format('ddd')
         },
-        series: [{
-          name: 'Users By Time',
-          type: 'heatmap',
-          data: data,
-          label: {
-            show: false
-          },
-          itemStyle: {
-            borderColor: utils.getGrays()['100'],
-            borderWidth: 3
-          },
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 3,
-              shadowColor: utils.rgbaColor(utils.getColors().emphasis, 0.5)
-            }
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['400']
           }
-        }],
-        grid: {
-          right: '60px',
-          left: '0px',
-          bottom: '20%',
-          top: '0%'
         }
-      };
-    };
+      },
+      yAxis: {
+        position: 'right',
+        type: 'category',
+        inverse: true,
+        data: hours,
+        splitArea: {
+          show: true
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: utils.getGrays()['600'],
+          margin: 20,
+          padding: [10, 0, 0, 0]
+        },
+        axisLine: {
+          lineStyle: {
+            color: utils.getGrays()['400']
+          }
+        }
+      },
+      visualMap: {
+        type: 'piecewise',
+        orient: 'horizontal',
+        left: 'left',
+        bottom: '3%',
+        itemSymbol: 'diamond',
+        itemWidth: '10px',
+        itemHeight: '10px',
+        min: 20,
+        max: 300,
+        splitNumber: 4,
+        textGap: 5,
+        textStyle: {
+          color: utils.getGrays()['600'],
+          fontWeight: 500
+        }
+      },
+      series: [{
+        name: 'Users By Time',
+        type: 'heatmap',
+        data: data,
+        label: {
+          show: false
+        },
+        itemStyle: {
+          borderColor: utils.getGrays()['100'],
+          borderWidth: 3
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 3,
+            shadowColor: utils.rgbaColor(utils.getColors()['emphasis'], 0.5)
+          }
+        }
+      }],
+      grid: {
+        right: '60px',
+        left: '0px',
+        bottom: '20%',
+        top: '0%'
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
@@ -13724,131 +13737,129 @@ var usersByTimeChartInit = function usersByTimeChartInit() {
 /*                            Bandwidth Saved                                 */
 /* -------------------------------------------------------------------------- */
 
-var weeklyGoalsInit = function weeklyGoalsInit() {
-  var $echartsBandwidthSaved = document.querySelector('.echart-weekly-goals-lms');
+const weeklyGoalsInit = () => {
+  const $echartsBandwidthSaved = document.querySelector('.echart-weekly-goals-lms');
   if ($echartsBandwidthSaved) {
-    var userOptions = utils.getData($echartsBandwidthSaved, 'options');
-    var chart = window.echarts.init($echartsBandwidthSaved);
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        series: [{
-          type: 'gauge',
-          startAngle: 90,
-          endAngle: -270,
-          radius: '85%',
-          pointer: {
-            show: false
-          },
-          center: ['50%', '50%'],
-          progress: {
-            show: true,
-            overlap: false,
-            roundCap: true,
-            clip: false,
-            itemStyle: {
-              color: utils.getColor('info')
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              width: 8,
-              color: [[1, utils.getColor('gray-200')]]
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          data: [79],
-          detail: {
-            show: false
-          },
-          animationDuration: 2000
-        }, {
-          type: 'gauge',
-          startAngle: 90,
-          endAngle: -270,
-          radius: '70%',
-          pointer: {
-            show: false
-          },
-          center: ['50%', '50%'],
-          progress: {
-            show: true,
-            overlap: false,
-            roundCap: true,
-            clip: false,
-            itemStyle: {
-              color: utils.getColor('primary')
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              width: 8,
-              color: [[1, utils.getColor('gray-200')]]
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          data: [85],
-          detail: {
-            show: false
-          },
-          animationDuration: 2000
-        }, {
-          type: 'gauge',
-          startAngle: 90,
-          endAngle: -270,
-          radius: '55%',
-          pointer: {
-            show: false
-          },
-          center: ['50%', '50%'],
-          progress: {
-            show: true,
-            overlap: false,
-            roundCap: true,
-            clip: false,
-            itemStyle: {
-              color: utils.getColor('success')
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              width: 8,
-              color: [[1, utils.getColor('gray-200')]]
-            }
-          },
-          splitLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          data: [70],
-          detail: {
-            show: false
-          },
-          animationDuration: 2000
-        }]
-      };
-    };
-    var initChart = function initChart() {
+    const userOptions = utils.getData($echartsBandwidthSaved, 'options');
+    const chart = window.echarts.init($echartsBandwidthSaved);
+    const getDefaultOptions = () => ({
+      series: [{
+        type: 'gauge',
+        startAngle: 90,
+        endAngle: -270,
+        radius: '85%',
+        pointer: {
+          show: false
+        },
+        center: ['50%', '50%'],
+        progress: {
+          show: true,
+          overlap: false,
+          roundCap: true,
+          clip: false,
+          itemStyle: {
+            color: utils.getColor('info')
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            width: 8,
+            color: [[1, utils.getColor('gray-200')]]
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        data: [79],
+        detail: {
+          show: false
+        },
+        animationDuration: 2000
+      }, {
+        type: 'gauge',
+        startAngle: 90,
+        endAngle: -270,
+        radius: '70%',
+        pointer: {
+          show: false
+        },
+        center: ['50%', '50%'],
+        progress: {
+          show: true,
+          overlap: false,
+          roundCap: true,
+          clip: false,
+          itemStyle: {
+            color: utils.getColor('primary')
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            width: 8,
+            color: [[1, utils.getColor('gray-200')]]
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        data: [85],
+        detail: {
+          show: false
+        },
+        animationDuration: 2000
+      }, {
+        type: 'gauge',
+        startAngle: 90,
+        endAngle: -270,
+        radius: '55%',
+        pointer: {
+          show: false
+        },
+        center: ['50%', '50%'],
+        progress: {
+          show: true,
+          overlap: false,
+          roundCap: true,
+          clip: false,
+          itemStyle: {
+            color: utils.getColor('success')
+          }
+        },
+        axisLine: {
+          lineStyle: {
+            width: 8,
+            color: [[1, utils.getColor('gray-200')]]
+          }
+        },
+        splitLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        data: [70],
+        detail: {
+          show: false
+        },
+        animationDuration: 2000
+      }]
+    });
+    const initChart = () => {
       if (utils.isScrolledIntoView($echartsBandwidthSaved)) {
         echartSetOption(chart, userOptions, getDefaultOptions);
         window.removeEventListener('scroll', initChart);
@@ -13864,100 +13875,98 @@ var weeklyGoalsInit = function weeklyGoalsInit() {
 /*                                Weekly Sales                                */
 /* -------------------------------------------------------------------------- */
 
-var weeklySalesInit = function weeklySalesInit() {
-  var ECHART_BAR_WEEKLY_SALES = '.echart-bar-weekly-sales';
-  var $echartBarWeeklySales = document.querySelector(ECHART_BAR_WEEKLY_SALES);
+const weeklySalesInit = () => {
+  const ECHART_BAR_WEEKLY_SALES = '.echart-bar-weekly-sales';
+  const $echartBarWeeklySales = document.querySelector(ECHART_BAR_WEEKLY_SALES);
   if ($echartBarWeeklySales) {
     // Get options from data attribute
-    var userOptions = utils.getData($echartBarWeeklySales, 'options');
-    var data = [120, 200, 150, 80, 70, 110, 120];
+    const userOptions = utils.getData($echartBarWeeklySales, 'options');
+    const data = [120, 200, 150, 80, 70, 110, 120];
 
     // Max value of data
-    var yMax = Math.max.apply(Math, data);
+    const yMax = Math.max(...data);
 
     // const dataBackground = data.map(() => yMax);
-    var chart = window.echarts.init($echartBarWeeklySales);
+    const chart = window.echarts.init($echartBarWeeklySales);
 
     // Default options
-    var getDefaultOptions = function getDefaultOptions() {
-      return {
-        tooltip: {
-          trigger: 'axis',
-          padding: [7, 10],
-          formatter: '{b0} : {c0}',
-          transitionDuration: 0,
-          backgroundColor: utils.getGrays()['100'],
-          borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
-          borderWidth: 1,
-          position: function position(pos, params, dom, rect, size) {
-            return getPosition(pos, params, dom, rect, size);
-          }
+    const getDefaultOptions = () => ({
+      tooltip: {
+        trigger: 'axis',
+        padding: [7, 10],
+        formatter: '{b0} : {c0}',
+        transitionDuration: 0,
+        backgroundColor: utils.getGrays()['100'],
+        borderColor: utils.getGrays()['300'],
+        textStyle: {
+          color: utils.getGrays()['1100']
         },
-        xAxis: {
-          type: 'category',
-          data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-          boundaryGap: false,
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisPointer: {
-            type: 'none'
-          }
-        },
-        yAxis: {
-          type: 'value',
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisPointer: {
-            type: 'none'
-          }
-        },
-        series: [{
-          type: 'bar',
-          showBackground: true,
-          backgroundStyle: {
-            borderRadius: 10
-          },
-          barWidth: '5px',
-          itemStyle: {
-            barBorderRadius: 10,
-            color: utils.getColors().primary
-          },
-          data: data,
-          z: 10,
-          emphasis: {
-            itemStyle: {
-              color: utils.getColors().primary
-            }
-          }
-        }],
-        grid: {
-          right: 5,
-          left: 10,
-          top: 0,
-          bottom: 0
+        borderWidth: 1,
+        position(pos, params, dom, rect, size) {
+          return getPosition(pos, params, dom, rect, size);
         }
-      };
-    };
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        boundaryGap: false,
+        axisLine: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisPointer: {
+          type: 'none'
+        }
+      },
+      yAxis: {
+        type: 'value',
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisPointer: {
+          type: 'none'
+        }
+      },
+      series: [{
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: {
+          borderRadius: 10
+        },
+        barWidth: '5px',
+        itemStyle: {
+          barBorderRadius: 10,
+          color: utils.getColors().primary
+        },
+        data,
+        z: 10,
+        emphasis: {
+          itemStyle: {
+            color: utils.getColors().primary
+          }
+        }
+      }],
+      grid: {
+        right: 5,
+        left: 10,
+        top: 0,
+        bottom: 0
+      }
+    });
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
