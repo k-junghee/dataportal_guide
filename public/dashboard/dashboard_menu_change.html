@@ -1,0 +1,968 @@
+<?
+	$sigunCd_cvt_code = array(
+		"11"=>"서울특별시",            //"11"=>
+		"21"=>"부산광역시",			 //"26"=>
+		"22"=>"대구광역시",			 //"27"=>
+		"23"=>"인천광역시",			 //"28"=>
+		"24"=>"광주광역시",			 //"29"=>
+		"25"=>"대전광역시",			 //"30"=>
+		"26"=>"울산광역시",			 //"31"=>
+		"31"=>"경기도",			 //"41"=>
+		"32"=>"강원도",			 //"51"=>
+		"33"=>"충청북도",			 //"43"=>
+		"34"=>"충청남도",			 //"44"=>
+		"35"=>"전라북도",			 //"45"=>
+		"36"=>"전라남도",			 //"46"=>
+		"37"=>"경상북도",			 //"47"=>
+		"38"=>"경상남도",			 //"48"=>
+		"39"=>"제주특별자치도",		 //"50"=>
+		"29"=>"세종특별자치시",		 //"36"=>
+	);
+	$Do_code_name = array(
+		"11"=>"서울",//1,
+		"26"=>"부산",//27,
+		"27"=>"대구",//44,
+		"28"=>"인천",//53,
+		"29"=>"광주",//65,
+		"30"=>"대전",//71,
+		"31"=>"울산",//77,
+
+		"41"=>"경기",//84,
+		"42"=>"강원",//117,
+		"43"=>"충북",//136,
+		"44"=>"충남",//150,
+		"45"=>"전북",//168,
+		"46"=>"전남",//183,
+		"47"=>"경북",//206,
+		"48"=>"경남",//230,
+		"49"=>"제주",//251,
+		"32"=>"세종",//83,
+		);
+
+	$Do_name_list = array(
+		"11"=>"서울특별시",
+		"26"=>"부산광역시",
+		"27"=>"대구광역시",
+		"28"=>"인천광역시",
+		"29"=>"광주광역시",
+		"30"=>"대전광역시",
+		"31"=>"울산광역시",
+		"41"=>"경기도",
+		"42"=>"강원도",
+		"43"=>"충청북도",
+		"44"=>"충청남도",
+		"45"=>"전라북도",
+		"46"=>"전라남도",
+		"47"=>"경상북도",
+		"48"=>"경상남도",
+		"32"=>"세종특별자치시",
+		"49"=>"제주특별자치도",
+
+			);
+	$area_sido_cvt = array(
+		"서울특별시"=>"서울",
+		"부산광역시"=>"부산",
+		"대구광역시"=>"대구",
+		"인천광역시"=>"인천",
+		"광주광역시"=>"광주",
+		"대전광역시"=>"대전",
+		"울산광역시"=>"울산",
+		"경기도"=>"경기",
+		"강원도"=>"강원",
+		"충청북도"=>"충북",
+		"충청남도"=>"충남",
+		"전라북도"=>"전북",
+		"전라남도"=>"전남",
+		"경상북도"=>"경북",
+		"경상남도"=>"경남",
+		"제주특별자치도"=>"제주",
+		"세종특별자치시"=>"세종",
+	);
+	$Do_main_code_name = array(
+		"1100000"=>"서울 특별시",//1,
+		"2600000"=>"부산 광역시",//27,
+		"2700000"=>"대구 광역시",//44,
+		"2800000"=>"인천 광역시",//53,
+		"2900000"=>"광주 광역시",//65,
+		"3000000"=>"대전 본청",//71,
+		"3100000"=>"울산 광역시",//77,
+
+		"4100000"=>"경기 본청",//84,
+		"4200000"=>"강원 본청",//117,
+		"4300000"=>"충북 본청",//136,
+		"4400000"=>"충남 본청",//150,
+		"4500000"=>"전북 본청",//168,
+		"4600000"=>"전남 본청",//183,
+		"4700000"=>"경북 본청",//206,
+		"4800000"=>"경남 본청",//230,
+		"4900000"=>"제주 특별자치시",//251,
+		"3200000"=>"세종 특별자치도",//83,
+		);
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	$dataportal_data_top = array(
+		"DT_1B44"=>"기대수명",
+		"DT_35007_N056"=>"비만율",
+		"DT_H_MENTAL_STRESS"=>"스트레스인지율",
+		"DT_1B34E19"=>"자살율",
+		"DT_1B34E11"=>"암사망비율(사망원인별)",
+		//"시도별",
+		"news"=>"해피코리아=뉴스속보(AI자동기사)",
+	);
+		$dataportal_data_top_sub["시도별"] = array(
+			"11"=>"서울특별시",
+			"26"=>"부산광역시",
+			"27"=>"대구광역시",
+			"28"=>"인천광역시",
+			"29"=>"광주광역시",
+			"30"=>"대전광역시",
+			"31"=>"울산광역시",
+			"41"=>"경기도",
+			"42"=>"강원도",
+			"43"=>"충청북도",
+			"44"=>"충청남도",
+			"45"=>"전라북도",
+			"46"=>"전라남도",
+			"47"=>"경상북도",
+			"48"=>"경상남도",
+			"32"=>"세종특별자치시",
+			"49"=>"제주특별자치도",
+		);
+
+		$dataportal_data_top_sub["해피코리아=뉴스속보(AI자동기사)"] = array(
+		"ai_new"=>"해피코리아=뉴스속보(AI자동기사)",
+		"etc"=>"기타",
+		);
+
+		$dataportal_data_top_sub["기대수명"] = array(
+			"DT_1B44=B44T16"=>"기대여명(남자)",
+			"DT_1B44=B44T26"=>"기대여명(여자)",
+
+			"DT_1B44=B44T5"=>"사망확률(전체)",
+			"DT_1B44=B44T15"=>"사망확률(남자)",
+			"DT_1B44=B44T25"=>"사망확률(여자)",
+/*
+			"DT_1B44=B44T2"=>"생존자(전체)",
+			"DT_1B44=B44T12"=>"생존자(남자)",
+			"DT_1B44=B44T22"=>"생존자(여자)",
+
+			"DT_1B44=B44T3"=>"정지인구(전체)",
+			"DT_1B44=B44T13"=>"정지인구(남자)",
+			"DT_1B44=B44T23"=>"정지인구(여자)",
+*/
+
+		);
+			$dataportal_data_top_sub2["기대수명"]["기대여명(남자)"] = $sigunCd_cvt_code;
+/*
+			$dataportal_data_top_sub2["기대수명"]["기대여명(여자)"] = $sigunCd_cvt_code;
+
+			$dataportal_data_top_sub2["기대수명"]["사망확률(전체)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["사망확률(남자)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["사망확률(여자)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["생존자(전체)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["생존자(남자)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["생존자(여자)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["정지인구(전체)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["정지인구(남자)"] = $sigunCd_cvt_code;
+			$dataportal_data_top_sub2["기대수명"]["정지인구(여자)"] = $sigunCd_cvt_code;
+*/
+		/////////////////////////////////////////////////////////////
+		$dataportal_data_top_sub3["비만율=시도별"] = array(
+			"DT_35007_N056=C1=15350AC400Z1"=>"계",
+			"DT_35007_N056=C1=15350AC400A1"=>"서울",
+			"DT_35007_N056=C1=15350AC400B1"=>"부산",
+			"DT_35007_N056=C1=15350AC400C1"=>"대구",
+			"DT_35007_N056=C1=15350AC400D1"=>"인천",
+			"DT_35007_N056=C1=15350AC400E1"=>"광주",
+			"DT_35007_N056=C1=15350AC400F1"=>"대전",
+			"DT_35007_N056=C1=15350AC400G1"=>"울산",
+			"DT_35007_N056=C1=15350AC400H1"=>"경기",
+			"DT_35007_N056=C1=15350AC400I1"=>"강원",
+			"DT_35007_N056=C1=15350AC400J1"=>"충북",
+			"DT_35007_N056=C1=15350AC400K1"=>"충남",
+			"DT_35007_N056=C1=15350AC400L1"=>"전북",
+			"DT_35007_N056=C1=15350AC400M1"=>"전남",
+			"DT_35007_N056=C1=15350AC400N1"=>"경북",
+			"DT_35007_N056=C1=15350AC400O1"=>"경남",
+			"DT_35007_N056=C1=15350AC400P1"=>"제주",
+			"DT_35007_N056=C1=15350AC400Q1"=>"세종",
+			);
+
+		$dataportal_data_top_sub["비만율"] = array(
+			"DT_35007_N056=C2"=>"성별",
+
+			"DT_35007_N056=C3=001"=>"비만 체질량 분표(계)",
+			"DT_35007_N056=C3=002"=>"저체중(BMI 18.5 미만)",
+			"DT_35007_N056=C3=003"=>"정상체중(BMI 18.5~25.0 미만)",
+			"DT_35007_N056=C3=004"=>"비만1단계(BMI 25.0~30.0 미만)",
+			"DT_35007_N056=C3=005"=>"비만2단계(BMI 30.0~40.0 미만)",
+			"DT_35007_N056=C3=006"=>"비만3단계(BMI 40.0 이상)",
+		);
+
+			$dataportal_data_top_sub2["비만율"]["비만 체질량 분표(계)"] = $dataportal_data_top_sub3["비만율=시도별"];
+/*
+			$dataportal_data_top_sub2["비만율"]["저체중(BMI 18.5 미만)"] = $dataportal_data_top_sub3["비만율=시도별"];
+			$dataportal_data_top_sub2["비만율"]["정상체중(BMI 18.5~25.0 미만)"] = $dataportal_data_top_sub3["비만율=시도별"];
+			$dataportal_data_top_sub2["비만율"]["비만1단계(BMI 25.0~30.0 미만)"] = $dataportal_data_top_sub3["비만율=시도별"];
+			$dataportal_data_top_sub2["비만율"]["비만2단계(BMI 30.0~40.0 미만)"] = $dataportal_data_top_sub3["비만율=시도별"];
+			$dataportal_data_top_sub2["비만율"]["비만3단계(BMI 40.0 이상)"] = $dataportal_data_top_sub3["비만율=시도별"];
+*/
+			$dataportal_data_top_sub2["비만율"]["성별"] = array(
+				"DT_35007_N056=C2=001"=>"합계",
+				"DT_35007_N056=C2=002"=>"남자",
+				"DT_35007_N056=C2=003"=>"여자",
+				);
+		/////////////////////////////////////////////////////////////
+
+		$dataportal_data_top_sub["자살율"] = array(
+			"DT_1B34E19"=>"고의적자해(사망) 시도별",
+			"DT_1B34E18=C1"=>"고의적자해(성별) 전국",
+			"DT_1B34E18=C2"=>"고의적자해(연령별) 전국",
+		);
+			 $dataportal_data_top_sub3["고의적자해(성별)"] = array(
+				"DT_1B34E18=C1=0"=>"계",
+				"DT_1B34E18=C1=1"=>"남자",
+				"DT_1B34E18=C1=2"=>"여자",
+				);
+			 $dataportal_data_top_sub3["고의적자해(연령별)"] = array(
+				"DT_1B34E18=C2=00"=>"계",
+				"DT_1B34E18=C2=10"=>"19세이하",
+				"DT_1B34E18=C2=20"=>"20대",
+				"DT_1B34E18=C2=30"=>"30대",
+				"DT_1B34E18=C2=40"=>"40대",
+				"DT_1B34E18=C2=50"=>"50대",
+				"DT_1B34E18=C2=60"=>"60대",
+				"DT_1B34E18=C2=70"=>"70대",
+				"DT_1B34E18=C2=80"=>"80세이상",
+			 );
+			 $dataportal_data_top_sub3["고의적자해(시도별)"] = array(
+				"0"=>"전국",
+				"11"=>"서울",
+				"21"=>"부산",
+				"22"=>"대구",
+				"23"=>"인천",
+				"24"=>"광주",
+				"25"=>"대전",
+				"26"=>"울산",
+				"29"=>"세종",
+				"31"=>"경기",
+				"32"=>"강원",
+				"33"=>"충북",
+				"34"=>"충남",
+				"35"=>"전북",
+				"36"=>"전남",
+				"37"=>"경북",
+				"38"=>"경남",
+				"39"=>"제주",
+				);
+
+			$dataportal_data_top_sub2["자살율"]["고의적자해(사망) 시도별"] = $dataportal_data_top_sub3["고의적자해(시도별)"];
+			$dataportal_data_top_sub2["자살율"]["고의적자해(성별) 전국"]   = $dataportal_data_top_sub3["고의적자해(성별)"];
+			$dataportal_data_top_sub2["자살율"]["고의적자해(연령별) 전국"] = $dataportal_data_top_sub3["고의적자해(연령별)"];
+
+		$dataportal_data_top_sub3["스트레스인지율=시군구별"] = array(
+			"DT_H_MENTAL_STRESS=C1=001"=>"서울특별시",
+			"DT_H_MENTAL_STRESS=C1=00101"=>"강남구",
+			"DT_H_MENTAL_STRESS=C1=00102"=>"강동구",
+			"DT_H_MENTAL_STRESS=C1=00103"=>"강북구",
+			"DT_H_MENTAL_STRESS=C1=00104"=>"강서구",
+			"DT_H_MENTAL_STRESS=C1=00105"=>"관악구",
+			"DT_H_MENTAL_STRESS=C1=00106"=>"광진구",
+			"DT_H_MENTAL_STRESS=C1=00107"=>"구로구",
+			"DT_H_MENTAL_STRESS=C1=00108"=>"금천구",
+			"DT_H_MENTAL_STRESS=C1=00109"=>"노원구",
+			"DT_H_MENTAL_STRESS=C1=00110"=>"도봉구",
+			"DT_H_MENTAL_STRESS=C1=00111"=>"동대문구",
+			"DT_H_MENTAL_STRESS=C1=00112"=>"동작구",
+			"DT_H_MENTAL_STRESS=C1=00113"=>"마포구",
+			"DT_H_MENTAL_STRESS=C1=00114"=>"서대문구",
+			"DT_H_MENTAL_STRESS=C1=00115"=>"서초구",
+			"DT_H_MENTAL_STRESS=C1=00116"=>"성동구",
+			"DT_H_MENTAL_STRESS=C1=00117"=>"성북구",
+			"DT_H_MENTAL_STRESS=C1=00118"=>"송파구",
+			"DT_H_MENTAL_STRESS=C1=00119"=>"양천구",
+			"DT_H_MENTAL_STRESS=C1=00120"=>"영등포구",
+			"DT_H_MENTAL_STRESS=C1=00121"=>"용산구",
+			"DT_H_MENTAL_STRESS=C1=00122"=>"은평구",
+			"DT_H_MENTAL_STRESS=C1=00123"=>"종로구",
+			"DT_H_MENTAL_STRESS=C1=00124"=>"중구",
+			"DT_H_MENTAL_STRESS=C1=00125"=>"중랑구",
+			"DT_H_MENTAL_STRESS=C1=002"=>"부산광역시",
+			"DT_H_MENTAL_STRESS=C1=00201"=>"강서구",
+			"DT_H_MENTAL_STRESS=C1=00202"=>"금정구",
+			"DT_H_MENTAL_STRESS=C1=00203"=>"기장군",
+			"DT_H_MENTAL_STRESS=C1=00204"=>"남구",
+			"DT_H_MENTAL_STRESS=C1=00205"=>"동구",
+			"DT_H_MENTAL_STRESS=C1=00206"=>"동래구",
+			"DT_H_MENTAL_STRESS=C1=00207"=>"부산진구",
+			"DT_H_MENTAL_STRESS=C1=00208"=>"북구",
+			"DT_H_MENTAL_STRESS=C1=00209"=>"사상구",
+			"DT_H_MENTAL_STRESS=C1=00210"=>"사하구",
+			"DT_H_MENTAL_STRESS=C1=00211"=>"서구",
+			"DT_H_MENTAL_STRESS=C1=00212"=>"수영구",
+			"DT_H_MENTAL_STRESS=C1=00213"=>"연제구",
+			"DT_H_MENTAL_STRESS=C1=00214"=>"영도구",
+			"DT_H_MENTAL_STRESS=C1=00215"=>"중구",
+			"DT_H_MENTAL_STRESS=C1=00216"=>"해운대구",
+			"DT_H_MENTAL_STRESS=C1=003"=>"대구광역시",
+			"DT_H_MENTAL_STRESS=C1=00301"=>"남구",
+			"DT_H_MENTAL_STRESS=C1=00302"=>"달서구",
+			"DT_H_MENTAL_STRESS=C1=00303"=>"달성군",
+			"DT_H_MENTAL_STRESS=C1=00304"=>"동구",
+			"DT_H_MENTAL_STRESS=C1=00305"=>"북구",
+			"DT_H_MENTAL_STRESS=C1=00306"=>"서구",
+			"DT_H_MENTAL_STRESS=C1=00307"=>"수성구",
+			"DT_H_MENTAL_STRESS=C1=00308"=>"중구",
+			"DT_H_MENTAL_STRESS=C1=004"=>"인천광역시",
+			"DT_H_MENTAL_STRESS=C1=00401"=>"강화군",
+			"DT_H_MENTAL_STRESS=C1=00402"=>"계양구",
+			"DT_H_MENTAL_STRESS=C1=00403"=>"미추홀구",
+			"DT_H_MENTAL_STRESS=C1=00404"=>"남동구",
+			"DT_H_MENTAL_STRESS=C1=00405"=>"동구",
+			"DT_H_MENTAL_STRESS=C1=00406"=>"부평구",
+			"DT_H_MENTAL_STRESS=C1=00407"=>"서구",
+			"DT_H_MENTAL_STRESS=C1=00408"=>"연수구",
+			"DT_H_MENTAL_STRESS=C1=00409"=>"옹진군",
+			"DT_H_MENTAL_STRESS=C1=00410"=>"중구",
+			"DT_H_MENTAL_STRESS=C1=005"=>"광주광역시",
+			"DT_H_MENTAL_STRESS=C1=00501"=>"광산구",
+			"DT_H_MENTAL_STRESS=C1=00502"=>"남구",
+			"DT_H_MENTAL_STRESS=C1=00503"=>"동구",
+			"DT_H_MENTAL_STRESS=C1=00504"=>"북구",
+			"DT_H_MENTAL_STRESS=C1=00505"=>"서구",
+			"DT_H_MENTAL_STRESS=C1=006"=>"대전광역시",
+			"DT_H_MENTAL_STRESS=C1=00601"=>"대덕구",
+			"DT_H_MENTAL_STRESS=C1=00602"=>"동구",
+			"DT_H_MENTAL_STRESS=C1=00603"=>"서구",
+			"DT_H_MENTAL_STRESS=C1=00604"=>"유성구",
+			"DT_H_MENTAL_STRESS=C1=00605"=>"중구",
+			"DT_H_MENTAL_STRESS=C1=007"=>"울산광역시",
+			"DT_H_MENTAL_STRESS=C1=00701"=>"남구",
+			"DT_H_MENTAL_STRESS=C1=00702"=>"동구",
+			"DT_H_MENTAL_STRESS=C1=00703"=>"북구",
+			"DT_H_MENTAL_STRESS=C1=00704"=>"울주군",
+			"DT_H_MENTAL_STRESS=C1=00705"=>"중구",
+			"DT_H_MENTAL_STRESS=C1=0071"=>"세종특별자치시",
+			"DT_H_MENTAL_STRESS=C1=00711"=>"세종시",
+			"DT_H_MENTAL_STRESS=C1=008"=>"경기도",
+			"DT_H_MENTAL_STRESS=C1=00801"=>"가평군",
+			"DT_H_MENTAL_STRESS=C1=00802"=>"고양시",
+			"DT_H_MENTAL_STRESS=C1=0080201"=>"덕양구",
+			"DT_H_MENTAL_STRESS=C1=0080202"=>"일산동구",
+			"DT_H_MENTAL_STRESS=C1=0080203"=>"일산서구",
+			"DT_H_MENTAL_STRESS=C1=00803"=>"과천시",
+			"DT_H_MENTAL_STRESS=C1=00804"=>"구리시",
+			"DT_H_MENTAL_STRESS=C1=00805"=>"김포시",
+			"DT_H_MENTAL_STRESS=C1=00806"=>"남양주시",
+			"DT_H_MENTAL_STRESS=C1=0080601"=>"남양주",
+			"DT_H_MENTAL_STRESS=C1=0080602"=>"남양주 풍양",
+			"DT_H_MENTAL_STRESS=C1=00807"=>"동두천시",
+			"DT_H_MENTAL_STRESS=C1=00808"=>"부천시",
+			"DT_H_MENTAL_STRESS=C1=0080801"=>"소사구",
+			"DT_H_MENTAL_STRESS=C1=0080802"=>"오정구",
+			"DT_H_MENTAL_STRESS=C1=0080803"=>"원미구",
+			"DT_H_MENTAL_STRESS=C1=00809"=>"양주시",
+			"DT_H_MENTAL_STRESS=C1=00810"=>"양평군",
+			"DT_H_MENTAL_STRESS=C1=00811"=>"여주시",
+			"DT_H_MENTAL_STRESS=C1=00812"=>"연천군",
+			"DT_H_MENTAL_STRESS=C1=00813"=>"의정부시",
+			"DT_H_MENTAL_STRESS=C1=00814"=>"이천시",
+			"DT_H_MENTAL_STRESS=C1=00815"=>"파주시",
+			"DT_H_MENTAL_STRESS=C1=00816"=>"포천시",
+			"DT_H_MENTAL_STRESS=C1=00817"=>"하남시",
+			"DT_H_MENTAL_STRESS=C1=00818"=>"광명시",
+			"DT_H_MENTAL_STRESS=C1=00819"=>"광주시",
+			"DT_H_MENTAL_STRESS=C1=00820"=>"군포시",
+			"DT_H_MENTAL_STRESS=C1=00821"=>"성남시",
+			"DT_H_MENTAL_STRESS=C1=0082101"=>"분당구",
+			"DT_H_MENTAL_STRESS=C1=0082102"=>"수정구",
+			"DT_H_MENTAL_STRESS=C1=0082103"=>"중원구",
+			"DT_H_MENTAL_STRESS=C1=00822"=>"수원시",
+			"DT_H_MENTAL_STRESS=C1=0082201"=>"권선구",
+			"DT_H_MENTAL_STRESS=C1=0082202"=>"영통구",
+			"DT_H_MENTAL_STRESS=C1=0082203"=>"장안구",
+			"DT_H_MENTAL_STRESS=C1=0082204"=>"팔달구",
+			"DT_H_MENTAL_STRESS=C1=00823"=>"시흥시",
+			"DT_H_MENTAL_STRESS=C1=00824"=>"안산시",
+			"DT_H_MENTAL_STRESS=C1=0082401"=>"단원구",
+			"DT_H_MENTAL_STRESS=C1=0082402"=>"상록구",
+			"DT_H_MENTAL_STRESS=C1=00825"=>"안성시",
+			"DT_H_MENTAL_STRESS=C1=00826"=>"안양시",
+			"DT_H_MENTAL_STRESS=C1=0082601"=>"동안구",
+			"DT_H_MENTAL_STRESS=C1=0082602"=>"만안구",
+			"DT_H_MENTAL_STRESS=C1=00827"=>"오산시",
+			"DT_H_MENTAL_STRESS=C1=00828"=>"용인시",
+			"DT_H_MENTAL_STRESS=C1=0082801"=>"기흥구",
+			"DT_H_MENTAL_STRESS=C1=0082802"=>"수지구",
+			"DT_H_MENTAL_STRESS=C1=0082803"=>"처인구",
+			"DT_H_MENTAL_STRESS=C1=00829"=>"의왕시",
+			"DT_H_MENTAL_STRESS=C1=00830"=>"평택시",
+			"DT_H_MENTAL_STRESS=C1=0083001"=>"송탄",
+			"DT_H_MENTAL_STRESS=C1=0083002"=>"평택",
+			"DT_H_MENTAL_STRESS=C1=00831"=>"화성시",
+			"DT_H_MENTAL_STRESS=C1=0083101"=>"서부",
+			"DT_H_MENTAL_STRESS=C1=0083102"=>"동탄",
+			"DT_H_MENTAL_STRESS=C1=0083103"=>"동부",
+			"DT_H_MENTAL_STRESS=C1=009"=>"강원도",
+			"DT_H_MENTAL_STRESS=C1=00901"=>"강릉시",
+			"DT_H_MENTAL_STRESS=C1=00902"=>"고성군",
+			"DT_H_MENTAL_STRESS=C1=00903"=>"동해시",
+			"DT_H_MENTAL_STRESS=C1=00904"=>"삼척시",
+			"DT_H_MENTAL_STRESS=C1=00905"=>"속초시",
+			"DT_H_MENTAL_STRESS=C1=00906"=>"양구군",
+			"DT_H_MENTAL_STRESS=C1=00907"=>"양양군",
+			"DT_H_MENTAL_STRESS=C1=00908"=>"영월군",
+			"DT_H_MENTAL_STRESS=C1=00909"=>"원주시",
+			"DT_H_MENTAL_STRESS=C1=00910"=>"인제군",
+			"DT_H_MENTAL_STRESS=C1=00911"=>"정선군",
+			"DT_H_MENTAL_STRESS=C1=00912"=>"철원군",
+			"DT_H_MENTAL_STRESS=C1=00913"=>"춘천시",
+			"DT_H_MENTAL_STRESS=C1=00914"=>"태백시",
+			"DT_H_MENTAL_STRESS=C1=00915"=>"평창군",
+			"DT_H_MENTAL_STRESS=C1=00916"=>"홍천군",
+			"DT_H_MENTAL_STRESS=C1=00917"=>"화천군",
+			"DT_H_MENTAL_STRESS=C1=00918"=>"횡성군",
+			"DT_H_MENTAL_STRESS=C1=010"=>"충청북도",
+			"DT_H_MENTAL_STRESS=C1=01001"=>"괴산군",
+			"DT_H_MENTAL_STRESS=C1=01002"=>"단양군",
+			"DT_H_MENTAL_STRESS=C1=01003"=>"보은군",
+			"DT_H_MENTAL_STRESS=C1=01004"=>"영동군",
+			"DT_H_MENTAL_STRESS=C1=01005"=>"옥천군",
+			"DT_H_MENTAL_STRESS=C1=01006"=>"음성군",
+			"DT_H_MENTAL_STRESS=C1=01007"=>"제천시",
+			"DT_H_MENTAL_STRESS=C1=01008"=>"증평군",
+			"DT_H_MENTAL_STRESS=C1=01009"=>"진천군",
+			"DT_H_MENTAL_STRESS=C1=01012"=>"충주시",
+			"DT_H_MENTAL_STRESS=C1=01013"=>"청주시",
+			"DT_H_MENTAL_STRESS=C1=0101301"=>"상당구",
+			"DT_H_MENTAL_STRESS=C1=0101302"=>"서원구",
+			"DT_H_MENTAL_STRESS=C1=0101303"=>"흥덕구",
+			"DT_H_MENTAL_STRESS=C1=0101304"=>"청원구",
+			"DT_H_MENTAL_STRESS=C1=011"=>"충청남도",
+			"DT_H_MENTAL_STRESS=C1=01101"=>"계룡시",
+			"DT_H_MENTAL_STRESS=C1=01102"=>"공주시",
+			"DT_H_MENTAL_STRESS=C1=01103"=>"금산군",
+			"DT_H_MENTAL_STRESS=C1=01104"=>"논산시",
+			"DT_H_MENTAL_STRESS=C1=01105"=>"당진시",
+			"DT_H_MENTAL_STRESS=C1=01106"=>"보령시",
+			"DT_H_MENTAL_STRESS=C1=01107"=>"부여군",
+			"DT_H_MENTAL_STRESS=C1=01108"=>"서산시",
+			"DT_H_MENTAL_STRESS=C1=01109"=>"서천군",
+			"DT_H_MENTAL_STRESS=C1=01110"=>"아산시",
+			"DT_H_MENTAL_STRESS=C1=01112"=>"예산군",
+			"DT_H_MENTAL_STRESS=C1=01113"=>"천안시",
+			"DT_H_MENTAL_STRESS=C1=0111301"=>"서북구",
+			"DT_H_MENTAL_STRESS=C1=0111302"=>"동남구",
+			"DT_H_MENTAL_STRESS=C1=01114"=>"청양군",
+			"DT_H_MENTAL_STRESS=C1=01115"=>"태안군",
+			"DT_H_MENTAL_STRESS=C1=01116"=>"홍성군",
+			"DT_H_MENTAL_STRESS=C1=012"=>"전라북도",
+			"DT_H_MENTAL_STRESS=C1=01201"=>"고창군",
+			"DT_H_MENTAL_STRESS=C1=01202"=>"군산시",
+			"DT_H_MENTAL_STRESS=C1=01203"=>"김제시",
+			"DT_H_MENTAL_STRESS=C1=01204"=>"남원시",
+			"DT_H_MENTAL_STRESS=C1=01205"=>"무주군",
+			"DT_H_MENTAL_STRESS=C1=01206"=>"부안군",
+			"DT_H_MENTAL_STRESS=C1=01207"=>"순창군",
+			"DT_H_MENTAL_STRESS=C1=01208"=>"완주군",
+			"DT_H_MENTAL_STRESS=C1=01209"=>"익산시",
+			"DT_H_MENTAL_STRESS=C1=01210"=>"임실군",
+			"DT_H_MENTAL_STRESS=C1=01211"=>"장수군",
+			"DT_H_MENTAL_STRESS=C1=01212"=>"전주시",
+			"DT_H_MENTAL_STRESS=C1=01213"=>"정읍시",
+			"DT_H_MENTAL_STRESS=C1=01214"=>"진안군",
+			"DT_H_MENTAL_STRESS=C1=013"=>"전라남도",
+			"DT_H_MENTAL_STRESS=C1=01301"=>"강진군",
+			"DT_H_MENTAL_STRESS=C1=01302"=>"고흥군",
+			"DT_H_MENTAL_STRESS=C1=01303"=>"곡성군",
+			"DT_H_MENTAL_STRESS=C1=01304"=>"광양시",
+			"DT_H_MENTAL_STRESS=C1=01305"=>"구례군",
+			"DT_H_MENTAL_STRESS=C1=01306"=>"나주시",
+			"DT_H_MENTAL_STRESS=C1=01307"=>"담양군",
+			"DT_H_MENTAL_STRESS=C1=01308"=>"목포시",
+			"DT_H_MENTAL_STRESS=C1=01309"=>"무안군",
+			"DT_H_MENTAL_STRESS=C1=01310"=>"보성군",
+			"DT_H_MENTAL_STRESS=C1=01311"=>"순천시",
+			"DT_H_MENTAL_STRESS=C1=01312"=>"신안군",
+			"DT_H_MENTAL_STRESS=C1=01313"=>"여수시",
+			"DT_H_MENTAL_STRESS=C1=01314"=>"영광군",
+			"DT_H_MENTAL_STRESS=C1=01315"=>"영암군",
+			"DT_H_MENTAL_STRESS=C1=01316"=>"완도군",
+			"DT_H_MENTAL_STRESS=C1=01317"=>"장성군",
+			"DT_H_MENTAL_STRESS=C1=01318"=>"장흥군",
+			"DT_H_MENTAL_STRESS=C1=01319"=>"진도군",
+			"DT_H_MENTAL_STRESS=C1=01320"=>"함평군",
+			"DT_H_MENTAL_STRESS=C1=01321"=>"해남군",
+			"DT_H_MENTAL_STRESS=C1=01322"=>"화순군",
+			"DT_H_MENTAL_STRESS=C1=014"=>"경상북도",
+			"DT_H_MENTAL_STRESS=C1=01401"=>"경산시",
+			"DT_H_MENTAL_STRESS=C1=01402"=>"경주시",
+			"DT_H_MENTAL_STRESS=C1=01403"=>"고령군",
+			"DT_H_MENTAL_STRESS=C1=01404"=>"구미시",
+			"DT_H_MENTAL_STRESS=C1=0140401"=>"구미",
+			"DT_H_MENTAL_STRESS=C1=0140402"=>"선산",
+			"DT_H_MENTAL_STRESS=C1=01405"=>"군위군",
+			"DT_H_MENTAL_STRESS=C1=01406"=>"김천시",
+			"DT_H_MENTAL_STRESS=C1=01407"=>"문경시",
+			"DT_H_MENTAL_STRESS=C1=01408"=>"봉화군",
+			"DT_H_MENTAL_STRESS=C1=01409"=>"상주시",
+			"DT_H_MENTAL_STRESS=C1=01410"=>"성주군",
+			"DT_H_MENTAL_STRESS=C1=01411"=>"안동시",
+			"DT_H_MENTAL_STRESS=C1=01412"=>"영덕군",
+			"DT_H_MENTAL_STRESS=C1=01413"=>"영양군",
+			"DT_H_MENTAL_STRESS=C1=01414"=>"영주시",
+			"DT_H_MENTAL_STRESS=C1=01415"=>"영천시",
+			"DT_H_MENTAL_STRESS=C1=01416"=>"예천군",
+			"DT_H_MENTAL_STRESS=C1=01417"=>"울릉군",
+			"DT_H_MENTAL_STRESS=C1=01418"=>"울진군",
+			"DT_H_MENTAL_STRESS=C1=01419"=>"의성군",
+			"DT_H_MENTAL_STRESS=C1=01420"=>"청도군",
+			"DT_H_MENTAL_STRESS=C1=01421"=>"청송군",
+			"DT_H_MENTAL_STRESS=C1=01422"=>"칠곡군",
+			"DT_H_MENTAL_STRESS=C1=01423"=>"포항시",
+			"DT_H_MENTAL_STRESS=C1=0142301"=>"남구",
+			"DT_H_MENTAL_STRESS=C1=0142302"=>"북구",
+			"DT_H_MENTAL_STRESS=C1=015"=>"경상남도",
+			"DT_H_MENTAL_STRESS=C1=01501"=>"거제시",
+			"DT_H_MENTAL_STRESS=C1=01502"=>"거창군",
+			"DT_H_MENTAL_STRESS=C1=01503"=>"고성군",
+			"DT_H_MENTAL_STRESS=C1=01504"=>"김해시",
+			"DT_H_MENTAL_STRESS=C1=01505"=>"남해군",
+			"DT_H_MENTAL_STRESS=C1=01506"=>"창원시",
+			"DT_H_MENTAL_STRESS=C1=0150601"=>"마산",
+			"DT_H_MENTAL_STRESS=C1=0150602"=>"진해",
+			"DT_H_MENTAL_STRESS=C1=0150603"=>"창원",
+			"DT_H_MENTAL_STRESS=C1=01507"=>"밀양시",
+			"DT_H_MENTAL_STRESS=C1=01508"=>"사천시",
+			"DT_H_MENTAL_STRESS=C1=01509"=>"산청군",
+			"DT_H_MENTAL_STRESS=C1=01510"=>"양산시",
+			"DT_H_MENTAL_STRESS=C1=01511"=>"의령군",
+			"DT_H_MENTAL_STRESS=C1=01512"=>"진주시",
+			"DT_H_MENTAL_STRESS=C1=01513"=>"창녕군",
+			"DT_H_MENTAL_STRESS=C1=01514"=>"통영시",
+			"DT_H_MENTAL_STRESS=C1=01515"=>"하동군",
+			"DT_H_MENTAL_STRESS=C1=01516"=>"함안군",
+			"DT_H_MENTAL_STRESS=C1=01517"=>"함양군",
+			"DT_H_MENTAL_STRESS=C1=01518"=>"합천군",
+			"DT_H_MENTAL_STRESS=C1=016"=>"제주특별자치도",
+			"DT_H_MENTAL_STRESS=C1=01600"=>"서귀포시",
+			"DT_H_MENTAL_STRESS=C1=01600A"=>"제주시",
+			"DT_H_MENTAL_STRESS=C1=01601"=>"서귀포",
+			"DT_H_MENTAL_STRESS=C1=0160201"=>"동부",
+			"DT_H_MENTAL_STRESS=C1=0160202"=>"서부",
+			"DT_H_MENTAL_STRESS=C1=01603"=>"제주",
+			"DT_H_MENTAL_STRESS=C1=0160401"=>"동부",
+			"DT_H_MENTAL_STRESS=C1=0160402"=>"서부",
+		);
+		$dataportal_data_top_sub3["스트레스인지율=시도별"] = array(
+			"DT_H_MENTAL_STRESS=C1=001"=>"서울특별시",
+			"DT_H_MENTAL_STRESS=C1=002"=>"부산광역시",
+			"DT_H_MENTAL_STRESS=C1=003"=>"대구광역시",
+			"DT_H_MENTAL_STRESS=C1=004"=>"인천광역시",
+			"DT_H_MENTAL_STRESS=C1=005"=>"광주광역시",
+			"DT_H_MENTAL_STRESS=C1=006"=>"대전광역시",
+			"DT_H_MENTAL_STRESS=C1=007"=>"울산광역시",
+			"DT_H_MENTAL_STRESS=C1=0071"=>"세종특별자치시",
+			"DT_H_MENTAL_STRESS=C1=008"=>"경기도",
+			"DT_H_MENTAL_STRESS=C1=009"=>"강원도",
+			"DT_H_MENTAL_STRESS=C1=010"=>"충청북도",
+			"DT_H_MENTAL_STRESS=C1=011"=>"충청남도",
+			"DT_H_MENTAL_STRESS=C1=012"=>"전라북도",
+			"DT_H_MENTAL_STRESS=C1=013"=>"전라남도",
+			"DT_H_MENTAL_STRESS=C1=014"=>"경상북도",
+			"DT_H_MENTAL_STRESS=C1=015"=>"경상남도",
+			"DT_H_MENTAL_STRESS=C1=016"=>"제주특별자치도",
+			);
+
+/*
+시·군·구별 비만유병률
+1)
+ㅇ정의: 체질량지수(kg/㎡)가 25이상인 사람의 분율(%)
+ㅇ해당 지표는 2018년부터 계측조사를 실시함에 따라 산출
+
+2) 항목 > 조율
+
+해당 연도 및 지역의 인구 구성비를 그대로 반영하여 산출된 결과
+
+3) 항목 > 표준화율
+
+연도 및 지역간 비교를 위해 인구구성 차이에 따른 영향을 표준인구(2005년 추계인구, 통계청)로 보정한 결과
+*/
+		$dataportal_data_top_sub["스트레스인지율"] = array(
+			"DT_H_MENTAL_STRESS=CR"=>"조율",
+			"DT_H_MENTAL_STRESS=CR_SE"=>"조율표준오차",
+			"DT_H_MENTAL_STRESS=N"=>"응답자수",
+			"DT_H_MENTAL_STRESS=SR"=>"표준화율",
+			"DT_H_MENTAL_STRESS=SR_SE"=>"표준화율표준오차",
+		);
+
+			$dataportal_data_top_sub2["스트레스인지율"]["조율"] = $dataportal_data_top_sub3["스트레스인지율=시도별"];
+
+		/////////////////////////////////////////////////////////////
+		$dataportal_data_top_sub3["암사망비율(사망원인별)=암사망비율"] = array(
+			"DT_1B34E11=C1=0"=>"계",
+			"DT_1B34E11=C1=1"=>"특정 감염성 및 기생충성 질환 (A00-B99 U07.1 U07.2 U10)",
+			"DT_1B34E11=C1=101"=>"콜레라 (A00)",
+			"DT_1B34E11=C1=102"=>"감염성 및 상세불명 기원의 기타 위장염 및 대장염 (A09)",
+			"DT_1B34E11=C1=103"=>"기타 장 감염성 질환 (A01-A08)",
+			"DT_1B34E11=C1=104"=>"호흡기 결핵 (A15-A16)",
+			"DT_1B34E11=C1=105"=>"기타 결핵 (A17-A19)",
+			"DT_1B34E11=C1=106"=>"페스트 (A20)",
+			"DT_1B34E11=C1=107"=>"파상풍 (A33-A35)",
+			"DT_1B34E11=C1=108"=>"디프테리아 (A36)",
+			"DT_1B34E11=C1=109"=>"백일해 (A37)",
+			"DT_1B34E11=C1=110"=>"수막구균감염 (A39)",
+			"DT_1B34E11=C1=111"=>"패혈증 (A40-A41)",
+			"DT_1B34E11=C1=112"=>"주로 성행위로 전파되는 감염 (A50-A64)",
+			"DT_1B34E11=C1=113"=>"급성 회색질척수염 (A80)",
+			"DT_1B34E11=C1=114"=>"광견병 (A82)",
+			"DT_1B34E11=C1=115"=>"황열 (A95)",
+			"DT_1B34E11=C1=116"=>"기타 절지동물 매개의 바이러스열 및 바이러스출혈열 (A90-A94 A96-A99)",
+			"DT_1B34E11=C1=117"=>"홍역 (B05)",
+			"DT_1B34E11=C1=118"=>"바이러스 간염 (B15-B19)",
+			"DT_1B34E11=C1=119"=>"인체면역결핍바이러스병 (B20-B24)",
+			"DT_1B34E11=C1=120"=>"말라리아 (B50-B54)",
+			"DT_1B34E11=C1=121"=>"리슈만편모충증 (B55)",
+			"DT_1B34E11=C1=122"=>"파동편모충증 (B56-B57)",
+			"DT_1B34E11=C1=123"=>"주혈흡충증 (B65)",
+			"DT_1B34E11=C1=124"=>"나머지 특정 감염성 및 기생충성 질환 (Re. A00- B99)",
+			"DT_1B34E11=C1=125"=>"코로나19 (U07.1 U07.2 U10)",
+			"DT_1B34E11=C1=2"=>"신생물 (C00-D48)",
+			"DT_1B34E11=C1=200"=>"악성신생물(암) (C00-C97)",
+			"DT_1B34E11=C1=201"=>"입술 구강 및 인두의 악성신생물 (C00-C14)",
+			"DT_1B34E11=C1=202"=>"식도의 악성신생물 (C15)",
+			"DT_1B34E11=C1=203"=>"위의 악성신생물 (C16)",
+			"DT_1B34E11=C1=204"=>"결장 직장 및 항문의 악성신생물 (C18-C21)",
+			"DT_1B34E11=C1=205"=>"간 및 간내 담관의 악성신생물 (C22)",
+			"DT_1B34E11=C1=206"=>"췌장의 악성신생물 (C25)",
+			"DT_1B34E11=C1=207"=>"후두의 악성신생물 (C32)",
+			"DT_1B34E11=C1=208"=>"기관 기관지 및 폐의 악성신생물 (C33-C34)",
+			"DT_1B34E11=C1=209"=>"피부의 악성 흑색종 (C43)",
+			"DT_1B34E11=C1=210"=>"유방의 악성신생물 (C50)",
+			"DT_1B34E11=C1=211"=>"자궁경부의 악성신생물 (C53)",
+			"DT_1B34E11=C1=212"=>"기타 및 상세불명 자궁부분의 악성신생물 (C54-C55)",
+			"DT_1B34E11=C1=213"=>"난소의 악성신생물 (C56)",
+			"DT_1B34E11=C1=214"=>"전립선의 악성신생물 (C61)",
+			"DT_1B34E11=C1=215"=>"방광의 악성신생물 (C67)",
+			"DT_1B34E11=C1=216"=>"수막 뇌 및 기타 중추신경계통의 악성신생물 (C70-C72)",
+			"DT_1B34E11=C1=217"=>"비호지킨 림프종 (C82-C86)",
+			"DT_1B34E11=C1=218"=>"다발성 골수종 및 악성형질세포 신생물 (C90)",
+			"DT_1B34E11=C1=219"=>"백혈병 (C91-C95)",
+			"DT_1B34E11=C1=220"=>"나머지 악성신생물 (Re. C00- C97)",
+			"DT_1B34E11=C1=221"=>"나머지 신생물 (D00-D48)",
+			"DT_1B34E11=C1=3"=>"혈액 및 조혈기관질환과 면역메커니즘을 침범하는 특정장애 (D50-D89)",
+			"DT_1B34E11=C1=301"=>"빈혈 (D50-D64)",
+			"DT_1B34E11=C1=302"=>"나머지 혈액 및 조혈기관질환과 면역메커니즘을 침범하는 특정장애 (D65-D89)",
+			"DT_1B34E11=C1=4"=>"내분비 영양 및 대사 질환 (E00-E88)",
+			"DT_1B34E11=C1=401"=>"당뇨병 (E10-E14)",
+			"DT_1B34E11=C1=402"=>"영양실조 (E40-E46)",
+			"DT_1B34E11=C1=403"=>"나머지 내분비 영양 및 대사 질환 (Re. E00- E88)",
+			"DT_1B34E11=C1=5"=>"정신 및 행동장애 (F01-F99)",
+			"DT_1B34E11=C1=501"=>"정신활성물질 사용에 의한 정신 및 행동장애 (F10-F19)",
+			"DT_1B34E11=C1=502"=>"나머지 정신 및 행동장애 (Re. F01- F99)",
+			"DT_1B34E11=C1=6"=>"신경계통의 질환 (G00-G98)",
+			"DT_1B34E11=C1=601"=>"수막염 (G00G03)",
+			"DT_1B34E11=C1=602"=>"알츠하이머병 (G30)",
+			"DT_1B34E11=C1=603"=>"나머지 신경계통 질환 (Re. G00- G98)",
+			"DT_1B34E11=C1=7"=>"눈 및 눈부속기의 질환 (H00-H57)",
+			"DT_1B34E11=C1=8"=>"귀 및 유돌의 질환 (H60-H93)",
+			"DT_1B34E11=C1=9"=>"순환계통 질환 (I00-I99)",
+			"DT_1B34E11=C1=901"=>"급성 류마티스열 및 만성 류마티스 심장 질환 (I00-I09)",
+			"DT_1B34E11=C1=902"=>"고혈압성 질환 (I10-I13)",
+			"DT_1B34E11=C1=903"=>"허혈성 심장 질환 (I20-I25)",
+			"DT_1B34E11=C1=904"=>"기타 심장 질환 (I26-I51)",
+			"DT_1B34E11=C1=905"=>"뇌혈관 질환 (I60-I69)",
+			"DT_1B34E11=C1=906"=>"죽상경화증 (I70)",
+			"DT_1B34E11=C1=907"=>"나머지 순환계통 질환 (I71-I99)",
+			"DT_1B34E11=C1=A"=>"호흡계통의 질환 (J00-J98U04)",
+			"DT_1B34E11=C1=A01"=>"인플루엔자 (J09-J11)",
+			"DT_1B34E11=C1=A02"=>"폐렴 (J12-J18)",
+			"DT_1B34E11=C1=A03"=>"기타 급성 하기도 감염 (J20-J22U04)",
+			"DT_1B34E11=C1=A04"=>"만성 하기도 질환 (J40-J47)",
+			"DT_1B34E11=C1=A05"=>"나머지 호흡계통 질환 (Re. J00- J98)",
+			"DT_1B34E11=C1=B"=>"소화계통의 질환 (K00-K92)",
+			"DT_1B34E11=C1=B01"=>"위 및 십이지장 궤양 (K25-K27)",
+			"DT_1B34E11=C1=B02"=>"간 질환 (K70-K76)",
+			"DT_1B34E11=C1=B03"=>"나머지 소화계통 질환 (Re. K00- K92)",
+			"DT_1B34E11=C1=C"=>"피부 및 피하조직의 질환 (L00-L98)",
+			"DT_1B34E11=C1=D"=>"근골격계통 및 결합 조직의 질환 (M00-M99)",
+			"DT_1B34E11=C1=E"=>"비뇨생식계통의 질환 (N00-N98)",
+			"DT_1B34E11=C1=E01"=>"사구체질환 및 세뇨관-간질 질환 (N00-N15)",
+			"DT_1B34E11=C1=E02"=>"나머지 비뇨생식계통 질환 (N17-N98)",
+			"DT_1B34E11=C1=F"=>"임신 출산 및 산후기 (O00-O99)",
+			"DT_1B34E11=C1=F01"=>"유산된 임신 (O00-O07)",
+			"DT_1B34E11=C1=F02"=>"기타 직접산과적 사망 (O10-O92)",
+			"DT_1B34E11=C1=F03"=>"간접산과적 사망 (O98-O99)",
+			"DT_1B34E11=C1=F04"=>"나머지 임신 출산 및 산후기 (O95-O97)",
+			"DT_1B34E11=C1=G"=>"출생전후기에 기원한 특정병태 (P00-P96)",
+			"DT_1B34E11=C1=H"=>"선천 기형 변형 및 염색체 이상 (Q00-Q99)",
+			"DT_1B34E11=C1=I"=>"달리 분류되지 않은 증상 징후 (R00-R99)",
+			"DT_1B34E11=C1=J"=>"질병이환 및 사망의 외인 (V01-Y89 U12)",
+			"DT_1B34E11=C1=J01"=>"운수사고 (V01-V99)",
+			"DT_1B34E11=C1=J02"=>"낙상(추락) (W00-W19)",
+			"DT_1B34E11=C1=J03"=>"불의의 익사 및 익수 (W65-W74)",
+			"DT_1B34E11=C1=J04"=>"연기 불 및 불꽃에 노출 (X00-X09)",
+			"DT_1B34E11=C1=J05"=>"유독성 물질에 의한 불의의 중독 및 노출 (X40-X49)",
+			"DT_1B34E11=C1=J06"=>"고의적 자해(자살) (X60-X84)",
+			"DT_1B34E11=C1=J07"=>"가해(타살) (X85-Y09)",
+			"DT_1B34E11=C1=J08"=>"모든 기타 외인 (Re. V01- Y89 U12)",
+
+			);
+
+/*
+시도별 사망원인생명표(5세별)
+1) 시도별 사망원인생명표는 최종상한연령이 90세이상으로 확대되어 2017.3.31일 갱신됨
+2) 항목 > 사망확률(전체) 특정연령 x세의 사람이 장차 특정사인(i)으로 사망하게 될 확률
+3) 항목 > 증가기대여명(전체) 특정사인(i)을 예방하거나 퇴치함으로써 그 사인으로 사망하지 않고, 이후 다른 사인으로 사망함으로써 사망시기가 연장되어 증가되는 기대여명으로, 특정사인으로 인해 감소되는 기대수명과 같은 의미
+
+사망원인별	 시도별	 연령별
+2020
+2)사망확률(전체) (%)	3)증가기대여명(전체) (년)	 사망확률(남자) (%)	 증가기대여명(남자) (년)	 사망확률(여자) (%)	 증가기대여명(여자) (년)
+			2-----T1=>사망자수
+			2-----T4=>사망률
+
+*/
+		$dataportal_data_top_sub3["암사망비율(사망원인별)=시도별"] = array(
+			"DT_1B34E11=C2=11"=>"서울특별시",
+			"DT_1B34E11=C2=21"=>"부산광역시",
+			"DT_1B34E11=C2=22"=>"대구광역시",
+			"DT_1B34E11=C2=23"=>"인천광역시",
+			"DT_1B34E11=C2=24"=>"광주광역시",
+			"DT_1B34E11=C2=25"=>"대전광역시",
+			"DT_1B34E11=C2=26"=>"울산광역시",
+			"DT_1B34E11=C2=29"=>"세종특별자치시",
+			"DT_1B34E11=C2=31"=>"경기도",
+			"DT_1B34E11=C2=32"=>"강원도",
+			"DT_1B34E11=C2=33"=>"충청북도",
+			"DT_1B34E11=C2=34"=>"충청남도",
+			"DT_1B34E11=C2=35"=>"전라북도",
+			"DT_1B34E11=C2=36"=>"전라남도",
+			"DT_1B34E11=C2=37"=>"경상북도",
+			"DT_1B34E11=C2=38"=>"경상남도",
+			"DT_1B34E11=C2=39"=>"제주도",
+			);
+
+		$dataportal_data_top_sub3["암사망비율(사망원인별)=성별"] = array(
+			"DT_1B34E11=C4=0"=>"계",
+			"DT_1B34E11=C4=1"=>"남자",
+			"DT_1B34E11=C4=2"=>"여자",
+			);
+
+		$dataportal_data_top_sub3["암사망비율(사망원인별)=연령별"] = array(
+			"DT_1B34E11=C3=00"=>"00세",
+			"DT_1B34E11=C3=03"=>"03세",
+			"DT_1B34E11=C3=04"=>"04세",
+			"DT_1B34E11=C3=05"=>"05세~10세",
+			"DT_1B34E11=C3=10"=>"10세~15세",
+			"DT_1B34E11=C3=15"=>"15세~20세",
+			"DT_1B34E11=C3=20"=>"20세~25세",
+			"DT_1B34E11=C3=25"=>"25세~30세",
+			"DT_1B34E11=C3=30"=>"30세~35세",
+			"DT_1B34E11=C3=35"=>"35세~40세",
+			"DT_1B34E11=C3=40"=>"40세~45세",
+			"DT_1B34E11=C3=45"=>"45세~50세",
+			"DT_1B34E11=C3=50"=>"50세~55세",
+			"DT_1B34E11=C3=55"=>"55세~60세",
+			"DT_1B34E11=C3=60"=>"60세~65세",
+			"DT_1B34E11=C3=65"=>"65세~70세",
+			"DT_1B34E11=C3=70"=>"70세~75세",
+			"DT_1B34E11=C3=75"=>"75세~82세",
+			"DT_1B34E11=C3=82"=>"82세~80세",
+			"DT_1B34E11=C3=80"=>"80세~85세",
+			"DT_1B34E11=C3=85"=>"85세~90세",
+			"DT_1B34E11=C3=90"=>"90세~95세",
+			"DT_1B34E11=C3=95"=>"95세",
+		);
+
+		$dataportal_data_top_sub["암사망비율(사망원인별)"] = array(
+			"DT_1B34E11=C1"=>"암사망비율",
+			"DT_1B34E11=C2"=>"시도별",
+			"DT_1B34E11=C3"=>"연령별",
+		);
+
+			$dataportal_data_top_sub2["암사망비율(사망원인별)"]["암사망비율"] = $dataportal_data_top_sub3["암사망비율(사망원인별)=암사망비율"];
+			$dataportal_data_top_sub2["암사망비율(사망원인별)"]["시도별"] = $dataportal_data_top_sub3["암사망비율(사망원인별)=시도별"];
+			$dataportal_data_top_sub2["암사망비율(사망원인별)"]["성별"]   = $dataportal_data_top_sub3["암사망비율(사망원인별)=성별"];
+			$dataportal_data_top_sub2["암사망비율(사망원인별)"]["연령별"] = $dataportal_data_top_sub3["암사망비율(사망원인별)=연령별"];
+		/////////////////////////////////////////////////////////////
+
+	function week_list_chk($datadate)
+	{
+		$year3   = substr($datadate,0,4);
+		$month3  = substr($datadate,4,2);
+		$day3    = substr($datadate,6,2);
+		$week_sw = date('w',mktime(0,0,0,$month3,$day3,$year3));
+		switch($week_sw)
+		{
+			case 1 : $week_chk = "(月)"; break;
+			case 2 : $week_chk = "(火)"; break;
+			case 3 : $week_chk = "(水)"; break;
+			case 4 : $week_chk = "(木)"; break;
+			case 5 : $week_chk = "(金)"; break;
+			case 6 : $week_chk = "(土)"; break;
+			case 0 : $week_chk = "(日)"; break;
+		}
+		$datadate_title = "$year3.$month3.$day3";
+
+		return $datadate_title;
+	}
+	$datadate_title = week_list_chk($datadate);
+
+	$apt_name = iconv("EUC-KR","UTF-8",$apt_name);
+
+	$year_month = "201001";
+
+	//$url_link = "../dataworld_mois/mois_echarts_multiple-3y-axis_apt_maemae_KR007_FN.html?$url_get&Do_code=$Do_code&signguCd=$signguCd$dong_code&dong_code=$dong_code&year_month=$year_month&width=$width2&height=$height2&apt_name=$apt_name";
+
+	$rn = "\n";
+
+	//echo "<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>";
+
+
+	$echarts_colors_list = array(
+		"#667fcc","#88c86a","#f9be39","#eb4747","#69c99c","#5ab5d8","#fc7036","#a774be",
+		'#ff3366','#990099','#008000','#ffcc66','#cc6600','#00d5d5','#432efe','#993300','#B3A7CD','#00cc00',//'#ff00ff',
+		'#0099ff','#D97793','#5DC19B','#660000','#BCBCE8','#E5B98F','#C2E1E2','#C5E2C2',
+		'#E8BCBC','#E4C0E4','#CB8C44','#d2d2d2','#9377D9','#18B4E9','#448CCB','#6979BB','#E1C5C4',
+
+		"#667fcc","#88c86a","#f9be39","#eb4747","#69c99c","#5ab5d8","#fc7036","#a774be",
+		'#ff3366','#990099','#008000','#ffcc66','#cc6600','#00d5d5','#432efe','#993300','#B3A7CD','#00cc00',//'#ff00ff',
+		'#0099ff','#D97793','#5DC19B','#660000','#BCBCE8','#E5B98F','#C2E1E2','#C5E2C2',
+		'#E8BCBC','#E4C0E4','#CB8C44','#d2d2d2','#9377D9','#18B4E9','#448CCB','#6979BB','#E1C5C4',
+
+		);
+	$kcolor = 0;
+	$brn = "\n";
+	$giho_sw = "";
+
+	$knum = 1;
+
+	if($dataportal_data_top)
+		foreach($dataportal_data_top as $upjong1 => $upjong1_name)
+		{
+
+			if($color_onoff_sw == 1) $color_title = "";
+			else					$color_title = "\"itemStyle\":{\"color\":\"$echarts_colors_list[$kcolor]\"},\"lineStyle\":{\"color\":\"$echarts_colors_list[$kcolor]\"},";
+			$kcolor++;
+
+			if(($TreeGraph_sw == 2 or $TreeGraph_sw == 5))$value_count1 = 5;
+			else
+			{
+				$value_count1 = sizeof($dataportal_data_top_sub["$upjong1_name"]);
+				if(!$value_count1)  $value_count1 = 1;
+			}
+			if($TreeGraph_sw == 1) $knum_tit = "";
+			else				   $knum_tit = "$knum,";
+
+			$data_json .= "	{ \"name\": \"$knum_tit$upjong1_name\",$color_title\"value\":$value_count1,$brn		\"children\":[  $brn";
+			$knum++;
+			$k1 = 1;
+		if($dataportal_data_top_sub["$upjong1_name"])
+			foreach($dataportal_data_top_sub["$upjong1_name"] as $upjong2 => $upjong2_name)
+			{
+				$value_count2 = 1;
+				$upjong2_init = $upjong2;
+
+				if(($TreeGraph_sw == 2 or $TreeGraph_sw == 5) and $k1 > 5) {$k1++;continue;}
+
+				if($TreeGraph_sw == 1) $knum_tit1 = "";
+				else				   $knum_tit1 = "$k1,";
+
+				//$upjong2_name = str_replace("="," =",$upjong2_name);
+
+
+				//$upjong2_name_url = $dataportal_data_top_sub_link[$upjong1][$upjong2];
+
+
+				$data_json .= "		{\"name\": \"$knum_tit1$upjong2_name\",$color_title \"value\":$value_count2";
+
+
+
+				$k2 = 1; $total_sub_per = 0; $total_sub_per2 = 0;
+				unset($data_json_imsi3);
+				if($dataportal_data_top_sub2["$upjong1_name"]["$upjong2_name"])
+				{
+					$value_count3 = 1;
+
+					$data_json .= ",$brn\"children\": [ $brn";
+
+					foreach($dataportal_data_top_sub2["$upjong1_name"]["$upjong2_name"] as $upjong3 => $upjong3_name)
+					{
+						if(($TreeGraph_sw == 2 or $TreeGraph_sw == 5) and $k2 > 5) {$k2++;continue;}
+						if($TreeGraph_sw == 1) $knum_tit2 = "";
+						else				   $knum_tit2 = "$k1$k2,";
+
+						if(strstr($upjong3,"="))
+						{
+							//"idx_cd_1505_150501_year=field_name_5"=>"-취업률",
+							//nara_index_saam.html
+							unset($imsi3);
+							$imsi3 = explode("=",$upjong3);
+							$field_name = $imsi3[1];
+
+							unset($imsi31);
+							$imsi3[0] = str_replace("idx_cd_","",$imsi3[0]);
+							$imsi3[0] = str_replace("_year","",$imsi3[0]);
+
+							$imsi31 = explode("_",$imsi3[0]);
+							$idx_cd = $imsi31[0];
+							$stts_cd = $imsi31[1];
+
+							//"idx_cd_F0215_F021501_year=field_name_12"=>"시도별-경기",
+
+							if(substr($stts_cd,0,4) != $idx_cd or (substr($idx_cd,0,1) == "F" or substr($idx_cd,0,1) == "8"))
+							{
+								$url_fname = "nara_index_saam";
+							}
+							else
+							{
+								$url_fname = "nara_index";
+							}
+						}
+
+						//$url_link .= "else if (params.name === '$knum_tit2$upjong3_name') { window.open('http://www.fdataportal.com/{$url_fname}.html?kpc_log=$kpc_log&dataworld_sw=1&chart_sw=highcharts&idx_cd=$idx_cd&stts_cd=$stts_cd&field_name=$field_name&upjong_sub=', 'e_nara_url','toolbar=no,scrollbars=no,location=no,resizable=yes,status=no,width=1850, height=950'); $brn}";
+
+						$data_json_imsi3 .= "{\"name\": \"$knum_tit2$upjong3_name\",$color_title\"value\":$value_count3},$brn";
+						$k2++;
+					}
+					$data_json_imsi3 = substr($data_json_imsi3,0,-1);
+					$data_json .= "$data_json_imsi3$brn";
+					$data_json .= "]$brn";
+				}
+
+				$k1++;
+
+				$data_json .= "},$brn";
+			}
+			$data_json = substr($data_json,0,-3);
+			$data_json .= "$brn}$brn";
+			$data_json .= "]$brn";
+			$data_json .= "},$brn";
+		}
+
+		$data_json = substr($data_json,0,-8);
+		$data_json .= "$brn}$brn]$brn}$brn";
+
+	//echo "$data_json<BR>";
+
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+/*
+	$url_link_list = "
+		//클릭 이벤트를 생성합니다.
+		myChart.on('click', function (params) {
+			if (params.name === '1,범죄피해=개인정보 침해 신고·상담 건수') { window.open('http://www.fdataportal.com/nara_index.html?kpc_log=$kpc_log&dataworld_sw=1&chart_sw=highcharts&idx_cd=1366', 'e_nara_url','toolbar=no,scrollbars=no,location=no,resizable=yes,status=no,width=1850, height=960'); }
+
+			$url_link
+
+		});
+	";
+*/
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+
+?>
