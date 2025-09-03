@@ -925,11 +925,13 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
         },
         xAxis: {
           type: 'value',
-          axisLabel: {
-            formatter: function formatter(value) {
-              return "".concat(value / 1000, "k");
-            },
-            color: utils.getGrays()['500']
+          name: '인구수',
+          nameLocation: 'middle',   
+          nameGap: 40,              
+          nameTextStyle: {          
+            color: utils.getGrays()['600'],
+            fontSize: 13,
+            fontWeight: 500
           },
           axisLine: {
             show: true,
@@ -981,11 +983,11 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
           }
         }],
         grid: {
-          right: 15,
-          left: '12%',
-          bottom: '10%',
-          top: 5
-        }
+        right: 15,
+        left: '12%',
+        bottom: 60,   
+        top: 5
+      }
       };
     };
     echartSetOption(chart, userOptions, getDefaultOptions);
@@ -2288,16 +2290,19 @@ var echartsDoughnutChartInit = function echartsDoughnutChartInit() {
     var chart = window.echarts.init($doughnutChartEl);
     var getDefaultOptions = function getDefaultOptions() {
       return {
+        // legend: {
+        //   left: 'left',
+        //   textStyle: {
+        //     color: utils.getGrays()['600']
+        //   }
+        // },
         legend: {
-          left: 'left',
-          textStyle: {
-            color: utils.getGrays()['600']
-          }
+          show: false
         },
         series: [{
           type: 'pie',
-          radius: ['40%', '70%'],
-          center: ['50%', '55%'],
+          radius: ['50%', '80%'],
+          center: ['50%', '50%'],
           avoidLabelOverlap: false,
           label: {
             show: false,
@@ -2307,32 +2312,32 @@ var echartsDoughnutChartInit = function echartsDoughnutChartInit() {
             show: false
           },
           data: [{
-            value: 1048,
-            name: 'Facebook',
+            value: 5669,
+            name: '출생',
             itemStyle: {
               color: utils.getColor('primary')
             }
           }, {
-            value: 735,
-            name: 'Youtube',
+            value: 48346,
+            name: '전입',
             itemStyle: {
               color: utils.getColor('danger')
             }
           }, {
-            value: 580,
-            name: 'Twitter',
+            value: 86897,
+            name: '전출',
             itemStyle: {
               color: utils.getColor('info')
             }
           }, {
-            value: 484,
-            name: 'Linkedin',
+            value: 79766,
+            name: '사망',
             itemStyle: {
               color: utils.getColor('success')
             }
           }, {
-            value: 300,
-            name: 'Github',
+            value: 24524,
+            name: '총인구',
             itemStyle: {
               color: utils.getColor('warning')
             }
@@ -2370,17 +2375,20 @@ var echartsDoughnutRoundedChartInit = function echartsDoughnutRoundedChartInit()
     var chart = window.echarts.init($doughnutRoundedChartEl);
     var getDefaultOptions = function getDefaultOptions() {
       return {
+        // legend: {
+        //   orient: 'vertical',
+        //   left: 'left',
+        //   textStyle: {
+        //     color: utils.getGrays()['600']
+        //   }
+        // },
         legend: {
-          orient: 'vertical',
-          left: 'left',
-          textStyle: {
-            color: utils.getGrays()['600']
-          }
+          show: false
         },
         series: [{
           type: 'pie',
-          radius: ['40%', '70%'],
-          center: window.innerWidth < 530 ? ['65%', '55%'] : ['50%', '55%'],
+          radius: ['50%', '80%'],
+          center: window.innerWidth < 530 ? ['50%', '50%'] : ['50%', '50%'],
           avoidLabelOverlap: false,
           itemStyle: {
             borderRadius: 10,
@@ -2395,34 +2403,36 @@ var echartsDoughnutRoundedChartInit = function echartsDoughnutRoundedChartInit()
             show: false
           },
           data: [{
-            value: 1048,
-            name: 'Starter',
+            value: 79766,
+            name: '사망',
+            itemStyle: {
+              color: utils.getColor('warning')
+            }
+          }, {
+            value: 48346,
+            name: '전입',
             itemStyle: {
               color: utils.getColor('primary')
             }
           }, {
-            value: 735,
-            name: 'Basic',
-            itemStyle: {
-              color: utils.getColor('danger')
-            }
-          }, {
-            value: 580,
-            name: 'Optimal',
-            itemStyle: {
-              color: utils.getColor('info')
-            }
-          }, {
-            value: 484,
-            name: 'Business',
+            value: 5669,
+            name: '출생',
             itemStyle: {
               color: utils.getColor('success')
             }
-          }, {
-            value: 300,
-            name: 'Premium',
+          },
+          // }, {
+          //   value: 484,
+          //   name: 'Business',
+          //   itemStyle: {
+          //     color: utils.getColor('success')
+          //   }
+          // }, 
+          {
+            value: 86897,
+            name: '전출',
             itemStyle: {
-              color: utils.getColor('warning')
+              color: utils.getColor('info')
             }
           }]
         }],
