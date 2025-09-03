@@ -1302,175 +1302,6 @@
                 <div class="col-lg-6">
                   <div class="card h-100">
                     <div class="card-header d-flex flex-between-center py-2">
-                          <h6 class="mb-0">인구현황</h6>
-                          <!--more-->
-                          <button class="btn btn-primary more-btn" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">더보기</button>
-                          <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-                              <div class="modal-content position-relative">
-                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
-                                  <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body p-0">
-                                  <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
-                                    <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
-                                  </div>
-                                  <div class="p-4 pb-0">
-                                    <form>
-                                      <div class="mb-3">
-                                        <label class="col-form-label" for="recipient-name">Recipient:</label>
-                                        <input class="form-control" id="recipient-name" type="text" />
-                                      </div>
-                                      <div class="mb-3">
-                                        <label class="col-form-label" for="message-text">Message:</label>
-                                        <textarea class="form-control" id="message-text"></textarea>
-                                      </div>
-                                    </form>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                                  <button class="btn btn-primary" type="button">Understood </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!--//more-->
-                        </div>
-                    <div class="card-body">
-                      <div class="echart-bar-chart-series-example" style="min-height: 300px;" data-echart-responsive="true"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card h-100">
-                    <div class="card-header d-flex flex-between-center py-2">
-                      <h6 class="mb-0">인구현황</h6>
-                      <!--more-->
-                      <button class="btn btn-primary more-btn" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">더보기</button>
-                      <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-                          <div class="modal-content position-relative">
-                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
-                              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-0">
-                              <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
-                                <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
-                              </div>
-                              <div class="p-4 pb-0">
-                                <form>
-                                  <div class="mb-3">
-                                    <label class="col-form-label" for="recipient-name">Recipient:</label>
-                                    <input class="form-control" id="recipient-name" type="text" />
-                                  </div>
-                                  <div class="mb-3">
-                                    <label class="col-form-label" for="message-text">Message:</label>
-                                    <textarea class="form-control" id="message-text"></textarea>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                              <button class="btn btn-primary" type="button">Understood </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--//more-->
-                    </div>
-                    <div class="card-body">
-                      <div class="row align-items-center">
-                        <div class="col-sm-4">
-                          <div class="pb-3 mb-3 border-bottom border-200">
-                            <div class="position-relative ps-3">
-                              <div class="position-absolute h-100 start-0 rounded bg-info" style="width: 4px;"></div>
-                              <h6 class="fs--2 text-600 mb-1">출생</h6>
-                              <div class="d-flex align-items-center">
-                                <h5 class="fs-2 text-700 mb-0 me-2" data-countup='{"endValue":79,"suffix":"%"}'>0</h5><span class="badge rounded-pill fs--2 fw-medium badge-subtle-success"><span class="fas fa-check"></span> On par</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="pb-3 mb-3 border-bottom border-200">
-                            <div class="position-relative ps-3">
-                              <div class="position-absolute h-100 start-0 rounded bg-primary" style="width: 4px;"></div>
-                              <h6 class="fs--2 text-600 mb-1">사망</h6>
-                              <div class="d-flex align-items-center">
-                                <h5 class="fs-2 text-700 mb-0 me-2" data-countup='{"endValue":85,"suffix":"%"}'>0</h5><span class="badge rounded-pill fs--2 fw-medium badge-subtle-primary"><span class="fas fa-caret-up"></span> Ahead</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <div class="position-relative ps-3">
-                              <div class="position-absolute h-100 start-0 rounded bg-success" style="width: 4px;"></div>
-                              <h6 class="fs--2 text-600 mb-1">총인구</h6>
-                              <div class="d-flex align-items-center">
-                                <h5 class="fs-2 text-700 mb-0 me-2" data-countup='{"endValue":70,"suffix":"%"}'>0</h5><span class="badge rounded-pill fs--2 fw-medium badge-subtle-danger"><span class="fas fa-caret-down"></span> Behind</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-8 h-100">
-                          <!-- Find the JS file for the following chart at: src/js/charts/echarts/weekly-goals-lms.js-->
-                          <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
-                          <div class="echart-weekly-goals-lms" data-echart-responsive="true"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="card h-100">
-                    <div class="card-header d-flex flex-between-center py-2">
-                      <h6 class="mb-0">연령대별 분포도</h6>
-                      <!--more-->
-                      <button class="btn btn-primary more-btn" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">더보기</button>
-                      <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-                          <div class="modal-content position-relative">
-                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
-                              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-0">
-                              <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
-                                <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
-                              </div>
-                              <div class="p-4 pb-0">
-                                <form>
-                                  <div class="mb-3">
-                                    <label class="col-form-label" for="recipient-name">Recipient:</label>
-                                    <input class="form-control" id="recipient-name" type="text" />
-                                  </div>
-                                  <div class="mb-3">
-                                    <label class="col-form-label" for="message-text">Message:</label>
-                                    <textarea class="form-control" id="message-text"></textarea>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                              <button class="btn btn-primary" type="button">Understood </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--//more-->
-                    </div>
-                    <div class="card-body card-flex">
-                      <div class="card-left">
-                        <div class="echart-horizontal-bar-chart-example" style="min-height: 300px;" data-echart-responsive="true"></div>
-                      </div>
-                      <div class="card-right">
-                        <div class="echart-pie-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="card h-100">
-                    <div class="card-header d-flex flex-between-center py-2">
                       <h6 class="mb-0">지역별 학생수(명)</h6>
                       <!--more-->
                       <button class="btn btn-primary more-btn" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">더보기</button>
@@ -1700,6 +1531,177 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-12">
+                  <div class="card h-100">
+                    <div class="card-header d-flex flex-between-center py-2">
+                      <h6 class="mb-0">연령대별 분포도</h6>
+                      <!--more-->
+                      <button class="btn btn-primary more-btn" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">더보기</button>
+                      <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                          <div class="modal-content position-relative">
+                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                              <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                                <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                              </div>
+                              <div class="p-4 pb-0">
+                                <form>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                    <input class="form-control" id="recipient-name" type="text" />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="message-text">Message:</label>
+                                    <textarea class="form-control" id="message-text"></textarea>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                              <button class="btn btn-primary" type="button">Understood </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--//more-->
+                    </div>
+                    <div class="card-body card-flex">
+                      <div class="card-left">
+                        <div class="echart-horizontal-bar-chart-example" style="min-height: 300px;" data-echart-responsive="true"></div>
+                      </div>
+                      <div class="card-right">
+                        <div class="echart-pie-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="card h-100">
+                    <div class="card-header d-flex flex-between-center py-2">
+                      <h6 class="mb-0">인구현황</h6>
+                      <!--more-->
+                      <button class="btn btn-primary more-btn" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">더보기</button>
+                      <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                          <div class="modal-content position-relative">
+                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                              <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                                <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                              </div>
+                              <div class="p-4 pb-0">
+                                <form>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                    <input class="form-control" id="recipient-name" type="text" />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="message-text">Message:</label>
+                                    <textarea class="form-control" id="message-text"></textarea>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                              <button class="btn btn-primary" type="button">Understood </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--//more-->
+                    </div>
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-sm-4">
+                          <div class="pb-3 mb-3 border-bottom border-200">
+                            <div class="position-relative ps-3">
+                              <div class="position-absolute h-100 start-0 rounded bg-info" style="width: 4px;"></div>
+                              <h6 class="fs--2 text-600 mb-1">출생</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-2 text-700 mb-0 me-2" data-countup='{"endValue":79,"suffix":"%"}'>0</h5><span class="badge rounded-pill fs--2 fw-medium badge-subtle-success"><span class="fas fa-check"></span> On par</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="pb-3 mb-3 border-bottom border-200">
+                            <div class="position-relative ps-3">
+                              <div class="position-absolute h-100 start-0 rounded bg-primary" style="width: 4px;"></div>
+                              <h6 class="fs--2 text-600 mb-1">사망</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-2 text-700 mb-0 me-2" data-countup='{"endValue":85,"suffix":"%"}'>0</h5><span class="badge rounded-pill fs--2 fw-medium badge-subtle-primary"><span class="fas fa-caret-up"></span> Ahead</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <div class="position-relative ps-3">
+                              <div class="position-absolute h-100 start-0 rounded bg-success" style="width: 4px;"></div>
+                              <h6 class="fs--2 text-600 mb-1">총인구</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-2 text-700 mb-0 me-2" data-countup='{"endValue":70,"suffix":"%"}'>0</h5><span class="badge rounded-pill fs--2 fw-medium badge-subtle-danger"><span class="fas fa-caret-down"></span> Behind</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-8 h-100">
+                          <!-- Find the JS file for the following chart at: src/js/charts/echarts/weekly-goals-lms.js-->
+                          <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
+                          <div class="echart-weekly-goals-lms" data-echart-responsive="true"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="card h-100">
+                    <div class="card-header d-flex flex-between-center py-2">
+                          <h6 class="mb-0">인구현황</h6>
+                          <!--more-->
+                          <button class="btn btn-primary more-btn" type="button" data-bs-toggle="modal" data-bs-target="#error-modal">더보기</button>
+                          <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                              <div class="modal-content position-relative">
+                                <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                                  <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-0">
+                                  <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                                    <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                                  </div>
+                                  <div class="p-4 pb-0">
+                                    <form>
+                                      <div class="mb-3">
+                                        <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                        <input class="form-control" id="recipient-name" type="text" />
+                                      </div>
+                                      <div class="mb-3">
+                                        <label class="col-form-label" for="message-text">Message:</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                  <button class="btn btn-primary" type="button">Understood </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--//more-->
+                        </div>
+                    <div class="card-body">
+                      <div class="echart-bar-chart-series-example" style="min-height: 300px;" data-echart-responsive="true"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                
               </div>
             </div>
             <div class="col">
