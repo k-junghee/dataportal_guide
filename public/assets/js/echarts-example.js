@@ -983,8 +983,8 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
           }
         }],
         grid: {
-        right: 15,
-        left: '12%',
+        right: 40,
+        left: 60,
         bottom: 60,   
         top: 5
       }
@@ -3491,6 +3491,14 @@ var echartsHorizontalBarChartInit = function echartsHorizontalBarChartInit() {
     var data = [1272, 1301, 1402, 1216, 1086, 1236, 1219, 1330, 1367, 1416, 1297, 1204];
     var getDefaultOptions = function getDefaultOptions() {
       return {
+        chart: {
+          type: 'bar',
+          backgroundColor: 'transparent',
+          height: 300,
+          styledMode: false,
+          // ✅ 중요: 차트가 부모 요소에 맞게 크기를 조절하게 함
+          width: null 
+        },
         tooltip: {
           trigger: 'axis',
           padding: [7, 10],
@@ -3570,10 +3578,10 @@ var echartsHorizontalBarChartInit = function echartsHorizontalBarChartInit() {
           hoverAnimation: true
         }],
         grid: {
-          right: '3%',
-          left: '10%',
-          bottom: '10%',
-          top: '5%'
+          right: 40,
+          left: 70,
+          bottom: 60,
+          top: 5
         }
       };
     };
