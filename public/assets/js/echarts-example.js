@@ -298,11 +298,13 @@ var tooltipFormatter = function tooltipFormatter(params) {
 /* -------------------------------------------------------------------------- */
 
 var echartsAreaPiecesChartInit = function echartsAreaPiecesChartInit() {
-  var $areaPiecesChartEl = document.querySelector('.echart-area-pieces-chart-example');
-  if ($areaPiecesChartEl) {
+  var $areaPiecesChartEls = document.querySelectorAll('.echart-area-pieces-chart-example');
+
+  $areaPiecesChartEls.forEach(function ($areaPiecesChartEl) {
     // Get options from data attribute
     var userOptions = utils.getData($areaPiecesChartEl, 'options');
     var chart = window.echarts.init($areaPiecesChartEl);
+
     var getDefaultOptions = function getDefaultOptions() {
       return {
         tooltip: {
@@ -310,17 +312,13 @@ var echartsAreaPiecesChartInit = function echartsAreaPiecesChartInit() {
           padding: [7, 10],
           backgroundColor: utils.getGrays()['100'],
           borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
+          textStyle: { color: utils.getGrays()['1100'] },
           borderWidth: 1,
           transitionDuration: 0,
-          position: function position(pos, params, dom, rect, size) {
+          position: function (pos, params, dom, rect, size) {
             return getPosition(pos, params, dom, rect, size);
           },
-          axisPointer: {
-            type: 'none'
-          },
+          axisPointer: { type: 'none' },
           formatter: tooltipFormatter
         },
         xAxis: {
@@ -332,54 +330,35 @@ var echartsAreaPiecesChartInit = function echartsAreaPiecesChartInit() {
               type: 'solid'
             }
           },
-          axisTick: {
-            show: false
-          },
+          axisTick: { show: false },
           axisLabel: {
             color: utils.getGrays()['400'],
-            margin: 15,
-            formatter: function formatter(value) {
-              return window.dayjs(value).format('MMM DD');
-            }
+            margin: 15
+            // 날짜 포맷 없앰 → 그대로 "10대, 20대..." 노출
           },
-          splitLine: {
-            show: false
-          }
+          splitLine: { show: false }
         },
         yAxis: {
           type: 'value',
-          splitLine: {
-            lineStyle: {
-              color: utils.getGrays()['200']
-            }
-          },
+          splitLine: { lineStyle: { color: utils.getGrays()['200'] } },
           boundaryGap: false,
           axisLabel: {
             show: true,
             color: utils.getGrays()['400'],
             margin: 15
           },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          }
+          axisTick: { show: false },
+          axisLine: { show: false }
         },
         visualMap: {
           type: 'piecewise',
           show: false,
           dimension: 0,
           seriesIndex: 0,
-          pieces: [{
-            gt: 1,
-            lt: 3,
-            color: utils.rgbaColor(utils.getColor('primary'), 0.4)
-          }, {
-            gt: 5,
-            lt: 7,
-            color: utils.rgbaColor(utils.getColor('primary'), 0.4)
-          }]
+          pieces: [
+            { gt: 1, lt: 3, color: utils.rgbaColor(utils.getColor('primary'), 0.4) },
+            { gt: 5, lt: 7, color: utils.rgbaColor(utils.getColor('primary'), 0.4) }
+          ]
         },
         series: [{
           type: 'line',
@@ -392,21 +371,23 @@ var echartsAreaPiecesChartInit = function echartsAreaPiecesChartInit() {
           },
           markLine: {
             symbol: ['none', 'none'],
-            label: {
-              show: false
-            },
-            data: [{
-              xAxis: 1
-            }, {
-              xAxis: 3
-            }, {
-              xAxis: 5
-            }, {
-              xAxis: 7
-            }]
+            label: { show: false },
+            data: [
+              { xAxis: 1 },
+              { xAxis: 3 },
+              { xAxis: 5 },
+              { xAxis: 7 }
+            ]
           },
           areaStyle: {},
-          data: [['2019-10-10', 200], ['2019-10-11', 560], ['2019-10-12', 750], ['2019-10-13', 580], ['2019-10-14', 250], ['2019-10-15', 300], ['2019-10-16', 450], ['2019-10-17', 300], ['2019-10-18', 100]]
+          data: [
+            ['10대', 200],
+            ['20대', 560],
+            ['30대', 750],
+            ['40대', 580],
+            ['50대', 250],
+            ['60대', 300]
+          ]
         }],
         grid: {
           right: 20,
@@ -417,9 +398,11 @@ var echartsAreaPiecesChartInit = function echartsAreaPiecesChartInit() {
         }
       };
     };
+
     echartSetOption(chart, userOptions, getDefaultOptions);
-  }
+  });
 };
+
 
 /* -------------------------------------------------------------------------- */
 /*                             Echarts Bar Chart                             */

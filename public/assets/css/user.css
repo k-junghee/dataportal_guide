@@ -37,6 +37,11 @@
     }
 }
 
+.svg-inline--fa {
+  width: 12px;
+  height: 12px;
+}
+
 .table-custom{
   font-size: 12px;
   td{
