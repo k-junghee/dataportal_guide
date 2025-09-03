@@ -36,3 +36,10 @@
         border-color: transparent;
     }
 }
+
+.table-custom{
+  font-size: 12px;
+  td{
+    text-align: center;
+  }
+}

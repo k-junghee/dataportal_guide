@@ -980,7 +980,7 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
           splitLine: {
             show: false
           },
-          data: ['Brazil', 'Indonesia', 'USA', 'India', 'China']
+          data: ['0-9', '10-19', '20-29', '30-39', '40-49']
         },
         series: [{
           name: '2011',
@@ -3494,7 +3494,7 @@ var echartsHorizontalBarChartInit = function echartsHorizontalBarChartInit() {
     // Get options from data attribute
     var userOptions = utils.getData($horizontalBarChartEl, 'options');
     var chart = window.echarts.init($horizontalBarChartEl);
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var months = ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대'];
     var data = [1272, 1301, 1402, 1216, 1086, 1236, 1219, 1330, 1367, 1416, 1297, 1204];
     var getDefaultOptions = function getDefaultOptions() {
       return {
@@ -4859,31 +4859,31 @@ var echartsPieChartInit = function echartsPieChartInit() {
           center: ['50%', '55%'],
           data: [{
             value: 1048,
-            name: 'Facebook',
+            name: '10대',
             itemStyle: {
               color: utils.getColor('primary')
             }
           }, {
             value: 735,
-            name: 'Youtube',
+            name: '20대',
             itemStyle: {
               color: utils.getColor('danger')
             }
           }, {
             value: 580,
-            name: 'Twitter',
+            name: '30대',
             itemStyle: {
               color: utils.getColor('info')
             }
           }, {
             value: 484,
-            name: 'Linkedin',
+            name: '40대',
             itemStyle: {
               color: utils.getColor('success')
             }
           }, {
             value: 300,
-            name: 'Github',
+            name: '50대',
             itemStyle: {
               color: utils.getColor('warning')
             }
