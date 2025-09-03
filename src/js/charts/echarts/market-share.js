@@ -61,9 +61,9 @@ const marketShareInit = () => {
           },
           labelLine: { normal: { show: false } },
           data: [
-            { value: 5300000, name: 'Samsung' },
-            { value: 1900000, name: 'Huawei' },
-            { value: 2000000, name: 'Apple' }
+            { value: 5300000, name: '조리원' },
+            { value: 1900000, name: '조리사' },
+            { value: 2000000, name: '영양사' }
           ]
         }
       ]

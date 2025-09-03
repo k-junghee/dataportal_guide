@@ -905,20 +905,17 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
     // Get options from data attribute
     var userOptions = utils.getData($barSeriesChartEl, 'options');
     var chart = window.echarts.init($barSeriesChartEl);
+    
     var getDefaultOptions = function getDefaultOptions() {
       return {
         color: [utils.getColor('primary'), utils.getColor('info')],
         tooltip: {
           trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          },
+          axisPointer: { type: 'shadow' },
           padding: [7, 10],
           backgroundColor: utils.getGrays()['100'],
           borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
+          textStyle: { color: utils.getGrays()['1100'] },
           borderWidth: 1,
           transitionDuration: 0,
           formatter: tooltipFormatter
@@ -926,9 +923,9 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
         xAxis: {
           type: 'value',
           name: '인구수',
-          nameLocation: 'middle',   
-          nameGap: 40,              
-          nameTextStyle: {          
+          nameLocation: 'middle',
+          nameGap: 40,
+          nameTextStyle: {
             color: utils.getGrays()['600'],
             fontSize: 13,
             fontWeight: 500
@@ -957,42 +954,41 @@ var echartsBarSeriesChartInit = function echartsBarSeriesChartInit() {
             }
           },
           axisLabel: {
-            color: utils.getGrays()['500']
+            color: utils.getGrays()['500'],
+            fontSize: 12
           },
-          axisTick: {
-            show: false
-          },
-          splitLine: {
-            show: false
-          },
-          data: ['0-9', '10-19', '20-29', '30-39', '40-49']
+          axisTick: { show: false },
+          splitLine: { show: false },
+          data: [
+            '0-9', '10-19', '20-29', '30-39', '40-49',
+            '50-59', '60-69', '70-79', '80-89', '90+'
+          ]
         },
         series: [{
           name: '2011',
           type: 'bar',
-          data: [18203, 23489, 29034, 104970, 131744],
-          itemStyle: {
-            barBorderRadius: [0, 3, 3, 0]
-          }
+          data: [12000, 15000, 18000, 22000, 24000, 20000, 17000, 14000, 10000, 5000],  // ← 예시값
+          itemStyle: { barBorderRadius: [0, 3, 3, 0] }
         }, {
           name: '2012',
           type: 'bar',
-          data: [19325, 23438, 31000, 121594, 134141],
-          itemStyle: {
-            barBorderRadius: [0, 3, 3, 0]
-          }
+          data: [13000, 16000, 19000, 23000, 25000, 21000, 18000, 15000, 11000, 6000],  // ← 예시값
+          itemStyle: { barBorderRadius: [0, 3, 3, 0] }
         }],
         grid: {
-        right: 40,
-        left: 60,
-        bottom: 60,   
-        top: 5
-      }
+          right: 40,
+          left: 40,
+          bottom: 40,
+          top: 10,
+          containLabel: true  // ✅ 레이블이 잘리지 않게 자동 여백 조절
+        }
       };
     };
+
     echartSetOption(chart, userOptions, getDefaultOptions);
   }
 };
+
 
 /* -------------------------------------------------------------------------- */
 /*                             Echarts Bar Chart                             */
@@ -1129,7 +1125,7 @@ var echartsBarTimelineChartInit = function echartsBarTimelineChartInit() {
     // Get options from data attribute
     var userOptions = utils.getData($barTimelineChartEl, 'options');
     var chart = window.echarts.init($barTimelineChartEl);
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var months = ['고등학교', '중학교', '초등학교', '유치원'];
     var dataMap = {};
     var dataFormatter = function dataFormatter(obj) {
       return Object.keys(obj).reduce(function (acc, val) {
@@ -2321,7 +2317,7 @@ var echartsDoughnutChartInit = function echartsDoughnutChartInit() {
             value: 48346,
             name: '전입',
             itemStyle: {
-              color: utils.getColor('danger')
+              color: utils.getColor('warning')
             }
           }, {
             value: 86897,
@@ -2335,13 +2331,15 @@ var echartsDoughnutChartInit = function echartsDoughnutChartInit() {
             itemStyle: {
               color: utils.getColor('success')
             }
-          }, {
-            value: 24524,
-            name: '총인구',
-            itemStyle: {
-              color: utils.getColor('warning')
-            }
-          }]
+          }, 
+          // {
+          //   value: 24524,
+          //   name: '총인구',
+          //   itemStyle: {
+          //     color: utils.getColor('danger')
+          //   }
+          // }
+        ]
         }],
         tooltip: {
           trigger: 'item',
@@ -6573,9 +6571,12 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
     // Get options from data attribute
     var userOptions = utils.getData($stackedLineChartEl, 'options');
     var chart = window.echarts.init($stackedLineChartEl);
-    var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    var days = ['2018', '2019', '2020', '2021', '2022', '2023', '2024'];
     var getDefaultOptions = function getDefaultOptions() {
       return {
+        legend: {
+          
+        },
         tooltip: {
           trigger: 'axis',
           padding: [7, 10],
@@ -6597,7 +6598,7 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
         xAxis: {
           type: 'category',
           data: days,
-          boundaryGap: false,
+          boundaryGap: true,
           axisLine: {
             lineStyle: {
               color: utils.getGrays()['300'],
@@ -6610,8 +6611,8 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
           axisLabel: {
             color: utils.getGrays()['400'],
             margin: 15,
-            formatter: function formatter(value) {
-              return value.substring(0, 3);
+            formatter: function(value) {
+              return value.length > 5 ? value.substring(0, 5) + '…' : value;
             }
           },
           splitLine: {
@@ -6640,7 +6641,7 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
           }
         },
         series: [{
-          name: 'Matcha Latte',
+          name: '고등학교',
           type: 'line',
           symbolSize: 6,
           itemStyle: {
@@ -6655,7 +6656,7 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
           stack: 'product',
           data: [120, 132, 101, 134, 90, 230, 210]
         }, {
-          name: 'Milk Tea',
+          name: '중학교',
           type: 'line',
           symbolSize: 10,
           itemStyle: {
@@ -6670,7 +6671,7 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
           stack: 'product',
           data: [220, 182, 191, 234, 290, 330, 310]
         }, {
-          name: 'Cheese Cocoa',
+          name: '초등학교',
           type: 'line',
           symbolSize: 10,
           itemStyle: {
@@ -6685,7 +6686,7 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
           stack: 'product',
           data: [150, 232, 201, 154, 190, 330, 410]
         }, {
-          name: 'Cheese Brownie',
+          name: '유치원',
           type: 'line',
           symbolSize: 10,
           itemStyle: {
@@ -6699,21 +6700,6 @@ var echartsStackedLineChartInit = function echartsStackedLineChartInit() {
           symbol: 'circle',
           stack: 'product',
           data: [320, 332, 301, 334, 390, 330, 320]
-        }, {
-          name: 'Matcha Cocoa',
-          type: 'line',
-          symbolSize: 10,
-          itemStyle: {
-            color: utils.getGrays()['100'],
-            borderColor: utils.getColor('primary'),
-            borderWidth: 2
-          },
-          lineStyle: {
-            color: utils.getColor('primary')
-          },
-          symbol: 'circle',
-          stack: 'product',
-          data: [820, 932, 901, 934, 1290, 1330, 1320]
         }],
         grid: {
           right: 10,

@@ -1221,9 +1221,13 @@
                   </div>
                 </div>
                 <div class="card-body d-flex flex-column justify-content-between py-0">
-                  <div class="my-auto py-md-0">
+                  <div class="my-auto py-md-0 position-relative">
                     <!-- <div class="echart-session-by-browser h-100" data-echart-responsive="true"></div> -->
                      <div class="echart-doughnut-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
+                     <div class="position-absolute top-50 start-50 translate-middle text-center">
+                        <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">총인구</p>
+                        <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">21,524명</p>
+                      </div>
                   </div>
                   <div class="border-top">
                     <table class="table table-sm mb-0">
@@ -1300,10 +1304,10 @@
                             </div>
                           </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <td class="py-3">
                             <div class="d-flex align-items-center">
-                              <!-- <img src="../assets/img/icons/firefox-logo.png" alt="" width="16" /> -->
+                              <img src="../assets/img/icons/firefox-logo.png" alt="" width="16" />
                               <h6 class="text-600 mb-0">총인구</h6>
                             </div>
                           </td>
@@ -1317,7 +1321,7 @@
                               <h6 class="fs--2 mb-0 ms-2 text-700">8.8%</h6>
                             </div>
                           </td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
                   </div>
@@ -1724,163 +1728,111 @@
             </div>
             <div class="col-xxl-6">
               <div class="card h-100">
-                <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
-                  <h6 class="mb-0">인구현황</h6>
-                  <div class="dropdown font-sans-serif btn-reveal-trigger">
-                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                  <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
+                    <h6 class="mb-0">인구현황</h6>
+                    <div class="dropdown font-sans-serif btn-reveal-trigger">
+                      <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                      <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                        <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-body">
-                  <div class="row align-items-center justify-content-center">
-                    <div class="col-sm-6 row mo-flex">
-                      <!-- 출생 -->
-                      <div class="col-sm-6 mb-5">
-                        <div class="position-relative">
-                          <div class="tit mb-3 position-relative">
-                            <div class="position-absolute h-100 start-0 rounded bg-success" style="width: 4px;"></div>
-                            <h6 class="fs--2 text-600 mb-1">출생</h6>
-                          </div>
-                          <div class="t-data">
-                            <h5 class="text-700 mb-0 me-2" data-countup='{"endValue":5669,"suffix":"건"}'>0</h5>
-                            <div class="rate">
-                              <span class="txt">전주대비</span>
-                              <span class="badge rounded-pill fs--2 fw-medium badge-subtle-success">
-                                <!-- <span class="fas fa-check"></span>  -->
-                                2.1%
-                              </span>
+                  <div class="card-body">
+                    <div class="row g-0 h-100">
+                      <div class="col-sm-7 order-1 order-sm-0">
+                        <div class="row g-sm-0 gy-4 row-cols-2 h-100 align-content-center" style="row-gap: 30px">
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-success"></div>
+                              <h6 class="lh-base text-700 mb-0">출생</h6>
                             </div>
-                            
+                            <h5 class="fw-normal"> 5,669건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-success false">2.1%</small>
+                            </h6>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-primary"></div>
+                              <h6 class="lh-base text-700 mb-0">전입</h6>
+                            </div>
+                            <h5 class="fw-normal">48,346건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-danger false">5.1%</small>
+                            </h6>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-info"></div>
+                              <h6 class="lh-base text-700 mb-0">전출</h6>
+                            </div>
+                            <h5 class="fw-normal"> 86,897건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-secondary dark__bg-1000">0.0%</small>
+                            </h6>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-warning"></div>
+                              <h6 class="lh-base text-700 mb-0">사망</h6>
+                            </div>
+                            <h5 class="fw-normal"> 79,766건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-primary false">3.5%</small>
+                            </h6>
                           </div>
                         </div>
                       </div>
-                      <!-- 전입 -->
-                      <div class="col-sm-6 mb-5">
-                        <div class="position-relative">
-                          <div class="tit mb-3 position-relative">
-                            <div class="position-absolute h-100 start-0 rounded bg-primary" style="width: 4px;"></div>
-                            <h6 class="fs--2 text-600 mb-1">전입</h6>
-                          </div>
-                          <div class="t-data">
-                            <h5 class="text-700 mb-0 me-2" data-countup='{"endValue":48346,"suffix":"건"}'>0</h5>
-                            <div class="rate">
-                              <span class="txt">전주대비</span>
-                                <span class="badge rounded-pill fs--2 fw-medium badge-subtle-danger">
-                                  <!-- <span class="fas fa-caret-down"></span>  -->
-                                  5.1%
-                                </span>
-                            </div>
-                          </div>
+                      <div class="col-sm-5 mb-5 mb-sm-0 align-content-center position-relative">
+                        <div class="echart-assignment-scores" data-echart-responsive="true"></div>
+                        <div class="position-absolute top-50 start-50 translate-middle text-center">
+                          <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">총인구</p>
+                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">21,524명</p>
                         </div>
                       </div>
-                      <!-- 전출 -->
-                      <div class="col-sm-6">
-                        <div class="position-relative">
-                          <div class="tit mb-3 position-relative">
-                            <div class="position-absolute h-100 start-0 rounded bg-info" style="width: 4px;"></div>
-                            <h6 class="fs--2 text-600 mb-1">전출</h6>
-                          </div>
-                          <div class="t-data">
-                            <h5 class="text-700 mb-0 me-2" data-countup='{"endValue":86897,"suffix":"건"}'>0</h5>
-                            <div class="rate">
-                              <span class="txt">전주대비</span>
-                              <span class="badge rounded-pill fs--2 fw-medium badge-subtle-warning">
-                                <!-- <span class="fas fa-minus"></span>  -->
-                                0.0%
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- 사망 -->
-                      <div class="col-sm-6 ">
-                        <div class="position-relative">
-                          <div class="tit mb-3 position-relative">
-                            <div class="position-absolute h-100 start-0 rounded bg-warning" style="width: 4px;"></div>
-                            <h6 class="fs--2 text-600 mb-1">사망</h6>
-                          </div>
-                          <div class="t-data">
-                            <h5 class="text-700 mb-0 me-2" data-countup='{"endValue":79766,"suffix":"건"}'>0</h5>
-                            <div class="rate">
-                              <span class="txt">전주대비</span>
-                              <span class="badge rounded-pill fs--2 fw-medium badge-subtle-primary">
-                                <!-- <span class="fas fa-caret-up"></span>  -->
-                                5.1%
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      
-                      <!-- 총인구 -->
-                      <!-- <div>
-                        <div class="position-relative ps-3">
-                          <div class="position-absolute h-100 start-0 rounded bg-success" style="width: 4px;"></div>
-                          <h6 class="fs--2 text-600 mb-1">총인구</h6>
-                          <div class="d-flex align-items-center">
-                            <h5 class="fs-2 text-700 mb-0 me-2" data-countup='{"endValue":70,"suffix":"%"}'>0</h5>
-                            <span class="badge rounded-pill fs--2 fw-medium badge-subtle-danger">
-                              <span class="fas fa-caret-down"></span> Behind
-                            </span>
-                          </div>
-                        </div>
-                      </div> -->
-                    </div>
-                    <!-- 오른쪽 그래프 영역 -->
-                    <div class="col-sm-6 h-100 position-relative">
-                      <div class="echart-doughnut-rounded-chart" style="min-height: 320px;" data-echart-responsive="true"></div>
-                      <div class="po-txt"><p class="text-700 mb-0">총인구</p><p class="text-700 mb-0">21,524명</p></div>
                     </div>
                   </div>
-                </div>
 
-                <div class="card-footer bg-body-tertiary text-end py-2">
-                  <a class="btn btn-link btn-sm px-0 fw-medium" 
-                    href="#!" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#error-modal">
-                    더보기
-                    <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                      <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                    </svg>
-                  </a>
-                  <!--more-->
-                  <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-                        <div class="modal-content position-relative">
-                          <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
-                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body p-0">
-                            <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
-                              <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                  <div class="card-footer bg-body-tertiary text-end py-2">
+                    <a class="btn btn-link btn-sm px-0 fw-medium" 
+                      href="#!" 
+                      data-bs-toggle="modal" 
+                      data-bs-target="#error-modal">
+                      더보기
+                      <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                      </svg>
+                    </a>
+                    <!--more-->
+                    <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                          <div class="modal-content position-relative">
+                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="p-4 pb-0">
-                              <form>
-                                <div class="mb-3">
-                                  <label class="col-form-label" for="recipient-name">Recipient:</label>
-                                  <input class="form-control" id="recipient-name" type="text" />
-                                </div>
-                                <div class="mb-3">
-                                  <label class="col-form-label" for="message-text">Message:</label>
-                                  <textarea class="form-control" id="message-text"></textarea>
-                                </div>
-                              </form>
+                            <div class="modal-body p-0">
+                              <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                                <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                              </div>
+                              <div class="p-4 pb-0">
+                                <form>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                    <input class="form-control" id="recipient-name" type="text" />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="message-text">Message:</label>
+                                    <textarea class="form-control" id="message-text"></textarea>
+                                  </div>
+                                </form>
+                              </div>
                             </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="button">Understood </button>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                              <button class="btn btn-primary" type="button">Understood </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <!--//more-->
+                      <!--//more-->
+                  </div>
                 </div>
-              </div>
             </div>
             <div class="col-xxl-6">
               <div class="card h-100">
@@ -1893,8 +1845,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body">
-                  <div class="echart-bar-chart-series-example" style="min-height: 350px;" data-echart-responsive="true"></div>
+                <div class="card-body align-content-center">
+                  <div class="echart-bar-chart-series-example" style="min-height: 250px;" data-echart-responsive="true"></div>
                 </div>
                 <div class="card-footer bg-body-tertiary text-end py-2">
                   <a class="btn btn-link btn-sm px-0 fw-medium" 
