@@ -1512,29 +1512,32 @@ var echartsWaterFallChartInit = function echartsWaterFallChartInit() {
 /* -------------------------------------------------------------------------- */
 
 var echartsBasicBarChartInit = function echartsBasicBarChartInit() {
-  var $barChartEl = document.querySelector('.echart-basic-bar-chart-example');
-  if ($barChartEl) {
-    // Get options from data attribute
-    var userOptions = utils.getData($barChartEl, 'options');
+  var $barChartEls = document.querySelectorAll('.echart-basic-bar-chart-example');
+  $barChartEls.forEach(function ($barChartEl) {
+    var userOptions = utils.getData($barChartEl, 'options') || {};
     var chart = window.echarts.init($barChartEl);
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    var data = [1272, 1301, 1402, 1216, 1086, 1236, 1219, 1330, 1367, 1416, 1297, 1204];
-    var getDefaultOptions = function getDefaultOptions() {
+
+    // ✅ 사용자 정의 또는 기본값 사용
+    var months = userOptions.months || [
+      'January', 'February', 'March', 'April',
+      'May', 'June', 'July', 'August',
+      'September', 'October', 'November', 'December'
+    ];
+
+    var data = userOptions.data || [1272, 1301, 1402, 1216, 1086, 1236, 1219, 1330, 1367, 1416, 1297, 1204];
+
+    var getDefaultOptions = function () {
       return {
         tooltip: {
           trigger: 'axis',
           padding: [7, 10],
           backgroundColor: utils.getGrays()['100'],
           borderColor: utils.getGrays()['300'],
-          textStyle: {
-            color: utils.getGrays()['1100']
-          },
+          textStyle: { color: utils.getGrays()['1100'] },
           borderWidth: 1,
           formatter: tooltipFormatter,
           transitionDuration: 0,
-          axisPointer: {
-            type: 'none'
-          }
+          axisPointer: { type: 'none' }
         },
         xAxis: {
           type: 'category',
@@ -1545,19 +1548,17 @@ var echartsBasicBarChartInit = function echartsBasicBarChartInit() {
               type: 'solid'
             }
           },
-          axisTick: {
-            show: false
-          },
+          axisTick: { show: false },
           axisLabel: {
+            interval: 0, // 모든 레이블 강제 표시
+            rotate: 30,  // 세로 기울이기 
             color: utils.getGrays()['400'],
-            formatter: function formatter(value) {
-              return value.substring(0, 3);
-            },
+            // formatter: function (value) {
+            //   return value.substring(0, 3);
+            // },
             margin: 15
           },
-          splitLine: {
-            show: false
-          }
+          splitLine: { show: false }
         },
         yAxis: {
           type: 'value',
@@ -1573,24 +1574,19 @@ var echartsBasicBarChartInit = function echartsBasicBarChartInit() {
               color: utils.getGrays()['200']
             }
           },
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: false
-          },
-          min: 600
+          axisTick: { show: false },
+          axisLine: { show: false },
+          min: 0
         },
         series: [{
           type: 'bar',
           name: 'Total',
           data: data,
-          lineStyle: {
-            color: utils.getColor('primary')
-          },
+          barWidth: '16px',
+          lineStyle: { color: utils.getColor('primary') },
           itemStyle: {
             color: utils.getColor('primary'),
-            barBorderRadius: [3, 3, 0, 0]
+            barBorderRadius: [999, 999, 0, 0]
           },
           showSymbol: false,
           symbol: 'circle',
@@ -1600,14 +1596,17 @@ var echartsBasicBarChartInit = function echartsBasicBarChartInit() {
         grid: {
           right: '3%',
           left: '10%',
-          bottom: '10%',
+          bottom: '20%',
           top: '5%'
-        }
+        },
+        
       };
     };
+
     echartSetOption(chart, userOptions, getDefaultOptions);
-  }
+  });
 };
+
 
 /* eslint-disable */
 
