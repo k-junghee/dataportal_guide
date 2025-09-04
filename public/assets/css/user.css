@@ -103,3 +103,10 @@
     width: 50%;
   }
 }
+.custom-scroll-height{
+  height: 13rem;
+
+  @media (max-width: 768px) {
+    height: 24rem;
+  }
+}
