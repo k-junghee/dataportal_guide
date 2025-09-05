@@ -30,10 +30,6 @@
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
-    <link href="../vendors/leaflet/leaflet.css" rel="stylesheet">
-    <link href="../vendors/leaflet.markercluster/MarkerCluster.css" rel="stylesheet">
-    <link href="../vendors/leaflet.markercluster/MarkerCluster.Default.css" rel="stylesheet">
-    <link href="../vendors/flatpickr/flatpickr.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
     <link href="../vendors/simplebar/simplebar.min.css" rel="stylesheet">
@@ -41,6 +37,7 @@
     <link href="../assets/css/theme.css" rel="stylesheet" id="style-default">
     <link href="../assets/css/user-rtl.css" rel="stylesheet" id="user-style-rtl">
     <link href="../assets/css/user.css" rel="stylesheet" id="user-style-default">
+
     <script>
       var isRTL = JSON.parse(localStorage.getItem('isRTL'));
       if (isRTL) {
@@ -223,8 +220,8 @@
           <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
 
             <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-            <a class="navbar-brand me-1 me-sm-3" href="../dashboard/steel_crm.html">
-              <div class="d-flex align-items-center"><img class="me-2" src="../assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" /><span class="font-sans-serif text-primary">falcon</span>
+            <a class="navbar-brand me-1 me-sm-3" href="index.html">
+              <div class="d-flex align-items-center"><img class="me-2" src="assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" /><span class="font-sans-serif text-primary">falcon</span>
               </div>
             </a>
             <ul class="navbar-nav align-items-center d-none d-lg-block">
@@ -240,14 +237,14 @@
                   </div>
                   <div class="dropdown-menu border font-base start-0 mt-2 py-0 overflow-hidden w-100">
                     <div class="scrollbar list py-3" style="max-height: 24rem;">
-                      <h6 class="dropdown-header fw-medium text-uppercase px-x1 fs--2 pt-0 pb-2">Recently Browsed</h6><a class="dropdown-item fs--1 px-x1 py-1 hover-primary" href="../app/events/event-detail.html">
+                      <h6 class="dropdown-header fw-medium text-uppercase px-x1 fs--2 pt-0 pb-2">Recently Browsed</h6><a class="dropdown-item fs--1 px-x1 py-1 hover-primary" href="app/events/event-detail.html">
                         <div class="d-flex align-items-center">
                           <span class="fas fa-circle me-2 text-300 fs--2"></span>
 
                           <div class="fw-normal title">Pages <span class="fas fa-chevron-right mx-1 text-500 fs--2" data-fa-transform="shrink-2"></span> Events</div>
                         </div>
                       </a>
-                      <a class="dropdown-item fs--1 px-x1 py-1 hover-primary" href="../app/e-commerce/customers.html">
+                      <a class="dropdown-item fs--1 px-x1 py-1 hover-primary" href="app/e-commerce/customers.html">
                         <div class="d-flex align-items-center">
                           <span class="fas fa-circle me-2 text-300 fs--2"></span>
 
@@ -256,17 +253,17 @@
                       </a>
 
                       <hr class="text-200 dark__text-900" />
-                      <h6 class="dropdown-header fw-medium text-uppercase px-x1 fs--2 pt-0 pb-2">Suggested Filter</h6><a class="dropdown-item px-x1 py-1 fs-0" href="../app/e-commerce/customers.html">
+                      <h6 class="dropdown-header fw-medium text-uppercase px-x1 fs--2 pt-0 pb-2">Suggested Filter</h6><a class="dropdown-item px-x1 py-1 fs-0" href="app/e-commerce/customers.html">
                         <div class="d-flex align-items-center"><span class="badge fw-medium text-decoration-none me-2 badge-subtle-warning">customers:</span>
                           <div class="flex-1 fs--1 title">All customers list</div>
                         </div>
                       </a>
-                      <a class="dropdown-item px-x1 py-1 fs-0" href="../app/events/event-detail.html">
+                      <a class="dropdown-item px-x1 py-1 fs-0" href="app/events/event-detail.html">
                         <div class="d-flex align-items-center"><span class="badge fw-medium text-decoration-none me-2 badge-subtle-success">events:</span>
                           <div class="flex-1 fs--1 title">Latest events in current month</div>
                         </div>
                       </a>
-                      <a class="dropdown-item px-x1 py-1 fs-0" href="../app/e-commerce/product/product-grid.html">
+                      <a class="dropdown-item px-x1 py-1 fs-0" href="app/e-commerce/product/product-grid.html">
                         <div class="d-flex align-items-center"><span class="badge fw-medium text-decoration-none me-2 badge-subtle-info">products:</span>
                           <div class="flex-1 fs--1 title">Most popular products</div>
                         </div>
@@ -275,7 +272,7 @@
                       <hr class="text-200 dark__text-900" />
                       <h6 class="dropdown-header fw-medium text-uppercase px-x1 fs--2 pt-0 pb-2">Files</h6><a class="dropdown-item px-x1 py-2" href="#!">
                         <div class="d-flex align-items-center">
-                          <div class="file-thumbnail me-2"><img class="border h-100 w-100 object-fit-cover rounded-3" src="../assets/img/products/3-thumb.png" alt="" /></div>
+                          <div class="file-thumbnail me-2"><img class="border h-100 w-100 object-fit-cover rounded-3" src="assets/img/products/3-thumb.png" alt="" /></div>
                           <div class="flex-1">
                             <h6 class="mb-0 title">iPhone</h6>
                             <p class="fs--2 mb-0 d-flex"><span class="fw-semi-bold">Antony</span><span class="fw-medium text-600 ms-2">27 Sep at 10:30 AM</span></p>
@@ -284,7 +281,7 @@
                       </a>
                       <a class="dropdown-item px-x1 py-2" href="#!">
                         <div class="d-flex align-items-center">
-                          <div class="file-thumbnail me-2"><img class="img-fluid" src="../assets/img/icons/zip.png" alt="" /></div>
+                          <div class="file-thumbnail me-2"><img class="img-fluid" src="assets/img/icons/zip.png" alt="" /></div>
                           <div class="flex-1">
                             <h6 class="mb-0 title">Falcon v1.8.2</h6>
                             <p class="fs--2 mb-0 d-flex"><span class="fw-semi-bold">John</span><span class="fw-medium text-600 ms-2">30 Sep at 12:30 PM</span></p>
@@ -293,10 +290,10 @@
                       </a>
 
                       <hr class="text-200 dark__text-900" />
-                      <h6 class="dropdown-header fw-medium text-uppercase px-x1 fs--2 pt-0 pb-2">Members</h6><a class="dropdown-item px-x1 py-2" href="../pages/user/profile.html">
+                      <h6 class="dropdown-header fw-medium text-uppercase px-x1 fs--2 pt-0 pb-2">Members</h6><a class="dropdown-item px-x1 py-2" href="pages/user/profile.html">
                         <div class="d-flex align-items-center">
                           <div class="avatar avatar-l status-online me-2">
-                            <img class="rounded-circle" src="../assets/img/team/1.jpg" alt="" />
+                            <img class="rounded-circle" src="assets/img/team/1.jpg" alt="" />
 
                           </div>
                           <div class="flex-1">
@@ -305,10 +302,10 @@
                           </div>
                         </div>
                       </a>
-                      <a class="dropdown-item px-x1 py-2" href="../pages/user/profile.html">
+                      <a class="dropdown-item px-x1 py-2" href="pages/user/profile.html">
                         <div class="d-flex align-items-center">
                           <div class="avatar avatar-l me-2">
-                            <img class="rounded-circle" src="../assets/img/team/2.jpg" alt="" />
+                            <img class="rounded-circle" src="assets/img/team/2.jpg" alt="" />
 
                           </div>
                           <div class="flex-1">
@@ -317,10 +314,10 @@
                           </div>
                         </div>
                       </a>
-                      <a class="dropdown-item px-x1 py-2" href="../pages/user/profile.html">
+                      <a class="dropdown-item px-x1 py-2" href="pages/user/profile.html">
                         <div class="d-flex align-items-center">
                           <div class="avatar avatar-l me-2">
-                            <img class="rounded-circle" src="../assets/img/team/3.jpg" alt="" />
+                            <img class="rounded-circle" src="assets/img/team/3.jpg" alt="" />
 
                           </div>
                           <div class="flex-1">
@@ -351,7 +348,7 @@
                 </div>
               </li>
               <li class="nav-item d-none d-sm-block">
-                <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="../app/e-commerce/shopping-cart.html"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
+                <a class="nav-link px-0 notification-indicator notification-indicator-warning notification-indicator-fill fa-icon-wait" href="app/e-commerce/shopping-cart.html"><span class="fas fa-shopping-cart" data-fa-transform="shrink-7" style="font-size: 33px;"></span><span class="notification-indicator-number">1</span></a>
 
               </li>
               <li class="nav-item dropdown">
@@ -373,7 +370,7 @@
                           <a class="notification notification-flush notification-unread" href="#!">
                             <div class="notification-avatar">
                               <div class="avatar avatar-2xl me-3">
-                                <img class="rounded-circle" src="../assets/img/team/1-thumb.png" alt="" />
+                                <img class="rounded-circle" src="assets/img/team/1-thumb.png" alt="" />
 
                               </div>
                             </div>
@@ -405,7 +402,7 @@
                           <a class="notification notification-flush" href="#!">
                             <div class="notification-avatar">
                               <div class="avatar avatar-2xl me-3">
-                                <img class="rounded-circle" src="../assets/img/icons/weather-sm.jpg" alt="" />
+                                <img class="rounded-circle" src="assets/img/icons/weather-sm.jpg" alt="" />
 
                               </div>
                             </div>
@@ -421,7 +418,7 @@
                           <a class="border-bottom-0 notification-unread  notification notification-flush" href="#!">
                             <div class="notification-avatar">
                               <div class="avatar avatar-xl me-3">
-                                <img class="rounded-circle" src="../assets/img/logos/oxford.png" alt="" />
+                                <img class="rounded-circle" src="assets/img/logos/oxford.png" alt="" />
 
                               </div>
                             </div>
@@ -437,7 +434,7 @@
                           <a class="border-bottom-0 notification notification-flush" href="#!">
                             <div class="notification-avatar">
                               <div class="avatar avatar-xl me-3">
-                                <img class="rounded-circle" src="../assets/img/team/10.jpg" alt="" />
+                                <img class="rounded-circle" src="assets/img/team/10.jpg" alt="" />
 
                               </div>
                             </div>
@@ -451,7 +448,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="card-footer text-center border-top"><a class="card-link d-block" href="../app/social/notifications.html">View all</a></div>
+                    <div class="card-footer text-center border-top"><a class="card-link d-block" href="app/social/notifications.html">View all</a></div>
                   </div>
                 </div>
 
@@ -474,65 +471,65 @@
                     <div class="scrollbar-overlay nine-dots-dropdown">
                       <div class="card-body px-3">
                         <div class="row text-center gx-0 gy-0">
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="../pages/user/profile.html" target="_blank">
-                              <div class="avatar avatar-2xl"> <img class="rounded-circle" src="../assets/img/team/3.jpg" alt="" /></div>
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="pages/user/profile.html" target="_blank">
+                              <div class="avatar avatar-2xl"> <img class="rounded-circle" src="assets/img/team/3.jpg" alt="" /></div>
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2">Account</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="https://themewagon.com/" target="_blank"><img class="rounded" src="../assets/img/nav-icons/themewagon.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="https://themewagon.com/" target="_blank"><img class="rounded" src="assets/img/nav-icons/themewagon.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Themewagon</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="https://mailbluster.com/" target="_blank"><img class="rounded" src="../assets/img/nav-icons/mailbluster.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="https://mailbluster.com/" target="_blank"><img class="rounded" src="assets/img/nav-icons/mailbluster.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Mailbluster</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/google.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/google.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Google</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/spotify.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/spotify.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Spotify</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/steam.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/steam.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Steam</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/github-light.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/github-light.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Github</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/discord.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/discord.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Discord</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/xbox.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/xbox.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">xbox</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/trello.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/trello.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Kanban</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/hp.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/hp.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Hp</p>
                             </a></div>
                           <div class="col-12">
                             <hr class="my-3 mx-n3 bg-200" />
                           </div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/linkedin.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/linkedin.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Linkedin</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/twitter.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/twitter.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Twitter</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/facebook.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/facebook.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Facebook</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/instagram.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/instagram.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Instagram</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/pinterest.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/pinterest.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Pinterest</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/slack.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/slack.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Slack</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="../assets/img/nav-icons/deviantart.png" alt="" width="40" height="40" />
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="#!" target="_blank"><img class="rounded" src="assets/img/nav-icons/deviantart.png" alt="" width="40" height="40" />
                               <p class="mb-0 fw-medium text-800 text-truncate fs--2 pt-1">Deviantart</p>
                             </a></div>
-                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="../app/events/event-detail.html" target="_blank">
+                          <div class="col-4"><a class="d-block hover-bg-200 px-2 py-3 rounded-3 text-center text-decoration-none" href="app/events/event-detail.html" target="_blank">
                               <div class="avatar avatar-2xl">
                                 <div class="avatar-name rounded-circle bg-primary-subtle text-primary"><span class="fs-2">E</span></div>
                               </div>
@@ -558,260 +555,23 @@
 
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#!">Set status</a>
-                    <a class="dropdown-item" href="../pages/user/profile.html">Profile &amp; account</a>
+                    <a class="dropdown-item" href="pages/user/profile.html">Profile &amp; account</a>
                     <a class="dropdown-item" href="#!">Feedback</a>
 
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="../pages/user/settings.html">Settings</a>
-                    <a class="dropdown-item" href="../pages/authentication/card/logout.html">Logout</a>
+                    <a class="dropdown-item" href="pages/user/settings.html">Settings</a>
+                    <a class="dropdown-item" href="pages/authentication/card/logout.html">Logout</a>
                   </div>
                 </div>
               </li>
             </ul>
           </nav>
-          <div class="row mb-3">
-            <div class="col">
-              <div class="card bg-100 shadow-none border">
-                <div class="row gx-0 flex-between-center">
-                  <div class="col-sm-auto d-flex align-items-center"><img class="ms-n2" src="../assets/img/illustrations/crm-bar-chart.png" alt="" width="90" />
-                    <div>
-                      <h6 class="text-primary fs--1 mb-0">Dataportal </h6>
-                      <h4 class="text-primary fw-bold mb-0">인구현황 <span class="text-info fw-medium">대시보드</span></h4>
-                    </div><img class="ms-n4 d-md-none d-lg-block" src="../assets/img/illustrations/crm-line-chart.png" alt="" width="150" />
-                  </div>
-                  <div class="col-md-auto p-3">
-                    <form class="row align-items-center g-3">
-                      <div class="col-auto">
-                        <h6 class="text-700 mb-0">Showing Data For: </h6>
-                      </div>
-                      <div class="col-md-auto position-relative">
-                        <input class="form-control form-control-sm datetimepicker ps-4" id="CRMDateRange" type="text" data-options="{&quot;mode&quot;:&quot;range&quot;,&quot;dateFormat&quot;:&quot;M d&quot;,&quot;disableMobile&quot;:true , &quot;defaultDate&quot;: [&quot;Aug 23&quot;, &quot;Aug 30&quot;] }" /><span class="fas fa-calendar-alt text-primary position-absolute top-50 translate-middle-y ms-2"> </span>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-3 g-3">
-            <div class="col-lg-12 col-xxl-9">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-lg-4 border-end-lg border-bottom border-bottom-lg-0 pb-3 pb-lg-0">
-                      <div class="d-flex flex-between-center mb-3">
-                        <div class="d-flex align-items-center">
-                          <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-primary-subtle"><span class="fs--2 fas fa-phone text-primary"></span></div>
-                          <h6 class="mb-0">New Contact</h6>
-                        </div>
-                        <div class="dropdown font-sans-serif btn-reveal-trigger">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-contact" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-new-contact"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex">
-                        <div class="d-flex">
-                          <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">15%</p>
-                          <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-up text-primary"></span>
-                            <p class="fs--2 mb-0 text-nowrap">2500 vs 2683 </p>
-                          </div>
-                        </div>
-                        <div class="echart-crm-statistics w-100 ms-2" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[220,230,150,175,200,170,70,160],"color":"#2c7be5","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#2c7be53A"},{"offset":1,"color":"#2c7be50A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 border-end-lg border-bottom border-bottom-lg-0 py-3 py-lg-0">
-                      <div class="d-flex flex-between-center mb-3">
-                        <div class="d-flex align-items-center">
-                          <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-info-subtle"><span class="fs--2 fas fa-user text-info"></span></div>
-                          <h6 class="mb-0">New Users</h6>
-                        </div>
-                        <div class="dropdown font-sans-serif btn-reveal-trigger">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-users" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-new-users"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex">
-                        <div class="d-flex">
-                          <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">13%</p>
-                          <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-up text-success"></span>
-                            <p class="fs--2 mb-0 text-nowrap">1635 vs 863 </p>
-                          </div>
-                        </div>
-                        <div class="echart-crm-statistics w-100 ms-2" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[90,160,150,120,230,155,220,240],"color":"#27bcfd","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#27bcfd3A"},{"offset":1,"color":"#27bcfd0A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 pt-3 pt-lg-0">
-                      <div class="d-flex flex-between-center mb-3">
-                        <div class="d-flex align-items-center">
-                          <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-success-subtle"><span class="fs--2 fas fa-bolt text-success"></span></div>
-                          <h6 class="mb-0">New Leads</h6>
-                        </div>
-                        <div class="dropdown font-sans-serif btn-reveal-trigger">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-leads" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-new-leads"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex">
-                        <div class="d-flex">
-                          <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">16%</p>
-                          <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-down text-danger"></span>
-                            <p class="fs--2 mb-0 text-nowrap">1423 vs 256 </p>
-                          </div>
-                        </div>
-                        <div class="echart-crm-statistics w-100 ms-2" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[200,150,175,130,150,115,130,100],"color":"#00d27a","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#00d27a3A"},{"offset":1,"color":"#00d27a0A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header d-flex flex-between-center ps-0 py-0 border-bottom">
-                  <ul class="nav nav-tabs border-0 flex-nowrap tab-active-caret" id="crm-revenue-chart-tab" role="tablist" data-tab-has-echarts="data-tab-has-echarts">
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0 active" id="crm-revenue-tab" data-bs-toggle="tab" href="#crm-revenue" role="tab" aria-controls="crm-revenue" aria-selected="true">Revenue</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="crm-users-tab" data-bs-toggle="tab" href="#crm-users" role="tab" aria-controls="crm-users" aria-selected="false">Users</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="crm-deals-tab" data-bs-toggle="tab" href="#crm-deals" role="tab" aria-controls="crm-deals" aria-selected="false">Deals</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="crm-profit-tab" data-bs-toggle="tab" href="#crm-profit" role="tab" aria-controls="crm-profit" aria-selected="false">Profit</a></li>
-                  </ul>
-                  <div class="dropdown font-sans-serif btn-reveal-trigger">
-                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-session-by-country" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-session-by-country"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="row g-1">
-                    <div class="col-xxl-3">
-                      <div class="row g-0 my-2">
-                        <div class="col-md-6 col-xxl-12">
-                          <div class="border-bottom-xxl border-200 mb-2">
-                            <h2 class="text-primary">$37,950</h2>
-                            <p class="fs--2 text-500 fw-semi-bold mb-0"><span class="fas fa-circle text-primary me-2"></span>Closed Amount</p>
-                            <p class="fs--2 text-500 fw-semi-bold"><span class="fas fa-circle text-warning me-2"></span>Revenue Goal</p>
-                          </div>
-                          <div class="form-check form-check-inline me-2">
-                            <input class="form-check-input" id="crmInbound" type="radio" name="bound" value="inbound" Checked="Checked" />
-                            <label class="form-check-label" for="crmInbound">Inbound</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" id="outbound" type="radio" name="bound" value="outbound" />
-                            <label class="form-check-label" for="outbound">Outbound</label>
-                          </div>
-                        </div>
-                        <div class="col-md-6 col-xxl-12 py-2">
-                          <div class="row mx-0">
-                            <div class="col-6 border-end border-bottom py-3">
-                              <h5 class="fw-normal text-600">$4.2k</h5>
-                              <h6 class="text-500 mb-0">Email</h6>
-                            </div>
-                            <div class="col-6 border-bottom py-3">
-                              <h5 class="fw-normal text-600">$5.6k</h5>
-                              <h6 class="text-500 mb-0">Social</h6>
-                            </div>
-                            <div class="col-6 border-end py-3">
-                              <h5 class="fw-normal text-600">$6.7k</h5>
-                              <h6 class="text-500 mb-0">Call</h6>
-                            </div>
-                            <div class="col-6 py-3">
-                              <h5 class="fw-normal text-600">$2.3k</h5>
-                              <h6 class="text-500 mb-0">Other</h6>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xxl-9">
-                      <div class="tab-content">
-                        <!-- Find the JS file for the following chart at: src/js/charts/echarts/crm-revenue.js-->
-                        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
-                        <div class="tab-pane active" id="crm-revenue" role="tabpanel" aria-labelledby="crm-revenue-tab">
-                          <div class="echart-crm-revenue" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                        <div class="tab-pane" id="crm-users" role="tabpanel" aria-labelledby="crm-users-tab">
-                          <div class="echart-crm-users" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                        <div class="tab-pane" id="crm-deals" role="tabpanel" aria-labelledby="crm-deals-tab">
-                          <div class="echart-crm-deals" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                        <div class="tab-pane" id="crm-profit" role="tabpanel" aria-labelledby="crm-profit-tab">
-                          <div class="echart-crm-profit" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xxl-3">
-              <div class="card">
-                <div class="card-header d-flex flex-between-center py-2 border-bottom">
-                  <h6 class="mb-0">Most Leads</h6>
-                  <div class="dropdown font-sans-serif btn-reveal-trigger">
-                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-most-leads" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-most-leads"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body d-flex flex-column justify-content-between">
-                  <div class="row align-items-center">
-                    <div class="col-md-5 col-xxl-12 mb-xxl-1">
-                      <div class="position-relative">
-                        <!-- Find the JS file for the following chart at: src/js/charts/echarts/most-leads.js-->
-                        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
-                        <div class="echart-most-leads my-2" data-echart-responsive="true"></div>
-                        <div class="position-absolute top-50 start-50 translate-middle text-center">
-                          <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">Total</p>
-                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">15.6k</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xxl-12 col-md-7">
-                      <hr class="mx-nx1 mb-0 d-md-none d-xxl-block" />
-                      <div class="d-flex flex-between-center border-bottom py-3 pt-md-0 pt-xxl-3">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/email.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Email </h6>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">5200 vs 1052</p>
-                        <h6 class="text-700 mb-0">54%</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/social.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Social </h6>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">5623 vs 4929</p>
-                        <h6 class="text-700 mb-0">27%</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/call.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Call </h6>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">2535 vs 1486</p>
-                        <h6 class="text-700 mb-0">4%</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3 border-bottom-0 pb-0">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/other.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Other </h6>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">256 vs 189</p>
-                        <h6 class="text-700 mb-0">13%</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer bg-body-tertiary p-0"><a class="btn btn-sm btn-link d-block py-2" href="#!">View all<span class="fas fa-chevron-right ms-1 fs--2"></span></a></div>
-              </div>
-            </div>
-            <div class="col-lg-12">
+          <!-- layout -->
+          <div class="row g-0 mb-3">
+            <div class="col-md-6 col-xxl-3 pe-md-2 mb-3 mb-xxl-0">
               <div class="card h-100">
                 <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
-                  <h6 class="mb-0">연령대별 분포도</h6>
+                  <h6 class="mb-0">인구현황</h6>
                   <div class="dropdown font-sans-serif btn-reveal-trigger">
                     <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
                     <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
@@ -819,12 +579,110 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body row align-items-center">
-                  <div class="col-sm-8 g-0">
-                    <div class="echart-horizontal-bar-chart-example" style="min-height: 300px;" data-echart-responsive="true"></div>
+                <div class="card-body d-flex flex-column justify-content-between py-0">
+                  <div class="my-auto py-md-0 position-relative">
+                    <!-- <div class="echart-session-by-browser h-100" data-echart-responsive="true"></div> -->
+                     <div class="echart-doughnut-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
+                     <div class="position-absolute top-50 start-50 translate-middle text-center">
+                        <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">총인구</p>
+                        <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">21,524명</p>
+                      </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="echart-pie-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
+                  <div class="border-top">
+                    <table class="table table-sm mb-0">
+                      <tbody>
+                        <tr>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center">
+                              <!-- <img src="../assets/img/icons/chrome-logo.png" alt="" width="16" /> -->
+                              <h6 class="text-600 mb-0">출생</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center"><span class="fas fa-circle fs--2 me-2 text-primary"></span>
+                              <h6 class="fw-normal text-700 mb-0">5,669건</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center justify-content-end"><span class="fas fa-caret-down text-danger"></span>
+                              <h6 class="fs--2 mb-0 ms-2 text-700">3.2%</h6>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center">
+                              <!-- <img src="../assets/img/icons/safari-logo.png" alt="" width="16" /> -->
+                              <h6 class="text-600 mb-0">사망</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center"><span class="fas fa-circle fs--2 me-2 text-success"></span>
+                              <h6 class="fw-normal text-700 mb-0">79,766건</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center justify-content-end"><span class="fas fa-caret-up text-success"></span>
+                              <h6 class="fs--2 mb-0 ms-2 text-700">36.1%</h6>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center">
+                              <!-- <img src="../assets/img/icons/firefox-logo.png" alt="" width="16" /> -->
+                              <h6 class="text-600 mb-0">전출</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center"><span class="fas fa-circle fs--2 me-2 text-info"></span>
+                              <h6 class="fw-normal text-700 mb-0">86,897건</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center justify-content-end"><span class="fas fa-caret-up text-success"></span>
+                              <h6 class="fs--2 mb-0 ms-2 text-700">33.3%</h6>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center">
+                              <!-- <img src="../assets/img/icons/firefox-logo.png" alt="" width="16" /> -->
+                              <h6 class="text-600 mb-0">전입</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center"><span class="fas fa-circle fs--2 me-2 text-warning"></span>
+                              <h6 class="fw-normal text-700 mb-0">48,346건</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center justify-content-end"><span class="fas fa-caret-up text-success"></span>
+                              <h6 class="fs--2 mb-0 ms-2 text-700">18.6%</h6>
+                            </div>
+                          </td>
+                        </tr>
+                        <!-- <tr>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center">
+                              <img src="../assets/img/icons/firefox-logo.png" alt="" width="16" />
+                              <h6 class="text-600 mb-0">총인구</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center"><span class="fas fa-circle fs--2 me-2 text-danger"></span>
+                              <h6 class="fw-normal text-700 mb-0">21,524건</h6>
+                            </div>
+                          </td>
+                          <td class="py-3">
+                            <div class="d-flex align-items-center justify-content-end"><span class="fas fa-caret-up text-success"></span>
+                              <h6 class="fs--2 mb-0 ms-2 text-700">8.8%</h6>
+                            </div>
+                          </td>
+                        </tr> -->
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <div class="card-footer bg-body-tertiary text-end py-2">
@@ -832,7 +690,362 @@
                     href="#!" 
                     data-bs-toggle="modal" 
                     data-bs-target="#error-modal">
-                    자세히 보기
+                    더보기
+                    <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                      <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                    </svg>
+                  </a>
+                  <!--more-->
+                  <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                      <div class="modal-content position-relative">
+                        <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-0">
+                          <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                            <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                          </div>
+                          <div class="p-4 pb-0">
+                            <form>
+                              <div class="mb-3">
+                                <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                <input class="form-control" id="recipient-name" type="text" />
+                              </div>
+                              <div class="mb-3">
+                                <label class="col-form-label" for="message-text">Message:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                          <button class="btn btn-primary" type="button">Understood </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--//more-->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xxl-3 ps-md-2 order-xxl-1 mb-3 mb-xxl-0">
+              <div class="card h-100">
+                <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
+                  <h6 class="mb-0">news</h6>
+                  <div class="dropdown font-sans-serif btn-reveal-trigger">
+                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="sample_data bg-body-tertiary"><p>뉴스영역</p></div>
+                </div>
+                <div class="card-footer bg-body-tertiary text-end py-2">
+                  <a class="btn btn-link btn-sm px-0 fw-medium" 
+                    href="#!" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#error-modal">
+                    더보기
+                    <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                      <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                    </svg>
+                  </a>
+                  <!--more-->
+                  <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                        <div class="modal-content position-relative">
+                          <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body p-0">
+                            <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                              <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                            </div>
+                            <div class="p-4 pb-0">
+                              <form>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                  <input class="form-control" id="recipient-name" type="text" />
+                                </div>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="message-text">Message:</label>
+                                  <textarea class="form-control" id="message-text"></textarea>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="button">Understood </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--//more-->
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-6 px-xxl-2">
+              <div class="card h-100">
+                <div class="card-header d-flex align-items-center bg-body-tertiary py-2">
+                  <h6 class="mb-0 flex-1">map</h6>
+                  <div class="btn-reveal-trigger">
+                    <button class="btn btn-link btn-reveal btn-sm session-by-country-map-reset" type="button"><svg class="svg-inline--fa fa-sync-alt fa-w-16 fs--1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sync-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z"></path></svg><!-- <span class="fas fa-sync-alt fs--1"></span> Font Awesome fontawesome.com --></button>
+                  </div>
+                  <div class="dropdown font-sans-serif btn-reveal-trigger">
+                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-session-by-country" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-session-by-country"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body row align-items-center" style="padding: 0;">
+                  <div class="row align-items-center">
+                    <img src="../imgs/map_sample.png" alt="news sample">
+                  </div>
+                </div>
+                <div class="card-footer bg-body-tertiary text-end py-2">
+                  <a class="btn btn-link btn-sm px-0 fw-medium" 
+                    href="#!" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#error-modal">
+                    더보기
+                    <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                      <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                    </svg>
+                  </a>
+                  <!--more-->
+                  <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                        <div class="modal-content position-relative">
+                          <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body p-0">
+                            <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                              <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                            </div>
+                            <div class="p-4 pb-0">
+                              <form>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                  <input class="form-control" id="recipient-name" type="text" />
+                                </div>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="message-text">Message:</label>
+                                  <textarea class="form-control" id="message-text"></textarea>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="button">Understood </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--//more-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-lg-8">
+              <div class="card h-100">
+                <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
+                  <h6 class="mb-0">지역별 학생수(명)</h6>
+                  <div class="dropdown font-sans-serif btn-reveal-trigger">
+                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div id="tableExample4" data-list='{"valueNames":["name","email","payment"],"filter":{"key":"payment"}}'>
+                    
+                    <div class="table-responsive scrollbar">
+                      <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+                        <thead class="bg-200">
+                          <tr>
+                            <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="name">자치구</th>
+                            <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="email">재학생수</th>
+                            <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="num">교원수</th>
+                            <th class="text-900 sort pe-1 align-middle white-space-nowrap" data-sort="num02">교원 1인당 학생수</th>
+                            <th class="text-900 sort align-middle white-space-nowrap text-end pe-4" data-sort="payment">구분</th>
+                          </tr>
+                        </thead>
+                        <tbody class="list" id="table-purchase-body">
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">종로구</a></th>
+                            <td class="align-middle white-space-nowrap email">975</td>
+                            <td class="align-middle white-space-nowrap num">94</td>
+                            <td class="align-middle white-space-nowrap num">9.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">중등<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">은평구</a></th>
+                            <td class="align-middle white-space-nowrap email">422</td>
+                            <td class="align-middle white-space-nowrap num">74</td>
+                            <td class="align-middle white-space-nowrap num">9.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-warning">초등<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">강북구</a></th>
+                            <td class="align-middle white-space-nowrap email">400</td>
+                            <td class="align-middle white-space-nowrap num">2</td>
+                            <td class="align-middle white-space-nowrap num">10.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-secondary">고등<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">관악구</a></th>
+                            <td class="align-middle white-space-nowrap email">806</td>
+                            <td class="align-middle white-space-nowrap num">66</td>
+                            <td class="align-middle white-space-nowrap num">2.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">중등<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">노원구</a></th>
+                            <td class="align-middle white-space-nowrap email">773</td>
+                            <td class="align-middle white-space-nowrap num">34</td>
+                            <td class="align-middle white-space-nowrap num">9.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-warning">초등<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">강동구</a></th>
+                            <td class="align-middle white-space-nowrap email">975</td>
+                            <td class="align-middle white-space-nowrap num">94</td>
+                            <td class="align-middle white-space-nowrap num">8.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-secondary">고등<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">송파구</a></th>
+                            <td class="align-middle white-space-nowrap email">975</td>
+                            <td class="align-middle white-space-nowrap num">44</td>
+                            <td class="align-middle white-space-nowrap num">2.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-warning">초등<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">금천구</a></th>
+                            <td class="align-middle white-space-nowrap email">475</td>
+                            <td class="align-middle white-space-nowrap num">54</td>
+                            <td class="align-middle white-space-nowrap num">9.5</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">중등<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">강서구</a></th>
+                            <td class="align-middle white-space-nowrap email">975</td>
+                            <td class="align-middle white-space-nowrap num">94</td>
+                            <td class="align-middle white-space-nowrap num">9.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-success">중등<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                          <tr class="btn-reveal-trigger">
+                            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">용산구</a></th>
+                            <td class="align-middle white-space-nowrap email">975</td>
+                            <td class="align-middle white-space-nowrap num">55</td>
+                            <td class="align-middle white-space-nowrap num">6.7</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap payment"><span class="badge badge rounded-pill badge-subtle-warning">초등<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-body-tertiary py-2">
+                  <div class="row flex-between-center g-0">
+                    <div class="col-auto">
+                      <select class="form-select form-select-sm" aria-label="Bulk actions" data-list-filter="data-list-filter">
+                        <option selected="" value="">전체</option>
+                        <option value="Pending">초등</option>
+                        <option value="Success">중등</option>
+                        <option value="Blocked">고등</option>
+                      </select>
+                    </div>
+                    <div class="col-auto">
+                      <a class="btn btn-link btn-sm px-0 fw-medium" 
+                    href="#!" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#error-modal">
+                    더보기
+                    <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                      <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                    </svg>
+                  </a>
+                  <!--more-->
+                  <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                        <div class="modal-content position-relative">
+                          <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body p-0">
+                            <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                              <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                            </div>
+                            <div class="p-4 pb-0">
+                              <form>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                  <input class="form-control" id="recipient-name" type="text" />
+                                </div>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="message-text">Message:</label>
+                                  <textarea class="form-control" id="message-text"></textarea>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="button">Understood </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--//more-->
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card h-100">
+                <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
+                  <h6 class="mb-0">3D Chart</h6>
+                  <div class="dropdown font-sans-serif btn-reveal-trigger">
+                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body row align-items-center justify-content-center">
+                  <div class="row align-items-center justify-content-center">
+                    <img src="../imgs/3d_sample.png" alt="3d sample">
+                  </div>
+                </div>
+                <div class="card-footer bg-body-tertiary text-end py-2">
+                  <a class="btn btn-link btn-sm px-0 fw-medium" 
+                    href="#!" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#error-modal">
+                    더보기
                     <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                       <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
                     </svg>
@@ -874,6 +1087,114 @@
             </div>
             <div class="col-xxl-6">
               <div class="col-xxl-12 mb-3">
+                <div class="card h-100">
+                  <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
+                    <h6 class="mb-0">인구현황</h6>
+                    <div class="dropdown font-sans-serif btn-reveal-trigger">
+                      <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
+                      <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                        <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-0 h-100">
+                      <div class="col-sm-7 order-1 order-sm-0">
+                        <div class="row g-sm-0 gy-4 row-cols-2 h-100 align-content-center" style="row-gap: 30px">
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-success"></div>
+                              <h6 class="lh-base text-700 mb-0">출생</h6>
+                            </div>
+                            <h5 class="fw-normal"> 5,669건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-success false">2.1%</small>
+                            </h6>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-primary"></div>
+                              <h6 class="lh-base text-700 mb-0">전입</h6>
+                            </div>
+                            <h5 class="fw-normal">48,346건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-danger false">5.1%</small>
+                            </h6>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-info"></div>
+                              <h6 class="lh-base text-700 mb-0">전출</h6>
+                            </div>
+                            <h5 class="fw-normal"> 86,897건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-secondary dark__bg-1000">0.0%</small>
+                            </h6>
+                          </div>
+                          <div class="col">
+                            <div class="d-flex gap-2 mb-3">
+                              <div class="vr rounded ps-1 bg-warning"></div>
+                              <h6 class="lh-base text-700 mb-0">사망</h6>
+                            </div>
+                            <h5 class="fw-normal"> 79,766건</h5>
+                            <h6 class="mb-0"><span class="text-500 me-2">전주대비</span><small class="badge rounded badge-subtle-primary false">3.5%</small>
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-5 mb-5 mb-sm-0 align-content-center position-relative">
+                        <div class="echart-assignment-scores" data-echart-responsive="true"></div>
+                        <div class="position-absolute top-50 start-50 translate-middle text-center">
+                          <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">총인구</p>
+                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">21,524명</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-footer bg-body-tertiary text-end py-2">
+                    <a class="btn btn-link btn-sm px-0 fw-medium" 
+                      href="#!" 
+                      data-bs-toggle="modal" 
+                      data-bs-target="#error-modal">
+                      더보기
+                      <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                      </svg>
+                    </a>
+                    <!--more-->
+                    <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                          <div class="modal-content position-relative">
+                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                              <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                                <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                              </div>
+                              <div class="p-4 pb-0">
+                                <form>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                    <input class="form-control" id="recipient-name" type="text" />
+                                  </div>
+                                  <div class="mb-3">
+                                    <label class="col-form-label" for="message-text">Message:</label>
+                                    <textarea class="form-control" id="message-text"></textarea>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                              <button class="btn btn-primary" type="button">Understood </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--//more-->
+                  </div>
+                </div>
+              </div>
+              <div class="col-xxl-12">
                 <div class="card">
                 <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
                   <h6 class="mb-0">서울특별시 구 단위별 인구 증감율</h6>
@@ -1008,68 +1329,7 @@
                         </div>
                         <!--//more-->
                     </div>
-                </div>
-              </div>
-              <div class="col-xxl-12">
-                <div class="card h-100">
-                  <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
-                    <h6 class="mb-0">3D Chart</h6>
-                    <div class="dropdown font-sans-serif btn-reveal-trigger">
-                      <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
-                      <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                        <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                      </div>
-                    </div>
                   </div>
-                  <div class="card-body row align-items-center justify-content-center p-0">
-                    <div class="row align-items-center justify-content-center p-0">
-                      <img src="../imgs/3d_sample.png" alt="3d sample" style="width: 48%;">
-                    </div>
-                  </div>
-                  <div class="card-footer bg-body-tertiary text-end py-2">
-                    <a class="btn btn-link btn-sm px-0 fw-medium" 
-                      href="#!" 
-                      data-bs-toggle="modal" 
-                      data-bs-target="#error-modal">
-                      자세히 보기
-                      <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                        <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
-                      </svg>
-                    </a>
-                    <!--more-->
-                    <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
-                          <div class="modal-content position-relative">
-                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
-                              <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-0">
-                              <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
-                                <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
-                              </div>
-                              <div class="p-4 pb-0">
-                                <form>
-                                  <div class="mb-3">
-                                    <label class="col-form-label" for="recipient-name">Recipient:</label>
-                                    <input class="form-control" id="recipient-name" type="text" />
-                                  </div>
-                                  <div class="mb-3">
-                                    <label class="col-form-label" for="message-text">Message:</label>
-                                    <textarea class="form-control" id="message-text"></textarea>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                              <button class="btn btn-primary" type="button">Understood </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--//more-->
-                  </div>
-                </div>
               </div>
             </div>
             <div class="col-xxl-6">
@@ -1085,88 +1345,6 @@
                 </div>
                 <div class="card-body align-content-center">
                   <div class="echart-bar-chart-series-example" style="min-height: 450px;" data-echart-responsive="true"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-8">
-              <div class="card h-100">
-                <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
-                  <h6 class="mb-0">지역별 학생수(명)</h6>
-                  <div class="dropdown font-sans-serif btn-reveal-trigger">
-                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body p-0 scrollbar custom-scroll-height-min">
-                  <div class="table-responsive scrollbar">
-                    <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden custom-table">
-                      <thead class="bg-200">
-                        <tr>
-                          <th class="text-900 align-middle">항목</th>
-                          <th class="text-900 align-middle">값</th>
-                          <th class="text-900 align-middle">증감율</th>
-                          <th class="text-900 align-middle">항목</th>
-                          <th class="text-900 align-middle">값</th>
-                          <th class="text-900 align-middle">증감율</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="c-point">총인구</td>
-                          <td>9,321,863 명</td>
-                          <td class="data-dec ta-r">0.02%</td>
-                          <td class="c-point">총세대수</td>
-                          <td>4,504,347 세대</td>
-                          <td class="data-inc ta-r">0.04%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">남자인구</td>
-                          <td>4,494,474 명</td>
-                          <td class="data-dec ta-r">0.03%</td>
-                          <td class="c-point">여자인구</td>
-                          <td>4,827,389 명</td>
-                          <td class="data-nor ta-r">0%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">출생</td>
-                          <td>3,758 명</td>
-                          <td class="data-dec ta-r">6.75%</td>
-                          <td class="c-point">사망</td>
-                          <td>4,010 명</td>
-                          <td class="data-dec ta-r">1.96%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">세대당인구</td>
-                          <td>2.1 명</td>
-                          <td class="data-nor ta-r">0%</td>
-                          <td class="c-point">외국인거소</td>
-                          <td>268,674 명</td>
-                          <td class="data-dec ta-r">0.45%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">외국인등록</td>
-                          <td>145,874 명</td>
-                          <td class="data-dec ta-r">0.14%</td>
-                          <td class="c-point">전입인구</td>
-                          <td>106,159 명</td>
-                          <td class="data-dec ta-r">11.01%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">전출인구</td>
-                          <td>77,529 명</td>
-                          <td class="data-inc ta-r">9.19%</td>
-                          <td class="c-point">1세대인구</td>
-                          <td>2,030,749 명</td>
-                          <td class="data-inc ta-r">0.05%</td>
-                        </tr>
-                        <!-- 나머지 항목도 동일하게 적용 -->
-                      </tbody>
-                    </table>
-                  </div>
-
-
                 </div>
                 <div class="card-footer bg-body-tertiary text-end py-2">
                   <a class="btn btn-link btn-sm px-0 fw-medium" 
@@ -1211,13 +1389,12 @@
                     </div>
                     <!--//more-->
                 </div>
-
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-12">
               <div class="card h-100">
                 <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
-                  <h6 class="mb-0">서울특별시 인구 그래프</h6>
+                  <h6 class="mb-0">연령대별 분포도</h6>
                   <div class="dropdown font-sans-serif btn-reveal-trigger">
                     <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
                     <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
@@ -1225,9 +1402,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body row align-items-center justify-content-center">
-                  <div class="row align-items-center justify-content-center">
-                    <!-- <img src="../imgs/3d_sample.png" alt="3d sample"> -->
+                <div class="card-body row align-items-center">
+                  <div class="col-sm-8 g-0">
+                    <div class="echart-horizontal-bar-chart-example" style="min-height: 300px;" data-echart-responsive="true"></div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="echart-pie-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
                   </div>
                 </div>
                 <div class="card-footer bg-body-tertiary text-end py-2">
@@ -1235,7 +1415,7 @@
                     href="#!" 
                     data-bs-toggle="modal" 
                     data-bs-target="#error-modal">
-                    자세히 보기
+                    더보기
                     <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                       <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
                     </svg>
@@ -1275,6 +1455,11 @@
                 </div>
               </div>
             </div>
+            
+            
+          </div>
+          <!-- //layout -->
+           
           <footer class="footer">
             <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
               <div class="col-12 col-sm-auto text-center">
@@ -1466,10 +1651,11 @@
     <script src="../vendors/dayjs/dayjs.min.js"></script>
     <script src="../assets/js/echarts-example.js"></script>
     <script src="../vendors/prism/prism.js"></script>
-    <script src="../vendors/glightbox/glightbox.min.js"></script>
+
+    <script src="../vendors/glightbox/glightbox.min.js"> </script>
     <script src="../assets/js/flatpickr.js"></script>
     <script src="../assets/data/world.js"></script>
-    <script src="../vendors/plyr/plyr.polyfilled.min.js"></script>
+    <script src="../vendors/plyr/plyr.polyfilled.min.js"> </script>
     <script src="../vendors/countup/countUp.umd.js"></script>
     <script src="../vendors/chart/chart.min.js"></script>
     <script src="../vendors/dropzone/dropzone.min.js"></script>
@@ -1478,24 +1664,30 @@
     <script src="../vendors/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js"></script>
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../vendors/tinymce/tinymce.min.js"></script>
+    <script src="../vendors/dayjs/dayjs.min.js"></script>
     <script src="../vendors/fullcalendar/main.min.js"></script>
     <script src="../vendors/d3/d3.min.js"></script>
+
     <script src="../vendors/fontawesome/all.min.js"></script>
     <script src="../vendors/lodash/lodash.min.js"></script>
     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script> -->
+    <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 
 
   </body>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      echartsAreaPiecesChartInit();
-      echartsBarLineChartInit();
-      echartsBarNegativeChartInit();
-      echartsBarRaceChartInit();
-      echartsBarSeriesChartInit();
-      echartsBarStackedChartInit();
-      // 필요하면 계속 추가
-    });
+  document.addEventListener("DOMContentLoaded", function () {
+    echartsAreaPiecesChartInit();
+    echartsBarLineChartInit();
+    echartsBarNegativeChartInit();
+    echartsBarRaceChartInit();
+    echartsBarSeriesChartInit();
+    echartsBarStackedChartInit();
+    // 필요하면 계속 추가
+  });
   </script>
+
+  </body>
+
 </html>
