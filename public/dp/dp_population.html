@@ -92,36 +92,30 @@
             <div class="navbar-vertical-content scrollbar">
               <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
                 <li class="nav-item">
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#dashboard" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="dashboard">
-                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span><span class="nav-link-text ps-1">현황판</span>
+                  <!-- label-->
+                  <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                    <div class="col-auto navbar-vertical-label">현황판
+                    </div>
+                    <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider" />
+                    </div>
+                  </div>
+                  <!-- parent pages--><a class="nav-link" href=".../dp/main.html" role="button">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span><span class="nav-link-text ps-1">종합</span>
                     </div>
                   </a>
-                  <ul class="nav collapse show" id="dashboard">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">종합</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../dashboard/analytics.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">실시간 응급 의료 현황판</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../dashboard/crm.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">실시간 인구 혼잡도 현황판</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../dashboard/e-commerce.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">실시간 농산물 도매시장</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_emergency.html" role="button">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-comments"></span></span><span class="nav-link-text ps-1">실시간 응급 의료 현황판</span>
+                    </div>
+                  </a>
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_crowd.html" role="button">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text ps-1">실시간 인구 혼잡도 현황판</span>
+                    </div>
+                  </a>
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_farm.html" role="button">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">실시간 농산물 도매시장</span>
+                    </div>
+                  </a>
                 </li>
                 <li class="nav-item">
                   <!-- label-->
@@ -136,202 +130,27 @@
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-alt"></span></span><span class="nav-link-text ps-1">인구</span>
                     </div>
                   </a>
-                  <!-- parent pages--><a class="nav-link" href="../app/chat.html" role="button">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_education.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-comments"></span></span><span class="nav-link-text ps-1">교육</span>
                     </div>
                   </a>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#email" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="email">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_medical.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-envelope-open"></span></span><span class="nav-link-text ps-1">의료</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="email">
-                    <li class="nav-item"><a class="nav-link" href="../app/email/inbox.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Inbox</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/email/email-detail.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Email detail</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/email/compose.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Compose</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#events" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_housing.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">주거</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="events">
-                    <li class="nav-item"><a class="nav-link" href="../app/events/create-an-event.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create an event</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/events/event-detail.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Event detail</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/events/event-list.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Event list</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#e-commerce" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_culture.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-shopping-cart"></span></span><span class="nav-link-text ps-1">문화</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="e-commerce">
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#product" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="product">
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/product/product-list.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product list</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/product/product-grid.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product grid</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/product/product-details.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Product details</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/product/add-product.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Add product</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#orders" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-commerce">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Orders</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="orders">
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/orders/order-list.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order list</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-commerce/orders/order-details.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Order details</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-commerce/customers.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customers</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-commerce/customer-details.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Customer details</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-commerce/shopping-cart.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Shopping cart</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-commerce/checkout.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Checkout</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-commerce/billing.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Billing</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-commerce/invoice.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Invoice</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#e-learning" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-learning">
-                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-graduation-cap"></span></span><span class="nav-link-text ps-1">날씨</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span>
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_weather.html" role="button">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-graduation-cap"></span></span><span class="nav-link-text ps-1">날씨</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="e-learning">
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#course" data-bs-toggle="collapse" aria-expanded="false" aria-controls="e-learning">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="course">
-                        <li class="nav-item"><a class="nav-link" href="../app/e-learning/course/course-list.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course list</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-learning/course/course-grid.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course grid</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-learning/course/course-details.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Course details</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../app/e-learning/course/create-a-course.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Create a course</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-learning/student-overview.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Student overview</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../app/e-learning/trainer-profile.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Trainer profile</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
+
                 </li>
                 <li class="nav-item">
                   <!-- label-->
@@ -342,242 +161,30 @@
                       <hr class="mb-0 navbar-vertical-divider" />
                     </div>
                   </div>
-                  <!-- parent pages--><a class="nav-link" href="../pages/starter.html" role="button">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_finance.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-flag"></span></span><span class="nav-link-text ps-1">재정</span>
                     </div>
                   </a>
-                  <!-- parent pages--><a class="nav-link" href="../pages/landing.html" role="button">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_corporate.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-globe"></span></span><span class="nav-link-text ps-1">법인사업장</span>
                     </div>
                   </a>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#authentication" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_subsidy01.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-lock"></span></span><span class="nav-link-text ps-1">정부보조금24 일반</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="authentication">
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#simple" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Simple</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="simple">
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/simple/login.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/simple/logout.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Logout</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/simple/register.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Register</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/simple/forgot-password.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Forgot password</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/simple/confirm-mail.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Confirm mail</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/simple/reset-password.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reset password</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/simple/lock-screen.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lock screen</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#card" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Card</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="card">
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/card/login.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/card/logout.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Logout</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/card/register.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Register</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/card/forgot-password.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Forgot password</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/card/confirm-mail.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Confirm mail</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/card/reset-password.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reset password</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/card/lock-screen.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lock screen</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#split" data-bs-toggle="collapse" aria-expanded="false" aria-controls="authentication">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Split</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="split">
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/split/login.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Login</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/split/logout.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Logout</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/split/register.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Register</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/split/forgot-password.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Forgot password</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/split/confirm-mail.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Confirm mail</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/split/reset-password.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reset password</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../pages/authentication/split/lock-screen.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lock screen</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/authentication/wizard.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Wizard</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../#authentication-modal" data-bs-toggle="modal">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Modal</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#user" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="user">
-                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user"></span></span><span class="nav-link-text ps-1">정부보조금24 담당</span>
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_subsidy02.html" role="button">
+                    <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-lock"></span></span><span class="nav-link-text ps-1">정부보조금24 담당</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="user">
-                    <li class="nav-item"><a class="nav-link" href="../pages/user/profile.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Profile</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/user/settings.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Settings</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#pricing" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pricing">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_lifecycle01.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tags"></span></span><span class="nav-link-text ps-1">생애주기별 맞춤정보</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="pricing">
-                    <li class="nav-item"><a class="nav-link" href="../pages/pricing/pricing-default.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pricing default</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/pricing/pricing-alt.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pricing alt</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#faq" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="faq">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_lifecycle02.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-question-circle"></span></span><span class="nav-link-text ps-1">생애주기별 맞춤정보 담당</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="faq">
-                    <li class="nav-item"><a class="nav-link" href="../pages/faq/faq-basic.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Faq basic</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/faq/faq-alt.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Faq alt</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../pages/faq/faq-accordion.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Faq accordion</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
                 </li>
                 <li class="nav-item">
                   <!-- label-->
@@ -588,270 +195,22 @@
                       <hr class="mb-0 navbar-vertical-divider" />
                     </div>
                   </div>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#forms" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_social.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-file-alt"></span></span><span class="nav-link-text ps-1">사회안전망 현황</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="forms">
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#basic" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Basic</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="basic">
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/basic/form-control.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Form control</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/basic/input-group.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Input group</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/basic/select.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Select</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/basic/checks.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Checks</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/basic/range.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Range</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/basic/layout.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Layout</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#advance" data-bs-toggle="collapse" aria-expanded="false" aria-controls="forms">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Advance</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="advance">
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/advance-select.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Advance select</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/date-picker.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Date picker</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/editor.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Editor</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/emoji-button.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Emoji button</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/file-uploader.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">File uploader</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/input-mask.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Input mask</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/range-slider.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Range slider</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/forms/advance/rating.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Rating</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/forms/floating-labels.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Floating labels</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/forms/wizard.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Wizard</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/forms/validation.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Validation</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#tables" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="tables">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_permit.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-table"></span></span><span class="nav-link-text ps-1">지자체인허가 현황</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="tables">
-                    <li class="nav-item"><a class="nav-link" href="../modules/tables/basic-tables.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Basic tables</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/tables/advance-tables.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Advance tables</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/tables/bulk-select.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bulk select</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#charts" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="charts">
+                   <!-- parent pages--><a class="nav-link" href="../dp/dp_sme.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-line"></span></span><span class="nav-link-text ps-1">소상공인 현황</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="charts">
-                    <li class="nav-item"><a class="nav-link" href="../modules/charts/chartjs.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Chartjs</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/charts/d3js.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">D3js</span><span class="badge rounded-pill ms-2 badge-subtle-success">New</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link dropdown-indicator" href="#eCharts" data-bs-toggle="collapse" aria-expanded="false" aria-controls="charts">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">ECharts</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                      <ul class="nav collapse" id="eCharts">
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/line-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Line charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/bar-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bar charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/candlestick-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Candlestick charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/geo-map.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Geo map</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/scatter-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Scatter charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/pie-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Pie charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/gauge-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Gauge charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/radar-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Radar charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/heatmap-charts.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Heatmap charts</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="../modules/charts/echarts/how-to-use.html">
-                            <div class="d-flex align-items-center"><span class="nav-link-text ps-1">How to use</span>
-                            </div>
-                          </a>
-                          <!-- more inner pages-->
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- parent pages--><a class="nav-link dropdown-indicator" href="#icons" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="icons">
+                  <!-- parent pages--><a class="nav-link" href="../dp/dp_er.html" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-shapes"></span></span><span class="nav-link-text ps-1">실시간 응급의료</span>
                     </div>
                   </a>
-                  <ul class="nav collapse" id="icons">
-                    <li class="nav-item"><a class="nav-link" href="../modules/icons/font-awesome.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Font awesome</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/icons/bootstrap-icons.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bootstrap icons</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/icons/feather.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Feather</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../modules/icons/material-icons.html">
-                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Material icons</span>
-                        </div>
-                      </a>
-                      <!-- more inner pages-->
-                    </li>
-                  </ul>
                 </li>
               </ul>
             </div>
