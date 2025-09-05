@@ -1163,7 +1163,62 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="echart-bar-timeline-chart-example" style="min-height: 450px;" data-echart-responsive="true"></div>
+                  <div class="echart-bar-timeline-chart-example"
+                      style="min-height:450px;"
+                      data-options='{
+                        "xAxis": ["응급실 일반","응급실 소아","입원실","중환자실", "의사수"],
+                        "options": [
+                          {
+                            "title": { "text": "2019" },
+                            "series": [
+                              { "data": [123, 945, 876, 432, 210] },
+                              { "data": [56, 78, 91, 34, 22] },
+                              { "data": [12, 25, 18, 22, 8] }
+                            ]
+                          },
+                          {
+                            "title": { "text": "2020" },
+                            "series": [
+                              { "data": [134, 1020, 950, 520, 220] },
+                              { "data": [60, 85, 70, 40, 25] },
+                              { "data": [10, 30, 15, 18, 12] }
+                            ]
+                          },
+                          {
+                            "title": { "text": "2021" },
+                            "series": [
+                              { "data": [150, 1100, 980, 540, 240] },
+                              { "data": [65, 90, 75, 45, 28] },
+                              { "data": [8, 35, 20, 25, 15] }
+                            ]
+                          },
+                          {
+                            "title": { "text": "2022" },
+                            "series": [
+                              { "data": [140, 1150, 1020, 560, 260] },
+                              { "data": [70, 95, 80, 50, 30] },
+                              { "data": [9, 32, 22, 28, 18] }
+                            ]
+                          },
+                          {
+                            "title": { "text": "2023" },
+                            "series": [
+                              { "data": [155, 1180, 1040, 580, 270] },
+                              { "data": [75, 100, 85, 55, 35] },
+                              { "data": [11, 36, 25, 30, 20] }
+                            ]
+                          },
+                          {
+                            "title": { "text": "2024" },
+                            "series": [
+                              { "data": [160, 1200, 1060, 595, 283] },
+                              { "data": [80, 105, 88, 57, 38] },
+                              { "data": [12, 38, 28, 33, 22] }
+                            ]
+                          }
+                        ]
+                      }'>
+                  </div>
                 </div>
                 <div class="card-footer bg-body-tertiary text-end py-2">
                   <a class="btn btn-link btn-sm px-0 fw-medium" 
@@ -1429,6 +1484,15 @@
     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script> -->
     <script src="../vendors/list.js/list.min.js"></script>
     <script src="../assets/js/theme.js"></script>
+
+    <!-- 모듈로 연결 -->
+    <script type="module">
+      import echartsBarTimelineChartInit from '../assets/js/bar-timeline-chart.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        echartsBarTimelineChartInit();
+      });
+    </script>
 
 
   </body>

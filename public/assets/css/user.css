@@ -110,3 +110,13 @@
     height: 24rem;
   }
 }
+
+.custom-table-type-txt{
+  font-size: 0.8rem;
+  th, td{
+    text-align: center;
+    &.ta-r{
+      text-align: right;
+    }
+  }
+}
