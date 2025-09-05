@@ -580,10 +580,205 @@
                     </div><img class="ms-n4 d-md-none d-lg-block" src="../assets/img/illustrations/crm-line-chart.png" alt="" width="150" />
                   </div>
                   <div class="col-md-auto p-3">
-                    <form class="row align-items-center g-3">
-                      <div class="col-auto">
-                        <h6 class="text-700 mb-0">Showing Data For: </h6>
+                    <div class="select_area">
+                      <!-- select box -->
+                      <div class="cont_select type_round">
+                          <form action="" class="wrap_dr">
+                              <p class="blind">시군 선택</p>
+                              <button class="btn_dr" type="button">서울특별시</button>
+                              <div class="wrap_list">
+                                  <ul class="scroll">
+                                      <li>
+                                          <button class="list_btn" type="button">서울특별시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">부산광역시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">대구광역시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">인천광역시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">광주광역시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">대전광역시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">울산광역시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">세종특별자치시</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">경기도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">충청북도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">충청남도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">전라북도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">전라남도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">경상북도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">경상남도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">제주특별자치도</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">강원특별자치도</button>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </form>
                       </div>
+                      <!-- // select box -->
+                      <!-- select box -->
+                      <div class="cont_select type_round">
+                          <form action="" class="wrap_dr">
+                              <p class="blind">읍면동 선택</p>
+                              <button class="btn_dr" type="button">전체</button>
+                              <div class="wrap_list">
+                                  <ul class="scroll">
+                                      <li>
+                                          <button class="list_btn" type="button">전체</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">2</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">3</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">4</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">5</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">6</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">7</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">8</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">9</button>
+                                      </li>
+                                      <li>
+                                          <button class="list_btn" type="button">10</button>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </form>
+                      </div>
+                      <!-- // select box -->
+                    </div>
+                    <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                      (function () {
+                        const selects = document.querySelectorAll('.cont_select');
+
+                        function closeAll(except) {
+                          selects.forEach(cs => {
+                            if (cs !== except) {
+                              cs.classList.remove('open');
+                              const b = cs.querySelector('.btn_dr');
+                              if (b) b.setAttribute('aria-expanded', 'false');
+                            }
+                          });
+                        }
+
+                        selects.forEach(cs => {
+                          const btn  = cs.querySelector('.btn_dr');
+                          const list = cs.querySelector('.wrap_list');
+                          const items = list?.querySelectorAll('.list_btn') || [];
+
+                          if (!btn || !list) return;
+
+                          btn.setAttribute('role', 'button');
+                          btn.setAttribute('aria-haspopup', 'listbox');
+                          btn.setAttribute('aria-expanded', 'false');
+                          list.setAttribute('role', 'listbox');
+
+                          btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const willOpen = !cs.classList.contains('open');
+                            closeAll(willOpen ? cs : null);
+                            cs.classList.toggle('open', willOpen);
+                            btn.setAttribute('aria-expanded', String(willOpen));
+                            if (willOpen) {
+                              const w = Math.max(152, btn.offsetWidth);
+                              list.style.minWidth = w + 'px';
+                              setTimeout(() => items[0]?.focus(), 0);
+                            }
+                          });
+
+                          items.forEach(it => {
+                            it.setAttribute('role', 'option');
+                            it.addEventListener('click', (e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              items.forEach(x => x.classList.remove('active'));
+                              it.classList.add('active');
+                              btn.textContent = it.textContent?.trim() || '';
+                              cs.classList.remove('open');
+                              btn.setAttribute('aria-expanded', 'false');
+                              btn.focus();
+                            });
+                          });
+
+                          btn.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              btn.click();
+                            } else if (e.key === 'ArrowDown') {
+                              e.preventDefault();
+                              if (!cs.classList.contains('open')) btn.click();
+                              else items[0]?.focus();
+                            } else if (e.key === 'Escape') {
+                              cs.classList.remove('open');
+                              btn.setAttribute('aria-expanded', 'false');
+                            }
+                          });
+
+                          document.addEventListener('click', (e) => {
+                            if (!cs.contains(e.target)) {
+                              cs.classList.remove('open');
+                              btn.setAttribute('aria-expanded', 'false');
+                            }
+                          });
+
+                          document.addEventListener('keydown', (e) => {
+                            if (e.key === 'Escape') {
+                              cs.classList.remove('open');
+                              btn.setAttribute('aria-expanded', 'false');
+                            }
+                          });
+                        });
+                      })();
+                    });
+                    </script>
+
+                  </div>
+                  <div class="col-md-auto p-3">
+                    <form class="row align-items-center g-3">
+                      <!-- <div class="col-auto">
+                        <h6 class="text-700 mb-0"></h6>
+                      </div> -->
                       <div class="col-md-auto position-relative">
                         <input class="form-control form-control-sm datetimepicker ps-4" id="CRMDateRange" type="text" data-options="{&quot;mode&quot;:&quot;range&quot;,&quot;dateFormat&quot;:&quot;M d&quot;,&quot;disableMobile&quot;:true , &quot;defaultDate&quot;: [&quot;Aug 23&quot;, &quot;Aug 30&quot;] }" /><span class="fas fa-calendar-alt text-primary position-absolute top-50 translate-middle-y ms-2"> </span>
                       </div>
@@ -598,11 +793,11 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-lg-4 border-end-lg border-bottom border-bottom-lg-0 pb-3 pb-lg-0">
+                    <div class="col-lg-3 border-end-lg border-bottom border-bottom-lg-0 pb-3 pb-lg-0">
                       <div class="d-flex flex-between-center mb-3">
                         <div class="d-flex align-items-center">
-                          <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-primary-subtle"><span class="fs--2 fas fa-phone text-primary"></span></div>
-                          <h6 class="mb-0">New Contact</h6>
+                          <!-- <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-primary-subtle"><span class="fs--2 fas fa-phone text-primary"></span></div> -->
+                          <h6 class="mb-0">출생</h6>
                         </div>
                         <div class="dropdown font-sans-serif btn-reveal-trigger">
                           <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-contact" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
@@ -611,21 +806,20 @@
                           </div>
                         </div>
                       </div>
-                      <div class="d-flex">
-                        <div class="d-flex">
-                          <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">15%</p>
-                          <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-up text-primary"></span>
-                            <p class="fs--2 mb-0 text-nowrap">2500 vs 2683 </p>
-                          </div>
+                      <div class="d-flex mb-2">
+                        <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">3.2%</p>
+                        <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-up text-primary"></span>
+                          <p class="fs--2 mb-0 text-nowrap">5,669건 </p>
                         </div>
-                        <div class="echart-crm-statistics w-100 ms-2" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[220,230,150,175,200,170,70,160],"color":"#2c7be5","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#2c7be53A"},{"offset":1,"color":"#2c7be50A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
                       </div>
+                      <div class="echart-crm-statistics w-50" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[220,230,150,175,200,170,70,160],"color":"#2c7be5","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#2c7be53A"},{"offset":1,"color":"#2c7be50A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
+                    
                     </div>
-                    <div class="col-lg-4 border-end-lg border-bottom border-bottom-lg-0 py-3 py-lg-0">
+                    <div class="col-lg-3 border-end-lg border-bottom border-bottom-lg-0 py-3 py-lg-0">
                       <div class="d-flex flex-between-center mb-3">
                         <div class="d-flex align-items-center">
-                          <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-info-subtle"><span class="fs--2 fas fa-user text-info"></span></div>
-                          <h6 class="mb-0">New Users</h6>
+                          <!-- <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-info-subtle"><span class="fs--2 fas fa-user text-info"></span></div> -->
+                          <h6 class="mb-0">사망</h6>
                         </div>
                         <div class="dropdown font-sans-serif btn-reveal-trigger">
                           <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-users" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
@@ -634,21 +828,42 @@
                           </div>
                         </div>
                       </div>
-                      <div class="d-flex">
-                        <div class="d-flex">
-                          <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">13%</p>
-                          <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-up text-success"></span>
-                            <p class="fs--2 mb-0 text-nowrap">1635 vs 863 </p>
-                          </div>
+                      <div class="d-flex mb-2">
+                        <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">36.1%</p>
+                        <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-up text-success"></span>
+                          <p class="fs--2 mb-0 text-nowrap">79,766건</p>
                         </div>
-                        <div class="echart-crm-statistics w-100 ms-2" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[90,160,150,120,230,155,220,240],"color":"#27bcfd","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#27bcfd3A"},{"offset":1,"color":"#27bcfd0A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
                       </div>
+                      <div class="echart-crm-statistics w-50" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[90,160,150,120,230,155,220,240],"color":"#27bcfd","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#27bcfd3A"},{"offset":1,"color":"#27bcfd0A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
+                    
                     </div>
-                    <div class="col-lg-4 pt-3 pt-lg-0">
+                    <div class="col-lg-3 border-end-lg border-bottom border-bottom-lg-0 py-3 py-lg-0">
                       <div class="d-flex flex-between-center mb-3">
                         <div class="d-flex align-items-center">
-                          <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-success-subtle"><span class="fs--2 fas fa-bolt text-success"></span></div>
-                          <h6 class="mb-0">New Leads</h6>
+                          <!-- <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-info-subtle"><span class="fs--2 fas fa-user text-info"></span></div> -->
+                          <h6 class="mb-0">전입</h6>
+                        </div>
+                        <div class="dropdown font-sans-serif btn-reveal-trigger">
+                          <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-users" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
+                          <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-new-users"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mb-2">
+                        <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">18.6%</p>
+                        <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-up text-success"></span>
+                          <p class="fs--2 mb-0 text-nowrap">48,346건</p>
+                        </div>
+                      </div>
+                      <div class="echart-crm-statistics w-50" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[220,230,150,175,200,170,70,160],"color":"#2c7be5","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#2c7be53A"},{"offset":1,"color":"#2c7be50A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
+                    
+                    </div>
+                    <div class="col-lg-3 pt-3 pt-lg-0">
+                      <div class="d-flex flex-between-center mb-3">
+                        <div class="d-flex align-items-center">
+                          <!-- <div class="icon-item icon-item-sm bg-primary-subtle shadow-none me-2 bg-success-subtle"><span class="fs--2 fas fa-bolt text-success"></span></div> -->
+                          <h6 class="mb-0">전출</h6>
                         </div>
                         <div class="dropdown font-sans-serif btn-reveal-trigger">
                           <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-new-leads" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
@@ -657,101 +872,362 @@
                           </div>
                         </div>
                       </div>
-                      <div class="d-flex">
-                        <div class="d-flex">
-                          <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">16%</p>
-                          <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-down text-danger"></span>
-                            <p class="fs--2 mb-0 text-nowrap">1423 vs 256 </p>
-                          </div>
+                      <div class="d-flex mb-2">
+                        <p class="font-sans-serif lh-1 mb-1 fs-4 pe-2">33.3%</p>
+                        <div class="d-flex flex-column"> <span class="me-1 text-success fas fa-caret-down text-danger"></span>
+                          <p class="fs--2 mb-0 text-nowrap">86,897건</p>
                         </div>
-                        <div class="echart-crm-statistics w-100 ms-2" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[200,150,175,130,150,115,130,100],"color":"#00d27a","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#00d27a3A"},{"offset":1,"color":"#00d27a0A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
                       </div>
+                      <div class="echart-crm-statistics w-50" data-echart-responsive="true" data-echarts='{"tooltip":{"trigger":"axis"},"xAxis":{"type":"category","data":["June 01","June 02","June 03","June 04","June 05","June 06","June 07"]},"series":[{"type":"line","data":[200,150,175,130,150,115,130,100],"color":"#00d27a","areaStyle":{"color":{"colorStops":[{"offset":0,"color":"#00d27a3A"},{"offset":1,"color":"#00d27a0A"}]}}}],"grid":{"bottom":"-10px"}}'></div>
+                    
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card">
                 <div class="card-header d-flex flex-between-center ps-0 py-0 border-bottom">
-                  <ul class="nav nav-tabs border-0 flex-nowrap tab-active-caret" id="crm-revenue-chart-tab" role="tablist" data-tab-has-echarts="data-tab-has-echarts">
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0 active" id="crm-revenue-tab" data-bs-toggle="tab" href="#crm-revenue" role="tab" aria-controls="crm-revenue" aria-selected="true">Revenue</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="crm-users-tab" data-bs-toggle="tab" href="#crm-users" role="tab" aria-controls="crm-users" aria-selected="false">Users</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="crm-deals-tab" data-bs-toggle="tab" href="#crm-deals" role="tab" aria-controls="crm-deals" aria-selected="false">Deals</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="crm-profit-tab" data-bs-toggle="tab" href="#crm-profit" role="tab" aria-controls="crm-profit" aria-selected="false">Profit</a></li>
+                  <ul class="nav nav-tabs border-0 flex-nowrap tab-active-caret" id="crm-revenue-chart-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link py-3 mb-0 active" id="crm-revenue-tab" data-bs-toggle="tab" href="#crm-revenue" role="tab" aria-controls="crm-revenue" aria-selected="true">총 인구</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link py-3 mb-0" id="crm-users-tab" data-bs-toggle="tab" href="#crm-users" role="tab" aria-controls="crm-users" aria-selected="false">출생</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link py-3 mb-0" id="crm-deals-tab" data-bs-toggle="tab" href="#crm-deals" role="tab" aria-controls="crm-deals" aria-selected="false">사망</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link py-3 mb-0" id="crm-profit-tab" data-bs-toggle="tab" href="#crm-profit" role="tab" aria-controls="crm-profit" aria-selected="false">전출</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link py-3 mb-0" id="crm-add-tab" data-bs-toggle="tab" href="#crm-add" role="tab" aria-controls="crm-add" aria-selected="false">전입</a>
+                    </li>
                   </ul>
-                  <div class="dropdown font-sans-serif btn-reveal-trigger">
-                    <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-session-by-country" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-session-by-country"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
-                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Remove</a>
-                    </div>
-                  </div>
                 </div>
-                <div class="card-body">
+
+                <div class="card-body custom-card">
                   <div class="row g-1">
-                    <div class="col-xxl-3">
-                      <div class="row g-0 my-2">
-                        <div class="col-md-6 col-xxl-12">
-                          <div class="border-bottom-xxl border-200 mb-2">
-                            <h2 class="text-primary">$37,950</h2>
-                            <p class="fs--2 text-500 fw-semi-bold mb-0"><span class="fas fa-circle text-primary me-2"></span>Closed Amount</p>
-                            <p class="fs--2 text-500 fw-semi-bold"><span class="fas fa-circle text-warning me-2"></span>Revenue Goal</p>
-                          </div>
-                          <div class="form-check form-check-inline me-2">
-                            <input class="form-check-input" id="crmInbound" type="radio" name="bound" value="inbound" Checked="Checked" />
-                            <label class="form-check-label" for="crmInbound">Inbound</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" id="outbound" type="radio" name="bound" value="outbound" />
-                            <label class="form-check-label" for="outbound">Outbound</label>
+                    <div class="col-xxl-4">
+                      <div class="tab-content h-100">
+
+                        <!-- 총 인구 -->
+                        <div class="tab-pane active h-100" id="crm-revenue" role="tabpanel">
+                          <div class="row g-0 my-2 justify-content-between h-100">
+                            <div class="col-md-6 col-xxl-12">
+                              <div class="border-bottom-xxl border-200 mb-3">
+                                <h6 class="text-600">서울특별시 전체</h6>
+                                <h1 class="text-primary">21,524명</h1>
+                              </div>
+                              <div class="form-check form-check-inline me-2">
+                                <input class="form-check-input inbound" type="radio" name="bound-revenue" value="inbound" checked/>
+                                <label class="form-check-label">데이터</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input outbound" type="radio" name="bound-revenue" value="outbound"/>
+                                <label class="form-check-label">그래프</label>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 dataBox">
+                              <div class="row mx-0">
+                                <div class="col-6 border-end border-bottom py-3">
+                                  <h5 class="fw-normal text-600">5,669건</h5>
+                                  <h6 class="text-500 mb-0">출생</h6>
+                                </div>
+                                <div class="col-6 border-bottom py-3">
+                                  <h5 class="fw-normal text-600">79,766건</h5>
+                                  <h6 class="text-500 mb-0">사망</h6>
+                                </div>
+                                <div class="col-6 border-end py-3">
+                                  <h5 class="fw-normal text-600">86,897건</h5>
+                                  <h6 class="text-500 mb-0">전출</h6>
+                                </div>
+                                <div class="col-6 py-3">
+                                  <h5 class="fw-normal text-600">48,346건</h5>
+                                  <h6 class="text-500 mb-0">전입</h6>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 chartBox" style="visibility:hidden;height:0;opacity:0;">
+                              <div class="echart-doughnut-chart-example" style="min-height:200px;"></div>
+                            </div>
                           </div>
                         </div>
-                        <div class="col-md-6 col-xxl-12 py-2">
-                          <div class="row mx-0">
-                            <div class="col-6 border-end border-bottom py-3">
-                              <h5 class="fw-normal text-600">$4.2k</h5>
-                              <h6 class="text-500 mb-0">Email</h6>
+
+                        <!-- 출생 -->
+                        <div class="tab-pane h-100" id="crm-users" role="tabpanel">
+                          <div class="row g-0 my-2 justify-content-between h-100">
+                            <div class="col-md-6 col-xxl-12">
+                              <div class="border-bottom-xxl border-200 mb-3">
+                                <h6 class="text-600">서울특별시 출생 통계</h6>
+                                <h1 class="text-primary">95,432명</h1>
+                              </div>
+                              <div class="form-check form-check-inline me-2">
+                                <input class="form-check-input inbound" type="radio" name="bound-users" value="inbound" checked/>
+                                <label class="form-check-label">데이터</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input outbound" type="radio" name="bound-users" value="outbound"/>
+                                <label class="form-check-label">그래프</label>
+                              </div>
                             </div>
-                            <div class="col-6 border-bottom py-3">
-                              <h5 class="fw-normal text-600">$5.6k</h5>
-                              <h6 class="text-500 mb-0">Social</h6>
+
+                            <div class="col-md-6 col-xxl-12 py-2 dataBox">
+                              <div class="row mx-0">
+                                <div class="col-6 border-end border-bottom py-3">
+                                  <h5 class="fw-normal text-600">5,876건</h5>
+                                  <h6 class="text-500 mb-0">출생</h6>
+                                </div>
+                                <div class="col-6 border-bottom py-3">
+                                  <h5 class="fw-normal text-600">78,234건</h5>
+                                  <h6 class="text-500 mb-0">사망</h6>
+                                </div>
+                                <div class="col-6 border-end py-3">
+                                  <h5 class="fw-normal text-600">87,432건</h5>
+                                  <h6 class="text-500 mb-0">전출</h6>
+                                </div>
+                                <div class="col-6 py-3">
+                                  <h5 class="fw-normal text-600">47,876건</h5>
+                                  <h6 class="text-500 mb-0">전입</h6>
+                                </div>
+                              </div>
                             </div>
-                            <div class="col-6 border-end py-3">
-                              <h5 class="fw-normal text-600">$6.7k</h5>
-                              <h6 class="text-500 mb-0">Call</h6>
-                            </div>
-                            <div class="col-6 py-3">
-                              <h5 class="fw-normal text-600">$2.3k</h5>
-                              <h6 class="text-500 mb-0">Other</h6>
+
+                            <div class="col-md-6 col-xxl-12 py-2 chartBox" style="visibility:hidden;height:0;opacity:0;">
+                              <div class="echart-doughnut-chart-example" style="min-height:200px;"></div>
                             </div>
                           </div>
                         </div>
+
+                        <!-- 사망 -->
+                        <div class="tab-pane h-100" id="crm-deals" role="tabpanel">
+                          <div class="row g-0 my-2 justify-content-between h-100">
+                            <div class="col-md-6 col-xxl-12">
+                              <div class="border-bottom-xxl border-200 mb-3">
+                                <h6 class="text-600">서울특별시 사망 통계</h6>
+                                <h1 class="text-primary">85,123명</h1>
+                              </div>
+                              <div class="form-check form-check-inline me-2">
+                                <input class="form-check-input inbound" type="radio" name="bound-deals" value="inbound" checked/>
+                                <label class="form-check-label">데이터</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input outbound" type="radio" name="bound-deals" value="outbound"/>
+                                <label class="form-check-label">그래프</label>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 dataBox">
+                              <div class="row mx-0">
+                                <div class="col-6 border-end border-bottom py-3">
+                                  <h5 class="fw-normal text-600">5,432건</h5>
+                                  <h6 class="text-500 mb-0">출생</h6>
+                                </div>
+                                <div class="col-6 border-bottom py-3">
+                                  <h5 class="fw-normal text-600">79,876건</h5>
+                                  <h6 class="text-500 mb-0">사망</h6>
+                                </div>
+                                <div class="col-6 border-end py-3">
+                                  <h5 class="fw-normal text-600">86,543건</h5>
+                                  <h6 class="text-500 mb-0">전출</h6>
+                                </div>
+                                <div class="col-6 py-3">
+                                  <h5 class="fw-normal text-600">48,234건</h5>
+                                  <h6 class="text-500 mb-0">전입</h6>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 chartBox" style="visibility:hidden;height:0;opacity:0;">
+                              <div class="echart-doughnut-chart-example" style="min-height:200px;"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 전출 -->
+                        <div class="tab-pane h-100" id="crm-profit" role="tabpanel">
+                          <div class="row g-0 my-2 justify-content-between h-100">
+                            <div class="col-md-6 col-xxl-12">
+                              <div class="border-bottom-xxl border-200 mb-3">
+                                <h6 class="text-600">서울특별시 전출 통계</h6>
+                                <h1 class="text-primary">86,432명</h1>
+                              </div>
+                              <div class="form-check form-check-inline me-2">
+                                <input class="form-check-input inbound" type="radio" name="bound-profit" value="inbound" checked/>
+                                <label class="form-check-label">데이터</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input outbound" type="radio" name="bound-profit" value="outbound"/>
+                                <label class="form-check-label">그래프</label>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 dataBox">
+                              <div class="row mx-0">
+                                <div class="col-6 border-end border-bottom py-3">
+                                  <h5 class="fw-normal text-600">6,123건</h5>
+                                  <h6 class="text-500 mb-0">출생</h6>
+                                </div>
+                                <div class="col-6 border-bottom py-3">
+                                  <h5 class="fw-normal text-600">77,432건</h5>
+                                  <h6 class="text-500 mb-0">사망</h6>
+                                </div>
+                                <div class="col-6 border-end py-3">
+                                  <h5 class="fw-normal text-600">85,765건</h5>
+                                  <h6 class="text-500 mb-0">전출</h6>
+                                </div>
+                                <div class="col-6 py-3">
+                                  <h5 class="fw-normal text-600">49,123건</h5>
+                                  <h6 class="text-500 mb-0">전입</h6>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 chartBox" style="visibility:hidden;height:0;opacity:0;">
+                              <div class="echart-doughnut-chart-example" style="min-height:200px;"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 전입 -->
+                        <div class="tab-pane h-100" id="crm-add" role="tabpanel">
+                          <div class="row g-0 my-2 justify-content-between h-100">
+                            <div class="col-md-6 col-xxl-12">
+                              <div class="border-bottom-xxl border-200 mb-3">
+                                <h6 class="text-600">서울특별시 전입 통계</h6>
+                                <h1 class="text-primary">50,432명</h1>
+                              </div>
+                              <div class="form-check form-check-inline me-2">
+                                <input class="form-check-input inbound" type="radio" name="bound-add" value="inbound" checked/>
+                                <label class="form-check-label">데이터</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input outbound" type="radio" name="bound-add" value="outbound"/>
+                                <label class="form-check-label">그래프</label>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 dataBox">
+                              <div class="row mx-0">
+                                <div class="col-6 border-end border-bottom py-3">
+                                  <h5 class="fw-normal text-600">5,432건</h5>
+                                  <h6 class="text-500 mb-0">출생</h6>
+                                </div>
+                                <div class="col-6 border-bottom py-3">
+                                  <h5 class="fw-normal text-600">79,234건</h5>
+                                  <h6 class="text-500 mb-0">사망</h6>
+                                </div>
+                                <div class="col-6 border-end py-3">
+                                  <h5 class="fw-normal text-600">85,987건</h5>
+                                  <h6 class="text-500 mb-0">전출</h6>
+                                </div>
+                                <div class="col-6 py-3">
+                                  <h5 class="fw-normal text-600">49,876건</h5>
+                                  <h6 class="text-500 mb-0">전입</h6>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6 col-xxl-12 py-2 chartBox" style="visibility:hidden;height:0;opacity:0;">
+                              <div class="echart-doughnut-chart-example" style="min-height:200px;"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div> <!-- tab-content -->
+                    </div> <!-- col-xxl-4 -->
+                    <div class="col-xxl-8">
+                      <div class="row align-items-center justify-content-center">
+                        <img src="../imgs/map_sample.png" alt="map sample" style="max-width: 86%;">
+                        <img src="../imgs/map_ct_sample.png" alt="map control sample" style="position: absolute;bottom: 15px;right: 0;width: auto;">
                       </div>
                     </div>
-                    <div class="col-xxl-9">
-                      <div class="tab-content">
-                        <!-- Find the JS file for the following chart at: src/js/charts/echarts/crm-revenue.js-->
-                        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
-                        <div class="tab-pane active" id="crm-revenue" role="tabpanel" aria-labelledby="crm-revenue-tab">
-                          <div class="echart-crm-revenue" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                        <div class="tab-pane" id="crm-users" role="tabpanel" aria-labelledby="crm-users-tab">
-                          <div class="echart-crm-users" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                        <div class="tab-pane" id="crm-deals" role="tabpanel" aria-labelledby="crm-deals-tab">
-                          <div class="echart-crm-deals" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                        <div class="tab-pane" id="crm-profit" role="tabpanel" aria-labelledby="crm-profit-tab">
-                          <div class="echart-crm-profit" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  </div> <!-- row g-1 -->
+                </div> <!-- card-body -->
+              </div> <!-- card -->
+              <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                const tabs = document.querySelectorAll('.tab-pane');
+                tabs.forEach(tab => {
+                  const inbound = tab.querySelector('input[value="inbound"]');
+                  const outbound = tab.querySelector('input[value="outbound"]');
+                  const dataBox = tab.querySelector('.dataBox');
+                  const chartBox = tab.querySelector('.chartBox');
+                  const chartDiv = tab.querySelector('.echart-doughnut-chart-example');
+                  let myChart = null;
+
+                  function initChart() {
+                  if (myChart) {
+                    myChart.dispose();
+                  }
+
+                  myChart = echarts.init(chartDiv);
+                  myChart.setOption({
+                    tooltip: { trigger: 'item' },
+                    legend: { show: false },
+                    series: [{
+                      name: '예시',
+                      type: 'pie',
+                      radius: ['40%', '70%'],
+                      label: { show: true, position: 'outside' },
+                      labelLine: { show: true },
+                      emphasis: { label: { show: true } },
+                      data: [
+                        { value: parseInt(dataBox.querySelectorAll('h5')[0].innerText.replace(/[^0-9]/g,'')), name: '출생' },
+                        { value: parseInt(dataBox.querySelectorAll('h5')[1].innerText.replace(/[^0-9]/g,'')), name: '사망' },
+                        { value: parseInt(dataBox.querySelectorAll('h5')[2].innerText.replace(/[^0-9]/g,'')), name: '전출' },
+                        { value: parseInt(dataBox.querySelectorAll('h5')[3].innerText.replace(/[^0-9]/g,'')), name: '전입' }
+                      ]
+                    }],
+                    animation: true,        
+                    animationDuration: 1000 
+                  });
+                }
+
+
+                  function toggleView() {
+                    if (inbound.checked) {
+                      dataBox.style.display = "block";
+                      chartBox.style.visibility = "hidden";
+                      chartBox.style.height = "0";
+                      chartBox.style.opacity = "0";
+                    } else {
+                      dataBox.style.display = "none";
+                      chartBox.style.visibility = "visible";
+                      chartBox.style.height = "200px";
+                      chartBox.style.opacity = "1";
+                      requestAnimationFrame(() => initChart());
+                    }
+                  }
+                  inbound.addEventListener("change", toggleView);
+                  outbound.addEventListener("change", toggleView);
+
+                  toggleView();
+                });
+
+                const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
+                tabLinks.forEach(link => {
+                  link.addEventListener('shown.bs.tab', (e) => {
+                    const targetId = e.target.getAttribute('href').replace('#','');
+                    const tab = document.getElementById(targetId);
+                    const outbound = tab.querySelector('input[value="outbound"]');
+                    const chartDiv = tab.querySelector('.echart-doughnut-chart-example');
+                    if (outbound.checked && chartDiv) {
+                      const event = new Event('change');
+                      outbound.dispatchEvent(event);
+                    }
+                  });
+                });
+              });
+              </script>
+
+
             </div>
             <div class="col-xxl-3">
-              <div class="card">
+              <div class="card h-100">
                 <div class="card-header d-flex flex-between-center py-2 border-bottom">
-                  <h6 class="mb-0">Most Leads</h6>
+                  <h6 class="mb-0">News</h6>
                   <div class="dropdown font-sans-serif btn-reveal-trigger">
                     <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-most-leads" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
                     <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-most-leads"><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
@@ -759,53 +1235,108 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body d-flex flex-column justify-content-between">
-                  <div class="row align-items-center">
-                    <div class="col-md-5 col-xxl-12 mb-xxl-1">
-                      <div class="position-relative">
-                        <!-- Find the JS file for the following chart at: src/js/charts/echarts/most-leads.js-->
-                        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/theme.js-->
-                        <div class="echart-most-leads my-2" data-echart-responsive="true"></div>
-                        <div class="position-absolute top-50 start-50 translate-middle text-center">
-                          <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">Total</p>
-                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2">15.6k</p>
+                <div class="card-body d-flex flex-column justify-content-between p-0">
+                  <div class="news_img">
+                    <img src="../imgs/news05_sample.png" alt="news sample" style="width: 100%;">
+                  </div>
+                  <div class="news_cont">
+                    <h6 class="text-500">News List</h6>
+                    <!--news list-->
+                    <div class="news_list">
+                      <a href="javascript:;" class="nl_link">
+                        <div class="cont_inner">
+                          <div class="left">
+                            <p class="num">1</p>
+                            <div class="con">
+                              <p class="tit mb-1">위기가 곧 기회, 실버머니가 위기가 곧 기회 위기가 곧 기회, 실버머니가 위기가 곧 기회 </p>
+                              <p class="detail text-600 mb-0">초고령사회 진입에 따라 금융권에서는‘'실버머니’를 초고령사회 진입에 따라 금융권에서는‘'실버머니’를 초고령사회 진입에 따라 금융권에서는‘'실버머니’를 초고령사회 진입에 따라 금융권에서는‘'실버머니’를</p>
+                            </div>
+                          </div>
+                          <div class="sort">
+                            <span class="tag sort01">연금</span>
+                          </div>
                         </div>
-                      </div>
+                      </a>
                     </div>
-                    <div class="col-xxl-12 col-md-7">
-                      <hr class="mx-nx1 mb-0 d-md-none d-xxl-block" />
-                      <div class="d-flex flex-between-center border-bottom py-3 pt-md-0 pt-xxl-3">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/email.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Email </h6>
+                    <!--news list-->
+                    <div class="news_list">
+                      <a href="javascript:;" class="nl_link">
+                        <div class="cont_inner">
+                          <div class="left">
+                            <p class="num">2</p>
+                            <div class="con">
+                              <p class="tit mb-1">저출산 시대 산후조리원 비용  저출산 시대 산후조리원 비용 저출산 시대 산후조리원 비용 저출산 시대 산후조리원 비용</p>
+                              <p class="detail text-600 mb-0">우리나라 저출산 문제가 심각한 가운데 산후조리원 평균 비용은 3년 우리나라 저출산 문제가 심각한 가운데 산후조리원 평균 비용은 3년 우리나라 저출산 문제가 심각한 가운데 산후조리원 평균 비용은 3년</p>
+                            </div>
+                          </div>
+                          <div class="sort">
+                            <span class="tag sort02">저출산</span>
+                          </div>
                         </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">5200 vs 1052</p>
-                        <h6 class="text-700 mb-0">54%</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/social.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Social </h6>
+                      </a>
+                    </div>
+                   <!--news list-->
+                    <div class="news_list">
+                      <a href="javascript:;" class="nl_link">
+                        <div class="cont_inner">
+                          <div class="left">
+                            <p class="num">3</p>
+                            <div class="con">
+                              <p class="tit mb-1">집단급식·가을철 식중독 늘었다 </p>
+                              <p class="detail text-600 mb-0">식품의약품안전처의 2024년 통계에 따르면, 지난해 경기도에서 발생 식품의약품안전처의 2024년 통계에 따르면, 지난해 경기도에서 발생 식품의약품안전처의 2024년 통계에 따르면, 지난해 경기도에서 발생...</p>
+                            </div>
+                          </div>
+                          <div class="sort">
+                            <span class="tag sort03">질병</span>
+                          </div>
                         </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">5623 vs 4929</p>
-                        <h6 class="text-700 mb-0">27%</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/call.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Call </h6>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">2535 vs 1486</p>
-                        <h6 class="text-700 mb-0">4%</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3 border-bottom-0 pb-0">
-                        <div class="d-flex"><img class="me-2" src="../assets/img/crm/other.svg " width="16" height="16" alt="..." />
-                          <h6 class="text-700 mb-0">Other </h6>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold">256 vs 189</p>
-                        <h6 class="text-700 mb-0">13%</h6>
-                      </div>
+                      </a>
                     </div>
                   </div>
                 </div>
-                <div class="card-footer bg-body-tertiary p-0"><a class="btn btn-sm btn-link d-block py-2" href="#!">View all<span class="fas fa-chevron-right ms-1 fs--2"></span></a></div>
+                <div class="card-footer bg-body-tertiary text-end py-2">
+                  <a class="btn btn-link btn-sm px-0 fw-medium" 
+                    href="#!" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#error-modal">
+                    더보기
+                    <svg class="svg-inline--fa fa-chevron-right fa-w-10 ms-1 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                      <path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                    </svg>
+                  </a>
+                  <!--more-->
+                  <div class="modal fade text-start" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+                        <div class="modal-content position-relative">
+                          <div class="position-absolute top-0 end-0 mt-2 me-2 z-1">
+                            <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body p-0">
+                            <div class="rounded-top-3 py-3 ps-4 pe-6 bg-body-tertiary">
+                              <h4 class="mb-1" id="modalExampleDemoLabel">Add a new illustration </h4>
+                            </div>
+                            <div class="p-4 pb-0">
+                              <form>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="recipient-name">Recipient:</label>
+                                  <input class="form-control" id="recipient-name" type="text" />
+                                </div>
+                                <div class="mb-3">
+                                  <label class="col-form-label" for="message-text">Message:</label>
+                                  <textarea class="form-control" id="message-text"></textarea>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="button">Understood </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--//more-->
+                </div>
               </div>
             </div>
             <div class="col-lg-12">
@@ -820,8 +1351,8 @@
                   </div>
                 </div>
                 <div class="card-body row align-items-center">
-                  <div class="col-sm-8 g-0">
-                    <div class="echart-horizontal-bar-chart-example" style="min-height: 300px;" data-echart-responsive="true"></div>
+                  <div class="col-sm-8">
+                    <div class="echart-horizontal-bar-chart-example align-content-center" style="min-height: 350px;" data-echart-responsive="true"></div>
                   </div>
                   <div class="col-sm-4">
                     <div class="echart-pie-chart-example" style="min-height: 320px;" data-echart-responsive="true"></div>
@@ -1091,7 +1622,7 @@
             <div class="col-lg-8">
               <div class="card h-100">
                 <div class="card-header d-flex flex-between-center py-2 bg-body-tertiary">
-                  <h6 class="mb-0">지역별 학생수(명)</h6>
+                  <h6 class="mb-0">인구비중</h6>
                   <div class="dropdown font-sans-serif btn-reveal-trigger">
                     <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-active-user" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><svg class="svg-inline--fa fa-ellipsis-h fa-w-16 fs--2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg><!-- <span class="fas fa-ellipsis-h fs--2"></span> Font Awesome fontawesome.com --></button>
                     <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-active-user" style=""><a class="dropdown-item" href="#!">View</a><a class="dropdown-item" href="#!">Export</a>
@@ -1099,74 +1630,195 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body p-0 scrollbar custom-scroll-height-min">
-                  <div class="table-responsive scrollbar">
-                    <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden custom-table">
-                      <thead class="bg-200">
-                        <tr>
-                          <th class="text-900 align-middle">항목</th>
-                          <th class="text-900 align-middle">값</th>
-                          <th class="text-900 align-middle">증감율</th>
-                          <th class="text-900 align-middle">항목</th>
-                          <th class="text-900 align-middle">값</th>
-                          <th class="text-900 align-middle">증감율</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="c-point">총인구</td>
-                          <td>9,321,863 명</td>
-                          <td class="data-dec ta-r">0.02%</td>
-                          <td class="c-point">총세대수</td>
-                          <td>4,504,347 세대</td>
-                          <td class="data-inc ta-r">0.04%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">남자인구</td>
-                          <td>4,494,474 명</td>
-                          <td class="data-dec ta-r">0.03%</td>
-                          <td class="c-point">여자인구</td>
-                          <td>4,827,389 명</td>
-                          <td class="data-nor ta-r">0%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">출생</td>
-                          <td>3,758 명</td>
-                          <td class="data-dec ta-r">6.75%</td>
-                          <td class="c-point">사망</td>
-                          <td>4,010 명</td>
-                          <td class="data-dec ta-r">1.96%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">세대당인구</td>
-                          <td>2.1 명</td>
-                          <td class="data-nor ta-r">0%</td>
-                          <td class="c-point">외국인거소</td>
-                          <td>268,674 명</td>
-                          <td class="data-dec ta-r">0.45%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">외국인등록</td>
-                          <td>145,874 명</td>
-                          <td class="data-dec ta-r">0.14%</td>
-                          <td class="c-point">전입인구</td>
-                          <td>106,159 명</td>
-                          <td class="data-dec ta-r">11.01%</td>
-                        </tr>
-                        <tr>
-                          <td class="c-point">전출인구</td>
-                          <td>77,529 명</td>
-                          <td class="data-inc ta-r">9.19%</td>
-                          <td class="c-point">1세대인구</td>
-                          <td>2,030,749 명</td>
-                          <td class="data-inc ta-r">0.05%</td>
-                        </tr>
-                        <!-- 나머지 항목도 동일하게 적용 -->
-                      </tbody>
-                    </table>
+                <div class="card-body p-0 scrollbar custom-scroll-height-min" style="overflow-x:hidden;">
+                  <div class="row">
+                    <div class="col-xxl-6 pc-pr0">
+                      <div class="table-responsive scrollbar">
+                        <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden custom-table">
+                          <thead class="bg-200">
+                            <tr>
+                              <th class="text-900 align-middle" style="width:50%;">항목</th>
+                              <th class="text-900 align-middle" style="width:40%;">값</th>
+                              <th class="text-900 align-middle" style="width:10%;">증감율</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="c-point">총인구</td>
+                              <td class="ta-r">9,321,863 명</td>
+                              <td class="data-dec ta-r">-0.02%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">총세대수</td>
+                              <td class="ta-r">4,504,347 세대</td>
+                              <td class="data-inc ta-r">+0.04%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">남자인구</td>
+                              <td class="ta-r">4,494,474 명</td>
+                              <td class="data-dec ta-r">-0.03%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">여자인구</td>
+                              <td class="ta-r">4,827,389 명</td>
+                              <td class="data-nor ta-r">0%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">출생</td>
+                              <td class="ta-r">3,758 명</td>
+                              <td class="data-dec ta-r">-6.75%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">사망</td>
+                              <td class="ta-r">4,010 명</td>
+                              <td class="data-dec ta-r">-1.96%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">세대당인구</td>
+                              <td class="ta-r">2.1 명</td>
+                              <td class="data-nor ta-r">0%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">외국인거소</td>
+                              <td class="ta-r">268,674 명</td>
+                              <td class="data-dec ta-r">-0.45%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">외국인등록</td>
+                              <td class="ta-r">145,874 명</td>
+                              <td class="data-dec ta-r">-0.14%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">전입인구</td>
+                              <td class="ta-r">106,159 명</td>
+                              <td class="data-dec ta-r">-11.01%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">전출인구</td>
+                              <td class="ta-r">77,529 명</td>
+                              <td class="data-inc ta-r">+9.19%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">1세대인구</td>
+                              <td class="ta-r">2,030,749 명</td>
+                              <td class="data-inc ta-r">+0.05%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">2세대인구</td>
+                              <td class="ta-r">1,026,813 명</td>
+                              <td class="data-inc ta-r">+0.21%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">고령65~</td>
+                              <td class="ta-r">1,866,826 명</td>
+                              <td class="data-inc ta-r">+0.33%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">노령화지수</td>
+                              <td class="ta-r">227.7</td>
+                              <td class="data-inc ta-r">+0.57%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">인구소멸지수</td>
+                              <td class="ta-r">132.6</td>
+                              <td class="data-inc ta-r">+0.45%</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-xxl-6 pc-pl0">
+                      <div class="table-responsive scrollbar">
+                        <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden custom-table">
+                          <thead class="bg-200 mo-none">
+                            <tr>
+                              <th class="text-900 align-middle" style="width:50%;">항목</th>
+                              <th class="text-900 align-middle" style="width:40%;">값</th>
+                              <th class="text-900 align-middle" style="width:10%;">증감율</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                            <tr>
+                              <td class="c-point">유소년부양비율</td>
+                              <td class="ta-r">12.4</td>
+                              <td class="data-nor ta-r">0%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">15~64세 고용율</td>
+                              <td class="ta-r">67.64 %</td>
+                              <td class="data-inc ta-r">+0.3%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">경제활동인구</td>
+                              <td class="ta-r">5,221 천명</td>
+                              <td class="data-inc ta-r">+0.37%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">취업자</td>
+                              <td class="ta-r">5,006 천명</td>
+                              <td class="data-dec ta-r">-0.16%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">실업자</td>
+                              <td class="ta-r">220 천명</td>
+                              <td class="data-inc ta-r">+17.65%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">비경제활동인구</td>
+                              <td class="ta-r">3,228 천명</td>
+                              <td class="data-dec ta-r">-1.1%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">실업률</td>
+                              <td class="ta-r">4.04 %</td>
+                              <td class="data-inc ta-r">+9.78%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">거주지내 통근 취업자</td>
+                              <td class="ta-r">1,731 천명</td>
+                              <td class="data-dec ta-r">-0.75%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">거주지외 타지역 통근 취업자</td>
+                              <td class="ta-r">3,273 천명</td>
+                              <td class="data-inc ta-r">+0.06%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">15~29세 취업자</td>
+                              <td class="ta-r">458 천명</td>
+                              <td class="data-dec ta-r">-0.87%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">30~49세 취업자</td>
+                              <td class="ta-r">1,034 천명</td>
+                              <td class="data-inc ta-r">+0.68%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">50~64세 취업자</td>
+                              <td class="ta-r">648 천명</td>
+                              <td class="data-inc ta-r">+1.41%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">혼인</td>
+                              <td class="ta-r">3,212 건</td>
+                              <td class="data-inc ta-r">+0.31%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">이혼</td>
+                              <td class="ta-r">947 건</td>
+                              <td class="data-dec ta-r">-8.68%</td>
+                            </tr>
+                            <tr>
+                              <td class="c-point">1인가구</td>
+                              <td class="ta-r">4,504,347 명</td>
+                              <td class="data-inc ta-r">+0.04%</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
-
-
                 </div>
                 <div class="card-footer bg-body-tertiary text-end py-2">
                   <a class="btn btn-link btn-sm px-0 fw-medium" 
@@ -1211,7 +1863,6 @@
                     </div>
                     <!--//more-->
                 </div>
-
               </div>
             </div>
             <div class="col-lg-4">
@@ -1226,8 +1877,69 @@
                   </div>
                 </div>
                 <div class="card-body row align-items-center justify-content-center">
-                  <div class="row align-items-center justify-content-center">
-                    <!-- <img src="../imgs/3d_sample.png" alt="3d sample"> -->
+                  <div class="row align-items-center justify-content-center p-0">
+                    <div class="item-box h-100">
+                      <div class="left-data">
+                        <p class="title">1인가구</p>
+                        <div class="data_box">
+                          <span class="data">4,504,347명</span>
+                          <i class="vary_lb increase">+0.04%</i>
+                        </div>
+                      </div>
+                      <div id="chart-single"></div>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+                    <script>
+                      var chartDom = document.getElementById('chart-single');
+                      var myChart = echarts.init(chartDom);
+
+                      var option = {
+                          grid: { top: 10, bottom: 0, left: 0, right: 0 },
+                          xAxis: {
+                            type: 'category',
+                            show: false,
+                            data: Array.from({ length: 30 }, (_, i) => i + 1)
+                          },
+                          yAxis: {
+                            type: 'value',
+                            show: false,
+                            // 값 범위를 넓혀서 위아래 여백 확보
+                            min: 4200000,   // 최소값 고정
+                            max: 4700000    // 최대값 고정
+                          },
+                          tooltip: {
+                            trigger: 'axis',
+                            backgroundColor: 'rgba(255,255,255,0.8)',
+                            borderWidth: 0,
+                            textStyle: { color: '#000', fontSize: 10 }
+                          },
+                          series: [{
+                            data: [
+                              4300000, 4320000, 4330000, 4345000, 4360000,
+                              4400000, 4420000, 4430000, 4450000, 4470000,
+                              4500000, 4490000, 4480000, 4475000, 4485000,
+                              4500000, 4520000, 4530000, 4540000, 4555000,
+                              4560000, 4575000, 4590000, 4600000, 4615000,
+                              4625000, 4635000, 4640000, 4650000, 4660000
+                            ],
+                            type: 'line',
+                            smooth: true,
+                            showSymbol: true,
+                            symbolSize: 5,
+                            itemStyle: { color: '#6a5acd' },
+                            lineStyle: { color: '#6a5acd' },
+                            areaStyle: {
+                              color: new echarts.graphic.LinearGradient(0,0,0,1,[
+                                { offset: 0, color: 'rgba(106,90,205,0.3)' },
+                                { offset: 1, color: 'rgba(106,90,205,0)' }
+                              ])
+                            }
+                          }]
+                        };
+
+
+                      myChart.setOption(option);
+                    </script>
                   </div>
                 </div>
                 <div class="card-footer bg-body-tertiary text-end py-2">
@@ -1497,5 +2209,6 @@
       echartsBarStackedChartInit();
       // 필요하면 계속 추가
     });
+    
   </script>
 </html>
