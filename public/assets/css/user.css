@@ -138,6 +138,9 @@
     &.ta-r{
       text-align: right;
     }
+    &.ta-c{
+      text-align: center;
+    }
   }
   @media (max-width: 768px) {
     .mo-none{

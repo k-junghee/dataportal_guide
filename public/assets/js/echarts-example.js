@@ -2308,25 +2308,25 @@ var echartsDoughnutChartInit = function echartsDoughnutChartInit() {
           },
           data: [{
             value: 5669,
-            name: '출생',
+            name: '편성액',
             itemStyle: {
               color: utils.getColor('primary')
             }
           }, {
             value: 48346,
-            name: '전입',
+            name: '지출액',
             itemStyle: {
               color: utils.getColor('warning')
             }
           }, {
             value: 86897,
-            name: '전출',
+            name: '국비',
             itemStyle: {
               color: utils.getColor('info')
             }
           }, {
             value: 79766,
-            name: '사망',
+            name: '시도비',
             itemStyle: {
               color: utils.getColor('success')
             }
